@@ -1,0 +1,6 @@
+.stack-pane:hover{
+    -fx-opacity: 1.0;
+}
+.stack-pane{
+    -fx-opacity: 0.5;
+}

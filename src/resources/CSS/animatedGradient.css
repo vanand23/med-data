@@ -1,0 +1,5 @@
+.animated-gradient {
+    -gradient-base: red ;
+    -gradient-end: white ;
+    -fx-text-fill: linear-gradient(to right, -gradient-base, -gradient-end);
+}

@@ -1,0 +1,4 @@
+.image-view{
+    -opacity: 1.0;
+    -fx-opacity: -opacity;
+}

@@ -1,0 +1,21 @@
+.jfx-button:armed,
+.jfx-button:focused,
+.jfx-button:default,
+.jfx-button{
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 27;
+    -fx-text-alignment: left;
+    -fx-text-fill: #FFFCEB;
+
+    -fx-border-color: #2c3e50;
+    -fx-background-color: #22303f;
+    -fx-border-radius: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.jfx-button:hover {
+    -fx-cursor: hand;
+}
+.jfx-button:disabled{
+    -fx-border-width: 0 0 0 0;
+}
