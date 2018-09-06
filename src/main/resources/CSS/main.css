@@ -36,7 +36,7 @@
     -fx-background-color : #949494;
 }
 
-.tree-table-view .column-header-last-visible {
+.tree-table-view .column-header:last-visible {
     -fx-border-width: 0 2 0 1;
 }
 
@@ -72,6 +72,6 @@
     -fx-shape: "M 0 -3.5 L 4 0 L 0 3.5 z";
 }
 .tree-table-row-cell .jfx-text-field{
-    -fx-focus-color: rgba(240,40,40,255);
+    -fx-focus-color: rgba(240,40,40);
 }
 

@@ -88,8 +88,8 @@ public class AutocompleteTextField extends JFXTextField {
             final String result = searchResult.get(i);
             //label with graphic (text flow) to highlight founded subtext in suggestions
             Label entryLabel = new Label();
-            //entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
-            entryLabel.setPrefHeight(20);
+            entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
+            entryLabel.setPrefHeight(20);  //don't sure why it's changed with "graphic"
             entryLabel.setPrefWidth(width);
             entryLabel.setMaxWidth(width*1.5);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);

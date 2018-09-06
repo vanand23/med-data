@@ -1,0 +1,6 @@
+﻿variableID,longName,shortName,dataType,affix,dataValue
+1,Frequency,Hz,numeric,post,100
+2,Temperature in Farenheit,F,numeric,post,100
+3,Temperature in Celsuis,C,numeric,post,100
+4,Dollar,$,numeric,pre,100
+5,Temporal Bone,TB,none,pre,nothing

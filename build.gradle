@@ -1,0 +1,62 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'https://ravana.dyn.wpi.edu/maven'
+    }
+
+}
+
+
+dependencies {
+	testCompile(
+		[group: 'junit', name: 'junit', version: '4.12'],
+		[group: 'com.jfoenix', name: 'jfoenix', version: '8.0.2'],
+		[group: 'org.apache.derby', name: 'derby', version: '10.11.1.1'],
+		[group: 'org.apache.derby', name: 'derbyclient', version: '10.11.1.1'],
+		[group: 'org.apache.derby', name: 'derbytools', version: '10.11.1.1'],
+		[group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'],
+	)
+	compile(
+		[group: 'junit', name: 'junit', version: '4.12'],
+		[group: 'com.jfoenix', name: 'jfoenix', version: '8.0.2'],
+		[group: 'org.apache.derby', name: 'derby', version: '10.11.1.1'],
+		[group: 'org.apache.derby', name: 'derbyclient', version: '10.11.1.1'],
+		[group: 'org.apache.derby', name: 'derbytools', version: '10.11.1.1'],
+		[group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'],
+		[group: 'org.controlsfx', name: 'controlsfx', version: '8.0.5'],
+	)
+    compile fileTree(dir: 'libs', include: '*.jar')
+    testCompile "org.testfx:openjfx-monocle:8u76-b04" // jdk-9+181 for Java 9
+    testCompile "org.testfx:testfx-core:4.0.13-alpha"
+    testCompile "org.testfx:testfx-junit:4.0.13-alpha"
+    testRuntime 'org.testfx:openjfx-monocle:8u76-b04'
+
+}
+
+jar {
+
+	manifest {
+		attributes 'Main-Class': 'Launcher.Launcher'
+	}
+	from configurations.runtime.collect { zipTree(it) }
+}
+
+task run(type: JavaExec) {
+	main = 'Launcher.Launcher'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+test{
+    if (!project.hasProperty("noHeadless")) {
+        jvmArgs "-Dheadless=true"
+    }
+}
+
