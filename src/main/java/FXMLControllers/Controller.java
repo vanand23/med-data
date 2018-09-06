@@ -69,7 +69,7 @@ public class Controller implements Initializable, ITypeObserver {
             });
             experimentDate.setValue(LocalDate.now());
             trialNumber.setText("1");
-            experimentType.setAutocompleteWidth(400);
+            experimentType.setAutocompleteWidth(350);
             onTypeUpdate();
         }
     }

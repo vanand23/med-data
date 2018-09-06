@@ -1,11 +1,21 @@
 package Launcher;
 
 import Singletons.Database;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.awt.Color;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.net.URL;
@@ -17,23 +27,33 @@ import java.util.Timer;
 
 public class Launcher extends Application {
 
+    //define your offsets here
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
+        double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+        double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+
         Database.initDatabase();
         URL url = new File("C:/Users/feyfo/IdeaProjects/med-data/src/main/resources/FXML/autoNamer.fxml").toURI().toURL();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(url);
+
+        root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        primaryStage.setX(width - 400);
+        primaryStage.setY(height - 700 - 50);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        primaryStage.toFront();
     }
-
-
-    private void parseParameters(String[] params){
-
-    }
-    private void parseAdditional(){
-
-    }
-
 
     public void renameFile(){
         //create source File object
