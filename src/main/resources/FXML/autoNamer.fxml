@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import com.jfoenix.controls.JFXButton?>
-<?import Utilities.AutocompleteTextField?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #e7e7e7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.Controller">
+<?import Utilities.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.Controller">
     <StackPane fx:id="searchPane" prefHeight="100.0" prefWidth="1100.0" styleClass="stack-pane" translateY="-100.0">
         <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" spacing="5.0" StackPane.alignment="TOP_CENTER" />
@@ -25,41 +25,45 @@
         <children>
             <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="400.0" spacing="40.0">
                 <children>
-                    <VBox prefHeight="100.0" prefWidth="100.0">
+                    <VBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="100.0">
                         <children>
-                            <Label text="Date">
+                            <Label text="Date" textFill="#545252">
                                 <font>
-                                    <Font name="Palatino Linotype" size="24.0" />
+                                    <Font name="Palatino Linotype" size="20.0" />
                                 </font>
                             </Label>
-                            <DatePicker fx:id="experimentDate" prefHeight="31.0" prefWidth="368.0" />
+                            <DatePicker fx:id="experimentDate" prefHeight="31.0" prefWidth="368.0" style="-fx: #92dce5;" />
                         </children>
                     </VBox>
                     <VBox prefHeight="100.0" prefWidth="100.0">
                         <children>
                             <AutocompleteTextField fx:id="experimentType" alignment="BASELINE_LEFT" labelFloat="true" prefHeight="68.0" prefWidth="750.0" promptText="Experiment Type" unFocusColor="#0d004d">
                                 <font>
-                                    <Font name="Palatino Linotype" size="28.0" />
+                                    <Font name="Palatino Linotype" size="20.0" />
                                 </font>
                                 <padding>
-                                    <Insets top="20.0" />
+                                    <Insets top="40.0" />
                                 </padding>
                             </AutocompleteTextField>
                         </children>
                     </VBox>
                     <VBox prefHeight="100.0" prefWidth="100.0">
                         <children>
-                            <Label text="Trial Number">
-                                <font>
-                                    <Font name="Palatino Linotype" size="24.0" />
-                                </font>
-                            </Label>
-                            <JFXTextField fx:id="trialNumber" />
+                            <JFXTextField fx:id="trialNumber" labelFloat="true" promptText="Trial Number">
+                        <font>
+                           <Font name="Palatino Linotype" size="20.0" />
+                        </font>
+                     </JFXTextField>
                         </children>
                     </VBox>
                     <VBox prefHeight="59.0" prefWidth="360.0">
                   <children>
-                     <JFXTextArea fx:id="fileName" prefHeight="0.0" prefWidth="360.0" />
+                     <Label text="Output:" textFill="#514f4f">
+                        <font>
+                           <Font name="Palatino Linotype" size="20.0" />
+                        </font>
+                     </Label>
+                     <JFXTextArea fx:id="fileName" prefHeight="0.0" prefWidth="360.0" stylesheets="@../CSS/label.css" />
                   </children>
                     </VBox>
                 </children>

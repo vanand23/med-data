@@ -57,7 +57,7 @@ public class Database {
         if(!databaseExists){
             System.out.println("Database not found, loading data from csv");
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
-            //dropTables();
+            dropTables();
             createTables();
             // load in .csv files to the database
             // experiments
