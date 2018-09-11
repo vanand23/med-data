@@ -8,29 +8,29 @@ import javax.naming.NameNotFoundException;
 import java.sql.SQLException;
 import java.util.*;
 
-public class ExperimentManager {
+public class KeywordManager {
 
 
     // Map of all node objects
-    private HashMap<String, ExperimentType> experiments;
+    private HashMap<String, KeywordType> keywords;
     private List<ITypeObserver> observers = new ArrayList<>();
 
-    private ExperimentManager(){
-        experiments = Database.loadExperimentsToClasses();
+    private KeywordManager(){
+        keywords = Database.loadKeywordsToClasses();
     }
 
     /**
      * Singleton helper class, MapManager should always be accessed through MapManager.getInstance();
      */
     private static class SingletonHelper{
-        private static final ExperimentManager INSTANCE = new ExperimentManager();
+        private static final KeywordManager INSTANCE = new KeywordManager();
     }
 
     /**
      * Gets the singleton instance of map editor
      * @return the proper single instance of map editor
      */
-    public static ExperimentManager getInstance(){
+    public static KeywordManager getInstance(){
         return SingletonHelper.INSTANCE;
     }
 
@@ -135,10 +135,10 @@ public class ExperimentManager {
      * function that gets all of the long names filtering stuff
      * @return list of long names
      */
-    public List<String> getAllExperimentLongNames(){
+    public List<String> getAllKeywordLongNames(){
         ArrayList<String> ret = new ArrayList<>();
         String[] filterList = {};
-        for (HashMap.Entry<String, ExperimentType> entry : experiments.entrySet())
+        for (HashMap.Entry<String, KeywordType> entry : keywords.entrySet())
         {
             String value = entry.getValue().getLongName();
             if(!stringContainsItemFromList(value,filterList)){
@@ -167,16 +167,16 @@ public class ExperimentManager {
     }
 
     /**
-     * Looks up an experiment by either its long or short name
+     * Looks up an keyword by either its long or short name
      * @param type this can either be "short" or "long", for choosing short or long name
      * @param name the name of the node to find
      * @return a MapNode object with the given long or short name
      */
-    public ExperimentType getExperimentByName(String type, String name) throws NameNotFoundException{
-        Iterator it = experiments.entrySet().iterator();
+    public KeywordType getKeywordByName(String type, String name) throws NameNotFoundException{
+        Iterator it = keywords.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();
-            ExperimentType n = (ExperimentType)pair.getValue();
+            KeywordType n = (KeywordType)pair.getValue();
             if(type.equals("short") && n.getShortName().equals(name)){
                 return n;
             }
@@ -187,7 +187,7 @@ public class ExperimentManager {
         throw new NameNotFoundException(name);
     }
 
-    public HashMap<String, ExperimentType> getExperiments() {
-        return experiments;
+    public HashMap<String, KeywordType> getKeywords() {
+        return keywords;
     }
 }
