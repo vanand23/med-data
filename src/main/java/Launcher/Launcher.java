@@ -42,9 +42,9 @@ public class Launcher extends Application {
         FXMLManager fxmlManager = FXMLManager.getInstance();
 
         //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-        fxmlManager.loadFXML("FXML/fullNamer.fxml");
+        fxmlManager.loadFXML("FXML/mainMenu.fxml");
 
-        Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
+        Parent root = fxmlManager.getFXMLNode("FXML/mainMenu.fxml");
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
