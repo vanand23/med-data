@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.MainMenu">
+   <children>
+      <JFXButton fx:id="fullNamerButton" layoutX="34.0" layoutY="35.0" stylesheets="@../CSS/bigButtons.css" text="Full File Name &#10;Generator" />
+      <JFXButton fx:id="simpleNamerButton" layoutX="300.0" layoutY="35.0" stylesheets="@../CSS/bigButtons.css" text="Simple File Name &#10;Generator" />
+   </children>
+</AnchorPane>

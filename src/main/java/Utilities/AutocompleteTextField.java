@@ -44,7 +44,7 @@ public class AutocompleteTextField extends JFXTextField {
             e.printStackTrace();
         }
         width = 400;
-
+        styleProperty().setValue("-fx-background-color: #FFFFFF;");
         setListener();
     }
 

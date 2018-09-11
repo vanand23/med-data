@@ -1,8 +1,10 @@
 package Launcher;
 
 import Singletons.Database;
+import Singletons.FXMLManager;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,10 +39,13 @@ public class Launcher extends Application {
         double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 
         Database.initDatabase();
-        URL url = new File("C:/Users/feyfo/IdeaProjects/med-data/src/main/resources/FXML/autoNamer.fxml").toURI().toURL();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(url);
+        FXMLManager fxmlManager = FXMLManager.getInstance();
 
+        //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
+        fxmlManager.loadFXML("FXML/fullNamer.fxml");
+
+        Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

@@ -48,7 +48,7 @@ public class Database {
             // substitute your database name for myDB
             connection = DriverManager.getConnection("jdbc:derby:mydb;create=true");
         } catch (SQLException e) {
-            System.out.println("Connection failed. Check output console.");
+            System.out.println("Connection failed. Check output fconsole.");
             e.printStackTrace();
             return;
         }
@@ -798,14 +798,18 @@ public class Database {
         return experiments;
     }
 
-    public static HashMap<String, KeywordType> loadKeywordTypesToClasses(){
+    /**
+     * Build classes from database
+     * @return returns a hash map of all MapNodes, with their nodeID as the key
+     */
+    public static HashMap<String, KeywordType> loadKeywordsToClasses(){
 
         HashMap<String, KeywordType> keywords = new HashMap<String, KeywordType>();
 
         // Build node objects
         // Nodes MUST be built first to comply with constraints on edge database
         try{
-            // Retrieve all experiment types in database
+            // Retrieve all keyword types in database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM keywords");
             String keywordID, longName, shortName, dataType, affix, dataValue;
@@ -818,6 +822,11 @@ public class Database {
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
                 dataValue = rs.getString("dataValue");
+                if(dataType == null | dataType.length() == 0)
+                {
+                    dataValue= "";
+                }
+
 
                 // create node instance and put it in the nodes HashMap
                 KeywordType n = new KeywordType(keywordID, longName, shortName, dataType, affix, dataValue);
