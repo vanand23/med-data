@@ -10,4 +10,7 @@
     -fx-border-width: 0 0 3 0;
     -fx-border-color: #701700;
     -fx-background-color: #a91818;
+
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
 }
