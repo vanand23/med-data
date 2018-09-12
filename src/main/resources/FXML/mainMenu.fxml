@@ -13,8 +13,8 @@
             <Font name="Times New Roman" size="28.0" />
          </font>
       </Label>
-      <JFXButton layoutX="14.0" layoutY="103.0" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="Simple Namer" />
-      <JFXButton layoutX="14.0" layoutY="157.0" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="Full Namer" />
+      <JFXButton fx:id="simpleNamerButton" layoutX="14.0" layoutY="103.0" onAction="#handleSimpleNamer" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="Simple Namer" />
+      <JFXButton fx:id="fullNamerButton" layoutX="14.0" layoutY="157.0" onAction="#handleFullNamer" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="Full Namer" />
       <Label layoutX="54.0" layoutY="70.0">
          <font>
             <Font name="Times New Roman" size="18.0" />
@@ -22,7 +22,7 @@
       </Label>
       <JFXButton layoutX="14.0" layoutY="216.0" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="File Manager" />
       <JFXButton layoutX="15.0" layoutY="272.0" prefHeight="62.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="My Project &#10;Preferences" />
-      <JFXButton fx:id="closeButton" cancelButton="true" layoutX="164.0" layoutY="16.0" stylesheets="@../CSS/closeButton.css" text="X" translateX="-5.0" translateY="-5.0" onAction="#handleCloseButtonAction" />
+      <JFXButton fx:id="closeButton" cancelButton="true" layoutX="164.0" layoutY="16.0" onAction="#handleCloseButton" stylesheets="@../CSS/closeButton.css" text="X" translateX="-5.0" translateY="-5.0" />
    </children>
    <padding>
       <Insets bottom="20.0" />
