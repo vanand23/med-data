@@ -1,6 +1,11 @@
 ﻿variableID,longName,shortName,dataType,affix,dataValue
-1,Frequency,Hz,numeric,post,100
-2,Temperature in Farenheit,F,numeric,post,100
-3,Temperature in Celsuis,C,numeric,post,100
-4,Dollar,$,numeric,pre,100
-5,Temporal Bone,TB,none,pre,nothing
+1,Single-sided deafness,SSD,numeric,prefix,0
+2,Normal hearing right,nHR,numeric,prefix,0
+3,Normal hearing left,nHL,numeric,prefix,0
+4,Sudden Sensorineural Hearing Loss,SSNHL,numeric,prefix,0
+5,Tone audiometry,TA,numeric,prefix,0
+6,Air conduction,AC,numeric,prefix,0
+7,Bone conduction,BC,numeric,prefix,0
+8,Normalized hearing loss in DB,dB HL,numeric,prefix,0
+9,Sound pressure level in DB,dB SPL,numeric,prefix,0
+10,Speech audiometry,SA,numeric,prefix,0
