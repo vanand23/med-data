@@ -21,7 +21,7 @@
                         <children>
                             <Label text="Date" textFill="#545252">
                                 <font>
-                                    <Font name="Palatino Linotype" size="20.0" />
+                                    <Font name="Times New Roman" size="20.0" />
                                 </font>
                             </Label>
                             <DatePicker fx:id="experimentDate" prefHeight="31.0" prefWidth="368.0" style="-fx: #92dce5;" />
@@ -31,7 +31,7 @@
                         <children>
                             <AutocompleteTextField fx:id="experimentType" alignment="BASELINE_LEFT" onAction="#updateExperiment" labelFloat="true" promptText="Experiment Type" unFocusColor="#0d004d">
                                 <font>
-                                    <Font name="Palatino Linotype" size="20.0" />
+                                    <Font name="Times New Roman" size="20.0" />
                                 </font>
                             </AutocompleteTextField>
                         </children>
@@ -40,7 +40,7 @@
                         <children>
                             <JFXTextField fx:id="trialNumber" labelFloat="true" promptText="Trial Number" style="-fx-background-color: #FFFFFF;">
                         <font>
-                           <Font name="Palatino Linotype" size="20.0" />
+                           <Font name="Times New Roman" size="20.0" />
                         </font>
                      </JFXTextField>
                         </children>
@@ -50,7 +50,7 @@
                   <children>
                      <JFXButton fx:id="addKeywordButton" onAction="#addKeyword" text="+  Add new keyword" textFill="#4d4d4d">
                         <font>
-                           <Font name="Palatino Linotype" size="20.0" />
+                           <Font name="Times New Roman" size="20.0" />
                         </font>
                      </JFXButton>
                   </children>
@@ -59,7 +59,7 @@
                   <children>
                      <Label text="Output:" textFill="#514f4f">
                         <font>
-                           <Font name="Palatino Linotype" size="20.0" />
+                           <Font name="Times New Roman" size="20.0" />
                         </font>
                      </Label>
                      <JFXTextArea fx:id="fileName" prefHeight="0.0" prefWidth="360.0" style="-fx-background-color: #FFFFFF;" />

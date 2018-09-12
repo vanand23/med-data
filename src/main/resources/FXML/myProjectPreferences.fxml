@@ -33,24 +33,24 @@
                         </JFXTextField>
                      </children>
                   </VBox>
-                  <VBox prefHeight="51.0" prefWidth="307.0">
+                  <VBox prefHeight="93.0" prefWidth="307.0">
                      <children>
-                        <JFXTextField focusColor="#4d4d4d" labelFloat="true" promptText="  Project Description" style="-fx-background-color: ffffff;">
-                           <font>
-                              <Font name="Times New Roman" size="14.0" />
-                           </font>
-                        </JFXTextField>
-                     </children></VBox>
-                  <VBox prefHeight="16.0" prefWidth="307.0">
-                     <children>
-                        <JFXTextArea focusColor="#4d4d4d" labelFloat="true" prefHeight="3.0" prefWidth="307.0" promptText="Keyword Glossary File Path" style="-fx-background-color: ffffff;">
+                        <JFXTextArea prefHeight="83.0" prefWidth="307.0" promptText="Project Description" style="-fx-background-color: ffffff;">
                            <font>
                               <Font name="Times New Roman" size="14.0" />
                            </font>
                         </JFXTextArea>
+                     </children></VBox>
+                  <VBox prefHeight="45.0" prefWidth="307.0">
+                     <children>
+                        <JFXTextField focusColor="#4d4d4d" labelFloat="true" promptText="Keyword Glossary Filepath" style="-fx-background-color: ffffff;">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </JFXTextField>
                      </children>
                   </VBox>
-                  <VBox prefHeight="39.0" prefWidth="307.0">
+                  <VBox prefHeight="32.0" prefWidth="307.0">
                      <children>
                         <JFXButton text="+ Add Additional Glossary">
                            <font>
@@ -59,8 +59,8 @@
                         </JFXButton>
                      </children>
                   </VBox>
-                  <VBox prefHeight="42.0" prefWidth="307.0" />
-                  <VBox prefHeight="72.0" prefWidth="307.0">
+                  <VBox prefHeight="27.0" prefWidth="307.0" />
+                  <VBox prefHeight="54.0" prefWidth="272.0">
                      <children>
                         <JFXButton stylesheets="@../CSS/mediumButtons.css" text="Save" />
                      </children>
