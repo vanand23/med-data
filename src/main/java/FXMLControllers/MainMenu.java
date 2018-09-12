@@ -1,8 +1,10 @@
 package FXMLControllers;
 
+import Singletons.FXMLManager;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,9 +31,22 @@ public class MainMenu extends ScreenController{
     public JFXButton closeButton;
 
     @FXML
-    public void handleCloseButtonAction(ActionEvent e) {
+    public void handleCloseButton(ActionEvent e) {
         Stage primaryStage = (Stage) closeButton.getScene().getWindow();
         primaryStage.close();
+    }
+
+    @FXML
+   public void handleSimpleNamer(ActionEvent e) throws IOException{
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/simpleNamer.fxml", simpleNamerButton.getScene().getWindow(),"List Locations");
+        System.out.println("Runs");
+    }
+
+    @FXML
+    public void handleFullNamer(ActionEvent e) throws IOException {
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/fullNamer.fxml", fullNamerButton.getScene().getWindow(),"List Locations");
     }
 
     @FXML
