@@ -46,6 +46,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private DatePicker experimentDate;
 
     @FXML
+    private JFXTextField researcherName;
+
+    @FXML
     private JFXTextField trialNumber;
 
     @FXML
@@ -112,11 +115,13 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         StringBuilder fname = new StringBuilder();
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
+        String researcherNameText = researcherName.getText();
         //int numParams = 3;
         if(experimentDate.getValue() != null)
         {
             fname.append(experimentDate.getValue().toString());
         }
+
         String experimentShorthand = "";
         if(experimentTypeText != null && experimentTypeText.length() != 0)
         {
@@ -133,6 +138,26 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         {
             fname.append("_");
             fname.append(trialNumber.getText());
+        }
+
+        String initial = "";
+        if(researcherNameText != null && researcherNameText.length() != 0)
+        {
+            String name = researcherNameText.toUpperCase();
+
+            String firstletter = name.substring(0,1);
+            for (int i=0; i<name.length(); i++){
+                char c1 = name.charAt(i);
+
+                if(c1 == ' '){
+
+                    initial = firstletter + (name.charAt(i + 1));
+                }
+            }
+
+            fname.append("_");
+            fname.append(initial);
+
         }
         
         for(AutocompleteTextField autocompleteTextField : listofkeywords)
