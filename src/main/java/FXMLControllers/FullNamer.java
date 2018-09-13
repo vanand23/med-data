@@ -56,6 +56,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     JFXButton updateNameButton;
 
+    public JFXTextField getResearcherName() {
+        return researcherName;
+    }
+
+    public void setResearcherName(JFXTextField researcherName) {
+        this.researcherName = researcherName;
+    }
+
     @FXML
     private AutocompleteTextField experimentType;
 
