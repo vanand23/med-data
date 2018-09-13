@@ -3,6 +3,7 @@ package FXMLControllers;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
+import Types.KeywordType;
 import Utilities.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -125,6 +126,11 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
                 outputText.setText(updateName());
             });
+
+            researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
+                outputText.setText(updateName());
+            });
+
             updateName();
         }
     }
@@ -191,13 +197,28 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 String keyword;
                 fname.append("_");
                 try {
-                    String keywordValue = autocompleteTextField.getKeywordValueField().getText();
+                    JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
                     keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    if(keywordValue != null && !keywordValue.trim().isEmpty())
+                    if(autocompleteTextField.getState() == 1 && keywordValue != null && keywordValue.getText() != null)
                     {
-                        
+                        String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
+                        switch (affix){
+                            case "prefix":
+                                fname.append(keyword);
+                                fname.append(keywordValue.getText());
+                                break;
+                            case "suffix":
+                                fname.append(keywordValue.getText());
+                                fname.append(keyword);
+                                break;
+                            case "no value":
+                                fname.append(keyword);
+                                break;
+                            default:
+                                fname.append(keyword);
+                                break;
+                        }
                     }
-                    fname.append(keyword);
                 } catch (NameNotFoundException e1) {
                     e1.printStackTrace();
                 }

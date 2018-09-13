@@ -14,9 +14,16 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
     private HBox textFieldContainer;
     private JFXTextField keywordValueField;
 
+    private int state;
+
     public KeywordAutocompleteTextField(HBox textFieldContainer)
     {
         this.textFieldContainer = textFieldContainer;
+        state = 0;
+    }
+
+    public int getState() {
+        return state;
     }
 
     public JFXTextField getKeywordValueField() {
@@ -57,6 +64,7 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
                 keywordValueField = keyval;
                 textFieldContainer.getChildren().add(vBox);
                 textFieldContainer.getChildren().remove(this);
+                state = 1;
             });
         }
 
