@@ -22,8 +22,8 @@ public class AutocompleteTextField extends JFXTextField {
     //entries to autocomplete
     private final SortedSet<String> entries;
     //popup GUI
-    private ContextMenu entriesPopup;
-    private Robot r;
+    ContextMenu entriesPopup;
+    Robot r;
 
 
     public void setAutocompleteWidth(double width) {
@@ -31,10 +31,10 @@ public class AutocompleteTextField extends JFXTextField {
     }
 
 
-    private double width;
+    double width;
 
 
-    public AutocompleteTextField() {
+    AutocompleteTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
@@ -44,7 +44,6 @@ public class AutocompleteTextField extends JFXTextField {
             e.printStackTrace();
         }
         width = 400;
-        styleProperty().setValue("-fx-background-color: #FFFFFF;");
         setListener();
     }
 
@@ -77,7 +76,7 @@ public class AutocompleteTextField extends JFXTextField {
 
     }
 
-    private void populatePopup(List<String> searchResult, String searchRequest) {
+    void populatePopup(List<String> searchResult, String searchRequest) {
         //List of "suggestions"
         List<CustomMenuItem> menuItems = new LinkedList<>();
         //List size - 10 or founded suggestions count
