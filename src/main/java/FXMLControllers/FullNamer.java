@@ -116,6 +116,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
         String researcherNameText = researcherName.getText();
+        //hello
         //int numParams = 3;
         if(experimentDate.getValue() != null)
         {
