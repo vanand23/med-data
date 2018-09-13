@@ -22,8 +22,10 @@ import java.util.ResourceBundle;
 
 public class ProjectPreferences extends ScreenController implements Initializable {
 
+    private static ProjectPreferences instance = new ProjectPreferences();
+
     @FXML
-    private JFXTextField researcherName;
+    private JFXTextField researcherNamePreference;
 
     @FXML
     private JFXTextField projectName;
@@ -53,6 +55,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     private JFXTextField previewBox;
 
     private String delimiter;
+    private String nameOfResearcher;
 
    @Override
    public void initialize(URL location, ResourceBundle resources){
@@ -83,6 +86,24 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     public void generatePreview(){
        previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
     }
+
+    public static ProjectPreferences getInstance() {return instance;}
+
+   public void saveProjectPreferences(ActionEvent e) throws IOException{
+       updateResearcherName();
+       updateDelimiter();
+   }
+
+   public void updateResearcherName(){
+    nameOfResearcher = researcherNamePreference.getText();
+    //set researcher name textbook in full namer to nameOfResearcher
+   }
+
+    //updates the delimiter based on the user's choice in the radio buttons
+   public void updateDelimiter(){
+
+
+   }
 
 
 
