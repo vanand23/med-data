@@ -39,7 +39,7 @@
                                 </Label>
                                 <AutocompleteTextField fx:id="experimentType" alignment="BASELINE_LEFT" labelFloat="true" onAction="#updateExperiment" unFocusColor="#0d004d">
                                     <font>
-                                        <Font name="Palatino Linotype" size="20.0" />
+                                        <Font name="Times New Roman" size="20.0" />
                                     </font>
                             </AutocompleteTextField>
                         </children>
