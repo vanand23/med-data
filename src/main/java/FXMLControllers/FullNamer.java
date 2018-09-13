@@ -33,6 +33,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
-    private List<AutocompleteTextField> listofkeywords = new ArrayList<>();
+    private List<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
 
 
     @Override
@@ -128,8 +129,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
         String researcherNameText = researcherName.getText();
-        //hello
-        //int numParams = 3;
 
         if(experimentDate.getValue() != null)
         {
@@ -174,8 +173,8 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             fname.append(initial);
 
         }
-        
-        for(AutocompleteTextField autocompleteTextField : listofkeywords)
+
+        for(KeywordAutocompleteTextField autocompleteTextField : listofkeywords)
         {
             System.out.println("foundkeyword");
             if(autocompleteTextField.getText() != null && !autocompleteTextField.getText().trim().isEmpty())
@@ -184,7 +183,12 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 String keyword;
                 fname.append("_");
                 try {
+                    String keywordValue = autocompleteTextField.getKeywordValueField().getText();
                     keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
+                    if(keywordValue != null && !keywordValue.trim().isEmpty())
+                    {
+                        
+                    }
                     fname.append(keyword);
                 } catch (NameNotFoundException e1) {
                     e1.printStackTrace();
@@ -199,9 +203,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     @FXML
     public void addKeyword(ActionEvent e) throws IOException{
-        FXMLManager fxmlManager = FXMLManager.getInstance();
-        //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-
         JFXButton removeObjectButton = new JFXButton("", new ImageView(removeObjectIcon));
         removeObjectButton.setPrefSize(15,15);
         removeObjectButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
@@ -209,14 +210,20 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         hbox.setSpacing(10);
         hbox.getChildren().add(removeObjectButton);
         KeywordAutocompleteTextField textField = new KeywordAutocompleteTextField(hbox);
+
         textField.setMinWidth(350);
         textField.setPromptText("Choose keyword");
         textField.setAlignment(Pos.BASELINE_LEFT);
         textField.setLabelFloat(true);
         textField.setUnFocusColor(Paint.valueOf("#000000"));
         textField.setFont(new Font("Times New Roman", 20));
+
         hbox.getChildren().add(textField);
         listofkeywords.add(textField);
+
+        textField.textProperty().addListener((obs, oldTextNumber, newTextNumber) -> {
+            outputText.setText(updateName());
+        });
 
         removeObjectButton.setOnAction(e1 -> {
             listofkeywords.remove(textField);

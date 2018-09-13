@@ -34,7 +34,7 @@ public class AutocompleteTextField extends JFXTextField {
     double width;
 
 
-    AutocompleteTextField() {
+    public AutocompleteTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
