@@ -59,7 +59,7 @@
                   <VBox prefHeight="0.0" prefWidth="256.0" />
                   <VBox alignment="CENTER" prefHeight="27.0" prefWidth="259.0">
                      <children>
-                        <JFXButton prefHeight="27.0" prefWidth="44.0" text="Copy">
+                        <JFXButton fx:id="copyButton" onAction="#copyFileToClipboard" prefHeight="27.0" prefWidth="55.0" text="Copy">
                            <stylesheets>
                               <URL value="@../CSS/mediumButtons.css" />
                               <URL value="@../CSS/smallButtons.css" />

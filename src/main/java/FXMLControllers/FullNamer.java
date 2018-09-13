@@ -179,7 +179,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
                 if(c1 == ' '){
 
-                    initial = firstletter + (name.charAt(i - 1));
+                    initial = firstletter + (name.charAt(i + 1));
                 }
             }
 
