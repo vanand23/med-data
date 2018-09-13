@@ -14,7 +14,8 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
     private HBox textFieldContainer;
     private JFXTextField keywordValueField;
 
-    public KeywordAutocompleteTextField(HBox textFieldContainer){
+    public KeywordAutocompleteTextField(HBox textFieldContainer)
+    {
         this.textFieldContainer = textFieldContainer;
     }
 
