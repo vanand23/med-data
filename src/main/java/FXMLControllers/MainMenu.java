@@ -40,7 +40,6 @@ public class MainMenu extends ScreenController{
    public void handleSimpleNamer(ActionEvent e) throws IOException{
         FXMLLoader listOfLocationLoader =
                 popupScreen("FXML/simpleNamer.fxml", simpleNamerButton.getScene().getWindow(),"Simple Namer");
-        System.out.println("Runs");
     }
 
     @FXML
