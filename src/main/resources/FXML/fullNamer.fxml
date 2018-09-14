@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import Utilities.*?>
-<AnchorPane style="-fx-background-color: #C2dce5;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <children>
             <VBox alignment="TOP_CENTER" prefWidth="500.0" spacing="20.0">
@@ -106,6 +107,16 @@
             </VBox>
         </children>
     </StackPane>
+   <JFXToggleButton fx:id="switchNamers" layoutX="222.0" layoutY="550.0" onAction="#handleToggleButton" text="Simple Namer">
+      <font>
+         <Font name="Times New Roman" size="14.0" />
+      </font>
+   </JFXToggleButton>
+   <Label layoutX="140.0" layoutY="572.0" text="Full Namer">
+      <font>
+         <Font name="Times New Roman" size="14.0" />
+      </font>
+   </Label>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" />
    </padding>
