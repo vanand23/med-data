@@ -10,8 +10,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import Utilities.*?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <children>
@@ -61,8 +62,7 @@
                             </JFXTextField>
                         </children>
                     </VBox>
-               <VBox fx:id="vboxOfKeywords" spacing="20.0" />
-               <HBox prefHeight="100.0" prefWidth="420.0" spacing="20.0">
+               <HBox prefHeight="41.0" prefWidth="400.0" spacing="20.0">
                   <children>
                           <VBox prefHeight="100.0" prefWidth="268.0">
                         <children>
@@ -109,6 +109,7 @@
                      </JFXButton>
                   </children>
                </VBox>
+               <VBox fx:id="vboxOfKeywords" spacing="20.0" />
                     <VBox prefHeight="60.0" prefWidth="360.0">
                   <children>
                      <Label text="OUTPUT">
@@ -124,9 +125,20 @@
                 <padding>
                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                 </padding>
+                <JFXToggleButton fx:id="switchNamers" layoutX="222.0" layoutY="550.0" onAction="#handleToggleButton" text="Simple Namer">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXToggleButton>
+                <Label layoutX="140.0" layoutY="572.0" text="Full Namer">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </Label>
             </VBox>
         </children>
     </StackPane>
+
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" />
    </padding>
