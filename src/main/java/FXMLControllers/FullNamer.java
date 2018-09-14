@@ -3,13 +3,16 @@ package FXMLControllers;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
+import Types.KeywordType;
 import Utilities.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import javax.naming.NameNotFoundException;
@@ -33,6 +37,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -55,6 +60,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     JFXButton updateNameButton;
 
+    public JFXTextField getResearcherName() {
+        return researcherName;
+    }
+
+    public void setResearcherName(JFXTextField researcherName) {
+        this.researcherName = researcherName;
+    }
+
     @FXML
     private AutocompleteTextField experimentType;
 
@@ -67,9 +80,12 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     private JFXButton addKeywordButton;
 
+    @FXML
+    private JFXToggleButton switchNamers;
+
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
-    private List<AutocompleteTextField> listofkeywords = new ArrayList<>();
+    private List<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
 
 
     @Override
@@ -116,6 +132,11 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
                 outputText.setText(updateName());
             });
+
+            researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
+                outputText.setText(updateName());
+            });
+
             updateName();
         }
     }
@@ -128,8 +149,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
         String researcherNameText = researcherName.getText();
-        //hello
-        //int numParams = 3;
 
         if(experimentDate.getValue() != null)
         {
@@ -174,8 +193,8 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             fname.append(initial);
 
         }
-        
-        for(AutocompleteTextField autocompleteTextField : listofkeywords)
+
+        for(KeywordAutocompleteTextField autocompleteTextField : listofkeywords)
         {
             System.out.println("foundkeyword");
             if(autocompleteTextField.getText() != null && !autocompleteTextField.getText().trim().isEmpty())
@@ -184,8 +203,28 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 String keyword;
                 fname.append("_");
                 try {
+                    JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
                     keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    fname.append(keyword);
+                    if(autocompleteTextField.getState() == 1 && keywordValue != null && keywordValue.getText() != null)
+                    {
+                        String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
+                        switch (affix){
+                            case "prefix":
+                                fname.append(keyword);
+                                fname.append(keywordValue.getText());
+                                break;
+                            case "suffix":
+                                fname.append(keywordValue.getText());
+                                fname.append(keyword);
+                                break;
+                            case "no value":
+                                fname.append(keyword);
+                                break;
+                            default:
+                                fname.append(keyword);
+                                break;
+                        }
+                    }
                 } catch (NameNotFoundException e1) {
                     e1.printStackTrace();
                 }
@@ -199,9 +238,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     @FXML
     public void addKeyword(ActionEvent e) throws IOException{
-        FXMLManager fxmlManager = FXMLManager.getInstance();
-        //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-
         JFXButton removeObjectButton = new JFXButton("", new ImageView(removeObjectIcon));
         removeObjectButton.setPrefSize(15,15);
         removeObjectButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
@@ -209,14 +245,20 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         hbox.setSpacing(10);
         hbox.getChildren().add(removeObjectButton);
         KeywordAutocompleteTextField textField = new KeywordAutocompleteTextField(hbox);
+
         textField.setMinWidth(350);
         textField.setPromptText("Choose keyword");
         textField.setAlignment(Pos.BASELINE_LEFT);
         textField.setLabelFloat(true);
         textField.setUnFocusColor(Paint.valueOf("#000000"));
         textField.setFont(new Font("Times New Roman", 20));
+
         hbox.getChildren().add(textField);
         listofkeywords.add(textField);
+
+        textField.textProperty().addListener((obs, oldTextNumber, newTextNumber) -> {
+            outputText.setText(updateName());
+        });
 
         removeObjectButton.setOnAction(e1 -> {
             listofkeywords.remove(textField);
@@ -246,6 +288,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         trialNumber.setText(String.valueOf(currTrial));
     }
 
+    @FXML
+    public void handleToggleButton (ActionEvent e) throws IOException {
+        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
+        primaryStage.close();
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Simple Namer");
+    }
+
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
@@ -256,4 +306,5 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             autocompleteTextField.getEntries().addAll(keywords);
         }
     }
+
 }

@@ -12,7 +12,7 @@
     -fx-background-radius: 0;
 }
 .jfx-button:focused{
-    -fx-font-family: "Palatino Linotype";
+    -fx-font-family: "Times New Roman";
     -fx-font-size: 14;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;

@@ -21,7 +21,7 @@
                   <VBox prefHeight="44.0" prefWidth="600.0" />
                   <VBox prefHeight="57.0" prefWidth="307.0">
                      <children>
-                        <JFXTextField focusColor="#4d4d4d" labelFloat="true" prefHeight="26.0" prefWidth="557.0" promptText="   Researcher Name" style="-fx-background-color: ffffff;">
+                        <JFXTextField fx:id="researcherName" focusColor="#4d4d4d" labelFloat="true" prefHeight="26.0" prefWidth="557.0" promptText="   Researcher Name" style="-fx-background-color: ffffff;">
                            <font>
                               <Font name="Times New Roman" size="14.0" />
                            </font>
@@ -95,7 +95,7 @@
       </StackPane>
       <VBox layoutX="350.0" layoutY="437.0" prefHeight="44.0" prefWidth="66.0">
          <children>
-            <JFXButton stylesheets="@../CSS/mediumButtons.css" text="Save" />
+            <JFXButton fx:id="saveButton" onAction="#saveProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Save" />
          </children>
       </VBox>
       <JFXTextField fx:id="previewBox" editable="false" layoutX="137.0" layoutY="388.0" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: ffffff;" />
