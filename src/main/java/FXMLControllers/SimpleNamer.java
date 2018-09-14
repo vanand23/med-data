@@ -8,8 +8,11 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import javax.naming.NameNotFoundException;
@@ -37,6 +40,7 @@ public class SimpleNamer extends ScreenController implements Initializable {
 
     @FXML
     private JFXToggleButton switchNamers;
+
 
     @Override
 
@@ -118,6 +122,14 @@ public class SimpleNamer extends ScreenController implements Initializable {
 
         System.out.println(fname.toString());
         return fname.toString();
+    }
+
+    @FXML
+    public void handleToggleButton (ActionEvent e) throws IOException {
+        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
+        primaryStage.close();
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
     }
 
 
