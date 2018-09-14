@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="174.0" prefWidth="281.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.SimpleNamer">
+<AnchorPane prefHeight="233.0" prefWidth="281.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.SimpleNamer">
    <children>
       <StackPane layoutX="25.0" prefHeight="173.0" prefWidth="256.0">
          <children>
@@ -36,57 +35,48 @@
                   </VBox>
                   <VBox prefHeight="52.0" prefWidth="256.0">
                      <children>
-                        <HBox prefHeight="86.0" prefWidth="256.0">
+                        <HBox prefHeight="98.0" prefWidth="172.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="90.0" text="Sample &#10;Number:   ">
+                              <Label prefHeight="27.0" prefWidth="73.0" text="Sample &#10;Number:   ">
                                  <font>
                                     <Font name="Times New Roman" size="12.0" />
                                  </font>
                               </Label>
-                              <JFXTextField fx:id="sampleNumber" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: ffffff;" />
-                              <Label prefHeight="35.0" prefWidth="96.0" text="  Trial &#10;  Number:   ">
-                                 <font>
-                                    <Font name="Times New Roman" size="12.0" />
-                                 </font>
-                              </Label>
-                              <JFXTextField fx:id="trialNumber" alignment="CENTER" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: ffffff;" />
-                              <VBox prefHeight="17.0" prefWidth="100.0" />
+                              <JFXTextField fx:id="sampleNumber" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: ffffff;" />
+                              <JFXButton fx:id="plusSampleButton" onAction="#incrementSampleNumber" stylesheets="@../CSS/smallButtons.css" text="+" />
+                              <HBox prefHeight="43.0" prefWidth="7.0" />
+                              <JFXButton fx:id="minusSampleButton" onAction="#decrementSampleNumber" stylesheets="@../CSS/smallButtons.css" text="-" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="56.0" prefWidth="256.0" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="0.0" prefWidth="256.0" />
-                  <VBox alignment="CENTER" prefHeight="27.0" prefWidth="259.0">
+                  <VBox prefHeight="53.0" prefWidth="256.0">
                      <children>
-                        <JFXButton fx:id="copyButton" onAction="#copyFileToClipboard" prefHeight="27.0" prefWidth="55.0" text="Copy">
-                           <stylesheets>
-                              <URL value="@../CSS/mediumButtons.css" />
-                              <URL value="@../CSS/smallButtons.css" />
-                           </stylesheets>
-                        </JFXButton>
-                     </children>
-                  </VBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="28.0" prefWidth="74.0" text="Trial &#10;Number:   ">
+                                 <font>
+                                    <Font name="Times New Roman" size="12.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="trialNumber" alignment="CENTER" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: ffffff;" />
+                              <JFXButton fx:id="plusTrialButton" onAction="#incrementTrialNumber" stylesheets="@../CSS/smallButtons.css" text="+" />
+                              <HBox prefHeight="44.0" prefWidth="6.0" />
+                              <JFXButton fx:id="minusTrialButton" onAction="#decrementTrialNumber" stylesheets="@../CSS/smallButtons.css" text="-" />
+                           </children>
+                        </HBox>
+                     </children></VBox>
+                  <VBox alignment="CENTER" prefHeight="27.0" prefWidth="259.0" />
                   <VBox prefHeight="47.0" prefWidth="256.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="51.0" prefWidth="256.0">
                            <children>
-                              <Label prefHeight="40.0" prefWidth="87.0" text="Full Namer">
-                                 <font>
-                                    <Font name="Times New Roman" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                              <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" onAction="#handleToggleButton" prefHeight="38.0" prefWidth="166.0" selected="true" text="   Simple Namer">
-                                 <font>
-                                    <Font name="Times New Roman" size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="-20.0" top="-20.0" />
-                                 </HBox.margin>
-                              </JFXToggleButton>
+                              <JFXButton fx:id="copyButton" onAction="#copyFileToClipboard" prefHeight="27.0" prefWidth="55.0" text="Copy">
+                                 <stylesheets>
+                                    <URL value="@../CSS/mediumButtons.css" />
+                                    <URL value="@../CSS/smallButtons.css" />
+                                 </stylesheets>
+                              </JFXButton>
                            </children>
                         </HBox>
                      </children>
@@ -95,5 +85,15 @@
             </VBox>
          </children>
       </StackPane>
+      <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" layoutX="132.0" layoutY="154.0" onAction="#handleToggleButton" prefHeight="38.0" prefWidth="166.0" selected="true" text="   Simple Namer">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXToggleButton>
+      <Label layoutX="53.0" layoutY="164.0" prefHeight="40.0" prefWidth="87.0" text="Full Namer">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

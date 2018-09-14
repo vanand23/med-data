@@ -41,6 +41,18 @@ public class SimpleNamer extends ScreenController implements Initializable {
     @FXML
     private JFXToggleButton switchNamers;
 
+    @FXML
+    private JFXButton plusSampleButton;
+
+    @FXML
+    private JFXButton plusTrialButton;
+
+    @FXML
+    private JFXButton minusSampleButton;
+
+    @FXML
+    private JFXButton minusTrialButton;
+
 
     @Override
 
@@ -93,6 +105,40 @@ public class SimpleNamer extends ScreenController implements Initializable {
         //int currTrial = Integer.parseInt(trialNumber.getText());
         //currTrial++;
        // trialNumber.setText(String.valueOf(currTrial));
+    }
+
+    @FXML
+    public void incrementSampleNumber(ActionEvent e) throws IOException{
+        int currSample = Integer.parseInt(sampleNumber.getText());
+        currSample++;
+        sampleNumber.setText(String.valueOf(currSample));
+    }
+
+    @FXML
+    public void incrementTrialNumber(ActionEvent e) throws IOException{
+        int currTrial = Integer.parseInt(trialNumber.getText());
+        currTrial++;
+        trialNumber.setText(String.valueOf(currTrial));
+    }
+
+    @FXML
+    public void decrementSampleNumber(ActionEvent e) throws IOException{
+        int currSample = Integer.parseInt(sampleNumber.getText());
+        if (currSample >= 1)
+        {
+            currSample--;
+            sampleNumber.setText(String.valueOf(currSample));
+        }
+    }
+
+    @FXML
+    public void decrementTrialNumber(ActionEvent e) throws IOException{
+        int currTrial = Integer.parseInt(trialNumber.getText());
+        if (currTrial >= 1)
+        {
+            currTrial--;
+            trialNumber.setText(String.valueOf(currTrial));
+        }
     }
 
     private String updateName() {
