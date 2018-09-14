@@ -50,6 +50,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private JFXTextField trialNumber;
 
     @FXML
+    private JFXTextField sampleNumber;
+
+    @FXML
     private JFXTextField outputText;
 
     @FXML
@@ -104,6 +107,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
             experimentDate.setValue(LocalDate.now());
             trialNumber.setText("0");
+            sampleNumber.setText("0");
             experimentType.setAutocompleteWidth(350);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
@@ -114,6 +118,10 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             });
 
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
+                outputText.setText(updateName());
+            });
+
+            sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
                 outputText.setText(updateName());
             });
 
@@ -132,6 +140,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
         String researcherNameText = researcherName.getText();
+        String sampleNumberText = sampleNumber.getText();
         //hello
         //int numParams = 3;
 
@@ -156,7 +165,13 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         if(trialNumberText != null && !trialNumberText.trim().isEmpty())
         {
             fname.append("_");
-            fname.append(trialNumberText);
+            fname.append("T" + trialNumberText);
+        }
+
+        if(sampleNumberText != null && !sampleNumberText.trim().isEmpty())
+        {
+            fname.append("_");
+            fname.append("S" + sampleNumberText);
         }
 
         StringBuilder initial = new StringBuilder();
