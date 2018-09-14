@@ -7,9 +7,11 @@ import Utilities.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import javax.naming.NameNotFoundException;
@@ -69,6 +72,10 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     @FXML
     private JFXButton addKeywordButton;
+
+    @FXML
+    private JFXToggleButton switchNamers;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
@@ -266,6 +273,15 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         currTrial++;
         trialNumber.setText(String.valueOf(currTrial));
     }
+
+    @FXML
+    public void handleToggleButton (ActionEvent e) throws IOException {
+        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
+        primaryStage.close();
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Simple Namer");
+    }
+
 
     @Override
     public void onTypeUpdate() {

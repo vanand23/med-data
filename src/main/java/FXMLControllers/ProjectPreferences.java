@@ -83,7 +83,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     generatePreview();
     }
 
-    public void generatePreview(){
+    private void generatePreview(){
        previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
     }
 
@@ -94,13 +94,13 @@ public class ProjectPreferences extends ScreenController implements Initializabl
        updateDelimiter();
    }
 
-   public void updateResearcherName(){
+   private void updateResearcherName(){
     nameOfResearcher = researcherNamePreference.getText();
     //set researcher name textbook in full namer to nameOfResearcher
    }
 
     //updates the delimiter based on the user's choice in the radio buttons
-   public void updateDelimiter(){
+    private void updateDelimiter(){
 
 
    }
