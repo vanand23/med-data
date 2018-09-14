@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -62,24 +61,45 @@
                             </JFXTextField>
                         </children>
                     </VBox>
-                    <VBox>
-                  <children>
-                     <Label text="TRIAL NUMBER">
-                        <font>
-                           <Font name="Arial Black" size="20.0" />
-                        </font>
-                        <VBox.margin>
-                           <Insets bottom="-5.0" />
-                        </VBox.margin>
-                     </Label>
-                     <JFXTextField fx:id="trialNumber" labelFloat="true" prefWidth="400.0" unFocusColor="BLACK">
-                        <font>
-                           <Font name="Times New Roman" size="20.0" />
-                        </font>
-                     </JFXTextField>
-                  </children>
-               </VBox>
                <VBox fx:id="vboxOfKeywords" spacing="20.0" />
+               <HBox prefHeight="100.0" prefWidth="420.0" spacing="20.0">
+                  <children>
+                          <VBox prefHeight="100.0" prefWidth="268.0">
+                        <children>
+                           <Label text="TRIAL NUMBER">
+                              <font>
+                                 <Font name="Arial Black" size="20.0" />
+                              </font>
+                              <VBox.margin>
+                                 <Insets bottom="-5.0" />
+                              </VBox.margin>
+                           </Label>
+                           <JFXTextField fx:id="trialNumber" labelFloat="true" prefHeight="37.0" prefWidth="183.0" unFocusColor="BLACK">
+                              <font>
+                                 <Font name="Times New Roman" size="20.0" />
+                              </font>
+                           </JFXTextField>
+                        </children>
+                     </VBox>
+                     <VBox prefHeight="100.0" prefWidth="280.0">
+                        <children>
+                           <Label prefHeight="29.0" prefWidth="216.0" text="SAMPLE NUMBER">
+                              <VBox.margin>
+                                 <Insets bottom="-5.0" />
+                              </VBox.margin>
+                              <font>
+                                 <Font name="Arial Black" size="20.0" />
+                              </font>
+                           </Label>
+                           <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
+                              <font>
+                                 <Font name="Times New Roman" size="20.0" />
+                              </font>
+                           </JFXTextField>
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
                <VBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="100.0">
                   <children>
                      <JFXButton fx:id="addKeywordButton" onAction="#addKeyword" text="+  Add new keyword">
@@ -107,16 +127,6 @@
             </VBox>
         </children>
     </StackPane>
-   <JFXToggleButton fx:id="switchNamers" layoutX="222.0" layoutY="550.0" onAction="#handleToggleButton" text="Simple Namer">
-      <font>
-         <Font name="Times New Roman" size="14.0" />
-      </font>
-   </JFXToggleButton>
-   <Label layoutX="140.0" layoutY="572.0" text="Full Namer">
-      <font>
-         <Font name="Times New Roman" size="14.0" />
-      </font>
-   </Label>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" />
    </padding>
