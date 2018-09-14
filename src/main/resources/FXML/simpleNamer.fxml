@@ -79,7 +79,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
-                              <JFXToggleButton alignment="BOTTOM_CENTER" prefHeight="38.0" prefWidth="166.0" selected="true" text="   Simple Namer">
+                              <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" onAction="#handleToggleButton" prefHeight="38.0" prefWidth="166.0" selected="true" text="   Simple Namer">
                                  <font>
                                     <Font name="Times New Roman" size="14.0" />
                                  </font>
