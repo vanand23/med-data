@@ -2,7 +2,6 @@ package FXMLControllers;
 
 import Types.ExperimentManager;
 import Types.KeywordManager;
-import Utilities.AutocompleteTextField;
 import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -15,19 +14,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import sun.security.jca.GetInstance;
 
 import javax.naming.NameNotFoundException;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SimpleNamer extends ScreenController implements Initializable {
@@ -58,21 +53,10 @@ public class SimpleNamer extends ScreenController implements Initializable {
     @FXML
     private JFXButton minusTrialButton;
 
-    private String researcherName;
-
-    private String experimentType;
-
-    private ArrayList<String> keywords = new ArrayList<>();
-
 
     @Override
 
     public void initialize(URL location, ResourceBundle resources){
-
-        FullNamer fullNamer = FullNamer.getInstance();
-        researcherName = fullNamer.getResearcherName().getText();
-        experimentType = fullNamer.getExperimentType().getText();
-        keywords = fullNamer.getListofkeywords();
 
         String pattern = "dd-MM-yyyy";
         experimentDate.setPromptText(pattern.toLowerCase());
@@ -157,7 +141,6 @@ public class SimpleNamer extends ScreenController implements Initializable {
         }
     }
 
-
     private String updateName() {
         StringBuilder fname = new StringBuilder();
         String trialNumberText = trialNumber.getText();
@@ -194,6 +177,9 @@ public class SimpleNamer extends ScreenController implements Initializable {
         FXMLLoader listOfLocationLoader =
                 popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
     }
+
+
+
 }
 
 

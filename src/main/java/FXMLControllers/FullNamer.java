@@ -39,7 +39,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class FullNamer extends ScreenController implements Initializable, ITypeObserver {
@@ -62,7 +61,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     JFXButton updateNameButton;
 
     @FXML
-    private KeywordAutocompleteTextField experimentType;
+    private AutocompleteTextField experimentType;
 
     @FXML
     private JFXButton backButton;
@@ -79,7 +78,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
-    private List<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
+    private ArrayList<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
 
     private ArrayList<String> keywords;
 
@@ -146,6 +145,10 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
      */
     private String updateName() {
         String delimiter = ProjectPreferences.getInstance().getDelimiter();
+        if(delimiter == null){
+            delimiter = "_";
+        }
+
         StringBuilder fname = new StringBuilder();
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
@@ -174,7 +177,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
         if(trialNumberText != null && !trialNumberText.trim().isEmpty())
         {
-            fname.append("_");
+            fname.append(delimiter);
             fname.append("T");
             fname.append(trialNumberText);
 
@@ -183,7 +186,8 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         if(sampleNumberText != null && !sampleNumberText.trim().isEmpty())
         {
             fname.append(delimiter);
-            fname.append("S" + sampleNumberText);
+            fname.append("S");
+            fname.append(sampleNumberText);
         }
 
         StringBuilder initial = new StringBuilder();
@@ -325,7 +329,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         return SingletonHelper.INSTANCE;
     }
 
-    public List<KeywordAutocompleteTextField> getListofkeywords() {
+    public ArrayList<KeywordAutocompleteTextField> getListofkeywords() {
         return listofkeywords;
     }
 
