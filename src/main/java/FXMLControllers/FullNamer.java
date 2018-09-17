@@ -62,7 +62,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     JFXButton updateNameButton;
 
     @FXML
-    private AutocompleteTextField experimentType;
+    private KeywordAutocompleteTextField experimentType;
 
     @FXML
     private JFXButton backButton;
@@ -79,7 +79,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
-    private List<AutocompleteTextField> listofkeywords = new ArrayList<>();
+    private List<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
+
+    private ArrayList<String> keywords;
 
 
     @Override
@@ -143,6 +145,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
      * Show stairs toggled
      */
     private String updateName() {
+        String delimiter = ProjectPreferences.getInstance().getDelimiter();
         StringBuilder fname = new StringBuilder();
         String experimentTypeText = experimentType.getText();
         String trialNumberText = trialNumber.getText();
@@ -160,7 +163,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
         if(experimentTypeText != null && !(experimentTypeText.trim().isEmpty()))
         {
-            fname.append("_");
+            fname.append(delimiter);
             try {
                 experimentShorthand = ExperimentManager.getInstance().getExperimentByName("long",experimentType.getText()).getShortName();
                 fname.append(experimentShorthand);
@@ -172,12 +175,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         if(trialNumberText != null && !trialNumberText.trim().isEmpty())
         {
             fname.append("_");
-            fname.append("T" + trialNumberText);
+            fname.append("T");
+            fname.append(trialNumberText);
+
         }
 
         if(sampleNumberText != null && !sampleNumberText.trim().isEmpty())
         {
-            fname.append("_");
+            fname.append(delimiter);
             fname.append("S" + sampleNumberText);
         }
 
@@ -198,22 +203,40 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
             }
 
-            fname.append("_");
+            fname.append(delimiter);
             fname.append(finalInitial);
 
         }
-        
-        for(AutocompleteTextField autocompleteTextField : listofkeywords)
+
+        for(KeywordAutocompleteTextField autocompleteTextField : listofkeywords)
         {
-            System.out.println("foundkeyword");
             if(autocompleteTextField.getText() != null && !autocompleteTextField.getText().trim().isEmpty())
             {
-                System.out.println("stringstringstring");
                 String keyword;
-                fname.append("_");
+                fname.append(delimiter);
                 try {
+                    JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
                     keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    fname.append(keyword);
+                    if(autocompleteTextField.getState() == 1 && keywordValue != null && keywordValue.getText() != null)
+                    {
+                        String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
+                        switch (affix){
+                            case "prefix":
+                                fname.append(keyword);
+                                fname.append(keywordValue.getText());
+                                break;
+                            case "suffix":
+                                fname.append(keywordValue.getText());
+                                fname.append(keyword);
+                                break;
+                            case "no value":
+                                fname.append(keyword);
+                                break;
+                            default:
+                                fname.append(keyword);
+                                break;
+                        }
+                    }
                 } catch (NameNotFoundException e1) {
                     e1.printStackTrace();
                 }
@@ -293,4 +316,21 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             autocompleteTextField.getEntries().addAll(keywords);
         }
     }
+
+    private static class SingletonHelper{
+        private static final FullNamer INSTANCE = new FullNamer();
+    }
+
+    public static FullNamer getInstance(){
+        return SingletonHelper.INSTANCE;
+    }
+
+    public List<KeywordAutocompleteTextField> getListofkeywords() {
+        return listofkeywords;
+    }
+
+    public AutocompleteTextField getExperimentType() {
+        return experimentType;
+    }
+
 }
