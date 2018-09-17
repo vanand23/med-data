@@ -75,6 +75,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     private JFXToggleButton switchNamers;
 
+    @FXML
+    private JFXButton helpButton;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
@@ -309,6 +312,12 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Simple Namer");
     }
 
+    @FXML
+    public void handleHelpButton (ActionEvent e) throws IOException {
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/helpMenu.fxml", helpButton.getScene().getWindow(),"Help Menu");
+    }
+
 
     @Override
     public void onTypeUpdate() {
@@ -323,6 +332,10 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     private static class SingletonHelper{
         private static final FullNamer INSTANCE = new FullNamer();
+    }
+
+    public JFXTextField getResearcherName() {
+        return researcherName;
     }
 
     public static FullNamer getInstance(){
