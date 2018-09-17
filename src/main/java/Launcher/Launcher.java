@@ -2,6 +2,7 @@ package Launcher;
 
 import Singletons.Database;
 import Singletons.FXMLManager;
+import Utilities.MyConfig;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import org.apache.log4j.BasicConfigurator;
+import org.skife.config.ConfigurationObjectFactory;
 
 import java.io.*;
 import java.net.URL;
@@ -25,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import java.io.IOException;
+import java.util.Properties;
 import java.util.Timer;
 
 public class Launcher extends Application {

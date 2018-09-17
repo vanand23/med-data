@@ -194,10 +194,6 @@ public class SimpleNamer extends ScreenController implements Initializable {
         FXMLLoader listOfLocationLoader =
                 popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
     }
-
-
-
-
 }
 
 

@@ -1,6 +1,7 @@
 package FXMLControllers;
 
 import Singletons.FXMLManager;
+import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -18,14 +19,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
+
+import static Utilities.Config.setProperty;
 
 public class ProjectPreferences extends ScreenController implements Initializable {
 
     private static ProjectPreferences instance = new ProjectPreferences();
 
     @FXML
-    private JFXTextField researcherNamePreference;
+    private JFXTextField researcherName;
 
     @FXML
     private JFXTextField projectName;
@@ -54,6 +58,10 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     private JFXTextField previewBox;
 
+    public String getDelimiter() {
+        return delimiter;
+    }
+
     private String delimiter;
     private String nameOfResearcher;
 
@@ -62,54 +70,67 @@ public class ProjectPreferences extends ScreenController implements Initializabl
        final ToggleGroup prefButtons = new ToggleGroup();
        delimiter = "_";
        generatePreview();
-
+       setProperty("delimiter", delimiter);
    }
 
     @FXML
     public void setDelimiterToAsterix(ActionEvent e) throws IOException{
-    delimiter = "*";
-    generatePreview();
+        delimiter = "*";
+        generatePreview();
+        setProperty("delimiter", delimiter);
     }
 
     @FXML
     public void setDelimiterToHyphen(ActionEvent e) throws IOException{
-    delimiter = "-";
-    generatePreview();
+        delimiter = "-";
+        generatePreview();
+        setProperty("delimiter", delimiter);
     }
 
     @FXML
     public void setDelimiterToUnderscore(ActionEvent e) throws IOException{
-    delimiter = "_";
-    generatePreview();
+        delimiter = "_";
+        generatePreview();
+        setProperty("delimiter", delimiter);
     }
 
-    public void generatePreview(){
+   private void generatePreview(){
        previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
     }
-
-    public static ProjectPreferences getInstance() {return instance;}
 
    public void saveProjectPreferences(ActionEvent e) throws IOException{
        updateResearcherName();
        updateDelimiter();
    }
 
-   public void updateResearcherName(){
-    nameOfResearcher = researcherNamePreference.getText();
-    //set researcher name textbook in full namer to nameOfResearcher
+   private void updateResearcherName(){
+       String thisResearcherName = researcherName.getText();
+       if(thisResearcherName != null && !(thisResearcherName.trim().isEmpty()))
+       {
+           setProperty("researcherName", thisResearcherName);
+       }
+
+       //set researcher name textbook in full namer to nameOfResearcher
    }
 
     //updates the delimiter based on the user's choice in the radio buttons
-   public void updateDelimiter(){
+    private void updateDelimiter(){
+        setProperty("delimiter", delimiter);
+    }
 
+    /**
+     * Singleton helper class, MapManager should always be accessed through MapManager.getInstance();
+     */
+    private static class SingletonHelper{
+        private static final ProjectPreferences INSTANCE = new ProjectPreferences();
+    }
 
-   }
-
-
-
-
-
-
-
+    /**
+     * Gets the singleton instance of map editor
+     * @return the proper single instance of map editor
+     */
+    public static ProjectPreferences getInstance(){
+        return SingletonHelper.INSTANCE;
+    }
 
 }
