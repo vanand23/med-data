@@ -87,6 +87,8 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private int numKeywords;
     private List<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
 
+    private ArrayList<String> keywords;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -171,6 +173,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         if(trialNumberText != null && !trialNumberText.trim().isEmpty())
         {
             fname.append("_");
+            fname.append("T");
             fname.append(trialNumberText);
         }
 
@@ -307,4 +310,19 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         }
     }
 
+    private static class SingletonHelper{
+        private static final FullNamer INSTANCE = new FullNamer();
+    }
+
+    public static FullNamer getInstance(){
+        return SingletonHelper.INSTANCE;
+    }
+
+    public List<KeywordAutocompleteTextField> getListofkeywords() {
+        return listofkeywords;
+    }
+
+    public AutocompleteTextField getExperimentType() {
+        return experimentType;
+    }
 }
