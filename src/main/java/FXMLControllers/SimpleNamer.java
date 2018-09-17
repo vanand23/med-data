@@ -180,8 +180,6 @@ public class SimpleNamer extends ScreenController implements Initializable {
 
 
 
-
-
 }
 
 
