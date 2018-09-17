@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,11 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -30,11 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Group;
 import javafx.util.StringConverter;
-import javafx.collections.ObservableList;
-import javafx.beans.property.SimpleStringProperty;
 
 import javax.naming.NameNotFoundException;
 import javax.swing.*;
@@ -48,9 +40,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 
 public class FullNamer extends ScreenController implements Initializable, ITypeObserver {
     @FXML
@@ -78,12 +67,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private JFXButton backButton;
 
     @FXML
-    private JFXButton addButton;
-
-    @FXML
-    private JFXButton deleteButton;
-
-    @FXML
     private VBox vboxOfKeywords;
 
     @FXML
@@ -95,15 +78,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     private JFXButton helpButton;
 
-    @FXML
-    private TableView<Keywords> keywordsTable;
-
-    @FXML
-    private TableColumn columnName;
-
-    @FXML
-    private TableColumn columnDataValue;
-
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
@@ -111,16 +85,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     private ArrayList<String> keywords;
 
-    private final static ObservableList<Keywords> data = FXCollections.observableArrayList();
-
-    public static ObservableList<Keywords> getData() {
-        return data;
-    }
-
-
-    /*public static void setData(ObservableList<Keywords> data) {
-        FullNamer.data = data;
-    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -156,44 +120,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             trialNumber.setText("0");
             sampleNumber.setText("0");
             experimentType.setAutocompleteWidth(350);
-            columnName.setMinWidth(100);
-            columnDataValue.setMinWidth(100);
-
-
-            columnName.setCellValueFactory(new PropertyValueFactory<Keywords, String>("KeywordName"));
-            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keywords, String>("DataValue"));
-
-            keywordsTable.setEditable(true);
-
-            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-            columnName.setOnEditCommit(
-                    new EventHandler<TableColumn.CellEditEvent>() {
-                        @Override
-                        public void handle(TableColumn.CellEditEvent event) {
-
-                            ((Keywords) event.getTableView().getItems().get(
-                                    event.getTablePosition().getRow())
-                            ).setKeywordName((String) event.getNewValue());
-
-                        }
-                    }
-            );
-
-            columnDataValue.setCellFactory(TextFieldTableCell.forTableColumn());
-            columnDataValue.setOnEditCommit(
-                    new EventHandler<TableColumn.CellEditEvent>() {
-                        @Override
-                        public void handle(TableColumn.CellEditEvent event) {
-
-                            ((Keywords) event.getTableView().getItems().get(
-                                    event.getTablePosition().getRow())
-                            ).setDataValue((String) event.getNewValue());
-
-                        }
-                    }
-            );
-
-            keywordsTable.setItems(data);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
                 outputText.setText(updateName());
@@ -216,7 +142,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             updateName();
         }
     }
-
 
     /**
      * Show stairs toggled
@@ -393,21 +318,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 popupScreen("FXML/helpMenu.fxml", helpButton.getScene().getWindow(),"Help Menu");
     }
 
-    @FXML
-    public void handleAddButton (ActionEvent e) throws IOException {
-
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/addKeywordsUI.fxml", addButton.getScene().getWindow(),"Add Keywords Menu");
-    }
-
-    @FXML
-    public void handleDeleteButton (ActionEvent e) throws IOException {
-
-        Keywords selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
-        keywordsTable.getItems().remove(selectedItem);
-
-    }
-
 
     @Override
     public void onTypeUpdate() {
@@ -440,8 +350,4 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         return experimentType;
     }
 
-
-
 }
-
-
