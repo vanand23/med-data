@@ -94,7 +94,8 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         setProperty("delimiter", delimiter);
     }
 
-   private void generatePreview(){
+    private void generatePreview(){
+
        previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
     }
 
@@ -109,7 +110,6 @@ public class ProjectPreferences extends ScreenController implements Initializabl
        {
            setProperty("researcherName", thisResearcherName);
        }
-
        //set researcher name textbook in full namer to nameOfResearcher
    }
 
