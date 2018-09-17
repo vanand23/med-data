@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -76,7 +77,11 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private JFXToggleButton switchNamers;
 
     @FXML
-    private JFXButton helpButton;
+    private JFXButton helpButtonInput;
+
+    @FXML
+    private JFXButton helpButtonOutput;
+
 
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
@@ -89,6 +94,20 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         {
+            final JFXButton inputHelp = helpButtonInput;
+            final Tooltip inputTooltip = new Tooltip();
+            inputTooltip.setText("Fill in the fields with your desired parameters");
+            inputHelp.setTooltip(inputTooltip);
+
+            final JFXButton outputHelp = helpButtonOutput;
+            final Tooltip outputTooltip = new Tooltip();
+            outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
+            outputHelp.setTooltip(outputTooltip);
+
+
+
+
+
             numKeywords = 0;
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
@@ -312,11 +331,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Simple Namer");
     }
 
-    @FXML
-    public void handleHelpButton (ActionEvent e) throws IOException {
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/helpMenu.fxml", helpButton.getScene().getWindow(),"Help Menu");
-    }
 
 
     @Override
@@ -349,5 +363,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     public AutocompleteTextField getExperimentType() {
         return experimentType;
     }
+
+
 
 }
