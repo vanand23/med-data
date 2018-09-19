@@ -3,38 +3,31 @@ package FXMLControllers;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
-import Utilities.*;
+import Utilities.AutocompleteTextField;
+import Utilities.Config;
+import Utilities.ITypeObserver;
+import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import javax.naming.NameNotFoundException;
-import javax.swing.*;
-import java.awt.datatransfer.*;
-import java.awt.Toolkit;
-
-import java.io.File;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -42,7 +35,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FullNamer extends ScreenController implements Initializable, ITypeObserver {
+import static Utilities.Config.setProperty;
+
+public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private DatePicker experimentDate;
 
@@ -51,6 +46,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     @FXML
     private JFXTextField trialNumber;
+
 
     @FXML
     private JFXTextField sampleNumber;
@@ -76,39 +72,17 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     private JFXToggleButton switchNamers;
 
-    @FXML
-    private JFXButton helpButtonInput;
-
-    @FXML
-    private JFXButton helpButtonOutput;
-
 
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
-    private int numKeywords;
-    private ArrayList<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
+
+    private static ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords = new ArrayList<>();
 
     private ArrayList<String> keywords;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         {
-            final JFXButton inputHelp = helpButtonInput;
-            final Tooltip inputTooltip = new Tooltip();
-            inputTooltip.setText("Fill in the fields with your desired parameters");
-            inputHelp.setTooltip(inputTooltip);
-
-            final JFXButton outputHelp = helpButtonOutput;
-            final Tooltip outputTooltip = new Tooltip();
-            outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
-            outputHelp.setTooltip(outputTooltip);
-
-
-
-
-
-            numKeywords = 0;
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
             String pattern = "dd-MM-yyyy";
@@ -134,144 +108,91 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                     }
                 }
             });
+            Config config = new Config();
+            String configResearcherName = config.getProperty("researcherName");
+            if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+            {
+                researcherName.setText(configResearcherName);
+            }
+            String configExperimentType = config.getProperty("experimentType");
+            if(configExperimentType != null && !configExperimentType.trim().isEmpty())
+            {
+                experimentType.setText(configExperimentType);
+            }
+            String configTrialNumber = config.getProperty("trialNumber");
+            if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
+            {
+                trialNumber.setText(configTrialNumber);
+            }
+            String configSampleNumber = config.getProperty("sampleNumber");
+            if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
+            {
+                sampleNumber.setText(configSampleNumber);
+            }
 
             experimentDate.setValue(LocalDate.now());
-            trialNumber.setText("0");
-            sampleNumber.setText("0");
-            experimentType.setAutocompleteWidth(350);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
-                outputText.setText(updateName());
+                        outputText.setText(updateName(
+                        experimentType.getText(),
+                        trialNumber.getText(),
+                        sampleNumber.getText(),
+                        researcherName.getText(),
+                        experimentDate.getValue(),
+                        sharedListOfKeywords));
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
-                outputText.setText(updateName());
-            });
-
-            trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
-                outputText.setText(updateName());
-            });
-
-            sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
-                outputText.setText(updateName());
-            });
-
-            researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-                outputText.setText(updateName());
-            });
-            updateName();
-        }
-    }
-
-    /**
-     * Show stairs toggled
-     */
-    private String updateName() {
-        String delimiter = ProjectPreferences.getInstance().getDelimiter();
-        if(delimiter == null){
-            delimiter = "_";
-        }
-
-        StringBuilder fname = new StringBuilder();
-        String experimentTypeText = experimentType.getText();
-        String trialNumberText = trialNumber.getText();
-        String researcherNameText = researcherName.getText();
-        String sampleNumberText = sampleNumber.getText();
-
-        //int numParams = 3;
-
-        if(experimentDate.getValue() != null)
-        {
-            fname.append(experimentDate.getValue().toString());
-        }
-
-        String experimentShorthand = "";
-
-        if(experimentTypeText != null && !(experimentTypeText.trim().isEmpty()))
-        {
-            fname.append(delimiter);
-            try {
-                experimentShorthand = ExperimentManager.getInstance().getExperimentByName("long",experimentType.getText()).getShortName();
-                fname.append(experimentShorthand);
-            } catch (NameNotFoundException e1) {
-                e1.printStackTrace();
-            }
-        }
-
-        if(trialNumberText != null && !trialNumberText.trim().isEmpty())
-        {
-            fname.append(delimiter);
-            fname.append("T");
-            fname.append(trialNumberText);
-
-        }
-
-        if(sampleNumberText != null && !sampleNumberText.trim().isEmpty())
-        {
-            fname.append(delimiter);
-            fname.append("S");
-            fname.append(sampleNumberText);
-        }
-
-        StringBuilder initial = new StringBuilder();
-        if(researcherNameText != null && researcherNameText.length() != 0)
-        {
-            String name = researcherNameText.toUpperCase();
-
-            String[] parts = name.split(" ");
-            StringBuilder finalInitial = new StringBuilder();
-
-            String sepIni;
-
-            for(int i=0; i<parts.length; i++) {
-
-                sepIni = parts[i].substring(0,1);
-                finalInitial = initial.append(sepIni);
-
-            }
-
-            fname.append(delimiter);
-            fname.append(finalInitial);
-
-        }
-
-        for(KeywordAutocompleteTextField autocompleteTextField : listofkeywords)
-        {
-            if(autocompleteTextField.getText() != null && !autocompleteTextField.getText().trim().isEmpty())
-            {
-                String keyword;
-                fname.append(delimiter);
-                try {
-                    JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
-                    keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    if(autocompleteTextField.getState() == 1 && keywordValue != null && keywordValue.getText() != null)
-                    {
-                        String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
-                        switch (affix){
-                            case "prefix":
-                                fname.append(keyword);
-                                fname.append(keywordValue.getText());
-                                break;
-                            case "suffix":
-                                fname.append(keywordValue.getText());
-                                fname.append(keyword);
-                                break;
-                            case "no value":
-                                fname.append(keyword);
-                                break;
-                            default:
-                                fname.append(keyword);
-                                break;
-                        }
-                    }
-                } catch (NameNotFoundException e1) {
-                    e1.printStackTrace();
+                if(experimentType.isValidText())
+                {
+                    outputText.setText(updateName(
+                            experimentType.getText(),
+                            trialNumber.getText(),
+                            sampleNumber.getText(),
+                            researcherName.getText(),
+                            experimentDate.getValue(),
+                            sharedListOfKeywords));
+                    setProperty("experimentType",newExperimentType);
+                    System.out.println("updated!");
                 }
-                System.out.println(fname.toString());
-            }
+            });
+            researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
+                outputText.setText(updateName(
+                        experimentType.getText(),
+                        trialNumber.getText(),
+                        sampleNumber.getText(),
+                        researcherName.getText(),
+                        experimentDate.getValue(),
+                        sharedListOfKeywords));
+                setProperty("researcherName",newResearcherName);
+            });
+            trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
+                outputText.setText(updateName(
+                        experimentType.getText(),
+                        trialNumber.getText(),
+                        sampleNumber.getText(),
+                        researcherName.getText(),
+                        experimentDate.getValue(),
+                        sharedListOfKeywords));
+                setProperty("trialNumber",newTrialNumber);
+            });
+            sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
+                outputText.setText(updateName(
+                        experimentType.getText(),
+                        trialNumber.getText(),
+                        sampleNumber.getText(),
+                        researcherName.getText(),
+                        experimentDate.getValue(),
+                        sharedListOfKeywords));
+                setProperty("sampleNumber",newSampleNumber);
+            });
+            outputText.setText(updateName(
+                    experimentType.getText(),
+                    trialNumber.getText(),
+                    sampleNumber.getText(),
+                    researcherName.getText(),
+                    experimentDate.getValue(),
+                    sharedListOfKeywords));
         }
-
-        System.out.println(fname.toString());
-        return fname.toString();
     }
 
     @FXML
@@ -293,15 +214,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         textField.setUnFocusColor(Paint.valueOf("#000000"));
         textField.setFont(new Font("Times New Roman", 20));
         hbox.getChildren().add(textField);
-        listofkeywords.add(textField);
+        sharedListOfKeywords.add(textField);
 
         removeObjectButton.setOnAction(e1 -> {
-            listofkeywords.remove(textField);
+            sharedListOfKeywords.remove(textField);
             vboxOfKeywords.getChildren().remove(hbox);
         });
 
         vboxOfKeywords.getChildren().add(hbox);
-        numKeywords++;
         onTypeUpdate();
     }
 
@@ -312,7 +232,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     @FXML
     public void copyFileToClipboard(ActionEvent e) throws IOException{
-        String nameToCopy = updateName();
+        String nameToCopy = updateName(
+                experimentType.getText(),
+                trialNumber.getText(),
+                sampleNumber.getText(),
+                researcherName.getText(),
+                experimentDate.getValue(),
+                sharedListOfKeywords);
+        setProperty("experimentType",experimentType.getText());
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -332,38 +259,17 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     }
 
 
-
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
         experimentType.getEntries().addAll(experiments);
 
         ArrayList<String> keywords = (ArrayList<String>) KeywordManager.getInstance().getAllKeywordLongNames();
-        for(AutocompleteTextField autocompleteTextField : listofkeywords){
+        for(AutocompleteTextField autocompleteTextField : sharedListOfKeywords){
             autocompleteTextField.getEntries().addAll(keywords);
         }
     }
-
-    private static class SingletonHelper{
-        private static final FullNamer INSTANCE = new FullNamer();
+    public static ArrayList<KeywordAutocompleteTextField> getSharedListOfKeywords() {
+        return sharedListOfKeywords;
     }
-
-    public JFXTextField getResearcherName() {
-        return researcherName;
-    }
-
-    public static FullNamer getInstance(){
-        return SingletonHelper.INSTANCE;
-    }
-
-    public ArrayList<KeywordAutocompleteTextField> getListofkeywords() {
-        return listofkeywords;
-    }
-
-    public AutocompleteTextField getExperimentType() {
-        return experimentType;
-    }
-
-
-
 }
