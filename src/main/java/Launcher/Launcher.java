@@ -55,8 +55,8 @@ public class Launcher extends Application {
             }
         });
 
-        primaryStage.setX(width - 400);
-        primaryStage.setY(height - 700 - 50);
+        //primaryStage.setX(width - 400);
+        //primaryStage.setY(height - 700 - 50);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.toFront();

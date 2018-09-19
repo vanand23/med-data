@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
 import javax.naming.NameNotFoundException;
@@ -172,8 +173,7 @@ public class CompactNamer extends Namer implements Initializable {
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
+        popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
     }
 
     @FXML
