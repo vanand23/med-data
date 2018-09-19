@@ -6,8 +6,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -130,19 +130,19 @@
             <Font name="Times New Roman" size="14.0" />
         </font>
     </Label>
-   <JFXButton fx:id="addKeywordButton" layoutX="31.0" layoutY="486.0" onAction="#addKeyword" text="+  Add new keyword">
+   <JFXButton fx:id="addKeywordButton" layoutX="41.0" layoutY="494.0" onAction="#addKeyword" text="+  Add new keyword">
       <font>
          <Font name="Arial Black" size="20.0" />
       </font>
    </JFXButton>
    <VBox fx:id="vboxOfKeywords" layoutX="42.0" layoutY="526.0" prefHeight="29.0" prefWidth="335.0" spacing="20.0" />
-   <TreeTableView layoutX="41.0" layoutY="324.0" prefHeight="162.0" prefWidth="418.0">
+   <TableView fx:id="keywordsTable" layoutX="50.0" layoutY="326.0" prefHeight="170.0" prefWidth="335.0">
      <columns>
-       <TreeTableColumn prefWidth="232.0" text="Name" />
-       <TreeTableColumn prefWidth="92.0" text="Abbreviation" />
-         <TreeTableColumn prefWidth="93.0" text="Data Value" />
+       <TableColumn fx:id="columnName" prefWidth="248.0" text="Name" />
+       <TableColumn fx:id="columnDataValue" prefWidth="86.0" text="Data Value" />
      </columns>
-   </TreeTableView>
+   </TableView>
+   <JFXButton fx:id="addButton" layoutX="401.0" layoutY="361.0" onAction="#handleOKButton" prefHeight="29.0" prefWidth="86.0" stylesheets="@../CSS/mediumButtons.css" text="ADD" wrapText="true" />
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" />
    </padding>

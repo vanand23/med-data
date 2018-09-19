@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,8 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -26,7 +29,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.util.StringConverter;
+import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
 
 import javax.naming.NameNotFoundException;
 import javax.swing.*;
@@ -40,6 +47,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 
 public class FullNamer extends ScreenController implements Initializable, ITypeObserver {
     @FXML
@@ -67,6 +77,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private JFXButton backButton;
 
     @FXML
+    private JFXButton addButton;
+
+    @FXML
     private VBox vboxOfKeywords;
 
     @FXML
@@ -78,12 +91,23 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     @FXML
     private JFXButton helpButton;
 
+    @FXML
+    private TableView<Keywords> keywordsTable;
+
+    @FXML
+    private TableColumn columnName;
+
+    @FXML
+    private TableColumn columnDataValue;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     private int numKeywords;
     private ArrayList<KeywordAutocompleteTextField> listofkeywords = new ArrayList<>();
 
     private ArrayList<String> keywords;
+
+    private final ObservableList<Keywords> data = FXCollections.observableArrayList();
 
 
     @Override
@@ -120,6 +144,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             trialNumber.setText("0");
             sampleNumber.setText("0");
             experimentType.setAutocompleteWidth(350);
+            columnName.setMinWidth(100);
+            columnDataValue.setMinWidth(100);
+            //keywordsTable.getItems().setAll(data);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
                 outputText.setText(updateName());
@@ -141,6 +168,23 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             });
             updateName();
         }
+    }
+
+    public void populateTable(Stage stage) {
+        stage.setTitle("Tree Table View of Keywords");
+        final Scene scene = new Scene(new Group(), 342, 162);
+        Group sceneRoot = (Group)scene.getRoot();
+
+        keywordsTable.setEditable(true);
+
+        //final TreeItem<String> keywords = new TreeItem<>(keywordNameText);
+
+        columnName.setCellValueFactory(new PropertyValueFactory<Keywords, String>("Name"));
+        columnDataValue.setCellValueFactory(new PropertyValueFactory<Keywords, String>("DataValue"));
+        keywordsTable.setItems(data);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -318,6 +362,13 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                 popupScreen("FXML/helpMenu.fxml", helpButton.getScene().getWindow(),"Help Menu");
     }
 
+    @FXML
+    public void handleOKButton (ActionEvent e) throws IOException {
+
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/addKeywordsUI.fxml", addButton.getScene().getWindow(),"Add Keywords Menu");
+    }
+
 
     @Override
     public void onTypeUpdate() {
@@ -350,4 +401,35 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         return experimentType;
     }
 
+    public static class Keywords{
+
+        private final SimpleStringProperty name;
+        private final SimpleStringProperty dataval;
+
+        private Keywords(String kname, String dval) {
+            this.name = new SimpleStringProperty(kname);
+            this.dataval = new SimpleStringProperty(dval);
+        }
+
+        public String getKeywordName(){
+            return name.get();
+        }
+
+        public void setKeywordName(String kname) {
+            name.set(kname);
+        }
+
+        public String getDataValue(){
+            return dataval.get();
+        }
+
+        public void setDataValue(String dval){
+            dataval.set(dval);
+        }
+
+
+    }
+
+
 }
+
