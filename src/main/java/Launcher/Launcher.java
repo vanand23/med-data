@@ -24,9 +24,8 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception{
         double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        // load the tron font.
         Font.loadFont(
-                Launcher.class.getResource("/Fonts/Arial Black.ttf").toExternalForm(),
+                Launcher.class.getResource("/Fonts/ArialBlack.ttf").toExternalForm(),
                 10
         );
 
