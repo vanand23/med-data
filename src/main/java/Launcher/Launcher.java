@@ -5,6 +5,7 @@ import Singletons.FXMLManager;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +24,12 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception{
         double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+        // load the tron font.
+        Font.loadFont(
+                Launcher.class.getResource("/Fonts/Arial Black.ttf").toExternalForm(),
+                10
+        );
+
 
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
