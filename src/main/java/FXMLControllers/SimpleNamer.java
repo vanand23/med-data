@@ -2,6 +2,7 @@ package FXMLControllers;
 
 import Types.ExperimentManager;
 import Types.KeywordManager;
+import Utilities.Config;
 import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -25,7 +26,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class SimpleNamer extends ScreenController implements Initializable {
+import static Utilities.Config.setProperty;
+
+public class SimpleNamer extends Namer implements Initializable {
 
     @FXML
     private DatePicker experimentDate;
@@ -53,9 +56,13 @@ public class SimpleNamer extends ScreenController implements Initializable {
     @FXML
     private JFXButton minusTrialButton;
 
+    @FXML
+    private JFXButton closeButton;
+
+    private String experimentType;
+    private String researcherName;
 
     @Override
-
     public void initialize(URL location, ResourceBundle resources){
 
         String pattern = "dd-MM-yyyy";
@@ -82,29 +89,50 @@ public class SimpleNamer extends ScreenController implements Initializable {
             }
         });
 
-        trialNumber.setText("0");
-       sampleNumber.setText("0");
-       experimentDate.setValue(LocalDate.now());
-    }
+        Config config = new Config();
+        String configResearcherName = config.getProperty("researcherName");
+        if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+        {
+            researcherName = configResearcherName;
+        }
+        String configExperimentType = config.getProperty("experimentType");
+        if(configExperimentType != null && !configExperimentType.trim().isEmpty())
+        {
+            experimentType = configExperimentType;
+        }
+        String configTrialNumber = config.getProperty("trialNumber");
+        if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
+        {
+            trialNumber.setText(configTrialNumber);
+        }
+        String configSampleNumber = config.getProperty("sampleNumber");
+        if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
+        {
+            sampleNumber.setText(configSampleNumber);
+        }
 
-    @FXML
-    public void copy(ActionEvent e) throws IOException {
-        String myString = "test";
-        StringSelection stringSelection = new StringSelection(myString);
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(stringSelection, null);
+        experimentDate.setValue(LocalDate.now());
+
+        trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
+            setProperty("trialNumber",newTrialNumber);
+        });
+        sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
+            setProperty("sampleNumber",newSampleNumber);
+        });
     }
 
     @FXML
     public void copyFileToClipboard(ActionEvent e) throws IOException{
-        String nameToCopy = updateName();
-
+        String nameToCopy = updateName(
+                experimentType,
+                trialNumber.getText(),
+                sampleNumber.getText(),
+                researcherName,
+                experimentDate.getValue(),
+                FullNamer.getSharedListOfKeywords());
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
-        //int currTrial = Integer.parseInt(trialNumber.getText());
-        //currTrial++;
-       // trialNumber.setText(String.valueOf(currTrial));
     }
 
     @FXML
@@ -141,35 +169,6 @@ public class SimpleNamer extends ScreenController implements Initializable {
         }
     }
 
-    private String updateName() {
-        StringBuilder fname = new StringBuilder();
-        String trialNumberText = trialNumber.getText();
-        String sampleNumberText = sampleNumber.getText();
-
-        if(experimentDate.getValue() != null)
-        {
-            fname.append(experimentDate.getValue().toString());
-        }
-
-        String experimentShorthand = "";
-
-
-        if(trialNumberText != null && !trialNumberText.trim().isEmpty())
-        {
-            fname.append("_");
-            fname.append(trialNumberText);
-        }
-
-        if(sampleNumberText != null && !trialNumberText.trim().isEmpty())
-        {
-            fname.append("_");
-            fname.append(sampleNumberText);
-        }
-
-        System.out.println(fname.toString());
-        return fname.toString();
-    }
-
     @FXML
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
@@ -178,8 +177,10 @@ public class SimpleNamer extends ScreenController implements Initializable {
                 popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
     }
 
-
+    @FXML
+    public void closeCompactNamer(ActionEvent e) {
+        Stage primaryStage = (Stage) closeButton.getScene().getWindow();
+        primaryStage.close();
+    }
 
 }
-
-

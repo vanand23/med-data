@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 
@@ -28,10 +27,6 @@ import static Utilities.Config.setProperty;
 public class ProjectPreferences extends ScreenController implements Initializable {
 
     private static ProjectPreferences instance = new ProjectPreferences();
-
-   @FXML
-
-   private JFXButton helpButtonFilepath;
 
     @FXML
     private JFXTextField researcherName;
@@ -70,18 +65,12 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     private String delimiter;
     private String nameOfResearcher;
 
-
    @Override
    public void initialize(URL location, ResourceBundle resources){
        final ToggleGroup prefButtons = new ToggleGroup();
        delimiter = "_";
        generatePreview();
        setProperty("delimiter", delimiter);
-
-       final JFXButton filepathHelp = helpButtonFilepath;
-       final Tooltip filepathTooltip = new Tooltip();
-       filepathTooltip.setText("This should look like: /csv/Example.csv");
-       filepathHelp.setTooltip(filepathTooltip);
    }
 
     @FXML
