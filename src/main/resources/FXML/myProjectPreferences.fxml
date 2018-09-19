@@ -127,5 +127,17 @@
             </JFXButton>
          </children>
       </StackPane>
+      <VBox layoutX="350.0" layoutY="437.0" prefHeight="44.0" prefWidth="66.0">
+         <children>
+            <JFXButton fx:id="saveButton" onAction="#saveProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Save" />
+         </children>
+      </VBox>
+      <JFXTextField fx:id="previewBox" editable="false" layoutX="137.0" layoutY="388.0" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: ffffff;" />
+      <Label layoutX="71.0" layoutY="392.0" text="Preview:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="helpButtonFilepath" layoutX="362.0" layoutY="228.0" stylesheets="@../CSS/helpButton.css" text="?" />
    </children>
 </AnchorPane>
