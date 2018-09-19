@@ -61,7 +61,6 @@ public abstract class ScreenController {
             stage.setX(event.getScreenX()-xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
-
         stage.setResizable(false);
         stage.show();
         return fxmlLoader;
