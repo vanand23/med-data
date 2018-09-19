@@ -7,8 +7,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -17,9 +16,9 @@
 
 <?import Utilities.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
-    <StackPane layoutX="60.0" layoutY="5.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+    <StackPane layoutX="90.0" layoutY="5.0" prefHeight="713.0" prefWidth="380.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="605.0" prefWidth="500.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" prefHeight="624.0" prefWidth="380.0" spacing="10.0">
                 <children>
                <HBox prefHeight="31.0" prefWidth="340.0">
                   <children>
@@ -134,20 +133,30 @@
                      </VBox>
                   </children>
                </HBox>
-               <TreeTableView prefHeight="115.0" prefWidth="340.0">
-                 <columns>
-                   <TreeTableColumn prefWidth="232.0" text="Name" />
-                   <TreeTableColumn prefWidth="92.0" text="Abbreviation" />
-                     <TreeTableColumn prefWidth="93.0" text="Data Value" />
-                 </columns>
-               </TreeTableView>
-               <VBox fx:id="vboxOfKeywords" prefHeight="29.0" prefWidth="335.0" spacing="20.0">
+               <VBox prefHeight="67.0" prefWidth="280.0">
                   <children>
-                     <JFXButton fx:id="addKeywordButton" onAction="#addKeyword" text="+  Add new keyword">
+                     <JFXButton fx:id="addKeywordButton" onAction="#addKeyword" prefHeight="34.0" prefWidth="212.0" text="+  Add new keyword">
                         <font>
                            <Font name="Arial Black" size="20.0" />
                         </font>
                      </JFXButton>
+                  </children>
+               </VBox>
+               <VBox prefHeight="196.0" prefWidth="280.0">
+                  <children>
+                     <ScrollPane prefHeight="130.0" prefViewportHeight="300.0" prefWidth="280.0">
+                       <content>
+                         <AnchorPane minHeight="0.0" minWidth="0.0">
+                              <children>
+                                 <StackPane>
+                                    <children>
+                                       <VBox fx:id="vboxOfKeywords" prefHeight="213.0" prefWidth="328.0" spacing="20.0" />
+                                    </children>
+                                 </StackPane>
+                              </children>
+                           </AnchorPane>
+                       </content>
+                     </ScrollPane>
                   </children>
                </VBox>
                     <VBox prefHeight="60.0" prefWidth="360.0">
