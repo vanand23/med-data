@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -14,15 +15,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import Utilities.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
-    <StackPane layoutX="60.0" layoutY="5.0" prefHeight="319.0" prefWidth="440.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <StackPane layoutX="60.0" layoutY="5.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
         <children>
             <VBox alignment="TOP_CENTER" prefHeight="605.0" prefWidth="500.0" spacing="20.0">
                 <children>
+               <HBox prefHeight="31.0" prefWidth="340.0">
+                  <children>
+                     <JFXButton fx:id="projectPreferencesButton" onAction="#handlePreferences" stylesheets="@../CSS/smallButtons.css" text="Project Preferences">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </JFXButton>
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">
+                  <children>
+                      <Label prefWidth="65.0" text="Full Namer">
+                          <font>
+                              <Font name="Times New Roman" size="14.0" />
+                          </font>
+                      </Label>
+                      <JFXToggleButton fx:id="switchNamers" onAction="#handleToggleButton" text="Compact Namer">
+                          <font>
+                              <Font name="Times New Roman" size="14.0" />
+                          </font>
+                        <padding>
+                           <Insets bottom="-10.0" top="-10.0" />
+                        </padding>
+                      </JFXToggleButton>
+                  </children>
+               </HBox>
                    <HBox alignment="CENTER_LEFT" spacing="20.0">
                       <children>
-                         <Label prefHeight="30.0" prefWidth="65.0" text="DATE">
+                         <Label prefHeight="30.0" prefWidth="134.0" text="DATE">
                             <font>
                                <Font name="Arial Black" size="20.0" />
                             </font>
@@ -107,6 +133,48 @@
                      </VBox>
                   </children>
                </HBox>
+               <TreeTableView prefHeight="115.0" prefWidth="340.0">
+                 <columns>
+                   <TreeTableColumn prefWidth="232.0" text="Name" />
+                   <TreeTableColumn prefWidth="92.0" text="Abbreviation" />
+                     <TreeTableColumn prefWidth="93.0" text="Data Value" />
+                 </columns>
+               </TreeTableView>
+               <VBox fx:id="vboxOfKeywords" prefHeight="29.0" prefWidth="335.0" spacing="20.0">
+                  <children>
+                     <JFXButton fx:id="addKeywordButton" onAction="#addKeyword" text="+  Add new keyword">
+                        <font>
+                           <Font name="Arial Black" size="20.0" />
+                        </font>
+                     </JFXButton>
+                  </children>
+               </VBox>
+                    <VBox prefHeight="60.0" prefWidth="360.0">
+                  <children>
+                     <Label text="OUTPUT">
+                        <font>
+                           <Font name="Arial Black" size="20.0" />
+                        </font>
+                     </Label>
+                     <HBox prefHeight="30.0" prefWidth="377.0">
+                        <children>
+                           <JFXTextField fx:id="outputText" prefHeight="25.0" prefWidth="364.0" />
+                           <JFXButton fx:id="helpButtonOutput" stylesheets="@../CSS/helpButton.css" text="?" />
+                        </children>
+                     </HBox>
+                  </children>
+                    </VBox>
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="70.0">
+                  <children>
+                      <JFXButton fx:id="copyNameButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/mediumButtons.css" text="Copy" />
+                     <JFXButton fx:id="closeButton" onAction="#closeFullNamer" text="Close">
+                        <stylesheets>
+                           <URL value="@../CSS/bigButtons.css" />
+                           <URL value="@../CSS/mediumButtons.css" />
+                        </stylesheets>
+                     </JFXButton>
+                  </children>
+               </HBox>
                 </children>
                 <padding>
                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -114,45 +182,6 @@
             </VBox>
         </children>
     </StackPane>
-        <VBox layoutX="41.0" layoutY="555.0" prefHeight="60.0" prefWidth="360.0">
-      <children>
-         <Label text="OUTPUT">
-            <font>
-               <Font name="Arial Black" size="20.0" />
-            </font>
-         </Label>
-         <HBox prefHeight="30.0" prefWidth="377.0">
-            <children>
-               <JFXTextField fx:id="outputText" prefHeight="25.0" prefWidth="364.0" />
-               <JFXButton fx:id="helpButtonOutput" stylesheets="@../CSS/helpButton.css" text="?" />
-            </children>
-         </HBox>
-      </children>
-        </VBox>
-    <JFXButton fx:id="copyNameButton" layoutX="210.0" layoutY="628.0" onAction="#copyFileToClipboard" stylesheets="@../CSS/mediumButtons.css" text="Copy" />
-    <JFXToggleButton fx:id="switchNamers" layoutX="203.0" layoutY="676.0" onAction="#handleToggleButton" text="Simple Namer">
-        <font>
-            <Font name="Times New Roman" size="14.0" />
-        </font>
-    </JFXToggleButton>
-    <Label layoutX="145.0" layoutY="698.0" text="Full Namer">
-        <font>
-            <Font name="Times New Roman" size="14.0" />
-        </font>
-    </Label>
-   <JFXButton fx:id="addKeywordButton" layoutX="31.0" layoutY="486.0" onAction="#addKeyword" text="+  Add new keyword">
-      <font>
-         <Font name="Arial Black" size="20.0" />
-      </font>
-   </JFXButton>
-   <VBox fx:id="vboxOfKeywords" layoutX="42.0" layoutY="526.0" prefHeight="29.0" prefWidth="335.0" spacing="20.0" />
-   <TreeTableView layoutX="41.0" layoutY="324.0" prefHeight="162.0" prefWidth="418.0">
-     <columns>
-       <TreeTableColumn prefWidth="232.0" text="Name" />
-       <TreeTableColumn prefWidth="92.0" text="Abbreviation" />
-         <TreeTableColumn prefWidth="93.0" text="Data Value" />
-     </columns>
-   </TreeTableView>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" />
    </padding>
