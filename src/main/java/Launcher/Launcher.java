@@ -46,6 +46,15 @@ public class Launcher extends Application {
                 yOffset = event.getSceneY();
             }
         });
+
+        root.setOnMouseDragged(new EventHandler<MouseEvent>(){
+            @Override
+                    public void handle(MouseEvent event){
+                primaryStage.setX(event.getScreenX()-xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            }
+        });
+
         primaryStage.setX(width - 400);
         primaryStage.setY(height - 700 - 50);
         primaryStage.setScene(new Scene(root));
