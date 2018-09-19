@@ -48,11 +48,16 @@
                      </children></VBox>
                   <VBox prefHeight="29.0" prefWidth="307.0">
                      <children>
-                        <JFXTextField focusColor="#4d4d4d" labelFloat="true" prefHeight="21.0" prefWidth="307.0" promptText="Keyword Glossary Filepath" style="-fx-background-color: ffffff;">
-                           <font>
-                              <Font name="Times New Roman" size="14.0" />
-                           </font>
-                        </JFXTextField>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextField focusColor="#4d4d4d" labelFloat="true" prefHeight="26.0" prefWidth="289.0" promptText="Keyword Glossary Filepath" style="-fx-background-color: ffffff;">
+                                 <font>
+                                    <Font name="Times New Roman" size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton fx:id="helpButtonFilepath" stylesheets="@../CSS/helpButton.css" text="?" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   <VBox prefHeight="13.0" prefWidth="307.0">
@@ -98,16 +103,7 @@
                   </VBox>
                   <VBox prefHeight="44.0" prefWidth="300.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="400.0" spacing="20.0">
-                           <children>
-                              <Label text="Preview:">
-                                 <font>
-                                    <Font name="Times New Roman" size="14.0" />
-                                 </font>
-                              </Label>
-                              <JFXTextField fx:id="previewBox" editable="false" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: ffffff;" />
-                           </children>
-                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="400.0" spacing="20.0" />
                      </children>
                   </VBox>
                </children>
@@ -127,17 +123,11 @@
             </JFXButton>
          </children>
       </StackPane>
-      <VBox layoutX="350.0" layoutY="437.0" prefHeight="44.0" prefWidth="66.0">
-         <children>
-            <JFXButton fx:id="saveButton" onAction="#saveProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Save" />
-         </children>
-      </VBox>
       <JFXTextField fx:id="previewBox" editable="false" layoutX="137.0" layoutY="388.0" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: ffffff;" />
       <Label layoutX="71.0" layoutY="392.0" text="Preview:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="helpButtonFilepath" layoutX="362.0" layoutY="228.0" stylesheets="@../CSS/helpButton.css" text="?" />
    </children>
 </AnchorPane>
