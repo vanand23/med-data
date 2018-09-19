@@ -104,5 +104,6 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
+      <JFXButton fx:id="helpButtonFilepath" layoutX="362.0" layoutY="228.0" stylesheets="@../CSS/helpButton.css" text="?" />
    </children>
 </AnchorPane>
