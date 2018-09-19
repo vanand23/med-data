@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import java.io.IOException;
@@ -47,6 +48,7 @@ public abstract class ScreenController {
         stage.setTitle(title);
         stage.initModality(Modality.APPLICATION_MODAL); //prevents main window from receiving input
         stage.initOwner(ownerWindow); //sets the main window as this screens owner
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();
         return fxmlLoader;

@@ -1,6 +1,5 @@
 package FXMLControllers;
 
-import Singletons.FXMLManager;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +38,7 @@ public class MainMenu extends ScreenController{
     @FXML
    public void handleSimpleNamer(ActionEvent e) throws IOException{
         FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/simpleNamer.fxml", simpleNamerButton.getScene().getWindow(),"Simple Namer");
+                popupScreen("FXML/compactNamer.fxml", simpleNamerButton.getScene().getWindow(),"Simple Namer");
     }
 
     @FXML

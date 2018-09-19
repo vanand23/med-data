@@ -1,6 +1,5 @@
 package FXMLControllers;
 
-import Launcher.Launcher;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
@@ -24,19 +23,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import sun.rmi.runtime.Log;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -274,27 +270,25 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 stringExperimentType,
                 stringTrialNumber,
                 stringSampleNumber,
-                stringResearcherName,
+                nameToCopy,
                 sharedListOfKeywords,
                 comment
                 ));
-        int currTrial = Integer.parseInt(trialNumber.getText());
+        /*int currTrial = Integer.parseInt(trialNumber.getText());
         currTrial++;
-        trialNumber.setText(String.valueOf(currTrial));
+        trialNumber.setText(String.valueOf(currTrial));*/
     }
 
     @FXML
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Compact Namer");
+        popupScreen("FXML/compactNamer.fxml", switchNamers.getScene().getWindow(),"Compact Namer");
     }
 
     @FXML
     public void handlePreferences(ActionEvent e) throws IOException {
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
+        popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
                         "Project Preferences");
     }
 
@@ -323,7 +317,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void generateLog(ActionEvent e){
         try {
             //new File("testFile.xlsx");
-            Workbook workbook = new XSSFWorkbook();
+            XSSFWorkbook workbook = new XSSFWorkbook();
             Sheet sheet = workbook.createSheet("testLog");
             Config config = new Config();
             String projectName = config.getProperty("projectName");
@@ -338,6 +332,49 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 Cell cell = projectNameRow.createCell(0);
                 cell.setCellValue("Project Description: " + projectDescription);
             }
+            XSSFFont font = workbook.createFont();
+            font.setFontName("Arial");
+            font.setFontHeightInPoints((short) 10);
+            font.setBold(true);
+            font.setColor(IndexedColors.WHITE.getIndex());
+
+            CellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setFillForegroundColor(IndexedColors.BLACK1.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setAlignment(HorizontalAlignment.CENTER);
+            headerStyle.setFont(font);
+
+            Row tableHeaderRow = sheet.createRow(2);
+            Cell dateHeaderCell = tableHeaderRow.createCell(0, CellType.STRING);
+            dateHeaderCell.setCellValue("DATE");
+            dateHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(0,2000);
+            Cell timeHeaderCell = tableHeaderRow.createCell(1, CellType.STRING);
+            timeHeaderCell.setCellValue("TIME");
+            timeHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(1,2000);
+            Cell researcherNameHeaderCell = tableHeaderRow.createCell(2, CellType.STRING);
+            researcherNameHeaderCell.setCellValue("RESEARCHER NAME");
+            researcherNameHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(2,6000);
+            Cell experimentTypeHeaderCell = tableHeaderRow.createCell(3, CellType.STRING);
+            experimentTypeHeaderCell.setCellValue("EXPERIMENT TYPE");
+            experimentTypeHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(3,6000);
+            Cell trialNumberHeaderCell = tableHeaderRow.createCell(4, CellType.STRING);
+            trialNumberHeaderCell.setCellValue("TRIAL NUMBER");
+            trialNumberHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(4,4500);
+            Cell sampleNumberHeaderCell = tableHeaderRow.createCell(5, CellType.STRING);
+            sampleNumberHeaderCell.setCellValue("SAMPLE NUMBER");
+            sampleNumberHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(5,4500);
+            Cell fileNameHeaderCell = tableHeaderRow.createCell(6, CellType.STRING);
+            fileNameHeaderCell.setCellValue("FILE NAME");
+            fileNameHeaderCell.setCellStyle(headerStyle);
+            sheet.setColumnWidth(6,3500);
+
+
             int i = 3;
             for (LogEntry logEntry : logEntryArrayList) {
                 Row newRow = sheet.createRow(i);
