@@ -1,5 +1,6 @@
 package FXMLControllers;
 
+import Launcher.Launcher;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
@@ -24,10 +25,19 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import sun.rmi.runtime.Log;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -72,6 +82,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXToggleButton switchNamers;
 
+    @FXML
+    private JFXButton projectPreferencesButton;
+
+    @FXML
+    private JFXButton closeButton;
 
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
@@ -79,10 +94,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private static ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords = new ArrayList<>();
 
     private ArrayList<String> keywords;
+    private ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         {
+
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
             String pattern = "dd/MM/yyyy";
@@ -232,12 +249,18 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void copyFileToClipboard(ActionEvent e) throws IOException{
+        String stringExperimentType = experimentType.getText();
+        String stringTrialNumber = trialNumber.getText();
+        String stringSampleNumber = sampleNumber.getText();
+        String stringResearcherName = researcherName.getText();
+        LocalDate stringExperimentDate = experimentDate.getValue();
+        String comment = "";
         String nameToCopy = updateName(
-                experimentType.getText(),
-                trialNumber.getText(),
-                sampleNumber.getText(),
-                researcherName.getText(),
-                experimentDate.getValue(),
+                stringExperimentType,
+                stringTrialNumber,
+                stringSampleNumber,
+                stringResearcherName,
+                stringExperimentDate,
                 sharedListOfKeywords);
         setProperty("experimentType",experimentType.getText());
 
@@ -245,6 +268,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
         outputText.setText(nameToCopy);
+        logEntryArrayList.add(new LogEntry(
+                stringExperimentDate,
+                stringResearcherName,
+                stringExperimentType,
+                stringTrialNumber,
+                stringSampleNumber,
+                stringResearcherName,
+                sharedListOfKeywords,
+                comment
+                ));
         int currTrial = Integer.parseInt(trialNumber.getText());
         currTrial++;
         trialNumber.setText(String.valueOf(currTrial));
@@ -255,7 +288,14 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
         FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Simple Namer");
+                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Compact Namer");
+    }
+
+    @FXML
+    public void handlePreferences(ActionEvent e) throws IOException {
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
+                        "Project Preferences");
     }
 
 
@@ -269,7 +309,73 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             autocompleteTextField.getEntries().addAll(keywords);
         }
     }
-    public static ArrayList<KeywordAutocompleteTextField> getSharedListOfKeywords() {
+    static ArrayList<KeywordAutocompleteTextField> getSharedListOfKeywords() {
         return sharedListOfKeywords;
+    }
+
+    @FXML
+    public void closeFullNamer(ActionEvent e) {
+        Stage primaryStage = (Stage) closeButton.getScene().getWindow();
+        primaryStage.close();
+    }
+
+    @FXML
+    public void generateLog(ActionEvent e){
+        try {
+            //new File("testFile.xlsx");
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("testLog");
+            Config config = new Config();
+            String projectName = config.getProperty("projectName");
+            String projectDescription = config.getProperty("projectDescription");
+            if (projectName != null && !projectName.trim().isEmpty()) {
+                Row projectNameRow = sheet.createRow(0);
+                Cell cell = projectNameRow.createCell(0);
+                cell.setCellValue("Project Name: " + projectName);
+            }
+            if (projectDescription != null && !projectDescription.trim().isEmpty()) {
+                Row projectNameRow = sheet.createRow(1);
+                Cell cell = projectNameRow.createCell(0);
+                cell.setCellValue("Project Description: " + projectDescription);
+            }
+            int i = 0;
+            for (LogEntry logEntry : logEntryArrayList) {
+                Row newRow = sheet.createRow(i);
+                Cell experimentDate = newRow.createCell(0);
+                Cell experimentTime = newRow.createCell(1);
+                Cell researcherName = newRow.createCell(2);
+                Cell experimentType = newRow.createCell(3);
+                Cell trialNumber = newRow.createCell(4);
+                Cell sampleNumber = newRow.createCell(5);
+                Cell fileName = newRow.createCell(6);
+                Cell comment = newRow.createCell(7);
+
+                experimentDate.setCellValue(logEntry.getExperimentDate());
+                experimentTime.setCellValue(logEntry.getExperimentTime());
+                researcherName.setCellValue(logEntry.getResearcherName());
+                experimentType.setCellValue(logEntry.getExperimentType());
+                trialNumber.setCellValue(logEntry.getTrialNumber());
+                sampleNumber.setCellValue(logEntry.getSampleNumber());
+                fileName.setCellValue(logEntry.getFileName());
+                int j = 7;
+            /*for(AutocompleteTextField autocompleteTextField : logEntry.getListOfKeywords())
+            {
+                Cell keyword = newRow.createCell(j);
+                keyword.setCellValue(autocompleteTextField.get);
+                j++;
+            }*/
+                comment.setCellValue("");
+                i++;
+            }
+            File currDir = new File(".");
+            String path = currDir.getAbsolutePath();
+            String fileLocation = path.substring(0, path.length() - 1) + "temp.xlsx";
+            FileOutputStream outputStream = new FileOutputStream(fileLocation);
+            workbook.write(outputStream);
+            workbook.close();
+            System.out.println("printed log file");
+        }catch (IOException e1){
+            System.out.println("ERROR MATE");
+        }
     }
 }
