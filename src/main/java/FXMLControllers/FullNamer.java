@@ -356,15 +356,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             Cell researcherNameHeaderCell = tableHeaderRow.createCell(2, CellType.STRING);
             researcherNameHeaderCell.setCellValue("RESEARCHER NAME");
             researcherNameHeaderCell.setCellStyle(headerStyle);
-            sheet.setColumnWidth(2,6000);
+            sheet.setColumnWidth(2,5500);
             Cell experimentTypeHeaderCell = tableHeaderRow.createCell(3, CellType.STRING);
             experimentTypeHeaderCell.setCellValue("EXPERIMENT TYPE");
             experimentTypeHeaderCell.setCellStyle(headerStyle);
-            sheet.setColumnWidth(3,6000);
+            sheet.setColumnWidth(3,5500);
             Cell trialNumberHeaderCell = tableHeaderRow.createCell(4, CellType.STRING);
             trialNumberHeaderCell.setCellValue("TRIAL NUMBER");
             trialNumberHeaderCell.setCellStyle(headerStyle);
-            sheet.setColumnWidth(4,4500);
+            sheet.setColumnWidth(4,4000);
             Cell sampleNumberHeaderCell = tableHeaderRow.createCell(5, CellType.STRING);
             sampleNumberHeaderCell.setCellValue("SAMPLE NUMBER");
             sampleNumberHeaderCell.setCellStyle(headerStyle);

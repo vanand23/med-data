@@ -15,6 +15,9 @@ import javafx.stage.Window;
 import java.io.IOException;
 
 public abstract class ScreenController {
+    //define your offsets here
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public static boolean inHierarchy(Node node, Node potentialParent){
             if (potentialParent == null) {
@@ -49,6 +52,16 @@ public abstract class ScreenController {
         stage.initModality(Modality.APPLICATION_MODAL); //prevents main window from receiving input
         stage.initOwner(ownerWindow); //sets the main window as this screens owner
         stage.initStyle(StageStyle.TRANSPARENT);
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX()-xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
         stage.setResizable(false);
         stage.show();
         return fxmlLoader;
