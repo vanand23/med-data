@@ -21,13 +21,14 @@
         <children>
             <VBox alignment="TOP_CENTER" prefHeight="605.0" prefWidth="500.0" spacing="20.0">
                 <children>
-               <HBox prefHeight="31.0" prefWidth="340.0">
+               <HBox alignment="CENTER" prefHeight="31.0" prefWidth="340.0" spacing="30.0">
                   <children>
-                     <JFXButton fx:id="projectPreferencesButton" onAction="#handlePreferences" stylesheets="@../CSS/smallButtons.css" text="Project Preferences">
+                     <JFXButton fx:id="projectPreferencesButton" onAction="#handlePreferences" stylesheets="@../CSS/smallButtons.css" text="PROJECT PREFERENCES">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
                      </JFXButton>
+                     <JFXButton fx:id="generateLogButton" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="GENERATE LOG" />
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">

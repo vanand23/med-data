@@ -64,8 +64,7 @@ public class CompactNamer extends Namer implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
-        String pattern = "dd-MM-yyyy";
+        String pattern = "dd/MM/yyyy";
         experimentDate.setPromptText(pattern.toLowerCase());
         experimentDate.setConverter(new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);

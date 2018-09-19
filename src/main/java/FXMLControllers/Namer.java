@@ -2,6 +2,7 @@ package FXMLControllers;
 
 import Types.ExperimentManager;
 import Types.KeywordManager;
+import Utilities.Config;
 import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -18,7 +19,8 @@ public class Namer extends ScreenController{
                       LocalDate experimentDate,
                       ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords)
     {
-        String delimiter = ProjectPreferences.getInstance().getDelimiter();
+        Config config = new Config();
+        String delimiter = config.getProperty("delimiter");
         if(delimiter == null){
             delimiter = "_";
         }
@@ -27,7 +29,11 @@ public class Namer extends ScreenController{
 
         if(experimentDate != null)
         {
-            fname.append(experimentDate.toString());
+            fname.append(experimentDate.getYear());
+            fname.append(delimiter);
+            fname.append(experimentDate.getMonthValue());
+            fname.append(delimiter);
+            fname.append(experimentDate.getDayOfMonth());
         }
 
         String experimentShorthand = "";
