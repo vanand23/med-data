@@ -43,6 +43,7 @@ public class Config {
     static public void setProperty(String propertyToSet, String propertyValue){
         try{
             Properties configFile = new Properties();
+            configFile.load(new FileInputStream("config.properties"));
             configFile.setProperty(propertyToSet, propertyValue);
             File tempFile = new File("config.properties");
             FileOutputStream fos = new FileOutputStream(tempFile);
