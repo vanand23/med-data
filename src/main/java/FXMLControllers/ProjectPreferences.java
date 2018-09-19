@@ -58,64 +58,115 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     private JFXTextField previewBox;
 
-    public String getDelimiter() {
+    @FXML
+    private JFXButton cancelButton;
+
+    String getDelimiter() {
         return delimiter;
     }
 
     private String delimiter;
     private String nameOfResearcher;
 
-   @Override
-   public void initialize(URL location, ResourceBundle resources){
-       final ToggleGroup prefButtons = new ToggleGroup();
-       delimiter = "_";
-       generatePreview();
-       setProperty("delimiter", delimiter);
-   }
+    @Override
+    public void initialize(URL location, ResourceBundle resources){
+        final ToggleGroup prefButtons = new ToggleGroup();
+        updateDelimiter();
+        generatePreview();
+        Config config = new Config();
+        String configResearcherName = config.getProperty("researcherName");
+        if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+        {
+            researcherName.setText(configResearcherName);
+        }
+        String configProjectName = config.getProperty("projectName");
+        if(configProjectName != null && !configProjectName.trim().isEmpty())
+        {
+            projectName.setText(configProjectName);
+        }
+        String configProjectDescription = config.getProperty("projectDescription");
+        if(configProjectDescription != null && !configProjectDescription.trim().isEmpty())
+        {
+            projectDescription.setText(configProjectDescription);
+        }
+
+        researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
+            setProperty("researcherName",newResearcherName);
+        });
+        projectName.textProperty().addListener((obs, oldProjectName, newProjectName) -> {
+            setProperty("projectName",newProjectName);
+        });
+        projectDescription.textProperty().addListener((obs, oldProjectDescription, newProjectDescription) -> {
+            setProperty("projectDescription",newProjectDescription);
+        });
+
+    }
 
     @FXML
     public void setDelimiterToAsterix(ActionEvent e) throws IOException{
         delimiter = "*";
         generatePreview();
-        setProperty("delimiter", delimiter);
     }
 
     @FXML
     public void setDelimiterToHyphen(ActionEvent e) throws IOException{
         delimiter = "-";
         generatePreview();
-        setProperty("delimiter", delimiter);
     }
 
     @FXML
     public void setDelimiterToUnderscore(ActionEvent e) throws IOException{
         delimiter = "_";
         generatePreview();
-        setProperty("delimiter", delimiter);
+    }
+
+
+    @FXML
+    public void closeProjectPreferences(ActionEvent e) throws IOException{
+        Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
+        primaryStage.close();
     }
 
     private void generatePreview(){
-
-       previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
+        previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
     }
 
-   public void saveProjectPreferences(ActionEvent e) throws IOException{
-       updateResearcherName();
-       updateDelimiter();
-   }
-
-   private void updateResearcherName(){
-       String thisResearcherName = researcherName.getText();
-       if(thisResearcherName != null && !(thisResearcherName.trim().isEmpty()))
-       {
-           setProperty("researcherName", thisResearcherName);
-       }
-       //set researcher name textbook in full namer to nameOfResearcher
-   }
+    public void saveProjectPreferences(ActionEvent e) throws IOException{
+        setProperty("delimiter",delimiter);
+        setProperty("researcherName",researcherName.getText());
+        setProperty("projectName",projectName.getText());
+        setProperty("projectDescription",projectDescription.getText());
+        closeProjectPreferences(e);
+    }
 
     //updates the delimiter based on the user's choice in the radio buttons
     private void updateDelimiter(){
-        setProperty("delimiter", delimiter);
+        delimiter = ProjectPreferences.getInstance().getDelimiter();
+        if(delimiter == null){
+            delimiter = "_";
+        }
+        switch(delimiter)
+        {
+            case "_":
+                underscoreButton.setSelected(true);
+                hyphenButton.setSelected(false);
+                asterixButton.setSelected(false);
+                break;
+            case "-":
+                underscoreButton.setSelected(false);
+                hyphenButton.setSelected(true);
+                asterixButton.setSelected(false);
+                break;
+            case "*":
+                underscoreButton.setSelected(false);
+                hyphenButton.setSelected(false);
+                asterixButton.setSelected(true);
+                break;
+            default:
+                underscoreButton.setSelected(true);
+                hyphenButton.setSelected(false);
+                asterixButton.setSelected(false);
+        }
     }
 
     /**
@@ -126,10 +177,10 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     }
 
     /**
-     * Gets the singleton instance of map editor
+     * Gets the singleton instance of project preferences
      * @return the proper single instance of map editor
      */
-    public static ProjectPreferences getInstance(){
+    static ProjectPreferences getInstance(){
         return SingletonHelper.INSTANCE;
     }
 
