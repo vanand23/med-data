@@ -85,7 +85,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         {
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
-            String pattern = "dd-MM-yyyy";
+            String pattern = "dd/MM/yyyy";
             experimentDate.setPromptText(pattern.toLowerCase());
             experimentDate.setConverter(new StringConverter<LocalDate>() {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
