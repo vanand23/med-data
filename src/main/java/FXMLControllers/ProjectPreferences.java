@@ -99,25 +99,27 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         projectDescription.textProperty().addListener((obs, oldProjectDescription, newProjectDescription) -> {
             setProperty("projectDescription",newProjectDescription);
         });
-
     }
 
     @FXML
     public void setDelimiterToAsterix(ActionEvent e) throws IOException{
         delimiter = "*";
         generatePreview();
+        setProperty("delimiter",delimiter);
     }
 
     @FXML
     public void setDelimiterToHyphen(ActionEvent e) throws IOException{
         delimiter = "-";
         generatePreview();
+        setProperty("delimiter",delimiter);
     }
 
     @FXML
     public void setDelimiterToUnderscore(ActionEvent e) throws IOException{
         delimiter = "_";
         generatePreview();
+        setProperty("delimiter",delimiter);
     }
 
 
