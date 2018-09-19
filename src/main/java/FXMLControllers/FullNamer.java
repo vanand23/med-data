@@ -1,5 +1,6 @@
 package FXMLControllers;
 
+import Launcher.Launcher;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
@@ -72,6 +73,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXToggleButton switchNamers;
 
+    @FXML
+    private JFXButton projectPreferencesButton;
+
+    @FXML
+    private JFXButton closeButton;
 
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
@@ -83,6 +89,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         {
+
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
             String pattern = "dd/MM/yyyy";
@@ -255,7 +262,14 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
         FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Simple Namer");
+                popupScreen("FXML/simpleNamer.fxml", switchNamers.getScene().getWindow(),"Compact Namer");
+    }
+
+    @FXML
+    public void handlePreferences(ActionEvent e) throws IOException {
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
+                        "Project Preferences");
     }
 
 
@@ -271,5 +285,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
     public static ArrayList<KeywordAutocompleteTextField> getSharedListOfKeywords() {
         return sharedListOfKeywords;
+    }
+
+    @FXML
+    public void closeFullNamer(ActionEvent e) {
+        Stage primaryStage = (Stage) closeButton.getScene().getWindow();
+        primaryStage.close();
     }
 }

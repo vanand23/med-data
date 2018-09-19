@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 import static Utilities.Config.setProperty;
 
-public class SimpleNamer extends Namer implements Initializable {
+public class CompactNamer extends Namer implements Initializable {
 
     @FXML
     private DatePicker experimentDate;
