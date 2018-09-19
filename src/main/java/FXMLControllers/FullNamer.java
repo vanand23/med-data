@@ -338,7 +338,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 Cell cell = projectNameRow.createCell(0);
                 cell.setCellValue("Project Description: " + projectDescription);
             }
-            int i = 0;
+            int i = 3;
             for (LogEntry logEntry : logEntryArrayList) {
                 Row newRow = sheet.createRow(i);
                 Cell experimentDate = newRow.createCell(0);
