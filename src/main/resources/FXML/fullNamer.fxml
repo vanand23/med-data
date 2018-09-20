@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import Utilities.*?>
 
+<?import Utilities.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane>
         <children>
@@ -32,7 +32,7 @@
                            <Insets />
                         </HBox.margin>
                      </JFXButton>
-                     <JFXButton fx:id="generateLogButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="GENERATE LOG" />
+                     <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#handleLogger" stylesheets="@../CSS/smallButtons.css" text="LOGGER" />
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">
@@ -84,23 +84,20 @@
                             </AutocompleteTextField>
                         </children>
                     </VBox>
-                    <VBox alignment="BOTTOM_LEFT" prefWidth="360.0">
+                    <VBox alignment="BOTTOM_LEFT" prefHeight="60.0" prefWidth="360.0">
                         <children>
                             <Label text="RESEARCHER NAME">
                                 <font>
                                     <Font name="Arial Black" size="18.0" />
                                 </font>
                                 <VBox.margin>
-                                    <Insets />
+                                    <Insets bottom="-5.0" />
                                 </VBox.margin>
                             </Label>
-                            <JFXTextField fx:id="researcherName" labelFloat="true" layoutX="20.0" layoutY="148.0" prefWidth="360.0">
+                            <JFXTextField fx:id="researcherName" labelFloat="true" layoutX="20.0" layoutY="148.0" prefHeight="40.0" prefWidth="360.0">
                                 <font>
                                     <Font name="Times New Roman" size="20.0" />
                                 </font>
-                        <VBox.margin>
-                           <Insets top="-10.0" />
-                        </VBox.margin>
                             </JFXTextField>
                         </children>
                     </VBox>
@@ -120,9 +117,6 @@
                               <font>
                                  <Font name="Times New Roman" size="20.0" />
                               </font>
-                              <VBox.margin>
-                                 <Insets top="-5.0" />
-                              </VBox.margin>
                            </JFXTextField>
                         </children>
                      </VBox>
@@ -140,38 +134,29 @@
                               <font>
                                  <Font name="Times New Roman" size="20.0" />
                               </font>
-                              <VBox.margin>
-                                 <Insets top="-5.0" />
-                              </VBox.margin>
                            </JFXTextField>
                         </children>
                      </VBox>
                   </children>
                </HBox>
-               <ScrollPane fx:id="scrollPaneOfKeywords" fitToWidth="true" prefHeight="125.0" VBox.vgrow="ALWAYS">
+               <ScrollPane fx:id="scrollPaneOfKeywords" fitToHeight="true" prefHeight="125.0" prefWidth="460.0" VBox.vgrow="ALWAYS">
                  <content>
-                   <AnchorPane fx:id="anchorPaneOfKeywords" minHeight="0.0" minWidth="0.0" prefWidth="458.0">
+                   <AnchorPane fx:id="anchorPaneOfKeywords" minHeight="0.0" minWidth="0.0">
                         <children>
-                           <VBox fx:id="vboxOfKeywords" alignment="TOP_LEFT" prefHeight="1000.0" prefWidth="458.0" spacing="10.0" />
+                           <VBox fx:id="veeb" alignment="TOP_LEFT" prefHeight="200.0" />
                         </children></AnchorPane>
                  </content>
-                  <VBox.margin>
-                     <Insets bottom="-5.0" />
-                  </VBox.margin>
                </ScrollPane>
-               <VBox fx:id="vboxAddNewKeyword" spacing="20.0">
+               <VBox fx:id="vboxOfKeywords" spacing="20.0">
                   <children>
                      <JFXButton fx:id="addKeywordButton" onAction="#addKeyword" text="+ ADD NEW KEYWORD">
                         <font>
                            <Font name="Arial Black" size="18.0" />
                         </font>
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
                      </JFXButton>
                   </children>
                </VBox>
-                    <VBox prefHeight="60.0" prefWidth="460.0">
+                    <VBox prefHeight="60.0" prefWidth="360.0">
                   <children>
                      <Label text="OUTPUT">
                         <font>
@@ -185,11 +170,8 @@
                         </children>
                      </HBox>
                   </children>
-                  <VBox.margin>
-                     <Insets top="-10.0" />
-                  </VBox.margin>
                     </VBox>
-               <HBox alignment="CENTER" spacing="70.0">
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="70.0">
                   <children>
                       <JFXButton fx:id="copyNameButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/mediumButtons.css" text="Copy" />
                      <JFXButton fx:id="closeButton" onAction="#closeFullNamer" text="Close">

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.LoggerMenu">
+   <children>
+      <StackPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0">
+                     <children>
+                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="35.0" prefWidth="110.0" text="LOGGER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="102.0" text="Load Log File:" />
+                              <JFXTextField fx:id="priorLogFile" prefHeight="25.0" prefWidth="411.0" style="-fx-background-color: FFFFFF;" />
+                              <JFXButton fx:id="priorLogHelpButton" stylesheets="@../CSS/helpButton.css" text="?" />
+                           </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="CREATE NEW LOG FILE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="87.0" text="Log File Name: " />
+                              <JFXTextField fx:id="newLogFileName" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: ffffff;" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Log File Path:  " />
+                              <JFXTextField fx:id="newLogFilePath" prefHeight="25.0" prefWidth="291.0" style="-fx-background-color: ffffff;" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
+                           <children>
+                              <JFXButton fx:id="saveLoggerButtoon" stylesheets="@../CSS/smallButtons.css" text="Save" />
+                              <JFXButton fx:id="startLoggerButton" stylesheets="@../CSS/smallButtons.css" text="Start Logger" />
+                              <JFXButton fx:id="resetLoggerButton" stylesheets="@../CSS/smallButtons.css" text="Reset Logger" />
+                              <JFXButton fx:id="cancelLoggerButton" onAction="#closeLogger" stylesheets="@../CSS/smallButtons.css" text="Cancel" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
