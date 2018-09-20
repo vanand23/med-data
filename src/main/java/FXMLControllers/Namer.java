@@ -94,19 +94,25 @@ public class Namer extends ScreenController{
                 try {
                     JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
                     keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    if(autocompleteTextField.getState() == 1 && keywordValue != null && keywordValue.getText() != null)
+                    if(autocompleteTextField.getState() == 1)
                     {
                         String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
                         switch (affix){
                             case "prefix":
                                 fname.append(keyword);
-                                fname.append(keywordValue.getText());
+                                if(keywordValue.getText() != null && !keywordValue.getText().trim().isEmpty())
+                                {
+                                    fname.append(keywordValue.getText());
+                                }
                                 break;
                             case "suffix":
-                                fname.append(keywordValue.getText());
+                                if(keywordValue.getText() != null && !keywordValue.getText().trim().isEmpty())
+                                {
+                                    fname.append(keywordValue.getText());
+                                }
                                 fname.append(keyword);
                                 break;
-                            case "no value":
+                            case "none":
                                 fname.append(keyword);
                                 break;
                             default:
