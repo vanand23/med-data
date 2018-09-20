@@ -19,7 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static FXMLControllers.FullNamer.getTableOfKeywords;
-import static FXMLControllers.FullNamer.sharedListOfKeywordStrings;
 import static javafx.scene.layout.HBox.setHgrow;
 
 public class KeywordAutocompleteTextField extends AutocompleteTextField {
@@ -75,20 +74,21 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
                 r.keyPress(KeyEvent.VK_ENTER);
                 r.keyRelease(KeyEvent.VK_ENTER);
                 HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER);
+                hBox.setAlignment(Pos.CENTER_LEFT);
                 hBox.setSpacing(10);
+                hBox.setPrefHeight(39);
                 Label label = new Label(result);
                 label.setFont(new Font("Arial Black", 14));
+                label.setMinWidth(USE_PREF_SIZE);
                 label.setPrefWidth(USE_COMPUTED_SIZE);
                 hBox.getChildren().add(label);
-                sharedListOfKeywordStrings.add(result);
                 try {
                     if(!KeywordManager.getInstance().getKeywordByName("long",result).getAffix().equals("none")){
                         JFXTextField keyval = new JFXTextField();
                         keyval.setPrefWidth(USE_COMPUTED_SIZE);
                         keyval.setMaxWidth(USE_COMPUTED_SIZE);
                         hBox.getChildren().add(keyval);
-                        setHgrow(keyval, Priority.ALWAYS);
+                        setHgrow(keyval, Priority.SOMETIMES);
                         keywordValueField = keyval;
                     }
                 } catch (NameNotFoundException e1) {
