@@ -116,6 +116,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXButton helpButtonOutput;
 
+    @FXML
+    private JFXButton loggerButton;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
 
@@ -405,6 +408,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         "Project Preferences");
     }
 
+    @FXML
+    public void handleLogger(ActionEvent e) throws IOException{
+        Stage popup = popupScreen("FXML/loggerMenu.fxml", loggerButton.getScene().getWindow(), "Logger");
+    }
+
 
     @Override
     public void onTypeUpdate() {
@@ -532,4 +540,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public static TreeTableView getTableOfKeywords() {
         return tableOfKeywords;
     }
+
+
 }

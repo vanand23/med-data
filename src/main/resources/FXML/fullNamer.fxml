@@ -32,7 +32,7 @@
                            <Insets />
                         </HBox.margin>
                      </JFXButton>
-                     <JFXButton fx:id="generateLogButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="GENERATE LOG" />
+                     <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#handleLogger" stylesheets="@../CSS/smallButtons.css" text="LOGGER" />
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">
@@ -143,7 +143,7 @@
                  <content>
                    <AnchorPane fx:id="anchorPaneOfKeywords" minHeight="0.0" minWidth="0.0">
                         <children>
-                           <VBox fx:id="veeb" prefHeight="200.0" alignment="TOP_LEFT"/>
+                           <VBox fx:id="veeb" alignment="TOP_LEFT" prefHeight="200.0" />
                         </children></AnchorPane>
                  </content>
                </ScrollPane>
