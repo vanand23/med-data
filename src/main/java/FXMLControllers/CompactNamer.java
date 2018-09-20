@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
@@ -65,6 +66,7 @@ public class CompactNamer extends Namer implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+
         String pattern = "dd/MM/yyyy";
         experimentDate.setPromptText(pattern.toLowerCase());
         experimentDate.setConverter(new StringConverter<LocalDate>() {
