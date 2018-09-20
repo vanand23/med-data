@@ -40,13 +40,12 @@ public abstract class ScreenController {
      * @param title the name that will appear at the top of the popup window
      * @throws IOException exception thrown
      */
-    public FXMLLoader popupScreen(String fxml, Window ownerWindow, String title) throws IOException{
+    public Stage popupScreen(String fxml, Window ownerWindow, String title) throws IOException{
         Stage stage = new Stage();
         //Parent root = FXMLManager.getInstance().getOrLoadFXMLNode(fxml);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
         stage.setTitle(title);
         stage.initModality(Modality.APPLICATION_MODAL); //prevents main window from receiving input
@@ -63,8 +62,7 @@ public abstract class ScreenController {
         });
         stage.setResizable(false);
         stage.show();
-        return fxmlLoader;
-
+        return stage;
     }
 
     public void setScene(String fxml, Stage stage) throws IOException{

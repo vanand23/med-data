@@ -37,20 +37,17 @@ public class MainMenu extends ScreenController{
 
     @FXML
    public void handleSimpleNamer(ActionEvent e) throws IOException{
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/compactNamer.fxml", simpleNamerButton.getScene().getWindow(),"Simple Namer");
+        popupScreen("FXML/compactNamer.fxml", simpleNamerButton.getScene().getWindow(),"Simple Namer");
     }
 
     @FXML
     public void handleFullNamer(ActionEvent e) throws IOException {
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/fullNamer.fxml", fullNamerButton.getScene().getWindow(),"Full Namer");
+        popupScreen("FXML/fullNamer.fxml", fullNamerButton.getScene().getWindow(),"Full Namer");
     }
 
     @FXML
     public void handlePreferences(ActionEvent e) throws IOException {
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/myProjectPreferences.fxml", preferencesButton.getScene().getWindow(),
+        popupScreen("FXML/myProjectPreferences.fxml", preferencesButton.getScene().getWindow(),
                         "Project Preferences");
     }
 
