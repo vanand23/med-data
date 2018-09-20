@@ -12,7 +12,7 @@
 <AnchorPane prefHeight="212.0" prefWidth="393.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.AddKeywordsUI">
    <children>
       <AutocompleteTextField fx:id="keywordName" layoutX="132.0" layoutY="57.0" onAction="#updateKeywords" prefHeight="27.0" prefWidth="241.0" style="-fx-background-color: ffffff;" />
-      <JFXButton fx:id="okButton" layoutX="302.0" layoutY="155.0" prefHeight="27.0" prefWidth="64.0" stylesheets="@../CSS/mediumButtons.css" text="OK" />
+      <JFXButton fx:id="okButton" layoutX="302.0" layoutY="155.0" onAction= "#handleOKButton" prefHeight="27.0" prefWidth="64.0" stylesheets="@../CSS/mediumButtons.css" text="OK" />
       <Text layoutX="44.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a keyword from the database:" wrappingWidth="305.21875">
          <font>
             <Font name="Times New Roman" size="20.0" />

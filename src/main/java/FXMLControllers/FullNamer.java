@@ -21,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -107,8 +108,16 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
     private ArrayList<String> keywords;
 
-    private final ObservableList<Keywords> data = FXCollections.observableArrayList();
+    private final static ObservableList<Keywords> data = FXCollections.observableArrayList();
 
+    public static ObservableList<Keywords> getData() {
+        return data;
+    }
+
+
+    /*public static void setData(ObservableList<Keywords> data) {
+        FullNamer.data = data;
+    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -146,7 +155,42 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
             experimentType.setAutocompleteWidth(350);
             columnName.setMinWidth(100);
             columnDataValue.setMinWidth(100);
-            //keywordsTable.getItems().setAll(data);
+
+
+            columnName.setCellValueFactory(new PropertyValueFactory<Keywords, String>("KeywordName"));
+            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keywords, String>("DataValue"));
+
+            keywordsTable.setEditable(true);
+
+            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+            columnName.setOnEditCommit(
+                    new EventHandler<TableColumn.CellEditEvent>() {
+                        @Override
+                        public void handle(TableColumn.CellEditEvent event) {
+
+                            ((Keywords) event.getTableView().getItems().get(
+                                    event.getTablePosition().getRow())
+                            ).setKeywordName((String) event.getNewValue());
+
+                        }
+                    }
+            );
+
+            columnDataValue.setCellFactory(TextFieldTableCell.forTableColumn());
+            columnDataValue.setOnEditCommit(
+                    new EventHandler<TableColumn.CellEditEvent>() {
+                        @Override
+                        public void handle(TableColumn.CellEditEvent event) {
+
+                            ((Keywords) event.getTableView().getItems().get(
+                                    event.getTablePosition().getRow())
+                            ).setDataValue((String) event.getNewValue());
+
+                        }
+                    }
+            );
+
+            keywordsTable.setItems(this.data);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
                 outputText.setText(updateName());
@@ -170,22 +214,6 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         }
     }
 
-    public void populateTable(Stage stage) {
-        stage.setTitle("Tree Table View of Keywords");
-        final Scene scene = new Scene(new Group(), 342, 162);
-        Group sceneRoot = (Group)scene.getRoot();
-
-        keywordsTable.setEditable(true);
-
-        //final TreeItem<String> keywords = new TreeItem<>(keywordNameText);
-
-        columnName.setCellValueFactory(new PropertyValueFactory<Keywords, String>("Name"));
-        columnDataValue.setCellValueFactory(new PropertyValueFactory<Keywords, String>("DataValue"));
-        keywordsTable.setItems(data);
-
-        stage.setScene(scene);
-        stage.show();
-    }
 
     /**
      * Show stairs toggled
@@ -363,7 +391,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     }
 
     @FXML
-    public void handleOKButton (ActionEvent e) throws IOException {
+    public void handleAddButton (ActionEvent e) throws IOException {
 
         FXMLLoader listOfLocationLoader =
                 popupScreen("FXML/addKeywordsUI.fxml", addButton.getScene().getWindow(),"Add Keywords Menu");
@@ -401,35 +429,8 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
         return experimentType;
     }
 
-    public static class Keywords{
-
-        private final SimpleStringProperty name;
-        private final SimpleStringProperty dataval;
-
-        private Keywords(String kname, String dval) {
-            this.name = new SimpleStringProperty(kname);
-            this.dataval = new SimpleStringProperty(dval);
-        }
-
-        public String getKeywordName(){
-            return name.get();
-        }
-
-        public void setKeywordName(String kname) {
-            name.set(kname);
-        }
-
-        public String getDataValue(){
-            return dataval.get();
-        }
-
-        public void setDataValue(String dval){
-            dataval.set(dval);
-        }
-
-
-    }
 
 
 }
+
 

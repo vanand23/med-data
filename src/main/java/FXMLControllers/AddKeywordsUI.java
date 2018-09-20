@@ -6,6 +6,8 @@ import Utilities.AutocompleteTextField;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+
+import static FXMLControllers.FullNamer.getData;
 
 public class AddKeywordsUI extends ScreenController implements Initializable, ITypeObserver {
 
@@ -36,7 +41,8 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     }
 
-    private void getParamNames() {
+
+    public String getKeyAbbrev() {
 
         String keywordNameText = keywordName.getText();
         String keywordDataValText = keywordDataVal.getText();
@@ -54,7 +60,11 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
             }
         }
 
+        return keywordAbbrev;
+
     }
+
+
 
     @FXML
     public void updateKeywords(ActionEvent e) throws IOException {
@@ -63,15 +73,23 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     @FXML
     public void handleOKButton(ActionEvent e) throws IOException {
-        //data.add(new Keyword(keywordName.getText(), keywordDataVal.getText()));
-        //keywordName.clear();
-        //keywordDataVal.clear();
+
+        ObservableList<Keywords> parameterData = FXCollections.observableArrayList();
+        parameterData = getData();
+        parameterData.add(new Keywords(keywordName.getText(), keywordDataVal.getText()));
+        System.out.println(keywordName.getText());
+        keywordName.clear();
+        keywordDataVal.clear();
+
+
     }
 
     @Override
     public void onTypeUpdate() {
+
         ArrayList<String> keynames = (ArrayList<String>) KeywordManager.getInstance().getAllKeywordLongNames();
         keywordName.getEntries().addAll(keynames);
+        System.out.println(keynames);
 
     }
 }
