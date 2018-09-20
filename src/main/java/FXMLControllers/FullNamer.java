@@ -3,6 +3,7 @@ package FXMLControllers;
 import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
+import Types.KeywordType;
 import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
@@ -12,23 +13,26 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.naming.NameNotFoundException;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -36,12 +40,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static Utilities.Config.setProperty;
+import static javafx.scene.layout.HBox.setHgrow;
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
@@ -84,6 +91,24 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXButton closeButton;
 
+    @FXML
+    private ScrollPane scrollPaneOfKeywords;
+
+    @FXML
+    private AnchorPane anchorPaneOfKeywords;
+
+    @FXML
+    private VBox veeb;
+
+    @FXML
+    static TreeTableView tableOfKeywords;
+
+    @FXML
+    static TreeTableColumn<KeywordType, String> dataValueColumn;
+
+    @FXML
+    static TreeTableColumn<KeywordType, String> nameColumn;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
 
@@ -95,7 +120,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         {
-
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
             String pattern = "dd/MM/yyyy";
@@ -215,24 +239,82 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         JFXButton removeObjectButton = new JFXButton("", new ImageView(removeObjectIcon));
         removeObjectButton.setPrefSize(15,15);
+        removeObjectButton.setPadding(new Insets(0,0,0,0));
         removeObjectButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
         HBox hbox = new HBox();
         hbox.setSpacing(10);
+        hbox.setAlignment(Pos.CENTER);
         hbox.getChildren().add(removeObjectButton);
         KeywordAutocompleteTextField textField = new KeywordAutocompleteTextField(hbox);
-        textField.setMinWidth(350);
+        textField.setPrefWidth(Region.USE_COMPUTED_SIZE);
         textField.setPromptText("Choose keyword");
         textField.setAlignment(Pos.BASELINE_LEFT);
-        textField.setLabelFloat(true);
+        textField.setLabelFloat(false);
         textField.setUnFocusColor(Paint.valueOf("#000000"));
         textField.setFont(new Font("Times New Roman", 20));
+
+        vboxOfKeywords.getChildren().remove(addKeywordButton);
         hbox.getChildren().add(textField);
+        JFXButton submitKeywordButton = new JFXButton("SUBMIT");
+        submitKeywordButton.getStylesheets().add("/CSS/smallButtons.css");
+        submitKeywordButton.setFont(new Font("Arial Black", 14));
+        submitKeywordButton.setPrefWidth(USE_COMPUTED_SIZE);
+        submitKeywordButton.setOnAction(actionEvent1 -> {
+            if(textField.getState() == 1)
+            {
+                HBox heeb = new HBox();
+                heeb.setSpacing(10);
+                heeb.setAlignment(Pos.CENTER);
+                JFXButton removeLabelButton = new JFXButton("", new ImageView(removeObjectIcon));
+                removeLabelButton.setPrefSize(15,15);
+                removeLabelButton.setPadding(new Insets(0,0,0,0));
+                removeLabelButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+                removeLabelButton.setOnAction(e2 -> {
+                    sharedListOfKeywords.remove(textField);
+                    veeb.getChildren().remove(heeb);
+                });
+                heeb.getChildren().add(removeLabelButton);
+                Label newKeyword = new Label();
+                newKeyword.setFont(new Font("Times New Roman", 16));
+                try {
+                    if(!KeywordManager.getInstance().getKeywordByName("long",textField.getText()).getAffix().equals("none")
+                            && textField.getKeywordValueField().getText() != null
+                            && !textField.getKeywordValueField().getText().trim().isEmpty())
+                    {
+                        newKeyword.setText(textField.getText() + ", " + textField.getKeywordValueField().getText());
+                    }else{
+                        newKeyword.setText(textField.getText());
+                    }
+                    heeb.getChildren().add(newKeyword);
+                    veeb.getChildren().add(heeb);
+                }catch (NameNotFoundException e1){
+                    e1.printStackTrace();
+                }
+                updateName(
+                    experimentType.getText(),
+                    trialNumber.getText(),
+                    sampleNumber.getText(),
+                    researcherName.getText(),
+                    experimentDate.getValue(),
+                        sharedListOfKeywords);
+                textField.setState(0);
+                sharedListOfKeywords.remove(textField);
+                vboxOfKeywords.getChildren().remove(hbox);
+                vboxOfKeywords.getChildren().add(addKeywordButton);
+            }
+        });
+        hbox.getChildren().add(submitKeywordButton);
+
+        setHgrow(textField, Priority.ALWAYS);
         sharedListOfKeywords.add(textField);
 
         removeObjectButton.setOnAction(e1 -> {
+            textField.setState(0);
             sharedListOfKeywords.remove(textField);
             vboxOfKeywords.getChildren().remove(hbox);
+            vboxOfKeywords.getChildren().add(addKeywordButton);
         });
+
 
         vboxOfKeywords.getChildren().add(hbox);
         onTypeUpdate();
@@ -414,5 +496,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         }catch (IOException e1){
             System.out.println("ERROR MATE");
         }
+    }
+
+    public static TreeTableView getTableOfKeywords() {
+        return tableOfKeywords;
     }
 }

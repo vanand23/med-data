@@ -6,6 +6,13 @@
 5,Tone audiometry,TA,numeric,prefix,0
 6,Air conduction,AC,numeric,prefix,0
 7,Bone conduction,BC,numeric,prefix,0
-8,Normalized hearing loss in DB,dB HL,numeric,prefix,0
-9,Sound pressure level in DB,dB SPL,numeric,prefix,0
+8,Normalized hearing loss in DB,dBHL,numeric,prefix,0
+9,Sound pressure level in DB,dBSPL,numeric,prefix,0
 10,Speech audiometry,SA,numeric,prefix,0
+11,Free field stimulation,FF,none,none,0
+12,Freiburg monosyllabic speech test,FreiburgMS,none,none,0
+13,Oldenberg speech text in noise,OLSA,none,none,0
+14,Transient evoked optoacoustic emission,TEOAE,none,none,0
+15,Acoustic brainstem response,ABR,none,none,0
+16,Contralateral routing of signal,CROS,none,none,0
+17,Bone anchored hearing aid,BAHA,none,none,0
