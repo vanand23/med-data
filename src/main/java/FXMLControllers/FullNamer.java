@@ -121,6 +121,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton helpButtonOutput;
 
     @FXML
+    private JFXButton loggerButton;
+
+    @FXML
     private TableView<Keywords> keywordsTable;
 
     @FXML
@@ -445,6 +448,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         primaryStage.close();
         Stage popup = popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
                         "Project Preferences");
+    }
+
+    @FXML
+    public void handleLogger(ActionEvent e) throws IOException{
+        Stage popup = popupScreen("FXML/loggerMenu.fxml", loggerButton.getScene().getWindow(), "Logger");
     }
 
     @FXML

@@ -33,7 +33,7 @@
                            <Insets />
                         </HBox.margin>
                      </JFXButton>
-                     <JFXButton fx:id="generateLogButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="GENERATE LOG" />
+                     <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#handleLogger" stylesheets="@../CSS/smallButtons.css" text="LOGGER" />
                   </children>
                </HBox>
                <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">
