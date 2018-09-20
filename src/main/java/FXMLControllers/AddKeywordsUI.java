@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
 import static FXMLControllers.FullNamer.getData;
 
@@ -73,15 +74,14 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     @FXML
     public void handleOKButton(ActionEvent e) throws IOException {
-
         ObservableList<Keywords> parameterData = FXCollections.observableArrayList();
         parameterData = getData();
         parameterData.add(new Keywords(keywordName.getText(), keywordDataVal.getText()));
         System.out.println(keywordName.getText());
         keywordName.clear();
         keywordDataVal.clear();
-
-
+        Stage primaryStage = (Stage) keywordDataVal.getScene().getWindow();
+        primaryStage.close();
     }
 
     @Override

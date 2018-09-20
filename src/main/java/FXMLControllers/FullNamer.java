@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -54,6 +55,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import sun.rmi.runtime.Log;
+
 import static Utilities.Config.setProperty;
 import static javafx.scene.layout.HBox.setHgrow;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -85,9 +88,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton backButton;
 
     @FXML
-    private JFXButton addButton;
-
-    @FXML
     private VBox vboxOfKeywords;
 
     @FXML
@@ -103,13 +103,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton closeButton;
 
     @FXML
-    private ScrollPane scrollPaneOfKeywords;
-
-    @FXML
     private AnchorPane anchorPaneOfKeywords;
-
-    @FXML
-    private VBox vboxOfKeywords;
 
     @FXML
     static TreeTableView tableOfKeywords;
@@ -141,6 +135,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private static ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords = new ArrayList<>();
 
     private final static ObservableList<Keywords> data = FXCollections.observableArrayList();
+
+    private static ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
 
     public static ObservableList<Keywords> getData() {
         return data;
@@ -314,7 +310,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     sharedListOfKeywords));
         }
     }
-
+/*
     @FXML
     public void addKeyword(ActionEvent e) throws IOException{
         VBox tempList = new VBox();
@@ -339,7 +335,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         textField.setUnFocusColor(Paint.valueOf("#000000"));
         textField.setFont(new Font("Times New Roman", 20));
 
-        vboxAddNewKeyword.getChildren().remove(addKeywordButton);
         hbox.getChildren().add(textField);
         JFXButton submitKeywordButton = new JFXButton("SUBMIT");
         submitKeywordButton.getStylesheets().add("/CSS/smallButtons.css");
@@ -376,22 +371,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                             sharedListOfKeywords));
                 });
                 heeb.getChildren().add(removeLabelButton);
-                Label newKeyword = new Label();
-                newKeyword.setFont(new Font("Times New Roman", 16));
-                try {
-                    if(!KeywordManager.getInstance().getKeywordByName("long",textField.getText()).getAffix().equals("none")
-                            && textField.getKeywordValueField().getText() != null
-                            && !textField.getKeywordValueField().getText().trim().isEmpty())
-                    {
-                        newKeyword.setText(textField.getText() + ", " + textField.getKeywordValueField().getText());
-                    }else{
-                        newKeyword.setText(textField.getText());
-                    }
-                    heeb.getChildren().add(newKeyword);
-                    vboxOfKeywords.getChildren().add(heeb);
-                }catch (NameNotFoundException e1){
-                    e1.printStackTrace();
-                }
                 outputText.setText(updateName(
                         experimentType.getText(),
                         trialNumber.getText(),
@@ -400,8 +379,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         experimentDate.getValue(),
                         sharedListOfKeywords));
                 tempList.getChildren().add(hbox);
-                vboxAddNewKeyword.getChildren().remove(hbox);
-                vboxAddNewKeyword.getChildren().add(addKeywordButton);
             }
         });
         hbox.getChildren().add(submitKeywordButton);
@@ -411,14 +388,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         removeObjectButton.setOnAction(e1 -> {
             sharedListOfKeywords.remove(textField);
-            vboxAddNewKeyword.getChildren().remove(hbox);
-            vboxAddNewKeyword.getChildren().add(addKeywordButton);
         });
-
-
-        vboxAddNewKeyword.getChildren().add(hbox);
         onTypeUpdate();
     }
+    */
 
     @FXML
     public void updateExperiment(ActionEvent e) throws IOException{
@@ -476,9 +449,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handleAddButton (ActionEvent e) throws IOException {
-
-        FXMLLoader listOfLocationLoader =
-                popupScreen("FXML/addKeywordsUI.fxml", addButton.getScene().getWindow(),"Add Keywords Menu");
+        popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords Menu");
     }
 
     @Override
