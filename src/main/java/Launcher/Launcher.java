@@ -38,24 +38,18 @@ public class Launcher extends Application {
 
         Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
         });
 
-        root.setOnMouseDragged(new EventHandler<MouseEvent>(){
-            @Override
-                    public void handle(MouseEvent event){
-                primaryStage.setX(event.getScreenX()-xOffset);
-                primaryStage.setY(event.getScreenY() - yOffset);
-            }
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        primaryStage.setX(width - 400);
-        primaryStage.setY(height - 700 - 50);
+        //primaryStage.setX(width - 400);
+        //primaryStage.setY(height - 700 - 50);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.toFront();

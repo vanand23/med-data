@@ -1,20 +1,36 @@
 package Utilities;
 
+import Types.KeywordManager;
+import Types.KeywordType;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.geometry.Pos;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
+import javax.naming.NameNotFoundException;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
+
+import static FXMLControllers.FullNamer.getTableOfKeywords;
+import static FXMLControllers.FullNamer.sharedListOfKeywordStrings;
+import static javafx.scene.layout.HBox.setHgrow;
 
 public class KeywordAutocompleteTextField extends AutocompleteTextField {
     private HBox textFieldContainer;
     private JFXTextField keywordValueField;
 
     private int state;
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public KeywordAutocompleteTextField(HBox textFieldContainer)
     {
@@ -52,19 +68,34 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
 
             //if any suggestion is select set it into text and close popup
             item.setOnAction(actionEvent -> {
+                state = 1;
                 setText(result);
                 positionCaret(result.length());
                 entriesPopup.hide();
                 r.keyPress(KeyEvent.VK_ENTER);
                 r.keyRelease(KeyEvent.VK_ENTER);
-                VBox vBox = new VBox();
-                vBox.getChildren().add(new Label(result));
-                JFXTextField keyval = new JFXTextField();
-                vBox.getChildren().add(keyval);
-                keywordValueField = keyval;
-                textFieldContainer.getChildren().add(vBox);
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER);
+                hBox.setSpacing(10);
+                Label label = new Label(result);
+                label.setFont(new Font("Arial Black", 14));
+                label.setPrefWidth(USE_COMPUTED_SIZE);
+                hBox.getChildren().add(label);
+                sharedListOfKeywordStrings.add(result);
+                try {
+                    if(!KeywordManager.getInstance().getKeywordByName("long",result).getAffix().equals("none")){
+                        JFXTextField keyval = new JFXTextField();
+                        keyval.setPrefWidth(USE_COMPUTED_SIZE);
+                        keyval.setMaxWidth(USE_COMPUTED_SIZE);
+                        hBox.getChildren().add(keyval);
+                        setHgrow(keyval, Priority.ALWAYS);
+                        keywordValueField = keyval;
+                    }
+                } catch (NameNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                textFieldContainer.getChildren().add(1,hBox);
                 textFieldContainer.getChildren().remove(this);
-                state = 1;
             });
         }
 

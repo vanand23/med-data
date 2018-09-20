@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="225.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.CompactNamer">
+<AnchorPane prefHeight="225.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.CompactNamer">
    <children>
       <StackPane prefHeight="250.0" prefWidth="250.0">
          <children>
@@ -40,7 +40,7 @@
                               <Insets right="-8.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" onAction="#handleToggleButton" selected="true" text="COMPACT">
+                        <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" focusTraversable="false" onAction="#handleToggleButton" selected="true" text="COMPACT">
                            <font>
                               <Font name="Arial Black" size="14.0" />
                            </font>
