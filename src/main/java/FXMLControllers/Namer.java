@@ -10,6 +10,8 @@ import javax.naming.NameNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static FXMLControllers.FullNamer.sharedListOfKeywordStrings;
+
 public class Namer extends ScreenController{
 
     String updateName(String experimentTypeText,
@@ -84,19 +86,19 @@ public class Namer extends ScreenController{
             fname.append(finalInitial);
 
         }
-
+        int i = 0;
         for(KeywordAutocompleteTextField autocompleteTextField : sharedListOfKeywords)
         {
-            if(autocompleteTextField.getText() != null && !autocompleteTextField.getText().trim().isEmpty())
+            if(sharedListOfKeywordStrings.get(i) != null && !sharedListOfKeywordStrings.get(i).trim().isEmpty())
             {
                 String keyword;
                 fname.append(delimiter);
                 try {
                     JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
-                    keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    if(autocompleteTextField.getState() == 1)
+                    keyword = KeywordManager.getInstance().getKeywordByName("long",sharedListOfKeywordStrings.get(i)).getShortName();
+                    if(true/*autocompleteTextField.getState() == 1*/)
                     {
-                        String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
+                        String affix = KeywordManager.getInstance().getKeywordByName("long",sharedListOfKeywordStrings.get(i)).getAffix();
                         switch (affix){
                             case "prefix":
                                 fname.append(keyword);
@@ -124,6 +126,7 @@ public class Namer extends ScreenController{
                     e1.printStackTrace();
                 }
             }
+            i++;
         }
         return fname.toString();
     }

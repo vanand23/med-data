@@ -143,7 +143,7 @@
                  <content>
                    <AnchorPane fx:id="anchorPaneOfKeywords" minHeight="0.0" minWidth="0.0">
                         <children>
-                           <VBox fx:id="veeb" prefHeight="200.0" />
+                           <VBox fx:id="veeb" prefHeight="200.0" alignment="TOP_LEFT"/>
                         </children></AnchorPane>
                  </content>
                </ScrollPane>

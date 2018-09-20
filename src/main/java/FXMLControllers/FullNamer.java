@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -113,6 +114,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
 
     private static ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords = new ArrayList<>();
+    public static ArrayList<String> sharedListOfKeywordStrings = new ArrayList<>();
 
     private ArrayList<String> keywords;
     private ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
@@ -234,6 +236,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void addKeyword(ActionEvent e) throws IOException{
+        VBox tempList = new VBox();
+        tempList.setVisible(false);
         FXMLManager fxmlManager = FXMLManager.getInstance();
         //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
 
@@ -260,6 +264,13 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         submitKeywordButton.setFont(new Font("Arial Black", 14));
         submitKeywordButton.setPrefWidth(USE_COMPUTED_SIZE);
         submitKeywordButton.setOnAction(actionEvent1 -> {
+            outputText.setText(updateName(
+                    experimentType.getText(),
+                    trialNumber.getText(),
+                    sampleNumber.getText(),
+                    researcherName.getText(),
+                    experimentDate.getValue(),
+                    sharedListOfKeywords));
             if(textField.getState() == 1)
             {
                 HBox heeb = new HBox();
@@ -298,7 +309,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     experimentDate.getValue(),
                         sharedListOfKeywords);
                 textField.setState(0);
-                sharedListOfKeywords.remove(textField);
+                tempList.getChildren().add(hbox);
                 vboxOfKeywords.getChildren().remove(hbox);
                 vboxOfKeywords.getChildren().add(addKeywordButton);
             }
@@ -340,6 +351,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 stringResearcherName,
                 stringExperimentDate,
                 sharedListOfKeywords);
+
         setProperty("experimentType",experimentType.getText());
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
@@ -370,7 +382,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handlePreferences(ActionEvent e) throws IOException {
-        popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
+        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
+        primaryStage.close();
+
+        Stage popup = popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
                         "Project Preferences");
     }
 

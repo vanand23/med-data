@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static FXMLControllers.FullNamer.getTableOfKeywords;
+import static FXMLControllers.FullNamer.sharedListOfKeywordStrings;
 import static javafx.scene.layout.HBox.setHgrow;
 
 public class KeywordAutocompleteTextField extends AutocompleteTextField {
@@ -80,6 +81,7 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
                 label.setFont(new Font("Arial Black", 14));
                 label.setPrefWidth(USE_COMPUTED_SIZE);
                 hBox.getChildren().add(label);
+                sharedListOfKeywordStrings.add(result);
                 try {
                     if(!KeywordManager.getInstance().getKeywordByName("long",result).getAffix().equals("none")){
                         JFXTextField keyval = new JFXTextField();

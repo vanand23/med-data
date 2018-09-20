@@ -139,6 +139,8 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     public void closeProjectPreferences(ActionEvent e) throws IOException{
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
+        popupScreen("FXML/fullNamer.fxml", cancelButton.getScene().getWindow(),"Compact Namer");
+
     }
 
     private void generatePreview(){
