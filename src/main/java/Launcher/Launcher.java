@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
@@ -53,6 +54,13 @@ public class Launcher extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.toFront();
+
+        /*Parent aroot = FXMLLoader.load(getClass().getResource("FXML/fullNamer.fxml"));
+        Scene scene = new Scene(aroot);
+        primaryStage.setScene(scene);
+        primaryStage.show();*/
+
+
     }
 
     public void renameFile(){

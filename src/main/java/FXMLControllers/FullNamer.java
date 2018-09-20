@@ -11,23 +11,28 @@ import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.util.StringConverter;
+import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -47,6 +52,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import static Utilities.Config.setProperty;
 import static javafx.scene.layout.HBox.setHgrow;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -78,7 +85,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton backButton;
 
     @FXML
-    private VBox vboxAddNewKeyword;
+    private JFXButton addButton;
+
+    @FXML
+    private VBox vboxOfKeywords;
 
     @FXML
     private JFXButton addKeywordButton;
@@ -116,13 +126,26 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXButton helpButtonOutput;
 
+    @FXML
+    private TableView<Keywords> keywordsTable;
+
+    @FXML
+    private TableColumn columnName;
+
+    @FXML
+    private TableColumn columnDataValue;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
 
     private static ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords = new ArrayList<>();
 
-    private ArrayList<String> keywords;
-    private ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
+    private final static ObservableList<Keywords> data = FXCollections.observableArrayList();
+
+    public static ObservableList<Keywords> getData() {
+        return data;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -186,6 +209,47 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }
 
             experimentDate.setValue(LocalDate.now());
+            trialNumber.setText("0");
+            sampleNumber.setText("0");
+            experimentType.setAutocompleteWidth(350);
+            columnName.setMinWidth(100);
+            columnDataValue.setMinWidth(100);
+
+
+            columnName.setCellValueFactory(new PropertyValueFactory<Keywords, String>("KeywordName"));
+            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keywords, String>("DataValue"));
+
+            keywordsTable.setEditable(true);
+
+            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+            columnName.setOnEditCommit(
+                    new EventHandler<TableColumn.CellEditEvent>() {
+                        @Override
+                        public void handle(TableColumn.CellEditEvent event) {
+
+                            ((Keywords) event.getTableView().getItems().get(
+                                    event.getTablePosition().getRow())
+                            ).setKeywordName((String) event.getNewValue());
+
+                        }
+                    }
+            );
+
+            columnDataValue.setCellFactory(TextFieldTableCell.forTableColumn());
+            columnDataValue.setOnEditCommit(
+                    new EventHandler<TableColumn.CellEditEvent>() {
+                        @Override
+                        public void handle(TableColumn.CellEditEvent event) {
+
+                            ((Keywords) event.getTableView().getItems().get(
+                                    event.getTablePosition().getRow())
+                            ).setDataValue((String) event.getNewValue());
+
+                        }
+                    }
+            );
+
+            keywordsTable.setItems(this.data);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
                         outputText.setText(updateName(
@@ -240,6 +304,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         sharedListOfKeywords));
                 setProperty("sampleNumber",newSampleNumber);
             });
+
             outputText.setText(updateName(
                     experimentType.getText(),
                     trialNumber.getText(),
@@ -392,9 +457,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 sharedListOfKeywords,
                 comment
                 ));
-        /*int currTrial = Integer.parseInt(trialNumber.getText());
-        currTrial++;
-        trialNumber.setText(String.valueOf(currTrial));*/
     }
 
     @FXML
@@ -408,9 +470,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void handlePreferences(ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-
         Stage popup = popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
                         "Project Preferences");
+    }
+
+    @FXML
+    public void handleAddButton (ActionEvent e) throws IOException {
+
+        FXMLLoader listOfLocationLoader =
+                popupScreen("FXML/addKeywordsUI.fxml", addButton.getScene().getWindow(),"Add Keywords Menu");
     }
 
     @Override
