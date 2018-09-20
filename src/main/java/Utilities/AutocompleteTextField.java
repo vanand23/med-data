@@ -21,6 +21,7 @@ public class AutocompleteTextField extends JFXTextField {
     //Local variables
     //entries to autocomplete
     private final SortedSet<String> entries;
+    private boolean validText;
     //popup GUI
     ContextMenu entriesPopup;
     Robot r;
@@ -43,10 +44,10 @@ public class AutocompleteTextField extends JFXTextField {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+        validText = false;
         width = 400;
         setListener();
     }
-
 
     private void setListener() {
         //Add "suggestions" by changing text
@@ -60,20 +61,22 @@ public class AutocompleteTextField extends JFXTextField {
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
                         .collect(Collectors.toList());
+                validText = filteredEntries.size() == 1 && !entriesPopup.isShowing(); //check if the text field has a full, valid name
+
                 //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
                     //build popup - list of "CustomMenuItem"
                     populatePopup(filteredEntries, enteredText);
-                    if (!entriesPopup.isShowing()) { //optional
+                    if (!entriesPopup.isShowing() &&
+                            AutocompleteTextField.this.getScene() != null) { //check if owner exists yet in a scene
                         entriesPopup.show(AutocompleteTextField.this, Side.BOTTOM, 0, 0); //position of popup
                     }
-                    //no suggestions -> hide
                 } else {
+                    //no suggestions -> hide
                     entriesPopup.hide();
                 }
             }
         });
-
     }
 
     void populatePopup(List<String> searchResult, String searchRequest) {
@@ -94,22 +97,26 @@ public class AutocompleteTextField extends JFXTextField {
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             menuItems.add(item);
 
-
             //if any suggestion is select set it into text and close popup
             item.setOnAction(actionEvent -> {
-                setText(result);
-                positionCaret(result.length());
                 entriesPopup.hide();
+                positionCaret(result.length());
+                setText(result);
                 r.keyPress(KeyEvent.VK_ENTER);
                 r.keyRelease(KeyEvent.VK_ENTER);
+
             });
         }
+        System.out.println(validText);
 
         //"Refresh" context menu
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
     }
 
+    public boolean isValidText() {
+        return validText;
+    }
 
     /**
      * Get the existing set of autocomplete entries.

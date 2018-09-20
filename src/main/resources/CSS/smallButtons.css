@@ -1,6 +1,6 @@
 .jfx-button:armed,
 .jfx-button{
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial Black";
     -fx-font-size: 12;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
@@ -12,11 +12,11 @@
     -fx-background-radius: 0;
 }
 .jfx-button:focused{
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial Black";
     -fx-font-size: 14;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
-    -fx-opacity: 0.7;
+    -fx-opacity: 1.0;
 }
 .jfx-button:hover{
     -fx-scale-y: 1.02;

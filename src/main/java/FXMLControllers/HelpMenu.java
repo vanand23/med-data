@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import sun.security.jca.GetInstance;
 
 import javax.naming.NameNotFoundException;
 import java.awt.*;

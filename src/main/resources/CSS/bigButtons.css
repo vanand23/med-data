@@ -2,7 +2,7 @@
 .jfx-button:focused,
 .jfx-button:default,
 .jfx-button{
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: "Arial Black";
     -fx-font-size: 28;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;

@@ -5,6 +5,7 @@ import Singletons.FXMLManager;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.event.EventHandler;
@@ -24,24 +25,32 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception{
         double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+        Font.loadFont(
+                Launcher.class.getResource("/Fonts/ArialBlack.ttf").toExternalForm(),
+                10
+        );
+
 
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
 
         //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-        fxmlManager.loadFXML("FXML/mainMenu.fxml");
+        fxmlManager.loadFXML("FXML/fullNamer.fxml");
 
-        Parent root = fxmlManager.getFXMLNode("FXML/mainMenu.fxml");
+        Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
         });
-        primaryStage.setX(width - 400);
-        primaryStage.setY(height - 700 - 50);
+
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        //primaryStage.setX(width - 400);
+        //primaryStage.setY(height - 700 - 50);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.toFront();
