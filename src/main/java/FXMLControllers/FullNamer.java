@@ -110,6 +110,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     static TreeTableColumn<KeywordType, String> nameColumn;
 
+    @FXML
+    private JFXButton helpButtonInput;
+
+    @FXML
+    private JFXButton helpButtonOutput;
+
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
 
@@ -121,6 +127,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         {
+            final JFXButton inputHelp = helpButtonInput;
+            final Tooltip inputTooltip = new Tooltip();
+            inputTooltip.setText("Fill in the fields with your desired parameters");
+            inputHelp.setTooltip(inputTooltip);
+
+            final JFXButton outputHelp = helpButtonOutput;
+            final Tooltip outputTooltip = new Tooltip();
+            outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
+            outputHelp.setTooltip(outputTooltip);
+
             ExperimentManager.getInstance().subscribe(this);
             KeywordManager.getInstance().subscribe(this);
             outputText.setEditable(false);
