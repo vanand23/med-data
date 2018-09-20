@@ -81,6 +81,9 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
     private JFXButton addButton;
 
     @FXML
+    private JFXButton deleteButton;
+
+    @FXML
     private VBox vboxOfKeywords;
 
     @FXML
@@ -190,7 +193,7 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
                     }
             );
 
-            keywordsTable.setItems(this.data);
+            keywordsTable.setItems(data);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
                 outputText.setText(updateName());
@@ -395,6 +398,14 @@ public class FullNamer extends ScreenController implements Initializable, ITypeO
 
         FXMLLoader listOfLocationLoader =
                 popupScreen("FXML/addKeywordsUI.fxml", addButton.getScene().getWindow(),"Add Keywords Menu");
+    }
+
+    @FXML
+    public void handleDeleteButton (ActionEvent e) throws IOException {
+
+        Keywords selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
+        keywordsTable.getItems().remove(selectedItem);
+
     }
 
 
