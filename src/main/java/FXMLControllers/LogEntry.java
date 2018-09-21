@@ -1,6 +1,8 @@
 package FXMLControllers;
 
 import Utilities.KeywordAutocompleteTextField;
+import Utilities.Observable;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,14 +20,14 @@ public class LogEntry {
     private String sampleNumber;
     private String fileName;
     private String comment;
-    private ArrayList<KeywordAutocompleteTextField> listOfKeywords = new ArrayList<>();
+    private ObservableList<Keyword> listOfKeywords;
     LogEntry(LocalDate experimentDate,
              String researcherName,
              String experimentType,
              String trialNumber,
              String sampleNumber,
              String fileName,
-             ArrayList<KeywordAutocompleteTextField> listOfKeywords,
+             ObservableList<Keyword> listOfKeywords,
              String comment){
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd LLL yy");
         DateTimeFormatter timeFormatter = ISO_LOCAL_TIME;
@@ -69,7 +71,7 @@ public class LogEntry {
         return fileName;
     }
 
-    public ArrayList<KeywordAutocompleteTextField> getListOfKeywords() {
+    public ObservableList<Keyword> getListOfKeywords() {
         return listOfKeywords;
     }
 

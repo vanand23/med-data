@@ -2,12 +2,12 @@ package FXMLControllers;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class Keywords {
+public class Keyword {
 
-        public final SimpleStringProperty name;
-        public final SimpleStringProperty dataval;
+        private final SimpleStringProperty name;
+        private final SimpleStringProperty dataval;
 
-        public Keywords(String kname, String dval) {
+        public Keyword(String kname, String dval) {
             this.name = new SimpleStringProperty(kname);
             this.dataval = new SimpleStringProperty(dval);
         }

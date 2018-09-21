@@ -5,6 +5,7 @@ import Types.KeywordManager;
 import Utilities.Config;
 import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.ObservableList;
 
 import javax.naming.NameNotFoundException;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class Namer extends ScreenController{
                       String sampleNumberText,
                       String researcherNameText,
                       LocalDate experimentDate,
-                      ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords)
+                      ObservableList<Keyword> sharedListOfKeywords)
     {
         Config config = new Config();
         String delimiter = config.getProperty("delimiter");
@@ -84,47 +85,42 @@ public class Namer extends ScreenController{
             fname.append(finalInitial);
 
         }
-        int i = 0;
-        for(KeywordAutocompleteTextField autocompleteTextField : sharedListOfKeywords)
+        for(Keyword keywordCell : sharedListOfKeywords)
         {
-            if(autocompleteTextField.getText() != null && !autocompleteTextField.getText().trim().isEmpty())
+            if(keywordCell.getKeywordName() != null && !keywordCell.getKeywordName().trim().isEmpty())
             {
-                String keyword;
+                String keywordName;
+                String keywordValue = keywordCell.getDataValue();
                 fname.append(delimiter);
                 try {
-                    JFXTextField keywordValue = autocompleteTextField.getKeywordValueField();
-                    keyword = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getShortName();
-                    if(autocompleteTextField.getState() == 1)
-                    {
-                        String affix = KeywordManager.getInstance().getKeywordByName("long",autocompleteTextField.getText()).getAffix();
-                        switch (affix){
-                            case "prefix":
-                                fname.append(keyword);
-                                if(keywordValue.getText() != null && !keywordValue.getText().trim().isEmpty())
-                                {
-                                    fname.append(keywordValue.getText());
-                                }
-                                break;
-                            case "suffix":
-                                if(keywordValue.getText() != null && !keywordValue.getText().trim().isEmpty())
-                                {
-                                    fname.append(keywordValue.getText());
-                                }
-                                fname.append(keyword);
-                                break;
-                            case "none":
-                                fname.append(keyword);
-                                break;
-                            default:
-                                fname.append(keyword);
-                                break;
-                        }
+                    keywordName = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getKeywordName()).getShortName();
+                    String affix = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getKeywordName()).getAffix();
+                    switch (affix){
+                        case "prefix":
+                            fname.append(keywordName);
+                            if(keywordValue != null && !keywordValue.trim().isEmpty())
+                            {
+                                fname.append(keywordValue);
+                            }
+                            break;
+                        case "suffix":
+                            if(keywordValue != null && !keywordValue.trim().isEmpty())
+                            {
+                                fname.append(keywordValue);
+                            }
+                            fname.append(keywordName);
+                            break;
+                        case "none":
+                            fname.append(keywordName);
+                            break;
+                        default:
+                            fname.append(keywordName);
+                            break;
                     }
                 } catch (NameNotFoundException e1) {
                     e1.printStackTrace();
                 }
             }
-            i++;
         }
         return fname.toString();
     }
