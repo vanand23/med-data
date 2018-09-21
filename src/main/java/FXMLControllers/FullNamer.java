@@ -1,6 +1,5 @@
 package FXMLControllers;
 
-import Singletons.FXMLManager;
 import Types.ExperimentManager;
 import Types.KeywordManager;
 import Types.KeywordType;
@@ -12,34 +11,28 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Group;
 import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
-import javafx.beans.property.SimpleStringProperty;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.naming.NameNotFoundException;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -54,12 +47,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import sun.rmi.runtime.Log;
 
 import static Utilities.Config.setProperty;
-import static javafx.scene.layout.HBox.setHgrow;
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
@@ -121,7 +110,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton helpButtonOutput;
 
     @FXML
-    private TableView<Keywords> keywordsTable;
+    private JFXButton loggerButton;
+
+    @FXML
+    private TableView<Keyword> keywordsTable;
 
     @FXML
     private TableColumn columnName;
@@ -131,14 +123,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
-
-    private static ArrayList<KeywordAutocompleteTextField> sharedListOfKeywords = new ArrayList<>();
-
-    private final static ObservableList<Keywords> data = FXCollections.observableArrayList();
+    
+    private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
 
     private static ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
 
-    public static ObservableList<Keywords> getData() {
+    public static ObservableList<Keyword> getData() {
         return data;
     }
 
@@ -212,8 +202,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             columnDataValue.setMinWidth(100);
 
 
-            columnName.setCellValueFactory(new PropertyValueFactory<Keywords, String>("KeywordName"));
-            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keywords, String>("DataValue"));
+            columnName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordName"));
+            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keyword, String>("DataValue"));
 
             keywordsTable.setEditable(true);
 
@@ -223,7 +213,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         @Override
                         public void handle(TableColumn.CellEditEvent event) {
 
-                            ((Keywords) event.getTableView().getItems().get(
+                            ((Keyword) event.getTableView().getItems().get(
                                     event.getTablePosition().getRow())
                             ).setKeywordName((String) event.getNewValue());
 
@@ -237,7 +227,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         @Override
                         public void handle(TableColumn.CellEditEvent event) {
 
-                            ((Keywords) event.getTableView().getItems().get(
+                            ((Keyword) event.getTableView().getItems().get(
                                     event.getTablePosition().getRow())
                             ).setDataValue((String) event.getNewValue());
 
@@ -254,7 +244,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         sampleNumber.getText(),
                         researcherName.getText(),
                         experimentDate.getValue(),
-                        sharedListOfKeywords));
+                        data));
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
                 if(experimentType.isValidText())
@@ -265,7 +255,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                             sampleNumber.getText(),
                             researcherName.getText(),
                             experimentDate.getValue(),
-                            sharedListOfKeywords));
+                            data));
                     setProperty("experimentType",newExperimentType);
                     System.out.println("updated!");
                 }
@@ -277,7 +267,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         sampleNumber.getText(),
                         researcherName.getText(),
                         experimentDate.getValue(),
-                        sharedListOfKeywords));
+                        data));
                 setProperty("researcherName",newResearcherName);
             });
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
@@ -287,7 +277,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         sampleNumber.getText(),
                         researcherName.getText(),
                         experimentDate.getValue(),
-                        sharedListOfKeywords));
+                        data));
                 setProperty("trialNumber",newTrialNumber);
             });
             sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
@@ -297,8 +287,18 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         sampleNumber.getText(),
                         researcherName.getText(),
                         experimentDate.getValue(),
-                        sharedListOfKeywords));
+                        data));
                 setProperty("sampleNumber",newSampleNumber);
+            });
+
+            data.addListener((ListChangeListener<Keyword>) keywords -> {
+                outputText.setText(updateName(
+                        experimentType.getText(),
+                        trialNumber.getText(),
+                        sampleNumber.getText(),
+                        researcherName.getText(),
+                        experimentDate.getValue(),
+                        data));
             });
 
             outputText.setText(updateName(
@@ -307,91 +307,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     sampleNumber.getText(),
                     researcherName.getText(),
                     experimentDate.getValue(),
-                    sharedListOfKeywords));
+                    data));
         }
     }
-/*
-    @FXML
-    public void addKeyword(ActionEvent e) throws IOException{
-        VBox tempList = new VBox();
-        tempList.setVisible(false);
-        FXMLManager fxmlManager = FXMLManager.getInstance();
-        //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-
-        JFXButton removeObjectButton = new JFXButton("", new ImageView(removeObjectIcon));
-        removeObjectButton.setPrefSize(15,15);
-        removeObjectButton.setPadding(new Insets(0,0,0,0));
-        removeObjectButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
-        HBox hbox = new HBox();
-        hbox.setSpacing(10);
-        hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setPrefHeight(39);
-        hbox.getChildren().add(removeObjectButton);
-        KeywordAutocompleteTextField textField = new KeywordAutocompleteTextField(hbox);
-        textField.setPrefWidth(Region.USE_COMPUTED_SIZE);
-        textField.setPromptText("Choose keyword");
-        textField.setAlignment(Pos.BASELINE_LEFT);
-        textField.setLabelFloat(false);
-        textField.setUnFocusColor(Paint.valueOf("#000000"));
-        textField.setFont(new Font("Times New Roman", 20));
-
-        hbox.getChildren().add(textField);
-        JFXButton submitKeywordButton = new JFXButton("SUBMIT");
-        submitKeywordButton.getStylesheets().add("/CSS/smallButtons.css");
-        submitKeywordButton.setFont(new Font("Arial Black", 14));
-        submitKeywordButton.setMinWidth(70);
-        submitKeywordButton.setPrefWidth(USE_COMPUTED_SIZE);
-        submitKeywordButton.setOnAction(actionEvent1 -> {
-            outputText.setText(updateName(
-                    experimentType.getText(),
-                    trialNumber.getText(),
-                    sampleNumber.getText(),
-                    researcherName.getText(),
-                    experimentDate.getValue(),
-                    sharedListOfKeywords));
-            if(textField.getState() == 1)
-            {
-                HBox heeb = new HBox();
-                heeb.setSpacing(10);
-                heeb.setAlignment(Pos.CENTER_LEFT);
-                JFXButton removeLabelButton = new JFXButton("", new ImageView(removeObjectIcon));
-                removeLabelButton.setPrefSize(15,15);
-                removeLabelButton.setPadding(new Insets(0,0,0,0));
-                removeLabelButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
-                removeLabelButton.setOnAction(e2 -> {
-                    sharedListOfKeywords.remove(textField);
-                    System.out.println(sharedListOfKeywords);
-                    vboxOfKeywords.getChildren().remove(heeb);
-                    outputText.setText(updateName(
-                            experimentType.getText(),
-                            trialNumber.getText(),
-                            sampleNumber.getText(),
-                            researcherName.getText(),
-                            experimentDate.getValue(),
-                            sharedListOfKeywords));
-                });
-                heeb.getChildren().add(removeLabelButton);
-                outputText.setText(updateName(
-                        experimentType.getText(),
-                        trialNumber.getText(),
-                        sampleNumber.getText(),
-                        researcherName.getText(),
-                        experimentDate.getValue(),
-                        sharedListOfKeywords));
-                tempList.getChildren().add(hbox);
-            }
-        });
-        hbox.getChildren().add(submitKeywordButton);
-
-        setHgrow(textField, Priority.ALWAYS);
-        sharedListOfKeywords.add(textField);
-
-        removeObjectButton.setOnAction(e1 -> {
-            sharedListOfKeywords.remove(textField);
-        });
-        onTypeUpdate();
-    }
-    */
 
     @FXML
     public void updateExperiment(ActionEvent e) throws IOException{
@@ -412,7 +330,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 stringSampleNumber,
                 stringResearcherName,
                 stringExperimentDate,
-                sharedListOfKeywords);
+                data);
 
         setProperty("experimentType",experimentType.getText());
 
@@ -427,7 +345,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 stringTrialNumber,
                 stringSampleNumber,
                 nameToCopy,
-                sharedListOfKeywords,
+                data,
                 comment
                 ));
     }
@@ -448,30 +366,22 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     @FXML
-    public void handleAddButton (ActionEvent e) throws IOException {
-        popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords Menu");
+    public void handleLogger(ActionEvent e) throws IOException{
+        Stage popup = popupScreen("FXML/loggerMenu.fxml", loggerButton.getScene().getWindow(), "Logger");
     }
 
     @FXML
-    public void handleDeleteButton (ActionEvent e) throws IOException {
-
-        Keywords selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
-        keywordsTable.getItems().remove(selectedItem);
-
+    public void handleAddButton (ActionEvent e) throws IOException {
+        popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keyword Menu");
     }
 
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
         experimentType.getEntries().addAll(experiments);
-
-        ArrayList<String> keywords = (ArrayList<String>) KeywordManager.getInstance().getAllKeywordLongNames();
-        for(AutocompleteTextField autocompleteTextField : sharedListOfKeywords){
-            autocompleteTextField.getEntries().addAll(keywords);
-        }
     }
-    static ArrayList<KeywordAutocompleteTextField> getSharedListOfKeywords() {
-        return sharedListOfKeywords;
+    static ObservableList<Keyword> getdata() {
+        return data;
     }
 
     @FXML
@@ -483,7 +393,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     public void generateLog(ActionEvent e){
         try {
-            //new File("testFile.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook();
             Sheet sheet = workbook.createSheet("testLog");
             Config config = new Config();

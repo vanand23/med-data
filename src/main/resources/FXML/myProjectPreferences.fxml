@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -12,14 +13,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="416.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.ProjectPreferences">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.ProjectPreferences">
    <children>
-      <StackPane layoutX="55.0" prefHeight="400.0" prefWidth="307.0">
+      <StackPane prefHeight="500.0" prefWidth="450.0">
          <children>
-            <VBox prefHeight="400.0" prefWidth="622.0">
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="400.0" prefWidth="500.0" spacing="10.0" StackPane.alignment="TOP_CENTER">
                <children>
-                  <VBox prefHeight="44.0" prefWidth="600.0" />
-                  <VBox prefHeight="57.0" prefWidth="307.0">
+                  <VBox prefHeight="0.0" prefWidth="400.0" />
+                  <Label text="PROJECT PREFERENCES">
+                     <font>
+                        <Font name="Arial Black" size="20.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" prefHeight="10.0" prefWidth="307.0">
                      <children>
                         <JFXTextField fx:id="researcherName" focusColor="#4d4d4d" labelFloat="true" prefHeight="26.0" prefWidth="557.0" promptText="   Researcher Name" style="-fx-background-color: ffffff;">
                            <font>
@@ -28,33 +34,38 @@
                         </JFXTextField>
                      </children>
                   </VBox>
-                  <VBox prefHeight="49.0" prefWidth="307.0">
+                  <VBox prefHeight="0.0" prefWidth="307.0">
                      <children>
-                        <JFXTextField focusColor="#4d4d4d" labelFloat="true" prefHeight="29.0" prefWidth="307.0" promptText="  Project Name" style="-fx-background-color: ffffff;">
+                        <JFXTextField fx:id="projectName" focusColor="#4d4d4d" labelFloat="true" prefHeight="29.0" prefWidth="307.0" promptText="  Project Name" style="-fx-background-color: ffffff;">
                            <font>
                               <Font name="Times New Roman" size="14.0" />
                            </font>
                         </JFXTextField>
                      </children>
                   </VBox>
-                  <VBox prefHeight="93.0" prefWidth="307.0">
+                  <VBox>
                      <children>
-                        <JFXTextArea prefHeight="73.0" prefWidth="307.0" promptText="Project Description" style="-fx-background-color: ffffff;">
+                        <JFXTextArea fx:id="projectDescription" prefHeight="100.0" prefWidth="307.0" promptText="Project Description" style="-fx-background-color: ffffff;">
                            <font>
                               <Font name="Times New Roman" size="14.0" />
                            </font>
                         </JFXTextArea>
                      </children></VBox>
-                  <VBox prefHeight="45.0" prefWidth="307.0">
+                  <VBox prefHeight="29.0" prefWidth="307.0">
                      <children>
-                        <JFXTextField focusColor="#4d4d4d" labelFloat="true" prefHeight="21.0" prefWidth="307.0" promptText="Keyword Glossary Filepath" style="-fx-background-color: ffffff;">
-                           <font>
-                              <Font name="Times New Roman" size="14.0" />
-                           </font>
-                        </JFXTextField>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextField focusColor="#4d4d4d" labelFloat="true" prefHeight="26.0" prefWidth="289.0" promptText="Keyword Glossary Filepath" style="-fx-background-color: ffffff;">
+                                 <font>
+                                    <Font name="Times New Roman" size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXButton fx:id="helpButtonFilepath" stylesheets="@../CSS/helpButton.css" text="?" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="65.0" prefWidth="307.0">
+                  <VBox prefHeight="13.0" prefWidth="307.0">
                      <children>
                         <JFXButton prefHeight="26.0" prefWidth="184.0" text="+ Add Additional Glossary">
                            <font>
@@ -71,39 +82,55 @@
                            </font>
                         </Label>
                      </children></VBox>
-                  <VBox prefHeight="45.0" prefWidth="307.0">
+                  <VBox prefHeight="20.0" prefWidth="400.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="400.0" spacing="20.0">
                            <children>
                               <RadioButton fx:id="asterixButton" mnemonicParsing="false" onAction="#setDelimiterToAsterix" text="Asterix (*)   ">
                                  <font>
-                                    <Font name="Times New Roman" size="12.0" />
+                                    <Font name="Times New Roman" size="15.0" />
                                  </font>
                                  <toggleGroup>
                                     <ToggleGroup fx:id="prefButtons" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton fx:id="hyphenButton" mnemonicParsing="false" onAction="#setDelimiterToHyphen" text=" Hyphen (-)   " toggleGroup="$prefButtons" />
-                              <RadioButton fx:id="underscoreButton" mnemonicParsing="false" onAction="#setDelimiterToUnderscore" selected="true" text="Underscore (_)   " toggleGroup="$prefButtons" />
+                              <RadioButton fx:id="hyphenButton" mnemonicParsing="false" onAction="#setDelimiterToHyphen" text="Hyphen (-)   " toggleGroup="$prefButtons">
+                                 <font>
+                                    <Font name="Times New Roman" size="15.0" />
+                                 </font></RadioButton>
+                              <RadioButton fx:id="underscoreButton" mnemonicParsing="false" onAction="#setDelimiterToUnderscore" selected="true" text="Underscore (_)   " toggleGroup="$prefButtons">
+                                 <font>
+                                    <Font name="Times New Roman" size="15.0" />
+                                 </font></RadioButton>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
+                  <HBox>
+                     <children>
+                        <Label text="Preview:">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="previewBox" editable="false" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: ffffff;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT" prefWidth="400.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="saveButton" onAction="#saveProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Save" />
+                        <JFXButton fx:id="cancelButton" onAction="#closeProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Cancel" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
                </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
             </VBox>
          </children>
       </StackPane>
-      <VBox layoutX="350.0" layoutY="437.0" prefHeight="44.0" prefWidth="66.0">
-         <children>
-            <JFXButton fx:id="saveButton" onAction="#saveProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Save" />
-         </children>
-      </VBox>
-      <JFXTextField fx:id="previewBox" editable="false" layoutX="137.0" layoutY="388.0" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: ffffff;" />
-      <Label layoutX="71.0" layoutY="392.0" text="Preview:">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="helpButtonFilepath" layoutX="362.0" layoutY="228.0" stylesheets="@../CSS/helpButton.css" text="?" />
    </children>
 </AnchorPane>
