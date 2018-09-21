@@ -1,3 +1,11 @@
+plugins {
+    id "edu.sc.seis.macAppBundle" version "2.2.3"
+}
+
+plugins {
+    id "edu.sc.seis.launch4j" version "2.4.4"
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 
@@ -63,4 +71,5 @@ test{
         jvmArgs "-Dheadless=true"
     }
 }
+
 
