@@ -452,6 +452,14 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords Menu");
     }
 
+    @FXML
+    public void handleDeleteButton (ActionEvent e) throws IOException {
+
+        Keywords selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
+        keywordsTable.getItems().remove(selectedItem);
+
+    }
+
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
