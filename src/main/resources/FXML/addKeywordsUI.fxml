@@ -7,6 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import Utilities.*?>
 <AnchorPane prefHeight="212.0" prefWidth="393.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.AddKeywordsUI">
    <children>
       <AutocompleteTextField fx:id="keywordName" layoutX="132.0" layoutY="57.0" onAction="#updateKeywords" prefHeight="27.0" prefWidth="241.0" style="-fx-background-color: ffffff;" />
