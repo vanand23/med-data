@@ -468,6 +468,14 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     }
 
+    @FXML
+    public void handleDeleteButton (ActionEvent e) throws IOException {
+
+        Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
+        keywordsTable.getItems().remove(selectedItem);
+
+    }
+
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
