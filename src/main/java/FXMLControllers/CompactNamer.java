@@ -131,7 +131,7 @@ public class CompactNamer extends Namer implements Initializable {
                 sampleNumber.getText(),
                 researcherName,
                 experimentDate.getValue(),
-                FullNamer.getSharedListOfKeywords());
+                FullNamer.getData());
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);

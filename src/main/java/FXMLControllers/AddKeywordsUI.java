@@ -6,8 +6,6 @@ import Utilities.AutocompleteTextField;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,10 +34,8 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
+        onTypeUpdate();
         keywordName.setAutocompleteWidth(350);
-        //keywordDataVal.setText("0");
-
     }
 
 
@@ -74,10 +70,10 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     @FXML
     public void handleOKButton(ActionEvent e) throws IOException {
-        ObservableList<Keywords> parameterData = FXCollections.observableArrayList();
+        ObservableList<Keyword> parameterData;
         parameterData = getData();
-        parameterData.add(new Keywords(keywordName.getText(), keywordDataVal.getText()));
-        System.out.println(keywordName.getText());
+        Keyword keyword = new Keyword(keywordName.getText(), keywordDataVal.getText());
+        parameterData.add(keyword);
         keywordName.clear();
         keywordDataVal.clear();
         Stage primaryStage = (Stage) keywordDataVal.getScene().getWindow();
@@ -86,10 +82,7 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     @Override
     public void onTypeUpdate() {
-
         ArrayList<String> keynames = (ArrayList<String>) KeywordManager.getInstance().getAllKeywordLongNames();
         keywordName.getEntries().addAll(keynames);
-        System.out.println(keynames);
-
     }
 }

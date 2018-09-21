@@ -25,19 +25,19 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception{
         double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
-        Font.loadFont(
+        /*Font.loadFont(
                 Launcher.class.getResource("/Fonts/ArialBlack.ttf").toExternalForm(),
                 10
-        );
+        );*/
 
 
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
 
         //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-        fxmlManager.loadFXML("FXML/fullNamer.fxml");
+        fxmlManager.loadFXML("/FXML/fullNamer.fxml");
 
-        Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
+        Parent root = fxmlManager.getFXMLNode("/FXML/fullNamer.fxml");
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
