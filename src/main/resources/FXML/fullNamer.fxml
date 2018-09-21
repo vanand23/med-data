@@ -169,7 +169,7 @@
                                             <Font name="Arial Black" size="18.0" />
                                         </font>
                                     </JFXButton>
-                                    <JFXButton fx:id="addKeywordButton1" minWidth="-Infinity" onAction="#handleAddButton" prefWidth="70.0" stylesheets="@../CSS/mediumButtons.css" text="DEL">
+                                    <JFXButton fx:id="deleteButton" minWidth="-Infinity" onAction="#handleDeleteButton" prefWidth="70.0" stylesheets="@../CSS/mediumButtons.css" text="DEL">
                                         <font>
                                             <Font name="Arial Black" size="18.0" />
                                         </font>
