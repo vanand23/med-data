@@ -72,10 +72,9 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
                            <children>
-                              <JFXButton fx:id="saveLoggerButtoon" stylesheets="@../CSS/smallButtons.css" text="Save" />
-                              <JFXButton fx:id="startLoggerButton" stylesheets="@../CSS/smallButtons.css" text="Start Logger" />
-                              <JFXButton fx:id="resetLoggerButton" stylesheets="@../CSS/smallButtons.css" text="Reset Logger" />
-                              <JFXButton fx:id="cancelLoggerButton" onAction="#closeLogger" stylesheets="@../CSS/smallButtons.css" text="Cancel" />
+                              <JFXButton fx:id="printLoggerButton" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="Print Log File" />
+                              <JFXButton fx:id="resetLoggerButton" onAction="#resetLogger" stylesheets="@../CSS/smallButtons.css" text="Reset Logger" />
+                              <JFXButton fx:id="closeLoggerButton" onAction="#closeLogger" stylesheets="@../CSS/smallButtons.css" text="Close" />
                            </children>
                            <VBox.margin>
                               <Insets />
