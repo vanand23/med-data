@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import Utilities.*?>
 
+<?import Utilities.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane>
         <children>
             <VBox alignment="TOP_CENTER" prefWidth="500.0" spacing="10.0">
                 <children>
-                    <Label text="FULL NAMER">
+                    <Label stylesheets="@../CSS/label.css" text="FULL NAMER">
                         <font>
                             <Font name="Arial Black" size="25.0" />
                         </font>
@@ -33,7 +33,7 @@
                                     <Insets />
                                 </HBox.margin>
                             </JFXButton>
-                            <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="Print Log" />
+                            <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="OPEN LOGGER" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">
@@ -55,7 +55,7 @@
                     </HBox>
                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                         <children>
-                            <Label prefHeight="30.0" prefWidth="134.0" text="DATE">
+                            <Label prefHeight="30.0" prefWidth="134.0" stylesheets="@../CSS/label.css" text="DATE">
                                 <font>
                                     <Font name="Arial Black" size="18.0" />
                                 </font>
@@ -70,7 +70,7 @@
                     </HBox>
                     <VBox alignment="BOTTOM_LEFT" prefHeight="60.0" prefWidth="360.0">
                         <children>
-                            <Label text="EXPERIMENT NAME">
+                            <Label stylesheets="@../CSS/label.css" text="EXPERIMENT NAME">
                                 <font>
                                     <Font name="Arial Black" size="18.0" />
                                 </font>
@@ -87,7 +87,7 @@
                     </VBox>
                     <VBox alignment="BOTTOM_LEFT" prefWidth="360.0">
                         <children>
-                            <Label text="RESEARCHER NAME">
+                            <Label stylesheets="@../CSS/label.css" text="RESEARCHER NAME">
                                 <font>
                                     <Font name="Arial Black" size="18.0" />
                                 </font>
@@ -107,9 +107,9 @@
                     </VBox>
                     <HBox prefHeight="41.0" prefWidth="400.0" spacing="20.0">
                         <children>
-                            <VBox prefHeight="100.0" prefWidth="268.0">
+                            <VBox prefHeight="100.0" prefWidth="268.0" spacing="5.0">
                                 <children>
-                                    <Label text="TRIAL NUMBER">
+                                    <Label stylesheets="@../CSS/label.css" text="TRIAL NUMBER">
                                         <font>
                                             <Font name="Arial Black" size="18.0" />
                                         </font>
@@ -117,19 +117,30 @@
                                             <Insets bottom="-5.0" />
                                         </VBox.margin>
                                     </Label>
-                                    <JFXTextField fx:id="trialNumber" labelFloat="true" prefHeight="37.0" prefWidth="183.0" unFocusColor="BLACK">
-                                        <font>
-                                            <Font name="Times New Roman" size="20.0" />
-                                        </font>
-                                        <VBox.margin>
-                                            <Insets top="-5.0" />
-                                        </VBox.margin>
-                                    </JFXTextField>
+                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                              <children>
+                                          <JFXTextField fx:id="trialNumber" labelFloat="true" unFocusColor="BLACK">
+                                              <font>
+                                                  <Font name="Times New Roman" size="20.0" />
+                                              </font>
+                                          </JFXTextField>
+                                 <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementTrialNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font>
+                                 </JFXButton>
+                                 <JFXButton fx:id="minusTrialButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#decrementTrialNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="-">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font>
+                                 </JFXButton>
+                              </children>
+                           </HBox>
                                 </children>
                             </VBox>
-                            <VBox prefHeight="100.0" prefWidth="280.0">
+                            <VBox prefHeight="100.0" prefWidth="280.0" spacing="5.0">
                                 <children>
-                                    <Label prefHeight="29.0" prefWidth="216.0" text="SAMPLE NUMBER">
+                                    <Label prefHeight="29.0" prefWidth="216.0" stylesheets="@../CSS/label.css" text="SAMPLE NUMBER">
                                         <VBox.margin>
                                             <Insets bottom="-5.0" />
                                         </VBox.margin>
@@ -137,14 +148,25 @@
                                             <Font name="Arial Black" size="18.0" />
                                         </font>
                                     </Label>
-                                    <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
-                                        <font>
-                                            <Font name="Times New Roman" size="20.0" />
-                                        </font>
-                                        <VBox.margin>
-                                            <Insets top="-5.0" />
-                                        </VBox.margin>
-                                    </JFXTextField>
+                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                              <children>
+                                          <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
+                                              <font>
+                                                  <Font name="Times New Roman" size="20.0" />
+                                              </font>
+                                          </JFXTextField>
+                                 <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementSampleNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font>
+                                 </JFXButton>
+                                 <JFXButton fx:id="minusSampleButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#decrementSampleNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="-">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font>
+                                 </JFXButton>
+                              </children>
+                           </HBox>
                                 </children>
                             </VBox>
                         </children>
@@ -178,10 +200,9 @@
                             </VBox>
                         </children>
                     </HBox>
-                    <VBox fx:id="vboxAddNewKeyword" spacing="20.0" />
                     <VBox prefHeight="60.0" prefWidth="460.0">
                         <children>
-                            <Label text="OUTPUT">
+                            <Label stylesheets="@../CSS/label.css" text="OUTPUT">
                                 <font>
                                     <Font name="Arial Black" size="18.0" />
                                 </font>
@@ -194,7 +215,7 @@
                             </HBox>
                         </children>
                         <VBox.margin>
-                            <Insets top="-10.0" />
+                            <Insets />
                         </VBox.margin>
                     </VBox>
                     <HBox alignment="CENTER" spacing="70.0">

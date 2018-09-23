@@ -61,20 +61,20 @@ public class Database {
             createTables();
             // load in .csv files to the database
             // experiments
-            //Database.loadFromCSV("experiments", "experiments.csv");
+            //Database.loadFromCSV("experiments", "defaultExperiments.csv");
 
             // keywords
-            //Database.loadFromCSV("keywords", "keywords.csv");
+            //Database.loadFromCSV("keywords", "defaultKeywords.csv");
         }else{
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
             dropTables();
             createTables();
             // load in .csv files to the database
             // experiments
-            Database.loadFromCSV("experiments", "experiments.csv");
+            Database.loadFromCSV("experiments", "defaultExperiments.csv");
 
             // keywords
-            Database.loadFromCSV("keywords", "keywords.csv");
+            Database.loadFromCSV("keywords", "defaultKeywords.csv");
         }
 
         // Connection successful!
@@ -462,9 +462,9 @@ public class Database {
         // Open the csv file
         try{
             // open the file from the resources folder
-            BufferedReader reader = new BufferedReader(new InputStreamReader(Database.class.getClassLoader().getResourceAsStream(filename)));
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(Database.class.getClassLoader().getResourceAsStream(filename)));
             // use this line instead to load from the project directory instead
-            //BufferedReader reader = new BufferedReader(new FileReader(filename)));
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
 
             // Skip the first line (the column titles)
             reader.readLine();

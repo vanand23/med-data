@@ -3,7 +3,6 @@ package FXMLControllers;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class MainMenu extends ScreenController{
 
     @FXML
     public void handlePreferences(ActionEvent e) throws IOException {
-        popupScreen("FXML/myProjectPreferences.fxml", preferencesButton.getScene().getWindow(),
+        popupScreen("FXML/projectPreferences.fxml", preferencesButton.getScene().getWindow(),
                         "Project Preferences");
     }
 

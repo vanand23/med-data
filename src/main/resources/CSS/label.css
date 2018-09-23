@@ -1,17 +1,5 @@
 .label:disabled,
 .label{
-    -fx-border-width: 0;
-    -fx-border-color: BLACK;
-    -fx-border-insets: -1;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-effect:  dropshadow(three-pass-box, #22303f, 4, 0, 3, 3);
-    -fx-font-family: "Palatino Linotype";
-    -fx-padding: 2 8 2 8;
+    -fx-font-family: "Arial Black";
     -fx-text-fill: "#21232c";
-    -fx-font-size: 18;
-    -fx-text-alignment: center;
-    -color: #FFFFFF;
-    -fx-background-color:  -color;
-
 }
