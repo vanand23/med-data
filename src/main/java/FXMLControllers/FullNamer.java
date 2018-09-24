@@ -265,6 +265,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         data));
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
+                System.out.println("TRIGGERED");
                 if(experimentType.isValidText())
                 {
                     outputText.setText(updateName(
@@ -275,7 +276,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                             experimentDate.getValue(),
                             data));
                     setProperty("experimentType",newExperimentType);
-                    System.out.println("updated!");
+                }else if(experimentType.isTriggerPopup())
+                {
+                    try {
+                        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
+                        primaryStage.close();
+                        popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 }
             });
             researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
@@ -308,7 +317,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         data));
                 setProperty("sampleNumber",newSampleNumber);
             });
-
             data.addListener((ListChangeListener<Keyword>) keywords -> {
                 outputText.setText(updateName(
                         experimentType.getText(),
@@ -318,7 +326,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         experimentDate.getValue(),
                         data));
             });
-
             outputText.setText(updateName(
                     experimentType.getText(),
                     trialNumber.getText(),
