@@ -28,6 +28,5 @@ public class Keyword {
             dataval.set(dval);
         }
 
-
     }
 

@@ -35,9 +35,9 @@ public class Launcher extends Application {
         FXMLManager fxmlManager = FXMLManager.getInstance();
 
         //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
-        fxmlManager.loadFXML("/FXML/fullNamer.fxml");
+        fxmlManager.loadFXML("FXML/fullNamer.fxml");
 
-        Parent root = fxmlManager.getFXMLNode("/FXML/fullNamer.fxml");
+        Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -49,8 +49,6 @@ public class Launcher extends Application {
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        //primaryStage.setX(width - 400);
-        //primaryStage.setY(height - 700 - 50);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.toFront();

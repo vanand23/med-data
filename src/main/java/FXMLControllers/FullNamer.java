@@ -390,6 +390,102 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         primaryStage.close();
     }
 
+    /*
+        @FXML
+    public void addKeyword(ActionEvent e) throws IOException{
+        FXMLManager fxmlManager = FXMLManager.getInstance();
+        //fxmlManager.setSearchDirectory(System.getProperty("user.dir") + "/src/main/resources/");
+
+        JFXButton removeObjectButton = new JFXButton("", new ImageView(removeObjectIcon));
+        removeObjectButton.setPrefSize(15,15);
+        removeObjectButton.setPadding(new Insets(0,0,0,0));
+        removeObjectButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+        HBox hbox = new HBox();
+        hbox.setSpacing(10);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.getChildren().add(removeObjectButton);
+        KeywordAutocompleteTextField textField = new KeywordAutocompleteTextField(hbox);
+        textField.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        textField.setPromptText("Choose keyword");
+        textField.setAlignment(Pos.BASELINE_LEFT);
+        textField.setLabelFloat(false);
+        textField.setUnFocusColor(Paint.valueOf("#000000"));
+        textField.setFont(new Font("Times New Roman", 20));
+
+        vboxOfKeywords.getChildren().remove(addKeywordButton);
+        hbox.getChildren().add(textField);
+        JFXButton submitKeywordButton = new JFXButton("SUBMIT");
+        submitKeywordButton.getStylesheets().add("/CSS/smallButtons.css");
+        submitKeywordButton.setFont(new Font("Arial Black", 14));
+        submitKeywordButton.setPrefWidth(USE_COMPUTED_SIZE);
+        submitKeywordButton.setOnAction(actionEvent1 -> {
+            if(textField.getState() == 1)
+            {
+                HBox heeb = new HBox();
+                heeb.setSpacing(10);
+                heeb.setAlignment(Pos.CENTER);
+                JFXButton removeLabelButton = new JFXButton("", new ImageView(removeObjectIcon));
+                removeLabelButton.setPrefSize(15,15);
+                removeLabelButton.setPadding(new Insets(0,0,0,0));
+                removeLabelButton.setRipplerFill(Paint.valueOf("#FFFFFF"));
+                removeLabelButton.setOnAction(e2 -> {
+                    sharedListOfKeywords.remove(textField);
+                    veeb.getChildren().remove(heeb);
+                });
+                heeb.getChildren().add(removeLabelButton);
+                Label newKeyword = new Label();
+                newKeyword.setFont(new Font("Times New Roman", 16));
+                try {
+                    if(!KeywordManager.getInstance().getKeywordByName("long",textField.getText()).getAffix().equals("none")
+                            && textField.getKeywordValueField().getText() != null
+                            && !textField.getKeywordValueField().getText().trim().isEmpty())
+                    {
+                        newKeyword.setText(textField.getText() + ", " + textField.getKeywordValueField().getText());
+                    }else{
+                        newKeyword.setText(textField.getText());
+                    }
+                    heeb.getChildren().add(newKeyword);
+                    veeb.getChildren().add(heeb);
+                }catch (NameNotFoundException e1){
+                    e1.printStackTrace();
+                }
+                updateName(
+                    experimentType.getText(),
+                    trialNumber.getText(),
+                    sampleNumber.getText(),
+                    researcherName.getText(),
+                    experimentDate.getValue(),
+                        sharedListOfKeywords);
+                textField.setState(0);
+                sharedListOfKeywords.remove(textField);
+                vboxOfKeywords.getChildren().remove(hbox);
+                vboxOfKeywords.getChildren().add(addKeywordButton);
+            }
+        });
+        hbox.getChildren().add(submitKeywordButton);
+
+        setHgrow(textField, Priority.ALWAYS);
+        sharedListOfKeywords.add(textField);
+
+        removeObjectButton.setOnAction(e1 -> {
+            textField.setState(0);
+            sharedListOfKeywords.remove(textField);
+            vboxOfKeywords.getChildren().remove(hbox);
+            vboxOfKeywords.getChildren().add(addKeywordButton);
+        });
+
+
+        vboxOfKeywords.getChildren().add(hbox);
+        onTypeUpdate();
+    }
+
+    @FXML
+    public void updateExperiment(ActionEvent e) throws IOException{
+        onTypeUpdate();
+    }
+
+     */
+
     @FXML
     public void generateLog(ActionEvent e){
         try {

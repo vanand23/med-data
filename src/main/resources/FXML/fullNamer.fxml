@@ -14,8 +14,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import Utilities.*?>
 
+<?import Utilities.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane>
         <children>
@@ -33,7 +33,7 @@
                                     <Insets />
                                 </HBox.margin>
                             </JFXButton>
-                            <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="Print Log" />
+                            <JFXButton fx:id="loggerButton" focusTraversable="false" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="LOGGER" />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" prefHeight="30.0" prefWidth="364.0" spacing="10.0">
