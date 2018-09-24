@@ -25,12 +25,22 @@
                         </Label>
                      </children>
                   </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="576.0">
+                     <children>
+                        <Label alignment="CENTER" text="LOAD A PREVIOUS LOG FILE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="102.0" text="Load Log File:" />
-                              <JFXTextField fx:id="priorLogFile" prefHeight="25.0" prefWidth="411.0" style="-fx-background-color: FFFFFF;" />
+                              <Label prefHeight="17.0" prefWidth="87.0" text="Log File Path:  " />
+                              <JFXTextField fx:id="priorLogPath" prefHeight="25.0" prefWidth="345.0" style="-fx-background-color: ffffff;" />
+                              <JFXButton fx:id="logFileBrowser" onAction="#browseLogs" prefHeight="28.0" prefWidth="101.0" stylesheets="@../CSS/smallButtons.css" text="Browse Files" />
                               <JFXButton fx:id="priorLogHelpButton" stylesheets="@../CSS/helpButton.css" text="?" />
                            </children>
                            <padding>
@@ -41,7 +51,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="CREATE NEW LOG FILE">
+                        <Label text="CREATE A NEW LOG FILE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -60,12 +70,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label text="Log File Path:  " />
-                              <JFXTextField fx:id="newLogFilePath" prefHeight="25.0" prefWidth="291.0" style="-fx-background-color: ffffff;" />
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
