@@ -12,30 +12,29 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.KeywordsTable">
    <children>
-      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Text layoutX="160.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keywords Database Table" wrappingWidth="279.21875">
+         <font>
+            <Font name="Times New Roman" size="25.0" />
+         </font>
+      </Text>
+      <TableView fx:id="keywordsDBTable" layoutX="50.0" layoutY="85.0" prefHeight="231.0" prefWidth="500.0">
+        <columns>
+          <TableColumn fx:id="keywordName" prefWidth="150.0" text="Name" />
+          <TableColumn fx:id="keywordAbbrev" prefWidth="86.0" text="Abbreviation" />
+            <TableColumn fx:id="keywordAffix" prefWidth="67.0" text="Affix" />
+            <TableColumn fx:id="keywordDataType" prefWidth="95.0" text="Data Type" />
+            <TableColumn fx:id="keywordDataValue" prefWidth="100.0" text="Data Value" />
+        </columns>
+      </TableView>
+      <Text layoutX="50.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Library" wrappingWidth="98.21875">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Text>
+      <HBox layoutX="88.0" layoutY="336.0" prefHeight="43.0" prefWidth="424.0" spacing="100.0">
          <children>
-            <Label stylesheets="@../CSS/label.css" text="Keywords Table" />
-            <TreeTableView prefHeight="220.0" prefWidth="397.0">
-              <columns>
-                <TreeTableColumn fx:id="treeName" prefWidth="83.0" text="Name" />
-                <TreeTableColumn fx:id="treeAbbrev" prefWidth="91.0" text="Abbreviation" />
-                  <TreeTableColumn fx:id="treeAffix" prefWidth="69.0" text="Affix" />
-                  <TreeTableColumn fx:id="treeDataType" prefWidth="77.0" text="Data Type" />
-                  <TreeTableColumn fx:id="treeValue" prefWidth="76.0" text="Data Value" />
-              </columns>
-            </TreeTableView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Library" wrappingWidth="98.21875">
-               <font>
-                  <Font name="Times New Roman" size="16.0" />
-               </font>
-            </Text>
-            <HBox prefHeight="33.0" prefWidth="500.0" spacing="70.0">
-               <children>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="98.0" text="Cancel" />
-                  <Button fx:id="addNewKeywordButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" text="Add New Keyword" />
-                  <Button fx:id="applyButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Apply" />
-               </children>
-            </HBox>
+            <JFXButton fx:id="addKeywordsButton" prefHeight="43.0" prefWidth="224.0" onAction="#handleAddKeywordsButton" stylesheets="@../CSS/mediumButtons.css" text="Add New Keywords" />
+            <JFXButton fx:id="cancelButton" prefHeight="34.0" prefWidth="95.0" onAction="#handleCancelButton" stylesheets="@../CSS/mediumButtons.css" text="Cancel" />
          </children>
       </VBox>
    </children>
