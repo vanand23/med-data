@@ -207,6 +207,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else {
                 sampleNumber.setText("0");
             }
+            String configListOfKeywords = config.getProperty("listOfKeywords");
+            if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
+            {
+                String[] keywords = configListOfKeywords.split(",");
+                for(int i = 0; i < keywords.length; i += 2)
+                {
+                    data.add(new Keyword(keywords[i],keywords[i+1]));
+                }
+            }
+
             String configProjectName = config.getProperty("projectName");
             if(configProjectName != null && !configProjectName.trim().isEmpty())
             {
@@ -443,7 +453,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
         keywordsTable.getItems().remove(selectedItem);
-
+        StringBuilder listOfKeywords = new StringBuilder();
+        for (Keyword keyword : data) {
+            listOfKeywords.append(",");
+            listOfKeywords.append(keyword.getKeywordName());
+            listOfKeywords.append(",");
+            listOfKeywords.append(keyword.getDataValue());
+        }
+        listOfKeywords.deleteCharAt(0);
+        setProperty("listOfKeywords",listOfKeywords.toString());
     }
 
     @FXML

@@ -3,6 +3,7 @@ package FXMLControllers;
 
 import Types.KeywordManager;
 import Utilities.AutocompleteTextField;
+import Utilities.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -19,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 import static FXMLControllers.FullNamer.getData;
+import static Utilities.Config.setProperty;
 
 public class AddKeywordsUI extends ScreenController implements Initializable, ITypeObserver {
 
@@ -73,8 +75,18 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
     public void handleOKButton(ActionEvent e) throws IOException {
         ObservableList<Keyword> parameterData;
         parameterData = getData();
-        Keyword keyword = new Keyword(keywordName.getText(), keywordDataVal.getText());
-        parameterData.add(keyword);
+        Keyword newKeyword = new Keyword(keywordName.getText(), keywordDataVal.getText());
+        parameterData.add(newKeyword);
+        Config config = new Config();
+        String configListOfKeywords = config.getProperty("listOfKeywords");
+        if(configListOfKeywords == null || configListOfKeywords.trim().isEmpty())
+        {
+            configListOfKeywords = keywordName.getText() + "," + keywordDataVal.getText();
+        }else
+        {
+            configListOfKeywords = configListOfKeywords + "," + keywordName.getText() + "," + keywordDataVal.getText();
+        }
+        setProperty("listOfKeywords",configListOfKeywords);
         keywordName.setValidText(false);
         keywordName.clear();
         keywordDataVal.clear();
