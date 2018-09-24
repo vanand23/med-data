@@ -36,32 +36,24 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
     public void initialize(URL location, ResourceBundle resources){
         onTypeUpdate();
         keywordName.setAutocompleteWidth(350);
-    }
-
-
-    public String getKeyAbbrev() {
-
-        String keywordNameText = keywordName.getText();
-        String keywordDataValText = keywordDataVal.getText();
-
-        String keywordAbbrev = "";
-
-        if(keywordNameText != null && !(keywordNameText.trim().isEmpty()))
-        {
-
-            try {
-                keywordAbbrev = KeywordManager.getInstance().getKeywordByName("long", keywordNameText).getShortName();
-
-            } catch (NameNotFoundException e1) {
-                e1.printStackTrace();
+        keywordName.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
+            if(keywordName.isValidText())
+            {
+                try {
+                    if(!KeywordManager.getInstance().getKeywordByName("long",keywordName.getText()).getAffix().equals("none")) {
+                        keywordDataVal.setDisable(false);
+                        keywordDataVal.setText("");
+                    }else{
+                        keywordDataVal.setDisable(true);
+                        keywordDataVal.setText("N/A");
+                    }
+                    }catch (NameNotFoundException e){
+                    e.printStackTrace();
+                }
             }
-        }
-
-        return keywordAbbrev;
+        });
 
     }
-
-
 
     @FXML
     public void updateKeywords(ActionEvent e) throws IOException {
@@ -74,6 +66,7 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
         parameterData = getData();
         Keyword keyword = new Keyword(keywordName.getText(), keywordDataVal.getText());
         parameterData.add(keyword);
+        keywordName.setValidText(false);
         keywordName.clear();
         keywordDataVal.clear();
         Stage primaryStage = (Stage) keywordDataVal.getScene().getWindow();
