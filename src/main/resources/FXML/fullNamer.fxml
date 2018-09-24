@@ -149,9 +149,9 @@
                             </VBox>
                         </children>
                     </HBox>
-                    <Label text="KEYWORDS">
+                    <Label prefHeight="28.0" prefWidth="474.0" text="KEYWORDS TABLE">
                         <font>
-                            <Font name="Arial Black" size="19.0" />
+                            <Font name="Arial Black" size="18.0" />
                         </font>
                     </Label>
                     <HBox prefHeight="160.0" spacing="10.0">
@@ -215,4 +215,5 @@
             </VBox>
         </children>
     </StackPane>
+   <JFXButton fx:id="keywordsToDBButton" prefHeight="31.0" prefWidth="84.0" onAction="#handleAddToDBButton" stylesheets="@../CSS/mediumButtons.css" text="Add Keywords to DB" />
 </AnchorPane>

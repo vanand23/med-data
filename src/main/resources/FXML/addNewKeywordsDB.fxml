@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="544.0" prefWidth="370.0" style="-fx-background-color: #C2dce5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.AddNewKeywordsDB">
    <children>
-      <HBox layoutX="18.0" layoutY="232.0" prefHeight="30.0" prefWidth="334.0" spacing="45.0">
+      <HBox layoutX="29.0" layoutY="232.0" prefHeight="30.0" prefWidth="308.0" spacing="45.0">
          <children>
             <Label prefHeight="17.0" prefWidth="71.0" text="Affix: ">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Label>
-            <JFXRadioButton fx:id="prefixID" text="prefix" />
-            <JFXRadioButton fx:id="suffixID" text="suffix" />
+            <RadioButton fx:id="prefixID" mnemonicParsing="false" text="prefix" onAction="#handlePrefixButton" >
+                <toggleGroup>
+                    <ToggleGroup fx:id="AffixPrefButtons" />
+                </toggleGroup>
+            </RadioButton>
+
+            <RadioButton fx:id="suffixID" mnemonicParsing="false" text="suffix" onAction="#handleSuffixButton" toggleGroup="$AffixPrefButtons"/>
          </children>
       </HBox>
-      <JFXButton fx:id="submitButton" layoutX="136.0" layoutY="461.0" stylesheets="@../CSS/mediumButtons.css" text="Submit">
+      <JFXButton fx:id="submitButton" layoutX="136.0" layoutY="461.0" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
@@ -32,32 +40,48 @@
             <Font name="Times New Roman" size="20.0" />
          </font>
       </Text>
-      <JFXTextField fx:id="keywordName" labelFloat="true" layoutX="27.0" layoutY="80.0" prefHeight="27.0" prefWidth="290.0" promptText="Name" style="-fx-background-color: ffffff;">
+      <JFXTextField fx:id="thekeywordName" labelFloat="true" layoutX="27.0" layoutY="80.0" prefHeight="27.0" prefWidth="290.0" promptText="Name" style="-fx-background-color: ffffff;">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="keywordAbbrev" labelFloat="true" layoutX="27.0" layoutY="149.0" prefHeight="27.0" prefWidth="290.0" promptText="Abbreviation" style="-fx-background-color: ffffff;">
+      <JFXTextField fx:id="thekeywordAbbrev" labelFloat="true" layoutX="27.0" layoutY="149.0" prefHeight="27.0" prefWidth="290.0" promptText="Abbreviation" style="-fx-background-color: ffffff;">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="dataValue" focusColor="#4d4d4d" labelFloat="true" layoutX="27.0" layoutY="385.0" prefHeight="27.0" prefWidth="290.0" promptText="Data Value" style="-fx-background-color: ffffff;">
+      <JFXTextField fx:id="thedataValue" focusColor="#4d4d4d" labelFloat="true" layoutX="27.0" layoutY="385.0" prefHeight="27.0" prefWidth="290.0" promptText="Data Value" style="-fx-background-color: ffffff;">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXRadioButton fx:id="noData" layoutX="136.0" layoutY="339.0" text="none" />
-      <HBox layoutX="17.0" layoutY="294.0" prefHeight="30.0" prefWidth="348.0" spacing="29.0">
+      <VBox layoutX="27.0" layoutY="295.0" prefHeight="83.0" prefWidth="345.0" spacing="20.0">
          <children>
-            <Label text="Data Type:">
-               <font>
-                  <Font name="Times New Roman" size="20.0" />
-               </font>
-            </Label>
-            <JFXRadioButton fx:id="numericData" text="numeric" />
-            <JFXRadioButton fx:id="alphanumericData" text="alphanumeric" />
+            <HBox prefHeight="30.0" prefWidth="334.0" spacing="14.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="104.0" text="Data Type:">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="numericData" mnemonicParsing="false" text="numeric" onAction="#handleNumericButton" >
+                      <toggleGroup>
+                          <ToggleGroup fx:id="DataTypePrefButtons" />
+                      </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="alphanumericData" mnemonicParsing="false" text="alphanumeric" onAction="#handleAlphanumericButton" toggleGroup="$DataTypePrefButtons">
+                     <HBox.margin>
+                        <Insets left="18.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <RadioButton fx:id="noData" mnemonicParsing="false" text="none" onAction="#handleNoDataButton" toggleGroup="$DataTypePrefButtons">
+               <VBox.margin>
+                  <Insets left="119.0" />
+               </VBox.margin>
+            </RadioButton>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>

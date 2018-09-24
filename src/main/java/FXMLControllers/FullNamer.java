@@ -83,6 +83,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton addKeywordButton;
 
     @FXML
+    private JFXButton keywordsToDBButton;
+
+    @FXML
     private JFXToggleButton switchNamers;
 
     @FXML
@@ -384,20 +387,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     @FXML
-    public void handleDeleteButton (ActionEvent e) throws IOException {
+    public void handleAddToDBButton (ActionEvent e) throws IOException {
 
-        Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
-        keywordsTable.getItems().remove(selectedItem);
-
-    }
-
-    @FXML
-    public void handleDeleteButton (ActionEvent e) throws IOException {
-
-        Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
-        keywordsTable.getItems().remove(selectedItem);
+        popupScreen("FXML/KeywordsTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
 
     }
+
 
     @Override
     public void onTypeUpdate() {
