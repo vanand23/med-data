@@ -20,7 +20,7 @@ public class Launcher extends Application {
         double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         Font.loadFont(
-                Launcher.class.getResource("/Fonts/ArialBlack.ttf").toExternalForm(),
+                Launcher.class.getResource("/Fonts/CaviarDreams_Bold.ttf").toExternalForm(),
                 10
         );
 

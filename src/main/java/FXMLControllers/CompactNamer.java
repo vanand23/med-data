@@ -106,11 +106,15 @@ public class CompactNamer extends Namer implements Initializable {
         if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
         {
             trialNumber.setText(configTrialNumber);
+        }else{
+            trialNumber.setText("0");
         }
         String configSampleNumber = config.getProperty("sampleNumber");
         if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
         {
             sampleNumber.setText(configSampleNumber);
+        }else{
+            sampleNumber.setText("0");
         }
 
         experimentDate.setValue(LocalDate.now());
