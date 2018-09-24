@@ -66,10 +66,10 @@ public class LoggerMenu extends ScreenController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        final JFXButton priorLogHelp = priorLogHelpButton;
-        final Tooltip priorLogTooltip = new Tooltip();
-        priorLogTooltip.setText("Enter the file path of an existing log file.");
-        priorLogHelp.setTooltip(priorLogTooltip);
+        //final JFXButton priorLogHelp = priorLogHelpButton;
+        //final Tooltip priorLogTooltip = new Tooltip();
+        //priorLogTooltip.setText("Enter the file path of an existing log file.");
+        //priorLogHelp.setTooltip(priorLogTooltip);
 
     }
 

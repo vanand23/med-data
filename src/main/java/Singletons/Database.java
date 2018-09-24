@@ -464,7 +464,7 @@ public class Database {
             // open the file from the resources folder
             //BufferedReader reader = new BufferedReader(new InputStreamReader(Database.class.getClassLoader().getResourceAsStream(filename)));
             // use this line instead to load from the project directory instead
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader("Libraries/" + filename));
 
             // Skip the first line (the column titles)
             reader.readLine();

@@ -42,8 +42,10 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
                 try {
                     if(!KeywordManager.getInstance().getKeywordByName("long",keywordName.getText()).getAffix().equals("none")) {
                         keywordDataVal.setDisable(false);
+                        keywordDataVal.setText("");
                     }else{
                         keywordDataVal.setDisable(true);
+                        keywordDataVal.setText("N/A");
                     }
                     }catch (NameNotFoundException e){
                     e.printStackTrace();

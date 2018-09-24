@@ -1,7 +1,7 @@
 .jfx-button:armed,
 .jfx-button{
-    -fx-font-family: "Arial Black";
-    -fx-font-size: 12;
+    -fx-font-family: "Caviar Dreams";
+    -fx-font-size: 18;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
     -fx-effect: dropshadow(three-pass-box, #22303f, 2, 0, 1, 1);
@@ -12,14 +12,13 @@
     -fx-background-radius: 0;
 }
 .jfx-button:focused{
-    -fx-font-family: "Arial Black";
-    -fx-font-size: 14;
+    -fx-font-family: "Caviar Dreams";
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
     -fx-opacity: 1.0;
 }
 .jfx-button:hover{
-    -fx-scale-y: 1.02;
-    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.01;
+    -fx-scale-x: 1.01;
     -fx-cursor: hand;
 }
