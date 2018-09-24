@@ -61,6 +61,9 @@ public class LoggerMenu extends ScreenController implements Initializable {
     @FXML
     private JFXButton priorLogHelpButton;
 
+    @FXML
+    private JFXButton openLogButton;
+
     private String sheetName;
 
     private Desktop desktop = Desktop.getDesktop();
@@ -73,6 +76,15 @@ public class LoggerMenu extends ScreenController implements Initializable {
         final Tooltip priorLogTooltip = new Tooltip();
         priorLogTooltip.setText("Click on the browse button to find a previous log file.");
         priorLogHelp.setTooltip(priorLogTooltip);
+
+        priorLogPath.textProperty().addListener((obs,oldLogFilePath,newLogFilePath) -> {
+            if(priorLogPath!= null && !priorLogPath.getText().trim().isEmpty()){
+                openLogButton.setDisable(false);
+            }
+            else{
+                openLogButton.setDisable(true);
+            }
+        });
 
 
 }
@@ -248,6 +260,12 @@ File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindo
         logEntryArrayList.clear();
     }
 
+    @FXML
+    public void openLog(ActionEvent e){
+       File file = new File(priorLogPath.getText());
+       openFile(file);
+
+    }
 
 
 
