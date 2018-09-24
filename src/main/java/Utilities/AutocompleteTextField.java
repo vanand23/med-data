@@ -5,6 +5,8 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,6 +24,7 @@ public class AutocompleteTextField extends JFXTextField {
     //entries to autocomplete
     private final SortedSet<String> entries;
     private boolean validText;
+    private boolean triggerPopup;
     //popup GUI
     ContextMenu entriesPopup;
     Robot r;
@@ -44,6 +47,7 @@ public class AutocompleteTextField extends JFXTextField {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+        triggerPopup = false;
         validText = false;
         width = 400;
         setListener();
@@ -72,8 +76,22 @@ public class AutocompleteTextField extends JFXTextField {
                         entriesPopup.show(AutocompleteTextField.this, Side.BOTTOM, 0, 0); //position of popup
                     }
                 } else {
-                    //no suggestions -> hide
-                    entriesPopup.hide();
+                    //label with graphic (text flow) to highlight founded subtext in suggestions
+                    Label entryLabel = new Label(" + Add a new entry to the database");
+                    //entryLabel.setGraphic(Styles.buildTextFlow(result, enteredText));
+                    entryLabel.setFont(Font.font("Times New Roman", FontWeight.BOLD,20));
+                    entryLabel.setPrefHeight(20);  //don't sure why it's changed with "graphic"
+                    entryLabel.setPrefWidth(width);
+                    entryLabel.setMaxWidth(width*1.5);
+                    CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+                    entriesPopup.getItems().clear();
+                    entriesPopup.getItems().add(item);
+                    //if any suggestion is select set it into text and close popup
+                    item.setOnAction(actionEvent -> {
+                        this.triggerPopup = true;
+                        this.setText("");
+                    });
+
                 }
             }
         });
@@ -104,10 +122,8 @@ public class AutocompleteTextField extends JFXTextField {
                 setText(result);
                 r.keyPress(KeyEvent.VK_ENTER);
                 r.keyRelease(KeyEvent.VK_ENTER);
-
             });
         }
-        System.out.println(validText);
 
         //"Refresh" context menu
         entriesPopup.getItems().clear();
@@ -116,6 +132,10 @@ public class AutocompleteTextField extends JFXTextField {
 
     public boolean isValidText() {
         return validText;
+    }
+
+    public boolean isTriggerPopup() {
+        return triggerPopup;
     }
 
     public void setValidText(boolean validText) {

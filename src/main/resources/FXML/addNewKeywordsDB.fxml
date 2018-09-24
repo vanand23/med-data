@@ -16,19 +16,18 @@
    <children>
       <HBox layoutX="29.0" layoutY="232.0" prefHeight="30.0" prefWidth="308.0" spacing="45.0">
          <children>
-            <Label alignment="CENTER" prefWidth="400.0" stylesheets="@../CSS/label.css" text="Add New Keyword" textAlignment="CENTER" />
             <Label minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../CSS/label.css" text="Additional Data Type:">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Label>
-            <RadioButton fx:id="prefixID" mnemonicParsing="false" onAction="#handlePrefixButton" text="prefix">
+            <RadioButton fx:id="prefixID" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePrefixButton" text="prefix">
                 <toggleGroup>
                     <ToggleGroup fx:id="AffixPrefButtons" />
                 </toggleGroup>
             </RadioButton>
 
-            <RadioButton fx:id="suffixID" mnemonicParsing="false" onAction="#handleSuffixButton" text="suffix" toggleGroup="$AffixPrefButtons" />
+            <RadioButton fx:id="suffixID" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSuffixButton" text="suffix" toggleGroup="$AffixPrefButtons" />
          </children>
       </HBox>
       <JFXButton fx:id="submitButton" layoutX="53.0" layoutY="461.0" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
@@ -66,12 +65,13 @@
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="numericData" mnemonicParsing="false" onAction="#handleNumericButton" text="numeric">
+                  <RadioButton fx:id="numericData" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNumericButton" text="numeric">
                       <toggleGroup>
                           <ToggleGroup fx:id="DataTypePrefButtons" />
                       </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="alphanumericData" mnemonicParsing="false" onAction="#handleAlphanumericButton" text="alphanumeric" toggleGroup="$DataTypePrefButtons">
+
+                  <RadioButton fx:id="alphanumericData" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAlphanumericButton" text="alphanumeric" toggleGroup="$DataTypePrefButtons">
                      <HBox.margin>
                         <Insets left="18.0" />
                      </HBox.margin>
