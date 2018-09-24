@@ -118,6 +118,10 @@ public class AutocompleteTextField extends JFXTextField {
         return validText;
     }
 
+    public void setValidText(boolean validText) {
+        this.validText = validText;
+    }
+
     /**
      * Get the existing set of autocomplete entries.
      *

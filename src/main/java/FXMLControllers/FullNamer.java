@@ -6,7 +6,6 @@ import Types.KeywordType;
 import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
-import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -22,8 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -40,7 +37,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.security.Key;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -316,6 +312,41 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     @FXML
+    public void incrementSampleNumber(ActionEvent e) throws IOException{
+        int currSample = Integer.parseInt(sampleNumber.getText());
+        currSample++;
+        sampleNumber.setText(String.valueOf(currSample));
+    }
+
+    @FXML
+    public void incrementTrialNumber(ActionEvent e) throws IOException{
+        int currTrial = Integer.parseInt(trialNumber.getText());
+        currTrial++;
+        trialNumber.setText(String.valueOf(currTrial));
+    }
+
+    @FXML
+    public void decrementSampleNumber(ActionEvent e) throws IOException{
+        int currSample = Integer.parseInt(sampleNumber.getText());
+        if (currSample >= 1)
+        {
+            currSample--;
+            sampleNumber.setText(String.valueOf(currSample));
+        }
+    }
+
+    @FXML
+    public void decrementTrialNumber(ActionEvent e) throws IOException{
+        int currTrial = Integer.parseInt(trialNumber.getText());
+        if (currTrial >= 1)
+        {
+            currTrial--;
+            trialNumber.setText(String.valueOf(currTrial));
+        }
+    }
+
+
+    @FXML
     public void updateExperiment(ActionEvent e) throws IOException{
         onTypeUpdate();
     }
@@ -365,7 +396,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void handlePreferences(ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        Stage popup = popupScreen("FXML/myProjectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
+        Stage popup = popupScreen("FXML/projectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
                         "Project Preferences");
     }
 
@@ -377,6 +408,14 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     public void handleAddButton (ActionEvent e) throws IOException {
         popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keyword Menu");
+    }
+
+    @FXML
+    public void handleDeleteButton (ActionEvent e) throws IOException {
+
+        Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
+        keywordsTable.getItems().remove(selectedItem);
+
     }
 
     @Override
@@ -393,6 +432,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Stage primaryStage = (Stage) closeButton.getScene().getWindow();
         primaryStage.close();
     }
+
+
 
 
     public static TreeTableView getTableOfKeywords() {
