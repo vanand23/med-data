@@ -4,7 +4,6 @@ import Singletons.Database;
 import Types.KeywordManager;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,8 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static FXMLControllers.FullNamer.getData;
-import static FXMLControllers.KeywordsTable.getDBdata;
+import static FXMLControllers.KeywordsDBTable.getDBdata;
 
 public class AddNewKeywordsDB extends ScreenController implements Initializable {
 
@@ -35,6 +33,9 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
 
     @FXML
     private JFXButton submitButton;
+
+    @FXML
+    private JFXButton cancelButton;
 
     @FXML
     private RadioButton prefixID;
@@ -118,6 +119,14 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
     @FXML
     public void handleNoDataButton(ActionEvent e) throws IOException {
         keywordDataType = "no data";
+    }
+
+    @FXML
+    public void handleCancelButton (ActionEvent e) throws IOException {
+
+        Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
+        primaryStage.close();
+
     }
 
 }

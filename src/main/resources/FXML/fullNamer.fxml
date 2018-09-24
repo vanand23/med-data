@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import Utilities.*?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane>
         <children>
@@ -208,12 +208,12 @@
                             </TableView>
                             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0">
                                 <children>
-                                    <JFXButton fx:id="addKeywordButton" minWidth="-Infinity" onAction="#handleAddButton" prefWidth="70.0" stylesheets="@../CSS/mediumButtons.css" text="Add">
+                                    <JFXButton fx:id="addKeywordButton" minWidth="-Infinity" onAction="#handleAddButton" prefHeight="39.0" prefWidth="89.0" stylesheets="@../CSS/mediumButtons.css" text="Add">
                                         <font>
                                             <Font name="Alte Haas Grotesk Bold" size="18.0" />
                                         </font>
                                     </JFXButton>
-                                    <JFXButton fx:id="deleteButton" minWidth="-Infinity" onAction="#handleDeleteButton" prefWidth="70.0" stylesheets="@../CSS/mediumButtons.css" text="Del">
+                                    <JFXButton fx:id="deleteButton" minWidth="-Infinity" onAction="#handleDeleteButton" prefHeight="39.0" prefWidth="93.0" stylesheets="@../CSS/mediumButtons.css" text="Delete">
                                         <font>
                                             <Font name="Alte Haas Grotesk Bold" size="18.0" />
                                         </font>
@@ -222,6 +222,17 @@
                             </VBox>
                         </children>
                     </HBox>
+               <JFXButton fx:id="keywordsToDBButton" onAction="#handleAddToDBButton" prefHeight="37.0" prefWidth="218.0" text="+ Add New Keywords">
+                  <VBox.margin>
+                     <Insets right="230.0" />
+                  </VBox.margin>
+                  <font>
+                     <Font name="Times New Roman Bold" size="20.0" />
+                  </font>
+                  <padding>
+                     <Insets bottom="20.0" right="30.0" />
+                  </padding>
+               </JFXButton>
                     <VBox prefHeight="60.0" prefWidth="460.0">
                         <children>
                             <Label stylesheets="@../CSS/label.css" text="Output:">
@@ -250,8 +261,10 @@
                 <padding>
                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                 </padding>
+            <StackPane.margin>
+               <Insets />
+            </StackPane.margin>
             </VBox>
         </children>
     </StackPane>
-   <JFXButton fx:id="keywordsToDBButton" prefHeight="31.0" prefWidth="84.0" onAction="#handleAddToDBButton" stylesheets="@../CSS/mediumButtons.css" text="Add Keywords to DB" />
 </AnchorPane>
