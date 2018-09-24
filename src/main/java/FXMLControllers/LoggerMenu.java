@@ -145,7 +145,7 @@ File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindo
     private XSSFWorkbook writeToWorkbook(XSSFWorkbook workbook, Sheet sheet, boolean isNewWorkbook){
         int rowNumber;
         if(isNewWorkbook == true){
-            rowNumber = 0;
+            rowNumber = 3;
         }
         else{
             rowNumber = sheet.getPhysicalNumberOfRows();
