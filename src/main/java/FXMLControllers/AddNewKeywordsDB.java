@@ -2,6 +2,7 @@ package FXMLControllers;
 
 import Singletons.Database;
 import Types.KeywordManager;
+import Types.KeywordType;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -52,9 +53,6 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
     @FXML
     private RadioButton noData;
 
-    @FXML
-    private JFXTextField thedataValue;
-
     String keywordAffix;
 
     String keywordDataType;
@@ -65,20 +63,20 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
         final ToggleGroup DataTypePrefButtons = new ToggleGroup();
         thekeywordName.setMinWidth(100);
         thekeywordAbbrev.setMinWidth(100);
-        thedataValue.setMinWidth(100);
     }
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        ObservableList<KeywordDB> theparameterData;
-        theparameterData = getDBdata();
-        KeywordDB keyword = new KeywordDB(thekeywordName.getText(),
+        getDBdata().add(new KeywordDB(thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordAffix,
                 keywordDataType,
-                thedataValue.getText());
+                ""));
         try {
-            Database.insertKeyword(String.valueOf(KeywordManager.getInstance().getNumberOfKeywords() + 1),
+            int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
+            KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
+            System.out.println(lastKeyword.getID());
+            Database.insertKeyword(String.valueOf(Integer.valueOf(lastKeyword.getID())+1),
                     thekeywordName.getText(),
                     thekeywordAbbrev.getText(),
                     keywordAffix,
@@ -88,11 +86,9 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
             e1.printStackTrace();
             System.err.println("Could not insert keyword");
         }
-        theparameterData.add(keyword);
         thekeywordName.clear();
         thekeywordAbbrev.clear();
-        thedataValue.clear();
-        Stage primaryStage = (Stage) thedataValue.getScene().getWindow();
+        Stage primaryStage = (Stage) thekeywordAbbrev.getScene().getWindow();
         primaryStage.close();
     }
 

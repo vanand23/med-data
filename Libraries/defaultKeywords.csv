@@ -11,9 +11,7 @@ variableID,longName,shortName,dataType,affix
 10,Speech audiometry,SA,numeric,prefix
 11,Free field stimulation,FF,none,none
 12,Freiburg monosyllabic speech test,FreiburgMS,none,none
-13,Oldenberg speech text in noise,OLSA,none,none
 14,Transient evoked optoacoustic emission,TEOAE,none,none
 15,Acoustic brainstem response,ABR,none,none
 16,Contralateral routing of signal,CROS,none,none
 17,Bone anchored hearing aid,BAHA,none,none
-18,,,null,null

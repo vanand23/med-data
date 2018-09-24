@@ -19,8 +19,9 @@
 }
 
 .jfx-button:hover {
-    -fx-scale-y: 1.01;
     -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-font-size: 18;
     -fx-cursor: hand;
 }
 .jfx-button:disabled{

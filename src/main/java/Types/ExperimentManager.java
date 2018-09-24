@@ -149,6 +149,15 @@ public class ExperimentManager {
     }
 
     /**
+     * function which returns the number of keywords
+     * @return number of keywords
+     */
+    public int getNumberOfExperiments(){
+        return experiments.size();
+    }
+
+
+    /**
      * Helper function for getLongNames
      * @param inputStr
      * @param items

@@ -505,6 +505,32 @@ public class Database {
         }
     }
 
+    public static void removeKeyword(String longName) throws SQLException
+    {
+        try{
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM keywords WHERE longName=?");
+            ps.setString(1, longName);
+            ps.execute();
+        }
+        catch(SQLException e){
+            System.out.println("Could not remove keyword");
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeExperiment(String longName) throws SQLException
+    {
+        try{
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM experiments WHERE longName=?");
+            ps.setString(1, longName);
+            ps.execute();
+        }
+        catch(SQLException e){
+            System.out.println("Could not remove experiment");
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Write all edges into a .csv file (puts file in the project directory NOT resources folder)
@@ -526,6 +552,7 @@ public class Database {
             // retrieve edges from database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM keywords");
+
 
             String keywordID,longName,shortName,dataType,affix;
 
@@ -555,6 +582,57 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Write all edges into a .csv file (puts file in the project directory NOT resources folder)
+     * @param filename the name of the file to write to
+     */
+    public static void writeExperimentsToCSV(String filename){
+        // Quit if no database connected
+        if(connection == null){
+            System.out.println("No connection with ");
+            return;
+        }
+        // Open the csv file
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+
+            // write column titles
+            writer.write("experimentID,longName,shortName,description\n");
+
+            // retrieve edges from database
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM experiments");
+
+
+            String experimentID,longName,shortName,description;
+
+            // Write each edge to the .csv file
+            while(rs.next()){
+                // get fields
+                experimentID = rs.getString("experimentID");
+                longName = rs.getString("longName");
+                shortName = rs.getString("shortName");
+                description = rs.getString("description");
+
+                // combine fields into a line and write it
+                writer.write(experimentID + "," + longName + "," + shortName + "," + description + "\n");
+            }
+
+            s.close();
+            rs.close();
+            writer.close();
+            System.out.println("Successfully saved experiments to " + filename);
+
+        } catch(IOException e){
+            System.out.println("Could not save DB to " + filename);
+            e.printStackTrace();
+        } catch(SQLException e){
+            System.out.println("Could not retrieve from ");
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Write all nodes into a .csv file (puts file in the project directory NOT resources folder)
