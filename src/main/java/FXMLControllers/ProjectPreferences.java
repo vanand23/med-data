@@ -156,8 +156,9 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     //updates the delimiter based on the user's choice in the radio buttons
     private void updateDelimiter(){
-        delimiter = ProjectPreferences.getInstance().getDelimiter();
-        if(delimiter == null){
+        Config config = new Config();
+        delimiter = config.getProperty("delimiter");
+        if(delimiter == null || delimiter.trim().isEmpty()){
             delimiter = "_";
         }
         switch(delimiter)
