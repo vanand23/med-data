@@ -1,5 +1,8 @@
 package FXMLControllers;
 
+import Singletons.Database;
+import Types.KeywordManager;
+import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
@@ -9,9 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 import javafx.scene.control.ToggleGroup;
+import org.apache.derby.client.am.SqlException;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static FXMLControllers.KeywordsDBTable.getDBdata;
@@ -65,7 +72,22 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
     public void handleSubmitButton(ActionEvent e) throws IOException {
         ObservableList<KeywordDB> theparameterData;
         theparameterData = getDBdata();
-        KeywordDB keyword = new KeywordDB(thekeywordName.getText(), thekeywordAbbrev.getText(), keywordAffix, keywordDataType, thedataValue.getText());
+        KeywordDB keyword = new KeywordDB(thekeywordName.getText(),
+                thekeywordAbbrev.getText(),
+                keywordAffix,
+                keywordDataType,
+                thedataValue.getText());
+        try {
+            Database.insertKeyword(String.valueOf(KeywordManager.getInstance().getNumberOfKeywords() + 1),
+                    thekeywordName.getText(),
+                    thekeywordAbbrev.getText(),
+                    keywordAffix,
+                    keywordDataType);
+            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
+        }catch (SQLException e1){
+            e1.printStackTrace();
+            System.err.println("Could not insert keyword");
+        }
         theparameterData.add(keyword);
         thekeywordName.clear();
         thekeywordAbbrev.clear();

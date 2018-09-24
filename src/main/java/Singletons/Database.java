@@ -101,8 +101,7 @@ public class Database {
                         "longName VARCHAR(50)," +
                         "shortName VARCHAR(50)," +
                         "dataType VARCHAR(50)," +
-                        "affix VARCHAR(50)," +
-                        "dataValue VARCHAR(50))");
+                        "affix VARCHAR(50))");
 
         // experiments
         // Create experiments table if it does not already exist
@@ -260,7 +259,7 @@ public class Database {
             ps.setString(1, keywordID);
             ResultSet rs = ps.executeQuery();
 
-            String longName, shortName, dataType, affix, dataValue;
+            String longName, shortName, dataType, affix;
             KeywordType n = null;
 
             // for each node, build an object
@@ -269,10 +268,9 @@ public class Database {
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
-                dataValue = rs.getString("dataValue");
 
                 // create node instance and put it in the nodes HashMap
-                n = new KeywordType(keywordID, longName, shortName, dataType, affix, dataValue);
+                n = new KeywordType(keywordID, longName, shortName, dataType, affix);
                 break;
             }
 
@@ -332,15 +330,14 @@ public class Database {
      * @param * the inputs correspond to the node class's fields
      * @throws SQLException
      */
-    public static void insertKeyword(String keywordID, String longName, String shortName, String dataType, String affix, String defaultDataValue)  throws SQLException{
+    public static void insertKeyword(String keywordID, String longName, String shortName, String dataType, String affix)  throws SQLException{
         try{
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO keywords VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO keywords VALUES (?, ?, ?, ?, ?)");
             ps.setString(1, keywordID);
             ps.setString(2, longName);
             ps.setString(3, shortName);
             ps.setString(4, dataType);
             ps.setString(5, affix);
-            ps.setString(6, defaultDataValue);
             ps.execute();
             ps.close();
             System.out.println("keyword inserted");
@@ -393,14 +390,12 @@ public class Database {
                     "shortName=?, " +
                     "dataType=?, " +
                     "affix=?" +
-                    "dataValue=?" +
                     "WHERE keywordID=?");
             ps.setString(1, longName);
             ps.setString(2, shortName);
             ps.setString(3, dataType);
             ps.setString(4, affix);
-            ps.setString(5, dataValue);
-            ps.setString(6, keywordID);
+            ps.setString(5, keywordID);
 
             ps.execute();
             ps.close();
@@ -409,7 +404,6 @@ public class Database {
             System.out.println("Could not update keyword " + longName);
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -491,10 +485,9 @@ public class Database {
                     String shortName = items[2];
                     String dataType = items[3];
                     String affix = items[4];
-                    String defaultValue = items[5];
 
                     // insert new node into database
-                    insertKeyword(keywordID, longName, shortName, dataType, affix, defaultValue);
+                    insertKeyword(keywordID, longName, shortName, dataType, affix);
                 }
             }
         }
@@ -517,40 +510,42 @@ public class Database {
      * Write all edges into a .csv file (puts file in the project directory NOT resources folder)
      * @param filename the name of the file to write to
      */
-    public static void writeEdgesToCSV(String filename){
+    public static void writeKeywordsToCSV(String filename){
         // Quit if no database connected
         if(connection == null){
             System.out.println("No connection with ");
             return;
         }
-
         // Open the csv file
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
             // write column titles
-            writer.write("edgeID,startNode,endNode\n");
+            writer.write("variableID,longName,shortName,dataType,affix\n");
 
             // retrieve edges from database
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM edges");
+            ResultSet rs = s.executeQuery("SELECT * FROM keywords");
 
-            String edgeID, startNode, endNode;
+            String keywordID,longName,shortName,dataType,affix;
 
             // Write each edge to the .csv file
             while(rs.next()){
                 // get fields
-                edgeID = rs.getString("edgeID");
-                startNode = rs.getString("startNodeID");
-                endNode = rs.getString("endNodeID");
+                keywordID = rs.getString("keywordID");
+                longName = rs.getString("longName");
+                shortName = rs.getString("shortName");
+                dataType = rs.getString("dataType");
+                affix = rs.getString("affix");
+
                 // combine fields into a line and write it
-                writer.write(edgeID + "," + startNode + "," + endNode + "\n");
+                writer.write(keywordID + "," + longName + "," + shortName + "," + dataType + "," + affix + "\n");
             }
 
             s.close();
             rs.close();
             writer.close();
-            System.out.println("Successfully saved edges to " + filename);
+            System.out.println("Successfully saved keywords to " + filename);
 
         } catch(IOException e){
             System.out.println("Could not save DB to " + filename);
@@ -812,7 +807,7 @@ public class Database {
             // Retrieve all keyword types in database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM keywords");
-            String keywordID, longName, shortName, dataType, affix, dataValue;
+            String keywordID, longName, shortName, dataType, affix;
 
             // for each node, build an object
             while(rs.next()) {
@@ -821,15 +816,10 @@ public class Database {
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
-                dataValue = rs.getString("dataValue");
-                if(dataType == null | dataType.length() == 0)
-                {
-                    dataValue= "";
-                }
 
 
                 // create node instance and put it in the nodes HashMap
-                KeywordType n = new KeywordType(keywordID, longName, shortName, dataType, affix, dataValue);
+                KeywordType n = new KeywordType(keywordID, longName, shortName, dataType, affix);
                 keywords.put(keywordID, n);
             }
         } catch(SQLException e){

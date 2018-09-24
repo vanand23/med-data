@@ -447,12 +447,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     @FXML
-    public void handleAddToDBButton (ActionEvent e) throws IOException {
-
-        popupScreen("FXML/KeywordsDBTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
-
+    public void handleAddToDBButton (ActionEvent e) throws IOException {        popupScreen("FXML/KeywordsDBTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
     }
-
 
     @Override
     public void onTypeUpdate() {
