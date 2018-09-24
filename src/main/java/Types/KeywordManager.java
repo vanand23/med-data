@@ -149,6 +149,14 @@ public class KeywordManager {
     }
 
     /**
+     * function which returns the number of keywords
+     * @return number of keywords
+     */
+    public int getNumberOfKeywords(){
+        return keywords.size();
+    }
+
+    /**
      * Helper function for getLongNames
      * @param inputStr
      * @param items
