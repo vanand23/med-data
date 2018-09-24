@@ -16,12 +16,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
@@ -47,6 +49,12 @@ import javafx.scene.control.TreeTableColumn;
 import static Utilities.Config.setProperty;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
+    @FXML
+    private Label projectName;
+
+    @FXML
+    private VBox mainVBox;
+
     @FXML
     private DatePicker experimentDate;
 
@@ -117,7 +125,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private TableColumn columnDataValue;
 
-
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     
     private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
@@ -187,16 +194,27 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
             {
                 trialNumber.setText(configTrialNumber);
+            }else {
+                trialNumber.setText("0");
             }
             String configSampleNumber = config.getProperty("sampleNumber");
             if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
             {
                 sampleNumber.setText(configSampleNumber);
+            }else {
+                sampleNumber.setText("0");
+            }
+            String configProjectName = config.getProperty("projectName");
+            if(configProjectName != null && !configProjectName.trim().isEmpty())
+            {
+                projectName.setText("Project: " + configProjectName);
+                projectName.setFont(new Font(18));
+            }else{
+                projectName.setText("");
+                projectName.setFont(new Font(18));
             }
 
             experimentDate.setValue(LocalDate.now());
-            trialNumber.setText("0");
-            sampleNumber.setText("0");
             experimentType.setAutocompleteWidth(350);
             columnName.setMinWidth(100);
             columnDataValue.setMinWidth(100);
