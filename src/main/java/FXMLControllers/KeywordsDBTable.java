@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class KeywordsTable extends ScreenController implements Initializable {
+public class KeywordsDBTable extends ScreenController implements Initializable {
 
     @FXML
     private JFXButton cancelButton;
@@ -73,6 +73,14 @@ public class KeywordsTable extends ScreenController implements Initializable {
     public void handleAddKeywordsButton (ActionEvent e) throws IOException {
 
         popupScreen("FXML/addNewKeywordsDB.fxml", addKeywordsButton.getScene().getWindow(),"Add Keyword DB Menu");
+
+    }
+
+    @FXML
+    public void handleDeleteButton (ActionEvent e) throws IOException {
+
+        KeywordDB selectedItem = keywordsDBTable.getSelectionModel().getSelectedItem();
+        keywordsDBTable.getItems().remove(selectedItem);
 
     }
 

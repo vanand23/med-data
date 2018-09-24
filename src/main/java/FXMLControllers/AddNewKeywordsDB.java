@@ -1,8 +1,6 @@
 package FXMLControllers;
 
-import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,8 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static FXMLControllers.FullNamer.getData;
-import static FXMLControllers.KeywordsTable.getDBdata;
+import static FXMLControllers.KeywordsDBTable.getDBdata;
 
 public class AddNewKeywordsDB extends ScreenController implements Initializable {
 
