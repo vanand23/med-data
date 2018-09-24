@@ -99,4 +99,10 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
         ArrayList<String> keynames = (ArrayList<String>) KeywordManager.getInstance().getAllKeywordLongNames();
         keywordName.getEntries().addAll(keynames);
     }
+
+    @FXML
+    public void handleCloseButton(ActionEvent actionEvent) {
+        Stage primaryStage = (Stage) okButton.getScene().getWindow();
+        primaryStage.close();
+    }
 }

@@ -278,7 +278,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         data));
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
-                System.out.println("TRIGGERED");
                 if(experimentType.isValidText())
                 {
                     outputText.setText(updateName(
@@ -292,8 +291,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 }else if(experimentType.isTriggerPopup())
                 {
                     try {
-                        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
-                        primaryStage.close();
                         popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
                     }catch (IOException e){
                         e.printStackTrace();
@@ -454,13 +451,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
         keywordsTable.getItems().remove(selectedItem);
         StringBuilder listOfKeywords = new StringBuilder();
-        for (Keyword keyword : data) {
+        for(Keyword keyword : data){
             listOfKeywords.append(",");
             listOfKeywords.append(keyword.getKeywordName());
             listOfKeywords.append(",");
             listOfKeywords.append(keyword.getDataValue());
         }
-        listOfKeywords.deleteCharAt(0);
+        if(listOfKeywords.length() != 0)
+        {
+            listOfKeywords.deleteCharAt(0);
+        }
         setProperty("listOfKeywords",listOfKeywords.toString());
     }
 
