@@ -21,16 +21,16 @@
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Label>
-            <RadioButton fx:id="prefixID" mnemonicParsing="false" text="prefix" onAction="#handlePrefixButton" >
+            <RadioButton fx:id="prefixID" mnemonicParsing="false" onAction="#handlePrefixButton" text="prefix">
                 <toggleGroup>
                     <ToggleGroup fx:id="AffixPrefButtons" />
                 </toggleGroup>
             </RadioButton>
 
-            <RadioButton fx:id="suffixID" mnemonicParsing="false" text="suffix" onAction="#handleSuffixButton" toggleGroup="$AffixPrefButtons"/>
+            <RadioButton fx:id="suffixID" mnemonicParsing="false" onAction="#handleSuffixButton" text="suffix" toggleGroup="$AffixPrefButtons" />
          </children>
       </HBox>
-      <JFXButton fx:id="submitButton" layoutX="136.0" layoutY="461.0" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
+      <JFXButton fx:id="submitButton" layoutX="53.0" layoutY="461.0" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
@@ -55,6 +55,7 @@
             <Font name="Times New Roman" size="20.0" />
          </font>
       </JFXTextField>
+      <JFXButton fx:id="cancelButton" layoutX="224.0" layoutY="461.0" onAction="#handleCancelButton" stylesheets="@../CSS/mediumButtons.css" text="Cancel" />
       <VBox layoutX="27.0" layoutY="295.0" prefHeight="83.0" prefWidth="345.0" spacing="20.0">
          <children>
             <HBox prefHeight="30.0" prefWidth="334.0" spacing="14.0">
@@ -64,19 +65,19 @@
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="numericData" mnemonicParsing="false" text="numeric" onAction="#handleNumericButton" >
+                  <RadioButton fx:id="numericData" mnemonicParsing="false" onAction="#handleNumericButton" text="numeric">
                       <toggleGroup>
                           <ToggleGroup fx:id="DataTypePrefButtons" />
                       </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="alphanumericData" mnemonicParsing="false" text="alphanumeric" onAction="#handleAlphanumericButton" toggleGroup="$DataTypePrefButtons">
+                  <RadioButton fx:id="alphanumericData" mnemonicParsing="false" onAction="#handleAlphanumericButton" text="alphanumeric" toggleGroup="$DataTypePrefButtons">
                      <HBox.margin>
                         <Insets left="18.0" />
                      </HBox.margin>
                   </RadioButton>
                </children>
             </HBox>
-            <RadioButton fx:id="noData" mnemonicParsing="false" text="none" onAction="#handleNoDataButton" toggleGroup="$DataTypePrefButtons">
+            <RadioButton fx:id="noData" mnemonicParsing="false" onAction="#handleNoDataButton" text="none" toggleGroup="$DataTypePrefButtons">
                <VBox.margin>
                   <Insets left="119.0" />
                </VBox.margin>

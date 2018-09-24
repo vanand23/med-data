@@ -6,7 +6,6 @@ import Types.KeywordType;
 import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
-import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -22,8 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -40,7 +37,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.security.Key;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -389,7 +385,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     public void handleAddToDBButton (ActionEvent e) throws IOException {
 
-        popupScreen("FXML/KeywordsTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/KeywordsDBTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
 
     }
 
