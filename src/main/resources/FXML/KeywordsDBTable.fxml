@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-radius: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.KeywordsDBTable">
+   <children>
+      <Text layoutX="160.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keywords Database Table" wrappingWidth="279.21875">
+         <font>
+            <Font name="Times New Roman" size="25.0" />
+         </font>
+      </Text>
+      <TableView fx:id="keywordsDBTable" layoutX="23.0" layoutY="86.0" prefHeight="260.0" prefWidth="458.0">
+        <columns>
+          <TableColumn fx:id="keywordName" prefWidth="129.0" text="Name" />
+          <TableColumn fx:id="keywordAbbrev" prefWidth="66.0" text="Abbreviation" />
+            <TableColumn fx:id="keywordAffix" prefWidth="68.0" text="Affix" />
+            <TableColumn fx:id="keywordDataType" prefWidth="116.0" text="Data Type" />
+            <TableColumn fx:id="keywordDataValue" prefWidth="79.0" text="Data Value" />
+        </columns>
+      </TableView>
+      <Text layoutX="23.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Library" wrappingWidth="98.21875">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Text>
+      <VBox layoutX="488.0" layoutY="86.0" prefHeight="311.0" prefWidth="98.0" spacing="35.0">
+         <children>
+            <JFXButton fx:id="addKeywordsButton" onAction="#handleAddKeywordsButton" prefHeight="39.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Add">
+               <VBox.margin>
+                  <Insets top="35.0" />
+               </VBox.margin></JFXButton>
+            <JFXButton fx:id="deleteButton" onAction="#handleDeleteButton" prefHeight="40.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Delete" />
+            <JFXButton fx:id="cancelButton" onAction="#handleCancelButton" prefHeight="42.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Cancel">
+               <VBox.margin>
+                  <Insets top="80.0" />
+               </VBox.margin></JFXButton>
+         </children></VBox>
+   </children>
+</AnchorPane>
