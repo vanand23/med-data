@@ -75,8 +75,6 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
-        final ToggleGroup prefButtons = new ToggleGroup();
         updateDelimiter();
         generatePreview();
         Config config = new Config();
