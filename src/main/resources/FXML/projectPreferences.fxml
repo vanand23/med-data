@@ -22,7 +22,7 @@
                <children>
                   <Label text="Project Preferences">
                      <font>
-                        <Font name="Caviar Dreams" size="20.0" />
+                        <Font name="Alte Haas Grotesk Bold" size="20.0" />
                      </font>
                   </Label>
                   <VBox alignment="CENTER" prefHeight="10.0" prefWidth="307.0">

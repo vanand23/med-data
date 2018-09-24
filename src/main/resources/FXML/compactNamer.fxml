@@ -22,7 +22,7 @@
                      <children>
                         <Label stylesheets="@../CSS/label.css" text="COMPACT NAMER">
                            <font>
-                              <Font name="Caviar Dreams" size="20.0" />
+                              <Font name="Alte Haas Grotesk Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -34,7 +34,7 @@
                      <children>
                         <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="FULL">
                            <font>
-                              <Font name="Caviar Dreams" size="14.0" />
+                              <Font name="Alte Haas Grotesk Bold" size="14.0" />
                            </font>
                            <HBox.margin>
                               <Insets right="-8.0" />
@@ -42,7 +42,7 @@
                         </Label>
                         <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" focusTraversable="false" onAction="#handleToggleButton" selected="true" text="COMPACT">
                            <font>
-                              <Font name="Caviar Dreams" size="14.0" />
+                              <Font name="Alte Haas Grotesk Bold" size="14.0" />
                            </font>
                            <padding>
                               <Insets bottom="-5.0" top="-5.0" />
@@ -59,7 +59,7 @@
                            <children>
                               <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="DATE:">
                                  <font>
-                                    <Font name="Caviar Dreams" size="14.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="14.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets />
@@ -79,7 +79,7 @@
                            <children>
                               <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="SAMPLE #">
                                  <font>
-                                    <Font name="Caviar Dreams" size="14.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="14.0" />
                                  </font>
                               </Label>
                               <JFXTextField fx:id="sampleNumber" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: ffffff;" />
@@ -101,7 +101,7 @@
                            <children>
                               <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="TRIAL #">
                                  <font>
-                                    <Font name="Caviar Dreams" size="14.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="14.0" />
                                  </font>
                               </Label>
                               <JFXTextField fx:id="trialNumber" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: ffffff;" />

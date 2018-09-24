@@ -1,6 +1,6 @@
 .jfx-button:armed,
 .jfx-button{
-    -fx-font-family: "Caviar Dreams";
+    -fx-font-family: "Alte Haas Grotesk Bold";
     -fx-font-size: 18;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
@@ -12,7 +12,7 @@
     -fx-background-radius: 0;
 }
 .jfx-button:focused{
-    -fx-font-family: "Caviar Dreams";
+    -fx-font-family: "Alte Haas Grotesk Bold";
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
     -fx-opacity: 1.0;

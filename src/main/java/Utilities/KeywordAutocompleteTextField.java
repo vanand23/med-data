@@ -78,7 +78,7 @@ public class KeywordAutocompleteTextField extends AutocompleteTextField {
                 hBox.setSpacing(10);
                 hBox.setPrefHeight(39);
                 Label label = new Label(result);
-                label.setFont(new Font("Caviar Dreams", 14));
+                label.setFont(new Font("Alte Haas Grotesk Bold", 14));
                 label.setMinWidth(USE_PREF_SIZE);
                 label.setPrefWidth(USE_COMPUTED_SIZE);
                 hBox.getChildren().add(label);
