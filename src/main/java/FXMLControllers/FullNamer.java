@@ -292,6 +292,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 if(experimentType.isTriggerPopup())
                 {
                     try {
+                        experimentType.setTriggerPopup(false);
                         popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
                     }catch (IOException e){
                         e.printStackTrace();
@@ -488,10 +489,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         primaryStage.close();
     }
 
-
-
-
     public static TreeTableView getTableOfKeywords() {
         return tableOfKeywords;
     }
+
+
 }

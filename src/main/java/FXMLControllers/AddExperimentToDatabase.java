@@ -69,21 +69,14 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
             lastExperiment = new ExperimentType("0","","","");
         }
         String newID = String.valueOf(Integer.valueOf(lastExperiment.getID())+1);
-        getExperimentTypeObservableList().add(new ExperimentType(
-                newID,
-                experimentName.getText(),
-                experimentAbbrev.getText(),
-                experimentDescription.getText()));
-        try {
-            Database.insertExperiment(newID,
-                    experimentName.getText(),
-                    experimentAbbrev.getText(),
-                    experimentDescription.getText());
-            Database.writeExperimentsToCSV("Libraries/defaultExperiments.csv");
-        }catch (SQLException e1){
-            e1.printStackTrace();
-            System.err.println("Could not insert experiment");
-        }
+        ExperimentType newExperiment = new ExperimentType(
+                                                newID,
+                                                experimentName.getText(),
+                                                experimentAbbrev.getText(),
+                                                experimentDescription.getText());
+        getExperimentTypeObservableList().add(newExperiment);
+        ExperimentManager.getInstance().addExperiment(newExperiment);
+
         Stage primaryStage = (Stage) experimentAbbrev.getScene().getWindow();
         primaryStage.close();
     }

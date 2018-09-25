@@ -69,7 +69,6 @@ public class AutocompleteTextField extends JFXTextField {
 
                 //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
-                    this.triggerPopup = false;
                     //build popup - list of "CustomMenuItem"
                     populatePopup(filteredEntries, enteredText);
                     if (!entriesPopup.isShowing() &&
@@ -138,6 +137,10 @@ public class AutocompleteTextField extends JFXTextField {
 
     public boolean isTriggerPopup() {
         return triggerPopup;
+    }
+
+    public void setTriggerPopup(boolean triggerPopup) {
+        this.triggerPopup = triggerPopup;
     }
 
     public void setValidText(boolean validText) {
