@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefWidth="400.0" style="-fx-background-color: #C2dce5; -fx-border-radius: 2; -fx-border-color: #003366;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.AddKeywordToDatabase">
-   <children>
+    <children>
       <VBox layoutX="27.0" layoutY="295.0" prefHeight="83.0" prefWidth="345.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
             <Label alignment="CENTER" prefWidth="400.0" stylesheets="@../CSS/label.css" text="ADD NEW KEYWORD TO DATABASE">
@@ -85,6 +85,13 @@
                           <Font size="18.0" />
                       </font>
                   </RadioButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label stylesheets="@../CSS/label.css" text="Preview:" />
+                  <JFXTextField fx:id="keywordPreviewField" prefHeight="25.0" prefWidth="274.0" style="-fx-background-color: ffffff;" />
+                  <JFXButton fx:id="keywordPreviewHelp" stylesheets="@../CSS/helpButton.css" text="?" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefWidth="200.0" spacing="60.0">

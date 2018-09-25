@@ -7,8 +7,10 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
+import javafx.scene.control.ToggleGroup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,16 +29,51 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     @FXML
     private JFXButton cancelButton;
 
-    private String keywordAffix;
+    @FXML
+    private RadioButton prefixID;
+
+    @FXML
+    private RadioButton suffixID;
+
+    @FXML
+    private RadioButton numericData;
+
+    @FXML
+    private RadioButton alphanumericData;
+
+    @FXML
+    private RadioButton noData;
+
+    @FXML
+    private JFXTextField keywordPreviewField;
+
+    @FXML
+    private JFXButton keywordPreviewHelp;
+
+    String keywordAffix;
 
     private String keywordDataType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+
+        final JFXButton previewHelp = keywordPreviewHelp;
+        final Tooltip previewTooltip = new Tooltip();
+        previewTooltip.setText("View a preview of your keyword with example values.");
+        previewHelp.setTooltip(previewTooltip);
+
         final ToggleGroup AffixPrefButtons = new ToggleGroup();
         final ToggleGroup DataTypePrefButtons = new ToggleGroup();
         thekeywordName.setMinWidth(100);
         thekeywordAbbrev.setMinWidth(100);
+
+        thekeywordAbbrev.textProperty().addListener((obs, oldPreview, newPreview) ->{
+            if (thekeywordAbbrev!= null && !thekeywordAbbrev.getText().trim().isEmpty()){
+                generatePreview();
+            }
+            else{keywordPreviewField.setText("");}
+        } );
+
     }
 
     @FXML
@@ -69,26 +106,31 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     @FXML
     public void handlePrefixButton(ActionEvent e) throws IOException {
         keywordAffix = "prefix";
+        generatePreview();
     }
 
     @FXML
     public void handleSuffixButton(ActionEvent e) throws IOException {
         keywordAffix = "suffix";
+        generatePreview();
     }
 
     @FXML
     public void handleNumericButton(ActionEvent e) throws IOException {
         keywordDataType = "numeric";
+        generatePreview();
     }
 
     @FXML
     public void handleAlphanumericButton(ActionEvent e) throws IOException {
         keywordDataType = "alphanumeric";
+        generatePreview();
     }
 
     @FXML
     public void handleNoDataButton(ActionEvent e) throws IOException {
         keywordDataType = "no data";
+        generatePreview();
     }
 
     @FXML
@@ -96,6 +138,28 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
 
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
+
+    }
+
+    private void generatePreview(){
+       keywordPreviewField.setText(thekeywordAbbrev.getText());
+       if(numericData.isSelected()){
+           if(prefixID.isSelected()){
+               keywordPreviewField.setText("2" + thekeywordAbbrev.getText());
+           }
+           else{keywordPreviewField.setText(thekeywordAbbrev.getText() + "2");}
+       }
+       else if (alphanumericData.isSelected()){
+           if(prefixID.isSelected()){
+               keywordPreviewField.setText("2a" + thekeywordAbbrev.getText());
+           }
+           else{keywordPreviewField.setText(thekeywordAbbrev.getText() + "2a");}
+       }
+       else{
+           keywordPreviewField.setText(thekeywordAbbrev.getText());
+       }
+
+
 
     }
 
