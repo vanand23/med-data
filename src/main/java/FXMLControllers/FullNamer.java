@@ -288,7 +288,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                             experimentDate.getValue(),
                             data));
                     setProperty("experimentType",newExperimentType);
-                }else if(experimentType.isTriggerPopup())
+                }
+                if(experimentType.isTriggerPopup())
                 {
                     try {
                         popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");

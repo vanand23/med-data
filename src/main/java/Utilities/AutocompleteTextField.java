@@ -86,6 +86,7 @@ public class AutocompleteTextField extends JFXTextField {
                     CustomMenuItem item = new CustomMenuItem(entryLabel, true);
                     entriesPopup.getItems().clear();
                     entriesPopup.getItems().add(item);
+                    entriesPopup.show(AutocompleteTextField.this, Side.BOTTOM, 0, 0); //position of popup
                     //if any suggestion is select set it into text and close popup
                     item.setOnAction(actionEvent -> {
                         this.triggerPopup = true;
