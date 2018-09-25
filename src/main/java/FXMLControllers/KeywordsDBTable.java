@@ -81,7 +81,7 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
     @FXML
     public void handleAddKeywordsButton (ActionEvent e) throws IOException {
 
-        popupScreen("FXML/addNewKeywordsDB.fxml", addKeywordsButton.getScene().getWindow(),"Add Keyword DB Menu");
+        popupScreen("FXML/addKeywordToDatabase.fxml", addKeywordsButton.getScene().getWindow(),"Add Keyword DB Menu");
 
     }
 

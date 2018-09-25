@@ -56,7 +56,7 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
                 try {
                     Stage primaryStage = (Stage) keywordName.getScene().getWindow();
                     primaryStage.close();
-                    popupScreen("FXML/addNewKeywordsDB.fxml", keywordName.getScene().getWindow(),"Experiment Type");
+                    popupScreen("FXML/addKeywordToDatabase.fxml", keywordName.getScene().getWindow(),"Experiment Type");
                 }catch (IOException e){
                     e.printStackTrace();
                 }
