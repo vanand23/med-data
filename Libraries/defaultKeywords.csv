@@ -1,1 +1,2 @@
 variableID,longName,shortName,dataType,affix
+1,Time in hours,hrs,numeric,suffix

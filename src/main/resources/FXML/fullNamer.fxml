@@ -73,7 +73,7 @@
                             <DatePicker fx:id="experimentDate" prefHeight="31.0" prefWidth="397.0" style="-fx: #92dce5;" />
                             <JFXButton fx:id="helpButtonInput" stylesheets="@../CSS/helpButton.css" text="?">
                                 <font>
-                                    <Font name="Times New Roman" size="18.0" />
+                                    <Font name="Arial" size="18.0" />
                                 </font>
                             </JFXButton>
                         </children>
@@ -90,7 +90,7 @@
                             </Label>
                             <AutocompleteTextField fx:id="experimentType" alignment="BASELINE_LEFT" labelFloat="true" onAction="#updateExperiment" unFocusColor="#0d004d">
                                 <font>
-                                    <Font name="Times New Roman" size="20.0" />
+                                    <Font name="Arial" size="20.0" />
                                 </font>
                             </AutocompleteTextField>
                         </children>
@@ -107,7 +107,7 @@
                             </Label>
                             <JFXTextField fx:id="researcherName" labelFloat="true" layoutX="20.0" layoutY="148.0" prefWidth="360.0">
                                 <font>
-                                    <Font name="Times New Roman" size="20.0" />
+                                    <Font name="Arial" size="20.0" />
                                 </font>
                                 <VBox.margin>
                                     <Insets top="-10.0" />
@@ -131,7 +131,7 @@
                               <children>
                                           <JFXTextField fx:id="trialNumber" labelFloat="true" unFocusColor="BLACK">
                                               <font>
-                                                  <Font name="Times New Roman" size="20.0" />
+                                                  <Font name="Arial" size="20.0" />
                                               </font>
                                           </JFXTextField>
                                  <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="+">
@@ -168,7 +168,7 @@
                               <children>
                                           <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
                                               <font>
-                                                  <Font name="Times New Roman" size="20.0" />
+                                                  <Font name="Arial" size="20.0" />
                                               </font>
                                           </JFXTextField>
                                  <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="+" textOverrun="CLIP">
