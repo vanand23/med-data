@@ -80,6 +80,8 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
                 lastKeyword = new KeywordType("0","","","","");
             }
 
+
+
             Database.insertKeyword(String.valueOf(Integer.valueOf(lastKeyword.getID())+1),
                     thekeywordName.getText(),
                     thekeywordAbbrev.getText(),

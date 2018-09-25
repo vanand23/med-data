@@ -51,6 +51,27 @@ public class KeywordManager {
             mo.onTypeUpdate();
         }
     }
+
+    // Adds a node to the graph and  Please never directly make a new node, instead just call this function
+    // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
+    // RETURN the MapNode object that was created
+    public void addKeyword(KeywordType keywordType){
+        try {
+            Database.insertKeyword(
+                    keywordType.getID(),
+                    keywordType.getLongName(),
+                    keywordType.getShortName(),
+                    keywordType.getDataType(),
+                    keywordType.getAffix());
+            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
+            notifyObservers();
+        }catch (SQLException e1){
+            e1.printStackTrace();
+            System.err.println("Could not insert keyword");
+        }
+    }
+
+
 /*
     // Adds a node to the graph and  Please never directly make a new node, instead just call this function
     // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
