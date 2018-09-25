@@ -279,14 +279,14 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
                 if(experimentType.isValidText())
-                {
-                    outputText.setText(updateName(
+                {outputText.setText(updateName(
                             experimentType.getText(),
                             trialNumber.getText(),
                             sampleNumber.getText(),
                             researcherName.getText(),
                             experimentDate.getValue(),
                             data));
+                experimentType.setValidText(false);
                     setProperty("experimentType",newExperimentType);
                 }
                 if(experimentType.isTriggerPopup())
