@@ -1,24 +1,16 @@
 package FXMLControllers;
 
-import Types.ExperimentManager;
-import Types.KeywordManager;
 import Utilities.Config;
-import Utilities.KeywordAutocompleteTextField;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
-import javax.naming.NameNotFoundException;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -41,22 +33,7 @@ public class CompactNamer extends Namer implements Initializable {
     @FXML JFXTextField sampleNumber;
 
     @FXML
-    private JFXButton copyButton;
-
-    @FXML
     private JFXToggleButton switchNamers;
-
-    @FXML
-    private JFXButton plusSampleButton;
-
-    @FXML
-    private JFXButton plusTrialButton;
-
-    @FXML
-    private JFXButton minusSampleButton;
-
-    @FXML
-    private JFXButton minusTrialButton;
 
     @FXML
     private JFXButton closeButton;
@@ -119,12 +96,10 @@ public class CompactNamer extends Namer implements Initializable {
 
         experimentDate.setValue(LocalDate.now());
 
-        trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
-            setProperty("trialNumber",newTrialNumber);
-        });
-        sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
-            setProperty("sampleNumber",newSampleNumber);
-        });
+        trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) ->
+                setProperty("trialNumber",newTrialNumber));
+        sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) ->
+                setProperty("sampleNumber",newSampleNumber));
     }
 
     @FXML

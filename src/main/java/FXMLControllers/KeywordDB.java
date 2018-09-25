@@ -10,7 +10,7 @@ public class KeywordDB {
     private final SimpleStringProperty datatype;
     private final SimpleStringProperty dataval;
 
-    public KeywordDB(String kname, String kabbrev, String kaffix, String dtype, String dval) {
+    KeywordDB(String kname, String kabbrev, String kaffix, String dtype, String dval) {
         this.name = new SimpleStringProperty(kname);
         this.abbrev = new SimpleStringProperty(kabbrev);
         this.affix = new SimpleStringProperty(kaffix);
@@ -18,7 +18,7 @@ public class KeywordDB {
         this.dataval = new SimpleStringProperty(dval);
     }
 
-    public String getKeywordName(){
+    String getKeywordName(){
         return name.get();
     }
 

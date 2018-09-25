@@ -3,7 +3,6 @@ package FXMLControllers;
 import Singletons.Database;
 import Types.ExperimentManager;
 import Types.ExperimentType;
-import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.awt.image.DataBufferDouble;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -42,7 +40,7 @@ public class ExperimentsTable extends ScreenController implements Initializable 
 
     private final static ObservableList<ExperimentType> experimentTypeObservableList = FXCollections.observableArrayList();
 
-    public static ObservableList<ExperimentType> getExperimentTypeObservableList() {
+    static ObservableList<ExperimentType> getExperimentTypeObservableList() {
         return experimentTypeObservableList;
     }
 

@@ -1,13 +1,10 @@
 package FXMLControllers;
 
-import Utilities.KeywordAutocompleteTextField;
-import Utilities.Observable;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
