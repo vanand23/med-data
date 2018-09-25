@@ -63,6 +63,7 @@ public class ExperimentManager {
                     experimentType.getShortName(),
                     experimentType.getDescription());
             Database.writeExperimentsToCSV("Libraries/defaultExperiments.csv");
+            experiments.put(experimentType.getID(),experimentType);
             notifyObservers();
         }catch (SQLException e1){
             e1.printStackTrace();
