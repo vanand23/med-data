@@ -72,26 +72,20 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
                 keywordAffix,
                 keywordDataType,
                 ""));
-        try {
-            int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
-            KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
-            if(lastKeyword == null)
-            {
-                lastKeyword = new KeywordType("0","","","","");
-            }
-
-
-
-            Database.insertKeyword(String.valueOf(Integer.valueOf(lastKeyword.getID())+1),
-                    thekeywordName.getText(),
-                    thekeywordAbbrev.getText(),
-                    keywordAffix,
-                    keywordDataType);
-            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
-        }catch (SQLException e1){
-            e1.printStackTrace();
-            System.err.println("Could not insert keyword");
+        int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
+        KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
+        if(lastKeyword == null)
+        {
+            lastKeyword = new KeywordType("0","","","","");
         }
+
+        KeywordManager.getInstance().addKeyword(
+                new KeywordType((String.valueOf(Integer.valueOf(lastKeyword.getID())+1)),
+                thekeywordName.getText(),
+                thekeywordAbbrev.getText(),
+                keywordDataType,
+                keywordAffix));
+
         thekeywordName.clear();
         thekeywordAbbrev.clear();
         Stage primaryStage = (Stage) thekeywordAbbrev.getScene().getWindow();

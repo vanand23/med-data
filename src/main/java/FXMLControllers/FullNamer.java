@@ -474,6 +474,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
         experimentType.getEntries().addAll(experiments);
+        System.out.println("updated!!!!!!!!!!");
     }
     static ObservableList<Keyword> getdata() {
         return data;
