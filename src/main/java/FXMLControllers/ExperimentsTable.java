@@ -3,8 +3,6 @@ package FXMLControllers;
 import Singletons.Database;
 import Types.ExperimentManager;
 import Types.ExperimentType;
-import Types.KeywordManager;
-import Types.KeywordType;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -31,9 +29,6 @@ public class ExperimentsTable extends ScreenController implements Initializable 
     private JFXButton cancelButton;
 
     @FXML
-    private JFXButton addKeywordsButton;
-
-    @FXML
     private TableView<ExperimentType> experimentTableView;
 
     @FXML
@@ -53,9 +48,9 @@ public class ExperimentsTable extends ScreenController implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        experimentName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("experimentName"));
-        experimentAbbrev.setCellValueFactory(new PropertyValueFactory<Keyword, String>("experimentAbbreviation"));
-        experimentDescription.setCellValueFactory(new PropertyValueFactory<Keyword, String>("experimentDescription"));
+        experimentName.setCellValueFactory(new PropertyValueFactory<ExperimentType, String>("longName"));
+        experimentAbbrev.setCellValueFactory(new PropertyValueFactory<ExperimentType, String>("shortName"));
+        experimentDescription.setCellValueFactory(new PropertyValueFactory<ExperimentType, String>("description"));
 
         experimentTableView.setEditable(true);
         HashMap<String, ExperimentType> listOfExperiments = ExperimentManager.getInstance().getExperiments();
@@ -70,7 +65,7 @@ public class ExperimentsTable extends ScreenController implements Initializable 
     @FXML
     public void handleAddExperiment (ActionEvent e) throws IOException {
 
-        popupScreen("FXML/addNewKeywordsDB.fxml", addKeywordsButton.getScene().getWindow(),"Add Keyword DB Menu");
+        popupScreen("FXML/addExperimentToDatabase.fxml", cancelButton.getScene().getWindow(),"Add Experiment");
 
     }
 
@@ -81,7 +76,7 @@ public class ExperimentsTable extends ScreenController implements Initializable 
         experimentTableView.getItems().remove(selectedItem);
         try {
             Database.removeExperiment(selectedItem.getLongName());
-            Database.writeKeywordsToCSV("Libraries/defaultExperiments.csv");
+            Database.writeExperimentsToCSV("Libraries/defaultExperiments.csv");
         }catch (SQLException e1){
             e1.printStackTrace();
         }
