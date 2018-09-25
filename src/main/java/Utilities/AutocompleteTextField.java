@@ -65,7 +65,7 @@ public class AutocompleteTextField extends JFXTextField {
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
                         .collect(Collectors.toList());
-                validText = filteredEntries.size() == 1 && !entriesPopup.isShowing(); //check if the text field has a full, valid name
+                //validText = filteredEntries.size() == 1 && !entriesPopup.isShowing(); //check if the text field has a full, valid name
 
                 //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
@@ -118,6 +118,7 @@ public class AutocompleteTextField extends JFXTextField {
 
             //if any suggestion is select set it into text and close popup
             item.setOnAction(actionEvent -> {
+                validText = true;
                 entriesPopup.hide();
                 positionCaret(result.length());
                 setText(result);
