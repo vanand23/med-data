@@ -3,7 +3,6 @@ package FXMLControllers;
 import Singletons.Database;
 import Types.KeywordManager;
 import Types.KeywordType;
-import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.awt.image.DataBufferDouble;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -48,7 +46,7 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
 
     private final static ObservableList<KeywordDB> DBdata = FXCollections.observableArrayList();
 
-    public static ObservableList<KeywordDB> getDBdata() {
+    static ObservableList<KeywordDB> getDBdata() {
         return DBdata;
     }
 

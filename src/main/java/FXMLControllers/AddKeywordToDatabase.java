@@ -1,30 +1,22 @@
 package FXMLControllers;
 
-import Singletons.Database;
 import Types.KeywordManager;
 import Types.KeywordType;
-import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.stage.Stage;
 import javafx.scene.control.ToggleGroup;
-import org.apache.derby.client.am.SqlException;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static FXMLControllers.KeywordsDBTable.getDBdata;
 
-public class AddNewKeywordsDB extends ScreenController implements Initializable {
+public class AddKeywordToDatabase extends ScreenController implements Initializable {
 
     @FXML
     private JFXTextField thekeywordName;
@@ -33,29 +25,11 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
     private JFXTextField thekeywordAbbrev;
 
     @FXML
-    private JFXButton submitButton;
-
-    @FXML
     private JFXButton cancelButton;
 
-    @FXML
-    private RadioButton prefixID;
+    private String keywordAffix;
 
-    @FXML
-    private RadioButton suffixID;
-
-    @FXML
-    private RadioButton numericData;
-
-    @FXML
-    private RadioButton alphanumericData;
-
-    @FXML
-    private RadioButton noData;
-
-    String keywordAffix;
-
-    String keywordDataType;
+    private String keywordDataType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){

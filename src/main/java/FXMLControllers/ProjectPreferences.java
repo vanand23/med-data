@@ -1,26 +1,17 @@
 package FXMLControllers;
 
-import Singletons.FXMLManager;
 import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.ButtonBase;
-import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static Utilities.Config.setProperty;
@@ -57,20 +48,12 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     private RadioButton underscoreButton;
 
     @FXML
-    private JFXButton saveButton;
-
-    @FXML
     private JFXTextField previewBox;
 
     @FXML
     private JFXButton cancelButton;
 
-    String getDelimiter() {
-        return delimiter;
-    }
-
     private String delimiter;
-    private String nameOfResearcher;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){

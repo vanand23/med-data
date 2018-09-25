@@ -3,17 +3,10 @@ package FXMLControllers;
 import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.*;
@@ -46,25 +39,13 @@ public class LoggerMenu extends ScreenController implements Initializable {
     private JFXTextField newLogFileName;
 
     @FXML
-    private JFXTextField newLogFilePath;
-
-    @FXML
     private JFXButton closeLoggerButton;
-
-
-    @FXML
-    private JFXButton printLoggerButton;
-
-    @FXML
-    private JFXButton resetLoggerButton;
 
     @FXML
     private JFXButton priorLogHelpButton;
 
     @FXML
     private JFXButton openLogButton;
-
-    private String sheetName;
 
     private Desktop desktop = Desktop.getDesktop();
 
@@ -89,16 +70,16 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
 }
 
-@FXML
-private void browseLogs(ActionEvent e){
-final FileChooser fileChooser = new FileChooser();
+    @FXML
+    private void browseLogs(ActionEvent e){
+        final FileChooser fileChooser = new FileChooser();
 
-File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindow());
-    if (file != null) {
-              //  openFile(file);
-                priorLogPath.setText(file.getAbsolutePath());
-            }
+        File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindow());
+        if (file != null) {
+            //  openFile(file);
+            priorLogPath.setText(file.getAbsolutePath());
         }
+    }
 
 
     private void openFile (File file){
@@ -136,7 +117,7 @@ File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindo
                 writeToWorkbook(workbook, sheet, true);
                 File currDir = new File(".");
                 String path = currDir.getAbsolutePath();
-                sheetName = newLogFileName.getText();
+                String sheetName = newLogFileName.getText();
                 if ((sheetName == null) || (sheetName.trim().isEmpty())) {
                     fileLocation = path.substring(0, path.length() - 1) + "/LogFiles/untitled.xlsx";
                 } else {
@@ -154,9 +135,9 @@ File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindo
         }
     }
 
-    private XSSFWorkbook writeToWorkbook(XSSFWorkbook workbook, Sheet sheet, boolean isNewWorkbook){
+    private void writeToWorkbook(XSSFWorkbook workbook, Sheet sheet, boolean isNewWorkbook){
         int rowNumber;
-        if(isNewWorkbook == true){
+        if(isNewWorkbook){
             rowNumber = 3;
         }
         else{
@@ -249,7 +230,6 @@ File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindo
             comment.setCellValue("");
             i++;
         }
-        return workbook;
     }
 
 

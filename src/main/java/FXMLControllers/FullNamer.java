@@ -102,7 +102,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private AnchorPane anchorPaneOfKeywords;
 
     @FXML
-    static TreeTableView tableOfKeywords;
+    private static TreeTableView tableOfKeywords;
 
     @FXML
     static TreeTableColumn<KeywordType, String> dataValueColumn;
@@ -134,11 +134,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     private static ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
 
-    public static ArrayList<LogEntry> getLogEntryArrayList() {
+    static ArrayList<LogEntry> getLogEntryArrayList() {
         return logEntryArrayList;
     }
 
-    public static ObservableList<Keyword> getData() {
+    static ObservableList<Keyword> getData() {
         return data;
     }
 
@@ -182,6 +182,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     }
                 }
             });
+            experimentType.setMinWidth(Region.USE_PREF_SIZE);
             Config config = new Config();
             String configResearcherName = config.getProperty("researcherName");
             if(configResearcherName != null && !configResearcherName.trim().isEmpty())

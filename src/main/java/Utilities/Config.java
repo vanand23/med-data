@@ -1,30 +1,12 @@
 package Utilities;
 
-import Singletons.Database;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ToggleGroup;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-
-import java.util.*;
-import java.util.ResourceBundle;
+import java.util.Properties;
 
 public class Config {
-
-    private String researcherName;
-    private String projectName;
-    private String experimentName;
-    private String description;
-    private ArrayList<String> glossariesOfKeywords = new ArrayList<String>();
-    private int trialNumber;
-    private int sampleNumber;
-    private String delimiter;
-
-    private int intialize;
     private Properties configFile = new Properties();
     public Config(){
 

@@ -3,15 +3,12 @@ package FXMLControllers;
 import Types.ExperimentManager;
 import Types.KeywordManager;
 import Utilities.Config;
-import Utilities.KeywordAutocompleteTextField;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 
 import javax.naming.NameNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-public class Namer extends ScreenController{
+class Namer extends ScreenController{
 
     String updateName(String experimentTypeText,
                       String trialNumberText,
