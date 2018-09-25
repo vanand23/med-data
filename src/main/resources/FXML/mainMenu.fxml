@@ -10,14 +10,14 @@
    <children>
       <Label layoutX="17.0" layoutY="39.0" text="Main Menu">
          <font>
-            <Font name="Times New Roman" size="28.0" />
+            <Font name="Arial" size="28.0" />
          </font>
       </Label>
       <JFXButton fx:id="simpleNamerButton" layoutX="14.0" layoutY="103.0" onAction="#handleSimpleNamer" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="Simple Namer" />
       <JFXButton fx:id="fullNamerButton" layoutX="14.0" layoutY="157.0" onAction="#handleFullNamer" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="Full Namer" />
       <Label layoutX="54.0" layoutY="70.0">
          <font>
-            <Font name="Times New Roman" size="18.0" />
+            <Font name="Arial" size="18.0" />
          </font>
       </Label>
       <JFXButton layoutX="14.0" layoutY="216.0" prefHeight="43.0" prefWidth="137.0" stylesheets="@../CSS/mediumButtons.css" text="File Manager" />

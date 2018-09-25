@@ -27,7 +27,7 @@
                   </Label>
                       <JFXTextField fx:id="experimentName" labelFloat="true" prefHeight="27.0" prefWidth="290.0" style="-fx-background-color: ffffff;">
                           <font>
-                              <Font name="Times New Roman" size="20.0" />
+                              <Font name="Arial" size="20.0" />
                           </font>
                       </JFXTextField>
                </children>
@@ -41,7 +41,7 @@
                   </Label>
                       <JFXTextField fx:id="experimentAbbrev" labelFloat="true" prefHeight="27.0" prefWidth="290.0" style="-fx-background-color: ffffff;">
                           <font>
-                              <Font name="Times New Roman" size="20.0" />
+                              <Font name="Arial" size="20.0" />
                           </font>
                       </JFXTextField>
                </children>
@@ -50,7 +50,7 @@
                <children>
                       <JFXTextArea fx:id="experimentDescription" prefHeight="55.0" prefWidth="358.0" promptText="Experiment Description" style="-fx-background-color: ffffff;">
                           <font>
-                              <Font name="Times New Roman" size="20.0" />
+                              <Font name="Arial" size="20.0" />
                           </font>
                       </JFXTextArea>
                </children>

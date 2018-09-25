@@ -33,7 +33,7 @@
                         </Label>
                         <JFXTextField fx:id="researcherName" focusColor="#4d4d4d" labelFloat="true" style="-fx-background-color: ffffff;" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font name="Times New Roman" size="14.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </JFXTextField>
                      </children>
@@ -47,7 +47,7 @@
                         </Label>
                         <JFXTextField fx:id="projectName" focusColor="#4d4d4d" labelFloat="true" prefHeight="29.0" prefWidth="250.0" style="-fx-background-color: ffffff;">
                            <font>
-                              <Font name="Times New Roman" size="14.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </JFXTextField>
                      </children>
@@ -56,7 +56,7 @@
                      <children>
                         <JFXTextArea fx:id="projectDescription" prefHeight="100.0" prefWidth="400.0" promptText="Project Description" style="-fx-background-color: ffffff;">
                            <font>
-                              <Font name="Times New Roman" size="18.0" />
+                              <Font name="Arial" size="18.0" />
                            </font>
                         </JFXTextArea>
                      </children></VBox>
@@ -71,7 +71,7 @@
                            <children>
                               <RadioButton fx:id="asterixButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToAsterix" text="Asterix (*)   ">
                                  <font>
-                                    <Font name="Times New Roman" size="18.0" />
+                                    <Font name="Arial" size="18.0" />
                                  </font>
                                  <toggleGroup>
                                     <ToggleGroup fx:id="prefButtons" />
@@ -79,12 +79,12 @@
                               </RadioButton>
                               <RadioButton fx:id="hyphenButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToHyphen" text="Hyphen (-)   " toggleGroup="$prefButtons">
                                  <font>
-                                    <Font name="Times New Roman" size="18.0" />
+                                    <Font name="Arial" size="18.0" />
                                  </font>
                               </RadioButton>
                               <RadioButton fx:id="underscoreButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToUnderscore" selected="true" text="Underscore (_)   " toggleGroup="$prefButtons">
                                  <font>
-                                    <Font name="Times New Roman" size="18.0" />
+                                    <Font name="Arial" size="18.0" />
                                  </font>
                               </RadioButton>
                            </children>
@@ -102,12 +102,12 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" spacing="20.0">
                      <children>
-                        <JFXButton fx:id="keywordButton" minWidth="-Infinity" onAction="#openKeywordLibrary" stylesheets="@../CSS/mediumButtons.css" text="All Keywords">
+                        <JFXButton fx:id="keywordButton" disable="true" minWidth="-Infinity" onAction="#openKeywordLibrary" stylesheets="@../CSS/mediumButtons.css" text="All Keywords" visible="false">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="experiments" minWidth="-Infinity" onAction="#openExperimentLibrary" stylesheets="@../CSS/mediumButtons.css" text="All Experiments">
+                        <JFXButton fx:id="experiments" disable="true" minWidth="-Infinity" onAction="#openExperimentLibrary" stylesheets="@../CSS/mediumButtons.css" text="All Experiments" visible="false">
                            <font>
                               <Font size="18.0" />
                            </font>

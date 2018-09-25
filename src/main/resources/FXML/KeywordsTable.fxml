@@ -17,7 +17,7 @@
    <children>
       <Text layoutX="160.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keywords Database Table" wrappingWidth="279.21875">
          <font>
-            <Font name="Times New Roman" size="25.0" />
+            <Font name="Arial" size="25.0" />
          </font>
       </Text>
       <TableView fx:id="keywordsDBTable" layoutX="50.0" layoutY="85.0" prefHeight="231.0" prefWidth="500.0">
@@ -31,7 +31,7 @@
       </TableView>
       <Text layoutX="50.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Library" wrappingWidth="98.21875">
          <font>
-            <Font name="Times New Roman" size="16.0" />
+            <Font name="Arial" size="16.0" />
          </font>
       </Text>
       <HBox layoutX="88.0" layoutY="336.0" prefHeight="43.0" prefWidth="424.0" spacing="100.0">

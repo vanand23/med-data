@@ -65,7 +65,7 @@ public class AutocompleteTextField extends JFXTextField {
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
                         .collect(Collectors.toList());
-                validText = filteredEntries.size() == 1 && !entriesPopup.isShowing(); //check if the text field has a full, valid name
+                //validText = filteredEntries.size() == 1 && !entriesPopup.isShowing(); //check if the text field has a full, valid name
 
                 //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
@@ -79,13 +79,14 @@ public class AutocompleteTextField extends JFXTextField {
                     //label with graphic (text flow) to highlight founded subtext in suggestions
                     Label entryLabel = new Label(" + Add a new entry to the database");
                     //entryLabel.setGraphic(Styles.buildTextFlow(result, enteredText));
-                    entryLabel.setFont(Font.font("Times New Roman", FontWeight.BOLD,20));
+                    entryLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
                     entryLabel.setPrefHeight(20);  //don't sure why it's changed with "graphic"
                     entryLabel.setPrefWidth(width);
                     entryLabel.setMaxWidth(width*1.5);
                     CustomMenuItem item = new CustomMenuItem(entryLabel, true);
                     entriesPopup.getItems().clear();
                     entriesPopup.getItems().add(item);
+                    entriesPopup.show(AutocompleteTextField.this, Side.BOTTOM, 0, 0); //position of popup
                     //if any suggestion is select set it into text and close popup
                     item.setOnAction(actionEvent -> {
                         this.triggerPopup = true;
@@ -117,6 +118,7 @@ public class AutocompleteTextField extends JFXTextField {
 
             //if any suggestion is select set it into text and close popup
             item.setOnAction(actionEvent -> {
+                validText = true;
                 entriesPopup.hide();
                 positionCaret(result.length());
                 setText(result);
@@ -136,6 +138,10 @@ public class AutocompleteTextField extends JFXTextField {
 
     public boolean isTriggerPopup() {
         return triggerPopup;
+    }
+
+    public void setTriggerPopup(boolean triggerPopup) {
+        this.triggerPopup = triggerPopup;
     }
 
     public void setValidText(boolean validText) {

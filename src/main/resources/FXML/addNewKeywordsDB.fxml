@@ -30,9 +30,9 @@
                    <Font size="18.0" />
                </font>
             </JFXTextField>
-            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="334.0" spacing="14.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="334.0" spacing="10.0">
                <children>
-                  <Label minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../CSS/label.css" text="Data Type:">
+                  <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" stylesheets="@../CSS/label.css" text="Data Type:">
                      <font>
                          <Font size="18.0" />
                      </font>
@@ -51,7 +51,7 @@
                           <Font size="18.0" />
                       </font>
                       <HBox.margin>
-                        <Insets left="18.0" />
+                        <Insets />
                      </HBox.margin>
                   </RadioButton>
                </children>
@@ -64,9 +64,9 @@
                   <Insets left="119.0" />
                </VBox.margin>
             </RadioButton>
-            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="308.0" spacing="20.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="308.0" spacing="10.0">
                <children>
-                  <Label minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../CSS/label.css" text="Additional Data Type:">
+                  <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" stylesheets="@../CSS/label.css" text="Affix: ">
                      <font>
                          <Font size="18.0" />
                      </font>

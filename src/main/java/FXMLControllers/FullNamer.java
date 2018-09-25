@@ -207,6 +207,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else {
                 sampleNumber.setText("0");
             }
+            data.clear();
             String configListOfKeywords = config.getProperty("listOfKeywords");
             if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
             {
@@ -279,18 +280,19 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
                 if(experimentType.isValidText())
-                {
-                    outputText.setText(updateName(
+                {outputText.setText(updateName(
                             experimentType.getText(),
                             trialNumber.getText(),
                             sampleNumber.getText(),
                             researcherName.getText(),
                             experimentDate.getValue(),
                             data));
+                experimentType.setValidText(false);
                     setProperty("experimentType",newExperimentType);
                 }else if(experimentType.isTriggerPopup())
                 {
                     try {
+                        experimentType.setTriggerPopup(false);
                         popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
                     }catch (IOException e){
                         e.printStackTrace();
@@ -464,14 +466,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         setProperty("listOfKeywords",listOfKeywords.toString());
     }
 
+    /*
     @FXML
     public void handleAddToDBButton (ActionEvent e) throws IOException {        popupScreen("FXML/KeywordsDBTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
-    }
+    }*/
 
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
         experimentType.getEntries().addAll(experiments);
+        System.out.println("updated!!!!!!!!!!");
     }
     static ObservableList<Keyword> getdata() {
         return data;
@@ -483,10 +487,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         primaryStage.close();
     }
 
-
-
-
     public static TreeTableView getTableOfKeywords() {
         return tableOfKeywords;
     }
+
+
 }
