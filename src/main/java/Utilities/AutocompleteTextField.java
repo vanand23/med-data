@@ -79,7 +79,7 @@ public class AutocompleteTextField extends JFXTextField {
                     //label with graphic (text flow) to highlight founded subtext in suggestions
                     Label entryLabel = new Label(" + Add a new entry to the database");
                     //entryLabel.setGraphic(Styles.buildTextFlow(result, enteredText));
-                    entryLabel.setFont(Font.font("Times New Roman", FontWeight.BOLD,20));
+                    entryLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
                     entryLabel.setPrefHeight(20);  //don't sure why it's changed with "graphic"
                     entryLabel.setPrefWidth(width);
                     entryLabel.setMaxWidth(width*1.5);

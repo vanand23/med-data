@@ -92,7 +92,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         {
             projectDescription.setText(configProjectDescription);
         }
-
+        /*
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
             setProperty("researcherName",newResearcherName);
         });
@@ -101,7 +101,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         });
         projectDescription.textProperty().addListener((obs, oldProjectDescription, newProjectDescription) -> {
             setProperty("projectDescription",newProjectDescription);
-        });
+        });*/
 
         //final JFXButton filepathHelp = helpButtonFilepath;
         //final Tooltip filepathTooltip = new Tooltip();
@@ -115,21 +115,21 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     public void setDelimiterToAsterix(ActionEvent e) throws IOException{
         delimiter = "*";
         generatePreview();
-        setProperty("delimiter",delimiter);
+        //setProperty("delimiter",delimiter);
     }
 
     @FXML
     public void setDelimiterToHyphen(ActionEvent e) throws IOException{
         delimiter = "-";
         generatePreview();
-        setProperty("delimiter",delimiter);
+        //setProperty("delimiter",delimiter);
     }
 
     @FXML
     public void setDelimiterToUnderscore(ActionEvent e) throws IOException{
         delimiter = "_";
         generatePreview();
-        setProperty("delimiter",delimiter);
+        //setProperty("delimiter",delimiter);
     }
 
 
