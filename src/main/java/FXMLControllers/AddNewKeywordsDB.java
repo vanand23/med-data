@@ -157,13 +157,23 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
            if(prefixID.isSelected()){
                keywordPreviewField.setText("2" + thekeywordAbbrev.getText());
            }
-           else{keywordPreviewField.setText(thekeywordAbbrev.getText() + "2");}
+           else if (suffixID.isSelected()){
+               keywordPreviewField.setText(thekeywordAbbrev.getText() + "2");
+           }
+           else{
+               keywordPreviewField.setText(thekeywordAbbrev.getText());
+           }
        }
        else if (alphanumericData.isSelected()){
            if(prefixID.isSelected()){
                keywordPreviewField.setText("2a" + thekeywordAbbrev.getText());
            }
-           else{keywordPreviewField.setText(thekeywordAbbrev.getText() + "2a");}
+           else if (suffixID.isSelected()){
+               keywordPreviewField.setText(thekeywordAbbrev.getText() + "2a");
+           }
+           else {
+               keywordPreviewField.setText(thekeywordAbbrev.getText());
+           }
        }
        else{
            keywordPreviewField.setText(thekeywordAbbrev.getText());
