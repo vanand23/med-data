@@ -1,7 +1,6 @@
 .jfx-button:armed,
 .jfx-button{
     -fx-font-family: "Alte Haas Grotesk Bold";
-    -fx-font-size: 18;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
     -fx-effect: dropshadow(three-pass-box, #22303f, 2, 0, 1, 1);
@@ -15,10 +14,12 @@
     -fx-font-family: "Alte Haas Grotesk Bold";
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
-    -fx-opacity: 1.0;
+    -fx-font-size: 18;
+    -fx-cursor: hand;
 }
 .jfx-button:hover{
-    -fx-scale-y: 1.01;
     -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-font-size: 18;
     -fx-cursor: hand;
 }

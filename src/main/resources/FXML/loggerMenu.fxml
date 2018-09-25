@@ -27,9 +27,9 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="576.0">
                      <children>
-                        <Label alignment="CENTER" text="LOAD A PREVIOUS LOG FILE">
+                        <Label alignment="CENTER" stylesheets="@../CSS/label.css" text="LOAD A PREVIOUS LOG FILE">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
@@ -38,10 +38,22 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="87.0" text="Log File Path:  " />
+                              <Label minWidth="-Infinity" prefHeight="17.0" stylesheets="@../CSS/label.css" text="Log File Path:  ">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </Label>
                               <JFXTextField fx:id="priorLogPath" prefHeight="25.0" prefWidth="387.0" style="-fx-background-color: ffffff;" />
-                              <JFXButton fx:id="logFileBrowser" minHeight="-Infinity" minWidth="-Infinity" onAction="#browseLogs" stylesheets="@../CSS/smallButtons.css" text="Browse Files" />
-                              <JFXButton fx:id="priorLogHelpButton" stylesheets="@../CSS/helpButton.css" text="?" />
+                              <JFXButton fx:id="logFileBrowser" minHeight="-Infinity" minWidth="-Infinity" onAction="#browseLogs" stylesheets="@../CSS/smallButtons.css" text="Browse Files">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </JFXButton>
+                              <JFXButton fx:id="priorLogHelpButton" stylesheets="@../CSS/helpButton.css" text="?">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </JFXButton>
                            </children>
                            <padding>
                               <Insets top="10.0" />
@@ -51,10 +63,10 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="CREATE A NEW LOG FILE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Label stylesheets="@../CSS/label.css" text="CREATE A NEW LOG FILE">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
                         </Label>
                      </children>
                   </VBox>
@@ -62,7 +74,11 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="87.0" text="Log File Name: " />
+                              <Label minWidth="-Infinity" prefHeight="17.0" stylesheets="@../CSS/label.css" text="Log File Name: ">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </Label>
                               <JFXTextField fx:id="newLogFileName" prefHeight="25.0" prefWidth="275.0" style="-fx-background-color: ffffff;" />
                            </children>
                         </HBox>
@@ -77,10 +93,26 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
                            <children>
-                              <JFXButton fx:id="printLoggerButton" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="Print Log File" />
-                              <JFXButton fx:id="openLogButton" disable="true" onAction="#openLog" stylesheets="@../CSS/smallButtons.css" text="Open Log" />
-                              <JFXButton fx:id="resetLoggerButton" onAction="#resetLogger" stylesheets="@../CSS/smallButtons.css" text="Reset Logger" />
-                              <JFXButton fx:id="closeLoggerButton" onAction="#closeLogger" stylesheets="@../CSS/smallButtons.css" text="Close" />
+                              <JFXButton fx:id="printLoggerButton" onAction="#generateLog" stylesheets="@../CSS/smallButtons.css" text="Print Log File">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </JFXButton>
+                              <JFXButton fx:id="openLogButton" disable="true" onAction="#openLog" stylesheets="@../CSS/smallButtons.css" text="Open Log">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </JFXButton>
+                              <JFXButton fx:id="resetLoggerButton" onAction="#resetLogger" stylesheets="@../CSS/smallButtons.css" text="Reset Logger">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </JFXButton>
+                              <JFXButton fx:id="closeLoggerButton" onAction="#closeLogger" stylesheets="@../CSS/smallButtons.css" text="Close">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </JFXButton>
                            </children>
                            <VBox.margin>
                               <Insets />

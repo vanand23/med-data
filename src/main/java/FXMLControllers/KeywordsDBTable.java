@@ -1,5 +1,8 @@
 package FXMLControllers;
 
+import Singletons.Database;
+import Types.KeywordManager;
+import Types.KeywordType;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -12,8 +15,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.awt.image.DataBufferDouble;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class KeywordsDBTable extends ScreenController implements Initializable {
@@ -39,9 +46,6 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
     @FXML
     private TableColumn keywordDataType;
 
-    @FXML
-    private TableColumn keywordDataValue;
-
     private final static ObservableList<KeywordDB> DBdata = FXCollections.observableArrayList();
 
     public static ObservableList<KeywordDB> getDBdata() {
@@ -55,17 +59,24 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
         keywordAbbrev.setMinWidth(100);
         keywordAffix.setMinWidth(100);
         keywordDataType.setMinWidth(100);
-        keywordDataValue.setMinWidth(100);
 
         keywordName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordName"));
         keywordAbbrev.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordAbbreviation"));
         keywordAffix.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordAffix"));
         keywordDataType.setCellValueFactory(new PropertyValueFactory<Keyword, String>("DataType"));
-        keywordDataValue.setCellValueFactory(new PropertyValueFactory<Keyword, String>("DataValue"));
 
         keywordsDBTable.setEditable(true);
-
+        HashMap<String, KeywordType> listOfKeywords = KeywordManager.getInstance().getKeywords();
+        for(Map.Entry<String, KeywordType> entry : listOfKeywords.entrySet()) {
+            KeywordType value = entry.getValue();
+            DBdata.add(new KeywordDB(value.getLongName(),
+                    value.getShortName(),
+                    value.getAffix(),
+                    value.getDataType(),
+                    ""));
+        }
         keywordsDBTable.setItems(DBdata);
+
 
     }
 
@@ -81,6 +92,13 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
 
         KeywordDB selectedItem = keywordsDBTable.getSelectionModel().getSelectedItem();
         keywordsDBTable.getItems().remove(selectedItem);
+        try {
+            System.out.println(selectedItem.getKeywordName());
+            Database.removeKeyword(selectedItem.getKeywordName());
+            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
+        }catch (SQLException e1){
+            e1.printStackTrace();
+        }
 
     }
 

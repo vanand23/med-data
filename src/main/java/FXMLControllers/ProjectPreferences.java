@@ -29,9 +29,8 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     private static ProjectPreferences instance = new ProjectPreferences();
 
-   @FXML
-
-   private JFXButton helpButtonFilepath;
+   //@FXML
+   //private JFXButton helpButtonFilepath;
 
     @FXML
     private JFXTextField researcherName;
@@ -42,11 +41,11 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     private JFXTextArea projectDescription;
 
-    @FXML
-    private JFXTextField keywordFilepath;
+    //@FXML
+    //private JFXTextField keywordFilepath;
 
-    @FXML
-    private JFXButton addGlossaryButton;
+    //@FXML
+    //private JFXButton addGlossaryButton;
 
     @FXML
     private RadioButton asterixButton;
@@ -104,10 +103,10 @@ public class ProjectPreferences extends ScreenController implements Initializabl
             setProperty("projectDescription",newProjectDescription);
         });
 
-        final JFXButton filepathHelp = helpButtonFilepath;
-        final Tooltip filepathTooltip = new Tooltip();
-        filepathTooltip.setText("This should look like: /csv/Example.csv");
-        filepathHelp.setTooltip(filepathTooltip);
+        //final JFXButton filepathHelp = helpButtonFilepath;
+        //final Tooltip filepathTooltip = new Tooltip();
+        //filepathTooltip.setText("This should look like: /csv/Example.csv");
+        //filepathHelp.setTooltip(filepathTooltip);
 
 
     }
@@ -156,8 +155,9 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     //updates the delimiter based on the user's choice in the radio buttons
     private void updateDelimiter(){
-        delimiter = ProjectPreferences.getInstance().getDelimiter();
-        if(delimiter == null){
+        Config config = new Config();
+        delimiter = config.getProperty("delimiter");
+        if(delimiter == null || delimiter.trim().isEmpty()){
             delimiter = "_";
         }
         switch(delimiter)
@@ -183,6 +183,18 @@ public class ProjectPreferences extends ScreenController implements Initializabl
                 asterixButton.setSelected(false);
         }
     }
+
+    @FXML
+    public void openKeywordLibrary (ActionEvent e) throws IOException {
+        popupScreen("FXML/KeywordsDBTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
+    }
+
+    @FXML
+    public void openExperimentLibrary (ActionEvent e) throws IOException {
+        popupScreen("FXML/experimentsTable.fxml", asterixButton.getScene().getWindow(),"Add Experiments to DB");
+    }
+
+
 
     /**
      * Singleton helper class, MapManager should always be accessed through MapManager.getInstance();
