@@ -207,6 +207,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else {
                 sampleNumber.setText("0");
             }
+            data.clear();
             String configListOfKeywords = config.getProperty("listOfKeywords");
             if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
             {
