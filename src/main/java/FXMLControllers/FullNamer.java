@@ -288,8 +288,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                             experimentDate.getValue(),
                             data));
                     setProperty("experimentType",newExperimentType);
-                }
-                if(experimentType.isTriggerPopup())
+                }else if(experimentType.isTriggerPopup())
                 {
                     try {
                         popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
@@ -465,9 +464,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         setProperty("listOfKeywords",listOfKeywords.toString());
     }
 
+    /*
     @FXML
     public void handleAddToDBButton (ActionEvent e) throws IOException {        popupScreen("FXML/KeywordsDBTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
-    }
+    }*/
 
     @Override
     public void onTypeUpdate() {
