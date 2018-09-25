@@ -36,6 +36,7 @@ public class KeywordType {
         this.shortName = shortName;
         this.dataType = dataType;
         this.affix = affix;
+        dataValue = "";
     }
 
 

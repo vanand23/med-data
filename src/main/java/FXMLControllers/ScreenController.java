@@ -1,8 +1,6 @@
 package FXMLControllers;
 
 import Singletons.FXMLManager;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -40,7 +38,7 @@ public abstract class ScreenController {
      * @param title the name that will appear at the top of the popup window
      * @throws IOException exception thrown
      */
-    public Stage popupScreen(String fxml, Window ownerWindow, String title) throws IOException{
+    Stage popupScreen(String fxml, Window ownerWindow, String title) throws IOException{
         Stage stage = new Stage();
         //Parent root = FXMLManager.getInstance().getOrLoadFXMLNode(fxml);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));

@@ -17,15 +17,11 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        double width = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-        double height = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         Font.loadFont(
-                Launcher.class.getResource("/Fonts/AlteHaasGroteskBold.ttf").toExternalForm(),
-                18
+                Launcher.class.getResource("/Fonts/AlteHaasGroteskBold.ttf").toExternalForm(),18
         );
         Font.loadFont(
-                Launcher.class.getResource("/Fonts/AlteHaasGroteskRegular.ttf").toExternalForm(),
-                18
+                Launcher.class.getResource("/Fonts/AlteHaasGroteskRegular.ttf").toExternalForm(), 18
         );
 
 

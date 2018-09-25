@@ -102,7 +102,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private AnchorPane anchorPaneOfKeywords;
 
     @FXML
-    static TreeTableView tableOfKeywords;
+    private static TreeTableView tableOfKeywords;
 
     @FXML
     static TreeTableColumn<KeywordType, String> dataValueColumn;
@@ -134,11 +134,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     private static ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
 
-    public static ArrayList<LogEntry> getLogEntryArrayList() {
+    static ArrayList<LogEntry> getLogEntryArrayList() {
         return logEntryArrayList;
     }
 
-    public static ObservableList<Keyword> getData() {
+    static ObservableList<Keyword> getData() {
         return data;
     }
 
@@ -182,6 +182,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     }
                 }
             });
+            experimentType.setMinWidth(Region.USE_PREF_SIZE);
             Config config = new Config();
             String configResearcherName = config.getProperty("researcherName");
             if(configResearcherName != null && !configResearcherName.trim().isEmpty())
@@ -207,6 +208,17 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else {
                 sampleNumber.setText("0");
             }
+            data.clear();
+            String configListOfKeywords = config.getProperty("listOfKeywords");
+            if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
+            {
+                String[] keywords = configListOfKeywords.split(",");
+                for(int i = 0; i < keywords.length; i += 2)
+                {
+                    data.add(new Keyword(keywords[i],keywords[i+1]));
+                }
+            }
+
             String configProjectName = config.getProperty("projectName");
             if(configProjectName != null && !configProjectName.trim().isEmpty())
             {
@@ -268,22 +280,20 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         data));
             });
             experimentType.textProperty().addListener((obs, oldExperimentType, newExperimentType) -> {
-                System.out.println("TRIGGERED");
                 if(experimentType.isValidText())
-                {
-                    outputText.setText(updateName(
+                {outputText.setText(updateName(
                             experimentType.getText(),
                             trialNumber.getText(),
                             sampleNumber.getText(),
                             researcherName.getText(),
                             experimentDate.getValue(),
                             data));
+                experimentType.setValidText(false);
                     setProperty("experimentType",newExperimentType);
                 }else if(experimentType.isTriggerPopup())
                 {
                     try {
-                        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
-                        primaryStage.close();
+                        experimentType.setTriggerPopup(false);
                         popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
                     }catch (IOException e){
                         e.printStackTrace();
@@ -443,17 +453,30 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
         keywordsTable.getItems().remove(selectedItem);
-
+        StringBuilder listOfKeywords = new StringBuilder();
+        for(Keyword keyword : data){
+            listOfKeywords.append(",");
+            listOfKeywords.append(keyword.getKeywordName());
+            listOfKeywords.append(",");
+            listOfKeywords.append(keyword.getDataValue());
+        }
+        if(listOfKeywords.length() != 0)
+        {
+            listOfKeywords.deleteCharAt(0);
+        }
+        setProperty("listOfKeywords",listOfKeywords.toString());
     }
 
+    /*
     @FXML
     public void handleAddToDBButton (ActionEvent e) throws IOException {        popupScreen("FXML/KeywordsDBTable.fxml", keywordsToDBButton.getScene().getWindow(),"Add Keywords to DB");
-    }
+    }*/
 
     @Override
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
         experimentType.getEntries().addAll(experiments);
+        System.out.println("updated!!!!!!!!!!");
     }
     static ObservableList<Keyword> getdata() {
         return data;
@@ -465,10 +488,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         primaryStage.close();
     }
 
-
-
-
     public static TreeTableView getTableOfKeywords() {
         return tableOfKeywords;
     }
+
+
 }

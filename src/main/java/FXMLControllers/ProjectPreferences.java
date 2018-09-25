@@ -1,26 +1,17 @@
 package FXMLControllers;
 
-import Singletons.FXMLManager;
 import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.ButtonBase;
-import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static Utilities.Config.setProperty;
@@ -29,9 +20,8 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     private static ProjectPreferences instance = new ProjectPreferences();
 
-   @FXML
-
-   private JFXButton helpButtonFilepath;
+   //@FXML
+   //private JFXButton helpButtonFilepath;
 
     @FXML
     private JFXTextField researcherName;
@@ -42,11 +32,11 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     private JFXTextArea projectDescription;
 
-    @FXML
-    private JFXTextField keywordFilepath;
+    //@FXML
+    //private JFXTextField keywordFilepath;
 
-    @FXML
-    private JFXButton addGlossaryButton;
+    //@FXML
+    //private JFXButton addGlossaryButton;
 
     @FXML
     private RadioButton asterixButton;
@@ -58,20 +48,12 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     private RadioButton underscoreButton;
 
     @FXML
-    private JFXButton saveButton;
-
-    @FXML
     private JFXTextField previewBox;
 
     @FXML
     private JFXButton cancelButton;
 
-    String getDelimiter() {
-        return delimiter;
-    }
-
     private String delimiter;
-    private String nameOfResearcher;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -93,7 +75,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         {
             projectDescription.setText(configProjectDescription);
         }
-
+        /*
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
             setProperty("researcherName",newResearcherName);
         });
@@ -102,12 +84,12 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         });
         projectDescription.textProperty().addListener((obs, oldProjectDescription, newProjectDescription) -> {
             setProperty("projectDescription",newProjectDescription);
-        });
+        });*/
 
-        final JFXButton filepathHelp = helpButtonFilepath;
-        final Tooltip filepathTooltip = new Tooltip();
-        filepathTooltip.setText("This should look like: /csv/Example.csv");
-        filepathHelp.setTooltip(filepathTooltip);
+        //final JFXButton filepathHelp = helpButtonFilepath;
+        //final Tooltip filepathTooltip = new Tooltip();
+        //filepathTooltip.setText("This should look like: /csv/Example.csv");
+        //filepathHelp.setTooltip(filepathTooltip);
 
 
     }
@@ -116,21 +98,21 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     public void setDelimiterToAsterix(ActionEvent e) throws IOException{
         delimiter = "*";
         generatePreview();
-        setProperty("delimiter",delimiter);
+        //setProperty("delimiter",delimiter);
     }
 
     @FXML
     public void setDelimiterToHyphen(ActionEvent e) throws IOException{
         delimiter = "-";
         generatePreview();
-        setProperty("delimiter",delimiter);
+        //setProperty("delimiter",delimiter);
     }
 
     @FXML
     public void setDelimiterToUnderscore(ActionEvent e) throws IOException{
         delimiter = "_";
         generatePreview();
-        setProperty("delimiter",delimiter);
+        //setProperty("delimiter",delimiter);
     }
 
 
@@ -156,8 +138,9 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     //updates the delimiter based on the user's choice in the radio buttons
     private void updateDelimiter(){
-        delimiter = ProjectPreferences.getInstance().getDelimiter();
-        if(delimiter == null){
+        Config config = new Config();
+        delimiter = config.getProperty("delimiter");
+        if(delimiter == null || delimiter.trim().isEmpty()){
             delimiter = "_";
         }
         switch(delimiter)
@@ -183,6 +166,18 @@ public class ProjectPreferences extends ScreenController implements Initializabl
                 asterixButton.setSelected(false);
         }
     }
+
+    @FXML
+    public void openKeywordLibrary (ActionEvent e) throws IOException {
+        popupScreen("FXML/KeywordsDBTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
+    }
+
+    @FXML
+    public void openExperimentLibrary (ActionEvent e) throws IOException {
+        popupScreen("FXML/experimentsTable.fxml", asterixButton.getScene().getWindow(),"Add Experiments to DB");
+    }
+
+
 
     /**
      * Singleton helper class, MapManager should always be accessed through MapManager.getInstance();

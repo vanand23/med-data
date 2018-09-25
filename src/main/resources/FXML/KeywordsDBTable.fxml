@@ -13,21 +13,23 @@
    <children>
       <Text layoutX="160.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keywords Database Table" wrappingWidth="279.21875">
          <font>
-            <Font name="Times New Roman" size="25.0" />
+            <Font name="Arial" size="25.0" />
          </font>
       </Text>
       <TableView fx:id="keywordsDBTable" layoutX="23.0" layoutY="86.0" prefHeight="260.0" prefWidth="458.0">
         <columns>
-          <TableColumn fx:id="keywordName" prefWidth="129.0" text="Name" />
-          <TableColumn fx:id="keywordAbbrev" prefWidth="66.0" text="Abbreviation" />
-            <TableColumn fx:id="keywordAffix" prefWidth="68.0" text="Affix" />
-            <TableColumn fx:id="keywordDataType" prefWidth="116.0" text="Data Type" />
-            <TableColumn fx:id="keywordDataValue" prefWidth="79.0" text="Data Value" />
+          <TableColumn fx:id="keywordName" prefWidth="194.0" resizable="false" text="Name" />
+          <TableColumn fx:id="keywordAbbrev" prefWidth="101.0" resizable="false" text="Abbreviation" />
+            <TableColumn fx:id="keywordAffix" prefWidth="64.0" resizable="false" text="Affix" />
+            <TableColumn fx:id="keywordDataType" prefWidth="98.0" resizable="false" text="Data Type" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Text layoutX="23.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Library" wrappingWidth="98.21875">
          <font>
-            <Font name="Times New Roman" size="16.0" />
+            <Font name="Arial" size="16.0" />
          </font>
       </Text>
       <VBox layoutX="488.0" layoutY="86.0" prefHeight="311.0" prefWidth="98.0" spacing="35.0">

@@ -12,12 +12,12 @@ class Styles {
     static TextFlow buildTextFlow(String text, String filter) {
         int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
         Text textBefore = new Text(text.substring(0, filterIndex));
-        textBefore.setFont(Font.font("Times New Roman",20));
+        textBefore.setFont(Font.font("Arial",20));
         Text textAfter = new Text(text.substring(filterIndex + filter.length()));
-        textAfter.setFont(Font.font("Times New Roman",20));
+        textAfter.setFont(Font.font("Arial",20));
         Text textFilter = new Text(text.substring(filterIndex,  filterIndex + filter.length())); //instead of "filter" to keep all "case sensitive"
         textFilter.setFill(Color.ORANGE);
-        textFilter.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+        textFilter.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         return new TextFlow(textBefore, textFilter, textAfter);
     }
 }

@@ -13,12 +13,12 @@ import java.util.Map.Entry;
 public class FXMLManager {
 	private static FXMLManager instance = new FXMLManager();
 	
-	HashMap<String, FXMLLoader> fxmlLoaders;
-	HashMap<String, Node> nodes;
+	private HashMap<String, FXMLLoader> fxmlLoaders;
+	private HashMap<String, Node> nodes;
 
-	String path;
+	private String path;
 
-	public FXMLManager() {
+	private FXMLManager() {
 		fxmlLoaders = new HashMap<String, FXMLLoader>();
 		nodes = new HashMap<String, Node>();
 	}
@@ -46,7 +46,7 @@ public class FXMLManager {
 		return node;
 	}
 
-	public Node loadFXMLWithName(String name, String fileName) throws IOException {
+	private Node loadFXMLWithName(String name, String fileName) throws IOException {
 		FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource(fileName)); //create the fxml loader
 		//loader.setLocation(new File(new String(path + "/" + fileName)).toURI().toURL());
 		fxmlLoaders.put(name, loader);
@@ -60,7 +60,7 @@ public class FXMLManager {
 		return (T)nodes.get(name);
 	}
 
-	public boolean hasFXMLNode(String name) {
+	private boolean hasFXMLNode(String name) {
 		return nodes.containsKey(name);
 	}
 
@@ -99,12 +99,12 @@ public class FXMLManager {
 		return fxmlLoaders.get(name);
 	}
 
-	public <T> T getFXMLController(String name) {
+	private <T> T getFXMLController(String name) {
 		FXMLLoader loader = fxmlLoaders.get(name);
 		return loader.<T>getController();
 	}
 
-	public <T> T getFXMLController(Node node) {
+	private <T> T getFXMLController(Node node) {
 		String key = "";
 		Iterator<Entry<String, Node>> it = nodes.entrySet().iterator();
 		while (it.hasNext()) {

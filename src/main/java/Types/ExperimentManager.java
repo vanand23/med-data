@@ -2,7 +2,6 @@ package Types;
 
 import Singletons.Database;
 import Utilities.ITypeObserver;
-import Utilities.Observer;
 
 import javax.naming.NameNotFoundException;
 import java.sql.SQLException;
@@ -51,30 +50,26 @@ public class ExperimentManager {
             mo.onTypeUpdate();
         }
     }
-/*
+
     // Adds a node to the graph and  Please never directly make a new node, instead just call this function
     // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
     // RETURN the MapNode object that was created
-    public MapNode addNode(String nodeID, int xcoord, int ycoord, int xcoord3d, int ycoord3d, String floor,
-                           String building, String nodeType, String longName, String shortName){
-        // Create new node object
-        MapNode n = new MapNode(nodeID, xcoord, ycoord, xcoord3d, ycoord3d, floor, building, nodeType, longName, shortName);
-
-        try{
-            // Add the node to the database
-            Database.insertNode(nodeID, xcoord, ycoord, xcoord3d, ycoord3d, floor, building, nodeType, longName, shortName);
-            // Add the node to the HashMap
-            this.nodes.put(nodeID, n);
+    public void addExperiment(ExperimentType experimentType){
+        try {
+            Database.insertExperiment(
+                    experimentType.getID(),
+                    experimentType.getLongName(),
+                    experimentType.getShortName(),
+                    experimentType.getDescription());
+            Database.writeExperimentsToCSV("Libraries/defaultExperiments.csv");
+            experiments.put(experimentType.getID(),experimentType);
             notifyObservers();
-            // return node for use
-            return n;
+        }catch (SQLException e1){
+            e1.printStackTrace();
+            System.err.println("Could not insert experiment");
         }
-        catch(SQLException e){
-            System.out.println("MapNode not added.");
-        }
-        return null;
     }
-
+/*
     public MapNode addNode(MapNode mapNode){
         try{
             // Add the mapNode to the database
@@ -149,17 +144,24 @@ public class ExperimentManager {
     }
 
     /**
+     * function which returns the number of keywords
+     * @return number of keywords
+     */
+    public int getNumberOfExperiments(){
+        return experiments.size();
+    }
+
+
+    /**
      * Helper function for getLongNames
      * @param inputStr
      * @param items
      * @return true if item is found
      */
-    public static boolean stringContainsItemFromList(String inputStr, String[] items)
+    private static boolean stringContainsItemFromList(String inputStr, String[] items)
     {
-        for(int i =0; i < items.length; i++)
-        {
-            if(inputStr.contains(items[i]))
-            {
+        for (String item : items) {
+            if (inputStr.contains(item)) {
                 return true;
             }
         }
@@ -173,14 +175,12 @@ public class ExperimentManager {
      * @return a MapNode object with the given long or short name
      */
     public ExperimentType getExperimentByName(String type, String name) throws NameNotFoundException{
-        Iterator it = experiments.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            ExperimentType n = (ExperimentType)pair.getValue();
-            if(type.equals("short") && n.getShortName().equals(name)){
+        for (Object o : experiments.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            ExperimentType n = (ExperimentType) pair.getValue();
+            if (type.equals("short") && n.getShortName().equals(name)) {
                 return n;
-            }
-            else if(type.equals("long") && n.getLongName().equals(name)){
+            } else if (type.equals("long") && n.getLongName().equals(name)) {
                 return n;
             }
         }

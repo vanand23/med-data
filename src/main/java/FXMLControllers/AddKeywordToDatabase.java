@@ -1,29 +1,22 @@
 package FXMLControllers;
 
-import Singletons.Database;
 import Types.KeywordManager;
-import Utilities.ITypeObserver;
+import Types.KeywordType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.stage.Stage;
 import javafx.scene.control.ToggleGroup;
-import org.apache.derby.client.am.SqlException;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static FXMLControllers.KeywordsDBTable.getDBdata;
 
-public class AddNewKeywordsDB extends ScreenController implements Initializable {
+public class AddKeywordToDatabase extends ScreenController implements Initializable {
 
     @FXML
     private JFXTextField thekeywordName;
@@ -32,32 +25,11 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
     private JFXTextField thekeywordAbbrev;
 
     @FXML
-    private JFXButton submitButton;
-
-    @FXML
     private JFXButton cancelButton;
 
-    @FXML
-    private RadioButton prefixID;
+    private String keywordAffix;
 
-    @FXML
-    private RadioButton suffixID;
-
-    @FXML
-    private RadioButton numericData;
-
-    @FXML
-    private RadioButton alphanumericData;
-
-    @FXML
-    private RadioButton noData;
-
-    @FXML
-    private JFXTextField thedataValue;
-
-    String keywordAffix;
-
-    String keywordDataType;
+    private String keywordDataType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -65,34 +37,32 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
         final ToggleGroup DataTypePrefButtons = new ToggleGroup();
         thekeywordName.setMinWidth(100);
         thekeywordAbbrev.setMinWidth(100);
-        thedataValue.setMinWidth(100);
     }
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        ObservableList<KeywordDB> theparameterData;
-        theparameterData = getDBdata();
-        KeywordDB keyword = new KeywordDB(thekeywordName.getText(),
+        getDBdata().add(new KeywordDB(thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordAffix,
                 keywordDataType,
-                thedataValue.getText());
-        try {
-            Database.insertKeyword(String.valueOf(KeywordManager.getInstance().getNumberOfKeywords() + 1),
-                    thekeywordName.getText(),
-                    thekeywordAbbrev.getText(),
-                    keywordAffix,
-                    keywordDataType);
-            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
-        }catch (SQLException e1){
-            e1.printStackTrace();
-            System.err.println("Could not insert keyword");
+                ""));
+        int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
+        KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
+        if(lastKeyword == null)
+        {
+            lastKeyword = new KeywordType("0","","","","");
         }
-        theparameterData.add(keyword);
+
+        KeywordManager.getInstance().addKeyword(
+                new KeywordType((String.valueOf(Integer.valueOf(lastKeyword.getID())+1)),
+                thekeywordName.getText(),
+                thekeywordAbbrev.getText(),
+                keywordDataType,
+                keywordAffix));
+
         thekeywordName.clear();
         thekeywordAbbrev.clear();
-        thedataValue.clear();
-        Stage primaryStage = (Stage) thedataValue.getScene().getWindow();
+        Stage primaryStage = (Stage) thekeywordAbbrev.getScene().getWindow();
         primaryStage.close();
     }
 

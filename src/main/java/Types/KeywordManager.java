@@ -2,7 +2,6 @@ package Types;
 
 import Singletons.Database;
 import Utilities.ITypeObserver;
-import Utilities.Observer;
 
 import javax.naming.NameNotFoundException;
 import java.sql.SQLException;
@@ -51,6 +50,28 @@ public class KeywordManager {
             mo.onTypeUpdate();
         }
     }
+
+    // Adds a node to the graph and  Please never directly make a new node, instead just call this function
+    // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
+    // RETURN the MapNode object that was created
+    public void addKeyword(KeywordType keywordType){
+        try {
+            Database.insertKeyword(
+                    keywordType.getID(),
+                    keywordType.getLongName(),
+                    keywordType.getShortName(),
+                    keywordType.getDataType(),
+                    keywordType.getAffix());
+            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
+            keywords.put(keywordType.getID(),keywordType);
+            notifyObservers();
+        }catch (SQLException e1){
+            e1.printStackTrace();
+            System.err.println("Could not insert keyword");
+        }
+    }
+
+
 /*
     // Adds a node to the graph and  Please never directly make a new node, instead just call this function
     // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
@@ -162,12 +183,10 @@ public class KeywordManager {
      * @param items
      * @return true if item is found
      */
-    public static boolean stringContainsItemFromList(String inputStr, String[] items)
+    private static boolean stringContainsItemFromList(String inputStr, String[] items)
     {
-        for(int i =0; i < items.length; i++)
-        {
-            if(inputStr.contains(items[i]))
-            {
+        for (String item : items) {
+            if (inputStr.contains(item)) {
                 return true;
             }
         }
@@ -181,14 +200,12 @@ public class KeywordManager {
      * @return a MapNode object with the given long or short name
      */
     public KeywordType getKeywordByName(String type, String name) throws NameNotFoundException{
-        Iterator it = keywords.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
-            KeywordType n = (KeywordType)pair.getValue();
-            if(type.equals("short") && n.getShortName().equals(name)){
+        for (Object o : keywords.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            KeywordType n = (KeywordType) pair.getValue();
+            if (type.equals("short") && n.getShortName().equals(name)) {
                 return n;
-            }
-            else if(type.equals("long") && n.getLongName().equals(name)){
+            } else if (type.equals("long") && n.getLongName().equals(name)) {
                 return n;
             }
         }
