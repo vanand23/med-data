@@ -69,6 +69,7 @@ public class AutocompleteTextField extends JFXTextField {
 
                 //some suggestions are found
                 if (!filteredEntries.isEmpty()) {
+                    this.triggerPopup = false;
                     //build popup - list of "CustomMenuItem"
                     populatePopup(filteredEntries, enteredText);
                     if (!entriesPopup.isShowing() &&
