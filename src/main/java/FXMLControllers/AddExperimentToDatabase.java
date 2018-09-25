@@ -64,6 +64,10 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
     public void handleSubmitButton(ActionEvent e) throws IOException {
         int experimentListSize = ExperimentManager.getInstance().getNumberOfExperiments();
         ExperimentType lastExperiment = ExperimentManager.getInstance().getExperiments().get(String.valueOf(experimentListSize));
+        if(lastExperiment == null)
+        {
+            lastExperiment = new ExperimentType("0","","","");
+        }
         String newID = String.valueOf(Integer.valueOf(lastExperiment.getID())+1);
         getExperimentTypeObservableList().add(new ExperimentType(
                 newID,

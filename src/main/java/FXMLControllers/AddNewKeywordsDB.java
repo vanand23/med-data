@@ -75,7 +75,11 @@ public class AddNewKeywordsDB extends ScreenController implements Initializable 
         try {
             int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
             KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
-            System.out.println(lastKeyword.getID());
+            if(lastKeyword == null)
+            {
+                lastKeyword = new KeywordType("0","","","","");
+            }
+
             Database.insertKeyword(String.valueOf(Integer.valueOf(lastKeyword.getID())+1),
                     thekeywordName.getText(),
                     thekeywordAbbrev.getText(),
