@@ -2,6 +2,7 @@ package FXMLControllers;
 
 import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -10,8 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static Utilities.Config.setProperty;
@@ -53,7 +58,14 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     private JFXButton cancelButton;
 
+    @FXML
+    private JFXCheckBox rememberData;
+
+    private static boolean isRememberData;
+
     private String delimiter;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -130,7 +142,12 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     public void saveProjectPreferences(ActionEvent e) throws IOException{
         setProperty("delimiter",delimiter);
+        if(isRememberData){
         setProperty("researcherName",researcherName.getText());
+        }
+        else{
+            setProperty("researcherName", "");
+        }
         setProperty("projectName",projectName.getText());
         setProperty("projectDescription",projectDescription.getText());
         closeProjectPreferences(e);
@@ -177,6 +194,30 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         popupScreen("FXML/experimentsTable.fxml", asterixButton.getScene().getWindow(),"Add Experiments to DB");
     }
 
+    @FXML
+    public void checkRememberData(ActionEvent e){
+        if (rememberData.isSelected()){
+            isRememberData = true;
+            setProperty("rememberData", "true");
+        }
+        else{
+           try{
+               isRememberData = false;
+               Properties configFile = new Properties();
+               configFile.load(new FileInputStream("config.properties"));
+               configFile.clear();
+               File tempFile = new File("config.properties");
+               FileOutputStream fos = new FileOutputStream(tempFile);
+               configFile.store(fos, "");
+               fos.flush();
+               fos.close();
+               setProperty("rememberData", "false");
+           }
+            catch(IOException e1){
+               e1.printStackTrace();
+            }
+        }
+    }
 
 
     /**

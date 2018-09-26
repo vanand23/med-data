@@ -2,3 +2,4 @@ variableID,longName,shortName,dataType,affix
 1,Time in hours,hrs,numeric,suffix
 2,Keyword,Key,numeric,prefix
 3,Frequency,hz,numeric,prefix
+4,Pink Bubble Gum,PBG,no data,null
