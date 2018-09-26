@@ -2,6 +2,7 @@ package FXMLControllers;
 
 import Types.ExperimentManager;
 import Types.KeywordManager;
+import Types.KeywordType;
 import Utilities.Config;
 import javafx.collections.ObservableList;
 
@@ -15,7 +16,7 @@ class Namer extends ScreenController{
                       String sampleNumberText,
                       String researcherNameText,
                       LocalDate experimentDate,
-                      ObservableList<Keyword> sharedListOfKeywords)
+                      ObservableList<KeywordType> sharedListOfKeywords)
     {
         Config config = new Config();
         String delimiter = config.getProperty("delimiter");
@@ -82,16 +83,16 @@ class Namer extends ScreenController{
             fname.append(finalInitial);
 
         }
-        for(Keyword keywordCell : sharedListOfKeywords)
+        for(KeywordType keywordCell : sharedListOfKeywords)
         {
-            if(keywordCell.getKeywordName() != null && !keywordCell.getKeywordName().trim().isEmpty())
+            if(keywordCell.getLongName() != null && !keywordCell.getLongName().trim().isEmpty())
             {
                 String keywordName;
                 String keywordValue = keywordCell.getDataValue();
                 fname.append(delimiter);
                 try {
-                    keywordName = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getKeywordName()).getShortName();
-                    String affix = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getKeywordName()).getAffix();
+                    keywordName = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getLongName()).getShortName();
+                    String affix = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getLongName()).getAffix();
                     switch (affix){
                         case "prefix":
                             fname.append(keywordName);

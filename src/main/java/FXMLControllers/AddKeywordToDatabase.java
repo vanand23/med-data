@@ -78,7 +78,8 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        getDBdata().add(new KeywordDB(thekeywordName.getText(),
+        getDBdata().add(new KeywordType("",
+                thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordAffix,
                 keywordDataType,
@@ -87,7 +88,7 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
         KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
         if(lastKeyword == null)
         {
-            lastKeyword = new KeywordType("0","","","","");
+            lastKeyword = new KeywordType("0","","","","","");
         }
 
         KeywordManager.getInstance().addKeyword(
@@ -95,7 +96,8 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
                 thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordDataType,
-                keywordAffix));
+                keywordAffix,
+                        ""));
 
         thekeywordName.clear();
         thekeywordAbbrev.clear();

@@ -1,5 +1,6 @@
 package FXMLControllers;
 
+import Types.KeywordType;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
@@ -17,14 +18,14 @@ public class LogEntry {
     private String sampleNumber;
     private String fileName;
     private String comment;
-    private ObservableList<Keyword> listOfKeywords;
+    private ObservableList<KeywordType> listOfKeywords;
     LogEntry(LocalDate experimentDate,
              String researcherName,
              String experimentType,
              String trialNumber,
              String sampleNumber,
              String fileName,
-             ObservableList<Keyword> listOfKeywords,
+             ObservableList<KeywordType> listOfKeywords,
              String comment){
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd LLL yy");
         DateTimeFormatter timeFormatter = ISO_LOCAL_TIME;
@@ -68,7 +69,7 @@ public class LogEntry {
         return fileName;
     }
 
-    public ObservableList<Keyword> getListOfKeywords() {
+    public ObservableList<KeywordType> getListOfKeywords() {
         return listOfKeywords;
     }
 
