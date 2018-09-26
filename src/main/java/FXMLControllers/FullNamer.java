@@ -120,7 +120,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton loggerButton;
 
     @FXML
-    private TableView<Keyword> keywordsTable;
+    private TableView<KeywordType> keywordsTable;
 
     @FXML
     private TableColumn columnName;
@@ -130,7 +130,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     
-    private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
+    private final static ObservableList<KeywordType> data = FXCollections.observableArrayList();
 
     private static ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
 
@@ -138,7 +138,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         return logEntryArrayList;
     }
 
-    static ObservableList<Keyword> getData() {
+    static ObservableList<KeywordType> getData() {
         return data;
     }
 
@@ -215,7 +215,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 String[] keywords = configListOfKeywords.split(",");
                 for(int i = 0; i < keywords.length; i += 2)
                 {
-                    data.add(new Keyword(keywords[i],keywords[i+1]));
+                    data.add(new KeywordType("",keywords[i],"","","",keywords[i+1]));
+                    System.out.println("HERE WE GOOOOOOOOOOOO");
                 }
             }
 
@@ -235,8 +236,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             columnDataValue.setMinWidth(100);
 
 
-            columnName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordName"));
-            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keyword, String>("DataValue"));
+            columnName.setCellValueFactory(new PropertyValueFactory<KeywordType, String>("longName"));
+            columnDataValue.setCellValueFactory(new PropertyValueFactory<KeywordType, String>("dataValue"));
 
             keywordsTable.setEditable(true);
 
@@ -245,11 +246,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     new EventHandler<TableColumn.CellEditEvent>() {
                         @Override
                         public void handle(TableColumn.CellEditEvent event) {
-
-                            ((Keyword) event.getTableView().getItems().get(
+                            ((KeywordType) event.getTableView().getItems().get(
                                     event.getTablePosition().getRow())
-                            ).setKeywordName((String) event.getNewValue());
-
+                            ).setLongName((String) event.getNewValue());
                         }
                     }
             );
@@ -259,16 +258,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     new EventHandler<TableColumn.CellEditEvent>() {
                         @Override
                         public void handle(TableColumn.CellEditEvent event) {
-
-                            ((Keyword) event.getTableView().getItems().get(
+                            ((KeywordType) event.getTableView().getItems().get(
                                     event.getTablePosition().getRow())
                             ).setDataValue((String) event.getNewValue());
-
                         }
                     }
             );
 
-            keywordsTable.setItems(this.data);
+            keywordsTable.setItems(data);
+            System.out.println(data);
 
             experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
                         outputText.setText(updateName(
@@ -331,7 +329,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         data));
                 setProperty("sampleNumber",newSampleNumber);
             });
-            data.addListener((ListChangeListener<Keyword>) keywords -> {
+            data.addListener((ListChangeListener<KeywordType>) keywords -> {
                 outputText.setText(updateName(
                         experimentType.getText(),
                         trialNumber.getText(),
@@ -452,12 +450,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     public void handleDeleteButton (ActionEvent e) throws IOException {
 
-        Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
+        KeywordType selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
         keywordsTable.getItems().remove(selectedItem);
         StringBuilder listOfKeywords = new StringBuilder();
-        for(Keyword keyword : data){
+        for(KeywordType keyword : data){
             listOfKeywords.append(",");
-            listOfKeywords.append(keyword.getKeywordName());
+            listOfKeywords.append(keyword.getLongName());
             listOfKeywords.append(",");
             listOfKeywords.append(keyword.getDataValue());
         }
@@ -482,7 +480,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         experimentType.getEntries().addAll(experiments);
         System.out.println("updated!!!!!!!!!!");
     }
-    static ObservableList<Keyword> getdata() {
+    static ObservableList<KeywordType> getdata() {
         return data;
     }
 

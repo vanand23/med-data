@@ -270,7 +270,7 @@ public class Database {
                 affix = rs.getString("affix");
 
                 // create node instance and put it in the nodes HashMap
-                n = new KeywordType(keywordID, longName, shortName, dataType, affix);
+                n = new KeywordType(keywordID, longName, shortName, dataType, affix, "");
                 break;
             }
 
@@ -897,7 +897,7 @@ public class Database {
 
 
                 // create node instance and put it in the nodes HashMap
-                KeywordType n = new KeywordType(keywordID, longName, shortName, dataType, affix);
+                KeywordType n = new KeywordType(keywordID, longName, shortName, dataType, affix, "");
                 keywords.put(keywordID, n);
             }
         } catch(SQLException e){
