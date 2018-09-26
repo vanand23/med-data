@@ -46,6 +46,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.TreeTableColumn;
 
+import javax.swing.*;
+
 import static Utilities.Config.setProperty;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
@@ -127,6 +129,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     private TableColumn columnDataValue;
+
+    @FXML
+    private JFXButton clearButton;
 
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     
@@ -488,6 +493,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     public static TreeTableView getTableOfKeywords() {
         return tableOfKeywords;
+    }
+
+    @FXML
+    public void clearFields(ActionEvent e) {
+        researcherName.setText("");
+        sampleNumber.setText("0");
+        trialNumber.setText("0");
+        experimentType.setText("");
+        data.clear();
     }
 
 
