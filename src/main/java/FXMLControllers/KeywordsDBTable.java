@@ -30,7 +30,7 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
     private JFXButton addKeywordsButton;
 
     @FXML
-    private TableView<KeywordDB> keywordsDBTable;
+    private TableView<KeywordType> keywordsDBTable;
 
     @FXML
     private TableColumn keywordName;
@@ -44,9 +44,9 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
     @FXML
     private TableColumn keywordDataType;
 
-    private final static ObservableList<KeywordDB> DBdata = FXCollections.observableArrayList();
+    private final static ObservableList<KeywordType> DBdata = FXCollections.observableArrayList();
 
-    static ObservableList<KeywordDB> getDBdata() {
+    static ObservableList<KeywordType> getDBdata() {
         return DBdata;
     }
 
@@ -58,16 +58,17 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
         keywordAffix.setMinWidth(100);
         keywordDataType.setMinWidth(100);
 
-        keywordName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordName"));
-        keywordAbbrev.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordAbbreviation"));
-        keywordAffix.setCellValueFactory(new PropertyValueFactory<Keyword, String>("KeywordAffix"));
-        keywordDataType.setCellValueFactory(new PropertyValueFactory<Keyword, String>("DataType"));
+        keywordName.setCellValueFactory(new PropertyValueFactory<KeywordType, String>("longName"));
+        keywordAbbrev.setCellValueFactory(new PropertyValueFactory<KeywordType, String>("shortName"));
+        keywordAffix.setCellValueFactory(new PropertyValueFactory<KeywordType, String>("affix"));
+        keywordDataType.setCellValueFactory(new PropertyValueFactory<KeywordType, String>("dataType"));
 
         keywordsDBTable.setEditable(true);
         HashMap<String, KeywordType> listOfKeywords = KeywordManager.getInstance().getKeywords();
         for(Map.Entry<String, KeywordType> entry : listOfKeywords.entrySet()) {
             KeywordType value = entry.getValue();
-            DBdata.add(new KeywordDB(value.getLongName(),
+            DBdata.add(new KeywordType("",
+                    value.getLongName(),
                     value.getShortName(),
                     value.getAffix(),
                     value.getDataType(),
@@ -88,11 +89,11 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
     @FXML
     public void handleDeleteButton (ActionEvent e) throws IOException {
 
-        KeywordDB selectedItem = keywordsDBTable.getSelectionModel().getSelectedItem();
+        KeywordType selectedItem = keywordsDBTable.getSelectionModel().getSelectedItem();
         keywordsDBTable.getItems().remove(selectedItem);
         try {
-            System.out.println(selectedItem.getKeywordName());
-            Database.removeKeyword(selectedItem.getKeywordName());
+            System.out.println(selectedItem.getLongName());
+            Database.removeKeyword(selectedItem.getLongName());
             Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
         }catch (SQLException e1){
             e1.printStackTrace();

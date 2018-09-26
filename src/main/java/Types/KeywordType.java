@@ -30,13 +30,41 @@ public class KeywordType {
         return affix;
     }
 
-    public KeywordType(String variableID, String longName, String shortName, String dataType, String affix) {
+    public String getDataValue() {
+        return dataValue;
+    }
+
+    public void setVariableID(String variableID) {
+        this.variableID = variableID;
+    }
+
+    public void setLongName(String longName) {
+        this.longName = longName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public void setAffix(String affix) {
+        this.affix = affix;
+    }
+
+    public void setDataValue(String dataValue) {
+        this.dataValue = dataValue;
+    }
+
+    public KeywordType(String variableID, String longName, String shortName, String dataType, String affix, String dataValue) {
         this.variableID = variableID;
         this.longName = longName;
         this.shortName = shortName;
         this.dataType = dataType;
         this.affix = affix;
-        dataValue = "";
+        this.dataValue = dataValue;
     }
 
 
