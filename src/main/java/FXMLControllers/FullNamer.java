@@ -7,6 +7,7 @@ import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
@@ -147,6 +148,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         return data;
     }
 
+    private boolean isRememberData;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -189,6 +192,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             });
             experimentType.setMinWidth(Region.USE_PREF_SIZE);
             Config config = new Config();
+            isRememberData = Boolean.valueOf(config.getProperty("rememberData"));
             String configResearcherName = config.getProperty("researcherName");
             if(configResearcherName != null && !configResearcherName.trim().isEmpty())
             {
@@ -292,7 +296,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                             experimentDate.getValue(),
                             data));
                 experimentType.setValidText(false);
-                    setProperty("experimentType",newExperimentType);
+                if(isRememberData){
+                setProperty("experimentType",newExperimentType);
+                }
+                else{
+                    setProperty("experimentType", "");
+                }
                 }else if(experimentType.isTriggerPopup())
                 {
                     try {
@@ -311,7 +320,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         researcherName.getText(),
                         experimentDate.getValue(),
                         data));
-                setProperty("researcherName",newResearcherName);
+               if(isRememberData) {
+                   setProperty("researcherName", newResearcherName);
+               }
+               else{
+                   setProperty("researcherName", "");
+               }
             });
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
                 outputText.setText(updateName(
@@ -321,7 +335,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         researcherName.getText(),
                         experimentDate.getValue(),
                         data));
-                setProperty("trialNumber",newTrialNumber);
+                if(isRememberData) {
+                    setProperty("trialNumber", newTrialNumber);
+                }
+                else{
+                    setProperty("trialNumber", "");
+                }
             });
             sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
                 outputText.setText(updateName(
@@ -331,7 +350,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         researcherName.getText(),
                         experimentDate.getValue(),
                         data));
-                setProperty("sampleNumber",newSampleNumber);
+                if(isRememberData) {
+                    setProperty("sampleNumber", newSampleNumber);
+                }
+                else{
+                    setProperty("sampleNumber", "");
+                }
             });
             data.addListener((ListChangeListener<KeywordType>) keywords -> {
                 outputText.setText(updateName(
@@ -408,7 +432,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 stringExperimentDate,
                 data);
 
-        setProperty("experimentType",experimentType.getText());
+        if(isRememberData) {
+            setProperty("experimentType", experimentType.getText());
+        }
+        else{
+            setProperty("experimentType", "");
+        }
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -467,7 +496,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         {
             listOfKeywords.deleteCharAt(0);
         }
-        setProperty("listOfKeywords",listOfKeywords.toString());
+        if(isRememberData) {
+            setProperty("listOfKeywords", listOfKeywords.toString());
+        }
+        else{
+            setProperty("listOfKeywords","");
+        }
     }
 
     /*
