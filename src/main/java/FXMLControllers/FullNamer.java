@@ -8,6 +8,7 @@ import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.ParallelTransition;
@@ -50,6 +51,8 @@ import static Animation.PaneTransitions.partialFadeIn;
 import static Animation.PaneTransitions.partialFadeOut;
 import static Animation.PaneTransitions.slidingTransition;
 import static FXMLControllers.CompactNamer.getCompactNamerFilename;
+import javax.swing.*;
+
 import static Utilities.Config.setProperty;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
@@ -159,6 +162,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private TableColumn columnDataValue;
 
+    @FXML
+    private JFXButton clearButton;
+
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     
     private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
@@ -184,6 +190,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     static ObservableList<Keyword> getData() {
         return data;
     }
+
+    private boolean isRememberData;
 
 
     @Override
@@ -235,6 +243,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 }
             });
             experimentTextField.setMinWidth(Region.USE_PREF_SIZE);
+            Config config = new Config();
+            isRememberData = Boolean.valueOf(config.getProperty("rememberData"));
             if(sharedFilename == null)
             {
                 sharedFilename = new Filename();
@@ -338,8 +348,13 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
                 if(experimentTextField.isValidText())
                 {outputText.setText(updateName(sharedFilename));
-                experimentTextField.setValidText(false);
-                    setProperty("experimentTextField",newexperimentTextField);
+                experimentType.setValidText(false);
+                if(isRememberData){
+                setProperty("experimentType",newExperimentType);
+                }
+                else{
+                    setProperty("experimentType", "");
+                }
                 }else if(experimentTextField.isTriggerPopup())
                 {
                     try {
@@ -351,19 +366,34 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 }
             });
             researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-                sharedFilename.setResearcher(newResearcherName);
-                outputText.setText(updateName(sharedFilename));
-                setProperty("researcherName",newResearcherName);
+               outputText.setText(updateName(sharedFilename));
+               sharedFilename.setResearcher(newResearcherName);
+               if(isRememberData) {
+                   setProperty("researcherName", newResearcherName);
+               }
+               else{
+                   setProperty("researcherName", "");
+               }
             });
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
                 sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
                 outputText.setText(updateName(sharedFilename));
-                setProperty("trialNumber",newTrialNumber);
+                if(isRememberData) {
+                    setProperty("trialNumber", newTrialNumber);
+                }
+                else{
+                    setProperty("trialNumber", "");
+                }
             });
             sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
                 sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
                 outputText.setText(updateName(sharedFilename));
-                setProperty("sampleNumber",newSampleNumber);
+                if(isRememberData) {
+                    setProperty("sampleNumber", newSampleNumber);
+                }
+                else{
+                    setProperty("sampleNumber", "");
+                }
             });
             data.addListener((ListChangeListener<Keyword>) keywords -> {
                 sharedFilename.setKeywords(data);
@@ -423,7 +453,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         String comment = "";
         String nameToCopy = updateName(sharedFilename);
 
-        setProperty("experimentTextField",experimentTextField.getText());
+        if(isRememberData) {
+            setProperty("experimentTextField",experimentTextField.getText());
+        }
+        else{
+            setProperty("experimentType", "");
+        }
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -482,7 +517,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         {
             listOfKeywords.deleteCharAt(0);
         }
-        setProperty("listOfKeywords",listOfKeywords.toString());
+        if(isRememberData) {
+            setProperty("listOfKeywords", listOfKeywords.toString());
+        }
+        else{
+            setProperty("listOfKeywords","");
+        }
     }
 
 
@@ -568,6 +608,13 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     public void handleKeywords(ActionEvent actionEvent) throws IOException{
         popupScreen("FXML/KeywordsDBTable.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords to DB");
+    }
+    public void clearFields(ActionEvent e) {
+        researcherName.setText("");
+        sampleNumber.setText("0");
+        trialNumber.setText("0");
+        experimentType.setText("");
+        data.clear();
     }
 
     @FXML
