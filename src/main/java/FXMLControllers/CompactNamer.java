@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import static FXMLControllers.FullNamer.getFullNamerFilename;
+import static FXMLControllers.FullNamer.setFullNamerSharedFilename;
 import static Utilities.Config.setProperty;
 
 public class CompactNamer extends Namer implements Initializable {
@@ -42,8 +42,8 @@ public class CompactNamer extends Namer implements Initializable {
 
     private static Filename sharedFilename;
 
-    public static Filename getCompactNamerFilename() {
-        return sharedFilename;
+    public static void setCompactNamerFilename(Filename sharedFilename) {
+        CompactNamer.sharedFilename = sharedFilename;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CompactNamer extends Namer implements Initializable {
             }
         });
 
-        sharedFilename = getFullNamerFilename();
+
 
         experimentDate.setValue(LocalDate.now());
         trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
@@ -84,12 +84,14 @@ public class CompactNamer extends Namer implements Initializable {
         {
             setProperty("trialNumber",newTrialNumber);
             sharedFilename.setTrialNumber(Integer.parseInt(newTrialNumber));
+            setFullNamerSharedFilename(sharedFilename);
         });
 
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) ->
         {
             setProperty("sampleNumber",newSampleNumber);
             sharedFilename.setSampleNumber(Integer.parseInt(newSampleNumber));
+            setFullNamerSharedFilename(sharedFilename);
         });
     }
 

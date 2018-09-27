@@ -50,9 +50,8 @@ import javafx.scene.control.TreeTableColumn;
 import static Animation.PaneTransitions.partialFadeIn;
 import static Animation.PaneTransitions.partialFadeOut;
 import static Animation.PaneTransitions.slidingTransition;
-import static FXMLControllers.CompactNamer.getCompactNamerFilename;
-import javax.swing.*;
 
+import static FXMLControllers.CompactNamer.setCompactNamerFilename;
 import static Utilities.Config.setProperty;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
@@ -179,8 +178,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private boolean isMenuOpen = false;
     private boolean isMenuPlaying = false;
 
-    public static Filename getFullNamerFilename() {
-        return sharedFilename;
+    public static void setFullNamerSharedFilename(Filename sharedFilename) {
+        FullNamer.sharedFilename = sharedFilename;
     }
 
     static ArrayList<LogEntry> getLogEntryArrayList() {
@@ -274,7 +273,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 {
                     sampleNumber.setText(configSampleNumber);
                     sharedFilename.setSampleNumber(Integer.parseInt(configSampleNumber));
-
                 }else {
                     sampleNumber.setText("0");
                     sharedFilename.setSampleNumber(0);
@@ -290,6 +288,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     }
                 }
                 sharedFilename.setKeywords(data);
+                setCompactNamerFilename(sharedFilename);
 
                 String configProjectName = config.getProperty("projectName");
                 if(configProjectName != null && !configProjectName.trim().isEmpty())
@@ -300,9 +299,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     projectName.setText("");
                     projectName.setFont(new Font(18));
                 }
-            }else{
-                sharedFilename = getCompactNamerFilename();
             }
+
 
             experimentDate.setValue(LocalDate.now());
             experimentTextField.setAutocompleteWidth(350);
@@ -347,9 +345,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
                 if(experimentTextField.isValidText())
                 {outputText.setText(updateName(sharedFilename));
-                    experimentTextField.setValidText(false);
+                setCompactNamerFilename(sharedFilename);
+                experimentTextField.setValidText(false);
                 if(isRememberData){
-                setProperty("experimentType",newexperimentTextField);
+                    setProperty("experimentType",newexperimentTextField);
                 }
                 else{
                     setProperty("experimentType", "");
@@ -367,6 +366,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
                outputText.setText(updateName(sharedFilename));
                sharedFilename.setResearcher(newResearcherName);
+               setCompactNamerFilename(sharedFilename);
                if(isRememberData) {
                    setProperty("researcherName", newResearcherName);
                }
@@ -377,6 +377,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
                 sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
                 outputText.setText(updateName(sharedFilename));
+                setCompactNamerFilename(sharedFilename);
                 if(isRememberData) {
                     setProperty("trialNumber", newTrialNumber);
                 }
@@ -387,6 +388,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
                 sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
                 outputText.setText(updateName(sharedFilename));
+                setCompactNamerFilename(sharedFilename);
                 if(isRememberData) {
                     setProperty("sampleNumber", newSampleNumber);
                 }
@@ -397,6 +399,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             data.addListener((ListChangeListener<Keyword>) keywords -> {
                 sharedFilename.setKeywords(data);
                 outputText.setText(updateName(sharedFilename));
+                setCompactNamerFilename(sharedFilename);
             });
             outputText.setText(updateName(sharedFilename));
         }
