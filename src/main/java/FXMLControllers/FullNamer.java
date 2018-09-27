@@ -248,7 +248,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             if(sharedFilename == null)
             {
                 sharedFilename = new Filename();
-                Config config = new Config();
                 String configResearcherName = config.getProperty("researcherName");
                 if(configResearcherName != null && !configResearcherName.trim().isEmpty())
                 {
@@ -348,9 +347,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
                 if(experimentTextField.isValidText())
                 {outputText.setText(updateName(sharedFilename));
-                experimentType.setValidText(false);
+                    experimentTextField.setValidText(false);
                 if(isRememberData){
-                setProperty("experimentType",newExperimentType);
+                setProperty("experimentType",newexperimentTextField);
                 }
                 else{
                     setProperty("experimentType", "");
@@ -613,7 +612,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         researcherName.setText("");
         sampleNumber.setText("0");
         trialNumber.setText("0");
-        experimentType.setText("");
+        experimentTextField.setText("");
         data.clear();
     }
 
