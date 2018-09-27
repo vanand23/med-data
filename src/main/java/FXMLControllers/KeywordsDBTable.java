@@ -3,15 +3,19 @@ package FXMLControllers;
 import Singletons.Database;
 import Types.KeywordManager;
 import Types.Keyword;
+import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +26,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class KeywordsDBTable extends ScreenController implements Initializable {
+
+    @FXML
+    public ChoiceBox selectKeywordFile;
 
     @FXML
     private JFXButton cancelButton;
@@ -52,6 +59,18 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        selectKeywordFile.getItems().add("All Databases");
+        Config config = new Config();
+        String configListOfKeywords = config.getProperty("listOfKeywordDatabaseFiles");
+        if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
+        {
+            String[] keywords = configListOfKeywords.split(",");
+            for(int i = 0; i < keywords.length; i++)
+            {
+            }
+        }
+
+        selectKeywordFile.getItems().add("+ Add new keyword file");
 
         keywordName.setMinWidth(100);
         keywordAbbrev.setMinWidth(100);

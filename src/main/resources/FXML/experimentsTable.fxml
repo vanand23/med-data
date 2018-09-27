@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -38,5 +39,6 @@
             <Font size="25.0" />
          </font>
       </Label>
+      <ChoiceBox layoutX="23.0" layoutY="355.0" prefHeight="31.0" prefWidth="458.0" />
     </children>
 </AnchorPane>
