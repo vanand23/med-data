@@ -206,9 +206,9 @@ public class Database {
     /**
      * Retrieves a node from the database by its ID
      * @param experimentID the experiment's name
-     * @return an ExperimentType object
+     * @return an Experiment object
      */
-    public static ExperimentType getExperiment(String experimentID){
+    public static Experiment getExperiment(String experimentID){
 
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM experiments WHERE experimentID=?");
@@ -216,7 +216,7 @@ public class Database {
             ResultSet rs = ps.executeQuery();
 
             String longName, shortName, description;
-            ExperimentType n = null;
+            Experiment n = null;
 
             // for each node, build an object
             while (rs.next()) {
@@ -224,7 +224,7 @@ public class Database {
                 shortName = rs.getString("shortName");
                 description = rs.getString("description");
                 // create node instance and put it in the nodes HashMap
-                n = new ExperimentType(experimentID, longName, shortName, description);
+                n = new Experiment(experimentID, longName, shortName, description);
                 break;
             }
 
@@ -250,9 +250,9 @@ public class Database {
     /**
      * Retrieves a node from the database by its ID
      * @param keywordID the experiment's name
-     * @return an ExperimentType object
+     * @return an Experiment object
      */
-    public static KeywordType getKeyword(String keywordID){
+    public static Keyword getKeyword(String keywordID){
 
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM experiments WHERE keywordID=?");
@@ -260,7 +260,7 @@ public class Database {
             ResultSet rs = ps.executeQuery();
 
             String longName, shortName, dataType, affix;
-            KeywordType n = null;
+            Keyword n = null;
 
             // for each node, build an object
             while (rs.next()) {
@@ -270,7 +270,7 @@ public class Database {
                 affix = rs.getString("affix");
 
                 // create node instance and put it in the nodes HashMap
-                n = new KeywordType(keywordID, longName, shortName, dataType, affix, "");
+                n = new Keyword(keywordID, longName, shortName, dataType, affix, "");
                 break;
             }
 
@@ -836,9 +836,9 @@ public class Database {
      * Build classes from database
      * @return returns a hash map of all MapNodes, with their nodeID as the key
      */
-    public static HashMap<String, ExperimentType> loadExperimentsToClasses(){
+    public static HashMap<String, Experiment> loadExperimentsToClasses(){
 
-        HashMap<String, ExperimentType> experiments = new HashMap<String, ExperimentType>();
+        HashMap<String, Experiment> experiments = new HashMap<String, Experiment>();
 
         // Build node objects
         // Nodes MUST be built first to comply with constraints on edge database
@@ -861,7 +861,7 @@ public class Database {
 
 
                 // create node instance and put it in the nodes HashMap
-                ExperimentType n = new ExperimentType(experimentID, longName, shortName, description);
+                Experiment n = new Experiment(experimentID, longName, shortName, description);
                 experiments.put(experimentID, n);
             }
         } catch(SQLException e){
@@ -875,9 +875,9 @@ public class Database {
      * Build classes from database
      * @return returns a hash map of all MapNodes, with their nodeID as the key
      */
-    public static HashMap<String, KeywordType> loadKeywordsToClasses(){
+    public static HashMap<String, Keyword> loadKeywordsToClasses(){
 
-        HashMap<String, KeywordType> keywords = new HashMap<String, KeywordType>();
+        HashMap<String, Keyword> keywords = new HashMap<String, Keyword>();
 
         // Build node objects
         // Nodes MUST be built first to comply with constraints on edge database
@@ -897,7 +897,7 @@ public class Database {
 
 
                 // create node instance and put it in the nodes HashMap
-                KeywordType n = new KeywordType(keywordID, longName, shortName, dataType, affix, "");
+                Keyword n = new Keyword(keywordID, longName, shortName, dataType, affix, "");
                 keywords.put(keywordID, n);
             }
         } catch(SQLException e){

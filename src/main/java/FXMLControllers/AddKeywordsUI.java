@@ -2,7 +2,7 @@ package FXMLControllers;
 
 
 import Types.KeywordManager;
-import Types.KeywordType;
+import Types.Keyword;
 import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
@@ -74,9 +74,9 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
 
     @FXML
     public void handleOKButton(ActionEvent e) throws IOException {
-        ObservableList<KeywordType> parameterData;
+        ObservableList<Keyword> parameterData;
         parameterData = getData();
-        KeywordType newKeyword = new KeywordType("", keywordName.getText(), "", "", "", keywordDataVal.getText());
+        Keyword newKeyword = new Keyword("", keywordName.getText(), "", "", "", keywordDataVal.getText());
         parameterData.add(newKeyword);
         Config config = new Config();
         String configListOfKeywords = config.getProperty("listOfKeywords");

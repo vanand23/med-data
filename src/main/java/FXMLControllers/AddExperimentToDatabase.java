@@ -1,7 +1,7 @@
 package FXMLControllers;
 
+import Types.Experiment;
 import Types.ExperimentManager;
-import Types.ExperimentType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -51,13 +51,13 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
         int experimentListSize = ExperimentManager.getInstance().getNumberOfExperiments();
-        ExperimentType lastExperiment = ExperimentManager.getInstance().getExperiments().get(String.valueOf(experimentListSize));
+        Experiment lastExperiment = ExperimentManager.getInstance().getExperiments().get(String.valueOf(experimentListSize));
         if(lastExperiment == null)
         {
-            lastExperiment = new ExperimentType("0","","","");
+            lastExperiment = new Experiment("0","","","");
         }
         String newID = String.valueOf(Integer.valueOf(lastExperiment.getID())+1);
-        ExperimentType newExperiment = new ExperimentType(
+        Experiment newExperiment = new Experiment(
                                                 newID,
                                                 experimentName.getText(),
                                                 experimentAbbrev.getText(),

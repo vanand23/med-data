@@ -11,7 +11,7 @@ public class ExperimentManager {
 
 
     // Map of all node objects
-    private HashMap<String, ExperimentType> experiments;
+    private HashMap<String, Experiment> experiments;
     private List<ITypeObserver> observers = new ArrayList<>();
 
     private ExperimentManager(){
@@ -54,15 +54,15 @@ public class ExperimentManager {
     // Adds a node to the graph and  Please never directly make a new node, instead just call this function
     // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
     // RETURN the MapNode object that was created
-    public void addExperiment(ExperimentType experimentType){
+    public void addExperiment(Experiment experiment){
         try {
             Database.insertExperiment(
-                    experimentType.getID(),
-                    experimentType.getLongName(),
-                    experimentType.getShortName(),
-                    experimentType.getDescription());
+                    experiment.getID(),
+                    experiment.getLongName(),
+                    experiment.getShortName(),
+                    experiment.getDescription());
             Database.writeExperimentsToCSV("Libraries/defaultExperiments.csv");
-            experiments.put(experimentType.getID(),experimentType);
+            experiments.put(experiment.getID(), experiment);
             notifyObservers();
         }catch (SQLException e1){
             e1.printStackTrace();
@@ -133,7 +133,7 @@ public class ExperimentManager {
     public List<String> getAllExperimentLongNames(){
         ArrayList<String> ret = new ArrayList<>();
         String[] filterList = {};
-        for (HashMap.Entry<String, ExperimentType> entry : experiments.entrySet())
+        for (HashMap.Entry<String, Experiment> entry : experiments.entrySet())
         {
             String value = entry.getValue().getLongName();
             if(!stringContainsItemFromList(value,filterList)){
@@ -174,10 +174,10 @@ public class ExperimentManager {
      * @param name the name of the node to find
      * @return a MapNode object with the given long or short name
      */
-    public ExperimentType getExperimentByName(String type, String name) throws NameNotFoundException{
+    public Experiment getExperimentByName(String type, String name) throws NameNotFoundException{
         for (Object o : experiments.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            ExperimentType n = (ExperimentType) pair.getValue();
+            Experiment n = (Experiment) pair.getValue();
             if (type.equals("short") && n.getShortName().equals(name)) {
                 return n;
             } else if (type.equals("long") && n.getLongName().equals(name)) {
@@ -187,7 +187,7 @@ public class ExperimentManager {
         throw new NameNotFoundException(name);
     }
 
-    public HashMap<String, ExperimentType> getExperiments() {
+    public HashMap<String, Experiment> getExperiments() {
         return experiments;
     }
 }

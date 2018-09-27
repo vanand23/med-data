@@ -1,5 +1,7 @@
 package Animation;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -68,6 +70,61 @@ public class PaneTransitions {
         SequentialTransition s = new SequentialTransition(t,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10);
         return s;
     }
+
+    /**
+     * Fades in an pane from invisible to partially visible
+     */
+    public static SequentialTransition partialFadeIn(Node icon){
+        icon.setOpacity(0.0);
+
+        FadeTransition f1 = new FadeTransition(Duration.millis(100),icon);
+        FadeTransition f2 = new FadeTransition(Duration.millis(75),icon);
+        FadeTransition f3 = new FadeTransition(Duration.millis(50),icon);
+        FadeTransition f4 = new FadeTransition(Duration.millis(60),icon);
+
+
+        f1.setFromValue(0.0);
+        f1.setToValue(0.1);
+
+        f2.setFromValue(0.1);
+        f2.setToValue(0.2);
+
+        f3.setFromValue(0.2);
+        f3.setToValue(0.35);
+
+        f4.setToValue(0.35);
+        f4.setToValue(0.6);
+
+        return new SequentialTransition(f1,f2,f3,f4);
+    }
+
+    /**
+     * Fades in an pane from partially visible to invisible
+     */
+    public static SequentialTransition partialFadeOut(Node icon){
+        icon.setOpacity(0.5);
+
+        FadeTransition f1 = new FadeTransition(Duration.millis(100),icon);
+        FadeTransition f2 = new FadeTransition(Duration.millis(75),icon);
+        FadeTransition f3 = new FadeTransition(Duration.millis(50),icon);
+        FadeTransition f4 = new FadeTransition(Duration.millis(60),icon);
+
+
+        f1.setFromValue(0.6);
+        f1.setToValue(0.35);
+
+        f2.setFromValue(0.35);
+        f2.setToValue(0.2);
+
+        f3.setFromValue(0.2);
+        f3.setToValue(0.1);
+
+        f4.setToValue(0.1);
+        f4.setToValue(0.0);
+
+        return new SequentialTransition(f1,f2,f3,f4);
+    }
+
 
 
     public static void slideDistance(Node node, double x, double y, int duration){
