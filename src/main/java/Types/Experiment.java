@@ -4,7 +4,7 @@ import Singletons.Database;
 
 import java.util.LinkedList;
 
-public class ExperimentType {
+public class Experiment {
     private String experimentID;
     private String longName;
     private String shortName;
@@ -25,12 +25,12 @@ public class ExperimentType {
 
 
     /**
-     * Constructor of ExperimentType
+     * Constructor of Experiment
      * @param longName  String of this MapNode's long name
      * @param shortName String of this MapNode's short name
      * @param description  String of this MapNode's long name
      */
-    public ExperimentType(String experimentID, String longName, String shortName, String description){
+    public Experiment(String experimentID, String longName, String shortName, String description){
         this.experimentID = experimentID;
         this.longName = longName;
         this.shortName = shortName;
