@@ -1,8 +1,8 @@
 package FXMLControllers;
 
 import Singletons.Database;
+import Types.Experiment;
 import Types.ExperimentManager;
-import Types.ExperimentType;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +27,7 @@ public class ExperimentsTable extends ScreenController implements Initializable 
     private JFXButton cancelButton;
 
     @FXML
-    private TableView<ExperimentType> experimentTableView;
+    private TableView<Experiment> experimentTableView;
 
     @FXML
     private TableColumn experimentName;
@@ -38,21 +38,21 @@ public class ExperimentsTable extends ScreenController implements Initializable 
     @FXML
     private TableColumn experimentDescription;
 
-    private final static ObservableList<ExperimentType> experimentTypeObservableList = FXCollections.observableArrayList();
+    private final static ObservableList<Experiment> experimentTypeObservableList = FXCollections.observableArrayList();
 
-    static ObservableList<ExperimentType> getExperimentTypeObservableList() {
+    static ObservableList<Experiment> getExperimentTypeObservableList() {
         return experimentTypeObservableList;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        experimentName.setCellValueFactory(new PropertyValueFactory<ExperimentType, String>("longName"));
-        experimentAbbrev.setCellValueFactory(new PropertyValueFactory<ExperimentType, String>("shortName"));
-        experimentDescription.setCellValueFactory(new PropertyValueFactory<ExperimentType, String>("description"));
+        experimentName.setCellValueFactory(new PropertyValueFactory<Experiment, String>("longName"));
+        experimentAbbrev.setCellValueFactory(new PropertyValueFactory<Experiment, String>("shortName"));
+        experimentDescription.setCellValueFactory(new PropertyValueFactory<Experiment, String>("description"));
 
         experimentTableView.setEditable(true);
-        HashMap<String, ExperimentType> listOfExperiments = ExperimentManager.getInstance().getExperiments();
-        for(Map.Entry<String, ExperimentType> entry : listOfExperiments.entrySet()) {
+        HashMap<String, Experiment> listOfExperiments = ExperimentManager.getInstance().getExperiments();
+        for(Map.Entry<String, Experiment> entry : listOfExperiments.entrySet()) {
             experimentTypeObservableList.add(entry.getValue());
         }
         experimentTableView.setItems(experimentTypeObservableList);
@@ -70,7 +70,7 @@ public class ExperimentsTable extends ScreenController implements Initializable 
     @FXML
     public void handleDeleteButton (ActionEvent e) throws IOException {
 
-        ExperimentType selectedItem = experimentTableView.getSelectionModel().getSelectedItem();
+        Experiment selectedItem = experimentTableView.getSelectionModel().getSelectedItem();
         experimentTableView.getItems().remove(selectedItem);
         try {
             Database.removeExperiment(selectedItem.getLongName());

@@ -11,7 +11,7 @@ public class KeywordManager {
 
 
     // Map of all node objects
-    private HashMap<String, KeywordType> keywords;
+    private HashMap<String, Keyword> keywords;
     private List<ITypeObserver> observers = new ArrayList<>();
 
     private KeywordManager(){
@@ -54,16 +54,16 @@ public class KeywordManager {
     // Adds a node to the graph and  Please never directly make a new node, instead just call this function
     // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
     // RETURN the MapNode object that was created
-    public void addKeyword(KeywordType keywordType){
+    public void addKeyword(Keyword keyword){
         try {
             Database.insertKeyword(
-                    keywordType.getID(),
-                    keywordType.getLongName(),
-                    keywordType.getShortName(),
-                    keywordType.getDataType(),
-                    keywordType.getAffix());
+                    keyword.getID(),
+                    keyword.getLongName(),
+                    keyword.getShortName(),
+                    keyword.getDataType(),
+                    keyword.getAffix());
             Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
-            keywords.put(keywordType.getID(),keywordType);
+            keywords.put(keyword.getID(), keyword);
             notifyObservers();
         }catch (SQLException e1){
             e1.printStackTrace();
@@ -159,7 +159,7 @@ public class KeywordManager {
     public List<String> getAllKeywordLongNames(){
         ArrayList<String> ret = new ArrayList<>();
         String[] filterList = {};
-        for (HashMap.Entry<String, KeywordType> entry : keywords.entrySet())
+        for (HashMap.Entry<String, Keyword> entry : keywords.entrySet())
         {
             String value = entry.getValue().getLongName();
             if(!stringContainsItemFromList(value,filterList)){
@@ -199,10 +199,10 @@ public class KeywordManager {
      * @param name the name of the node to find
      * @return a MapNode object with the given long or short name
      */
-    public KeywordType getKeywordByName(String type, String name) throws NameNotFoundException{
+    public Keyword getKeywordByName(String type, String name) throws NameNotFoundException{
         for (Object o : keywords.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            KeywordType n = (KeywordType) pair.getValue();
+            Keyword n = (Keyword) pair.getValue();
             if (type.equals("short") && n.getShortName().equals(name)) {
                 return n;
             } else if (type.equals("long") && n.getLongName().equals(name)) {
@@ -212,7 +212,7 @@ public class KeywordManager {
         throw new NameNotFoundException(name);
     }
 
-    public HashMap<String, KeywordType> getKeywords() {
+    public HashMap<String, Keyword> getKeywords() {
         return keywords;
     }
 }

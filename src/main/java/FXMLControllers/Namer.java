@@ -1,8 +1,9 @@
 package FXMLControllers;
 
 import Types.ExperimentManager;
+import Types.Filename;
 import Types.KeywordManager;
-import Types.KeywordType;
+import Types.Keyword;
 import Utilities.Config;
 import javafx.collections.ObservableList;
 
@@ -11,13 +12,15 @@ import java.time.LocalDate;
 
 class Namer extends ScreenController{
 
-    String updateName(String experimentTypeText,
-                      String trialNumberText,
-                      String sampleNumberText,
-                      String researcherNameText,
-                      LocalDate experimentDate,
-                      ObservableList<KeywordType> sharedListOfKeywords)
+    String updateName(Filename filename)
     {
+        String experimentTypeText = filename.getExperiment();
+        int trialNumberText = filename.getTrialNumber();
+        int sampleNumberText = filename.getSampleNumber();
+        String researcherNameText = filename.getResearcher();
+        LocalDate experimentDate =  filename.getDate();
+        ObservableList<Keyword> sharedListOfKeywords = filename.getKeywords();
+
         Config config = new Config();
         String delimiter = config.getProperty("delimiter");
         if(delimiter == null){
@@ -48,20 +51,6 @@ class Namer extends ScreenController{
             }
         }
 
-        if(trialNumberText != null && !trialNumberText.trim().isEmpty())
-        {
-            fname.append(delimiter);
-            fname.append("T");
-            fname.append(trialNumberText);
-        }
-
-        if(sampleNumberText != null && !sampleNumberText.trim().isEmpty())
-        {
-            fname.append(delimiter);
-            fname.append("S");
-            fname.append(sampleNumberText);
-        }
-
         StringBuilder initial = new StringBuilder();
         if(researcherNameText != null && researcherNameText.length() != 0)
         {
@@ -72,51 +61,62 @@ class Namer extends ScreenController{
 
             String sepIni;
 
-            for(int i=0; i<parts.length; i++) {
+            for (String part : parts) {
 
-                sepIni = parts[i].substring(0,1);
+                sepIni = part.substring(0, 1);
                 finalInitial = initial.append(sepIni);
-
             }
-
             fname.append(delimiter);
             fname.append(finalInitial);
-
         }
-        for(KeywordType keywordCell : sharedListOfKeywords)
+
+
+        if(trialNumberText != -1)
         {
-            if(keywordCell.getLongName() != null && !keywordCell.getLongName().trim().isEmpty())
-            {
-                String keywordName;
-                String keywordValue = keywordCell.getDataValue();
-                fname.append(delimiter);
-                try {
-                    keywordName = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getLongName()).getShortName();
-                    String affix = KeywordManager.getInstance().getKeywordByName("long",keywordCell.getLongName()).getAffix();
-                    switch (affix){
-                        case "prefix":
-                            fname.append(keywordName);
-                            if(keywordValue != null && !keywordValue.trim().isEmpty())
-                            {
-                                fname.append(keywordValue);
-                            }
-                            break;
-                        case "suffix":
-                            if(keywordValue != null && !keywordValue.trim().isEmpty())
-                            {
-                                fname.append(keywordValue);
-                            }
-                            fname.append(keywordName);
-                            break;
-                        case "none":
-                            fname.append(keywordName);
-                            break;
-                        default:
-                            fname.append(keywordName);
-                            break;
+            fname.append(delimiter);
+            fname.append("T");
+            fname.append(trialNumberText);
+        }
+
+        if(sampleNumberText != -1)
+        {
+            fname.append(delimiter);
+            fname.append("S");
+            fname.append(sampleNumberText);
+        }
+
+        if(!sharedListOfKeywords.isEmpty()) {
+            for (Keyword keywordCell : sharedListOfKeywords) {
+                if (keywordCell.getLongName() != null && !keywordCell.getLongName().trim().isEmpty()) {
+                    String keywordName;
+                    String keywordValue = keywordCell.getDataValue();
+                    fname.append(delimiter);
+                    try {
+                        keywordName = KeywordManager.getInstance().getKeywordByName("long", keywordCell.getLongName()).getShortName();
+                        String affix = KeywordManager.getInstance().getKeywordByName("long", keywordCell.getLongName()).getAffix();
+                        switch (affix) {
+                            case "prefix":
+                                fname.append(keywordName);
+                                if (keywordValue != null && !keywordValue.trim().isEmpty()) {
+                                    fname.append(keywordValue);
+                                }
+                                break;
+                            case "suffix":
+                                if (keywordValue != null && !keywordValue.trim().isEmpty()) {
+                                    fname.append(keywordValue);
+                                }
+                                fname.append(keywordName);
+                                break;
+                            case "none":
+                                fname.append(keywordName);
+                                break;
+                            default:
+                                fname.append(keywordName);
+                                break;
+                        }
+                    } catch (NameNotFoundException e1) {
+                        e1.printStackTrace();
                     }
-                } catch (NameNotFoundException e1) {
-                    e1.printStackTrace();
                 }
             }
         }

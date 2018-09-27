@@ -1,7 +1,7 @@
 package FXMLControllers;
 
 import Types.KeywordManager;
-import Types.KeywordType;
+import Types.Keyword;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -78,21 +78,21 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        getDBdata().add(new KeywordType("",
+        getDBdata().add(new Keyword("",
                 thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordAffix,
                 keywordDataType,
                 ""));
         int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
-        KeywordType lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
+        Keyword lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
         if(lastKeyword == null)
         {
-            lastKeyword = new KeywordType("0","","","","","");
+            lastKeyword = new Keyword("0","","","","","");
         }
 
         KeywordManager.getInstance().addKeyword(
-                new KeywordType((String.valueOf(Integer.valueOf(lastKeyword.getID())+1)),
+                new Keyword((String.valueOf(Integer.valueOf(lastKeyword.getID())+1)),
                 thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordDataType,

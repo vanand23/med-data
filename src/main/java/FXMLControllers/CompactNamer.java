@@ -1,5 +1,6 @@
 package FXMLControllers;
 
+import Types.Filename;
 import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import static FXMLControllers.FullNamer.getFullNamerFilename;
 import static Utilities.Config.setProperty;
 
 public class CompactNamer extends Namer implements Initializable {
@@ -38,8 +40,11 @@ public class CompactNamer extends Namer implements Initializable {
     @FXML
     private JFXButton closeButton;
 
-    private String experimentType;
-    private String researcherName;
+    private static Filename sharedFilename;
+
+    public static Filename getCompactNamerFilename() {
+        return sharedFilename;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -68,56 +73,36 @@ public class CompactNamer extends Namer implements Initializable {
             }
         });
 
-        Config config = new Config();
-        String configResearcherName = config.getProperty("researcherName");
-        if(configResearcherName != null && !configResearcherName.trim().isEmpty())
-        {
-            researcherName = configResearcherName;
-        }
-        String configExperimentType = config.getProperty("experimentType");
-        if(configExperimentType != null && !configExperimentType.trim().isEmpty())
-        {
-            experimentType = configExperimentType;
-        }
-        String configTrialNumber = config.getProperty("trialNumber");
-        if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
-        {
-            trialNumber.setText(configTrialNumber);
-        }else{
-            trialNumber.setText("0");
-        }
-        String configSampleNumber = config.getProperty("sampleNumber");
-        if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
-        {
-            sampleNumber.setText(configSampleNumber);
-        }else{
-            sampleNumber.setText("0");
-        }
+        sharedFilename = getFullNamerFilename();
 
         experimentDate.setValue(LocalDate.now());
+        trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
+        sampleNumber.setText(String.valueOf(sharedFilename.getSampleNumber()));
+
 
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) ->
-                setProperty("trialNumber",newTrialNumber));
+        {
+            setProperty("trialNumber",newTrialNumber);
+            sharedFilename.setTrialNumber(Integer.parseInt(newTrialNumber));
+        });
+
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) ->
-                setProperty("sampleNumber",newSampleNumber));
+        {
+            setProperty("sampleNumber",newSampleNumber);
+            sharedFilename.setSampleNumber(Integer.parseInt(newSampleNumber));
+        });
     }
 
     @FXML
-    public void copyFileToClipboard(ActionEvent e) throws IOException{
-        String nameToCopy = updateName(
-                experimentType,
-                trialNumber.getText(),
-                sampleNumber.getText(),
-                researcherName,
-                experimentDate.getValue(),
-                FullNamer.getData());
+    public void copyFileToClipboard(ActionEvent e) {
+        String nameToCopy = updateName(sharedFilename);
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
     }
 
     @FXML
-    public void incrementSampleNumber(ActionEvent e) throws IOException{
+    public void incrementSampleNumber(ActionEvent e) {
         int currSample = Integer.parseInt(sampleNumber.getText());
         currSample++;
         sampleNumber.setText(String.valueOf(currSample));

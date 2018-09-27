@@ -2,7 +2,7 @@ package Types;
 
 import Singletons.Database;
 
-public class KeywordType {
+public class Keyword {
     private String variableID;
     private String longName;
     private String shortName;
@@ -58,7 +58,7 @@ public class KeywordType {
         this.dataValue = dataValue;
     }
 
-    public KeywordType(String variableID, String longName, String shortName, String dataType, String affix, String dataValue) {
+    public Keyword(String variableID, String longName, String shortName, String dataType, String affix, String dataValue) {
         this.variableID = variableID;
         this.longName = longName;
         this.shortName = shortName;
