@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Types.*;
+import Utilities.Config;
 
 /**
  * A large class for running all SQL queries
@@ -16,7 +17,8 @@ public class Database {
 
     //private DatabaseManager parent; // the manager managing this database
     static private Connection connection = null; // the database connection
-    
+    private static ArrayList<String> keywordFiles = new ArrayList<>();
+    private static ArrayList<String> experimentFiles = new ArrayList<>();
     //static private HashMap<String, MapNode> nodes;
 
     /** Connect and set up the database
@@ -57,7 +59,7 @@ public class Database {
         if(!databaseExists){
             System.out.println("Database not found, loading data from csv");
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
-            dropTables();
+            //dropTables();
             createTables();
             // load in .csv files to the database
             // experiments
@@ -69,26 +71,53 @@ public class Database {
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
             dropTables();
             createTables();
-            // load in .csv files to the database
-            // experiments
-            Database.loadFromCSV("experiments", "defaultExperiments.csv");
+            Config config = new Config();
+            String configExperimentFiles = config.getProperty("experimentFiles");
+            loadFromCSV("experiments","defaultExperiments.csv");
+            loadFilesFromConfig("experiments", configExperimentFiles);
 
-            // keywords
-            Database.loadFromCSV("keywords", "defaultKeywords.csv");
+
+            String configKeywordFiles = config.getProperty("keywordFiles");
+            loadFromCSV("keywords","defaultKeywords.csv");
+            loadFilesFromConfig("keywords", configKeywordFiles);
         }
 
         // Connection successful!
         System.out.println("Java DB connection established!");
     }
 
+    private static void loadFilesFromConfig(String type, String configDatabaseFiles) {
+        if(configDatabaseFiles != null && !configDatabaseFiles.trim().isEmpty())
+        {
+            String[] databaseFiles = configDatabaseFiles.split(",");
+            for (String databaseFile : databaseFiles) {
+                try{
+                    Database.loadFromCSV(type, databaseFile);
+
+                    switch (type)
+                    {
+                        case "experiments":
+                            experimentFiles.add(databaseFile);
+                            break;
+                        case "keywords":
+                            keywordFiles.add(databaseFile);
+                            break;
+                    }
+                }catch(NullPointerException n){
+                    System.err.println("Couldn't load file " + databaseFile);
+                }
+            }
+        }
+    }
+
     /** Creates the node and edge tables
      * If tables already exist, do nothing
      */
     private static void createTables(){
-        // users
+        // researchers
         // Create user table if it does not already exist
-        createTable("users",
-                "CREATE TABLE users (" +
+        createTable("researchers",
+                "CREATE TABLE researchers (" +
                         "username VARCHAR(50) primary key, " +
                         "hash VARCHAR(400), " +
                         "role VARCHAR(50))");
@@ -101,7 +130,8 @@ public class Database {
                         "longName VARCHAR(50)," +
                         "shortName VARCHAR(50)," +
                         "dataType VARCHAR(50)," +
-                        "affix VARCHAR(50))");
+                        "affix VARCHAR(50)," +
+                        "filename VARCHAR(50))");
 
         // experiments
         // Create experiments table if it does not already exist
@@ -110,7 +140,8 @@ public class Database {
                         "experimentID VARCHAR(50) primary key, " +
                         "longName VARCHAR(100)," +
                         "shortName VARCHAR(50)," +
-                        "description VARCHAR(100))");
+                        "description VARCHAR(100)," +
+                        "filename VARCHAR(50))");
 
         System.out.println("Tables are ready.");
     }
@@ -132,8 +163,8 @@ public class Database {
      * Edges must be destroyed first always so as to not create a constraint error
      * Also comments must be destroyed before service requests
      */
-    public static void dropTables(){
-        dropTable("users");
+    private static void dropTables(){
+        dropTable("researchers");
         dropTable("experiments");
         dropTable("keywords");
     }
@@ -215,7 +246,7 @@ public class Database {
             ps.setString(1, experimentID);
             ResultSet rs = ps.executeQuery();
 
-            String longName, shortName, description;
+            String longName, shortName, description,filename;
             Experiment n = null;
 
             // for each node, build an object
@@ -223,8 +254,9 @@ public class Database {
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 description = rs.getString("description");
+                filename = rs.getString("filename");
                 // create node instance and put it in the nodes HashMap
-                n = new Experiment(experimentID, longName, shortName, description);
+                n = new Experiment(experimentID, longName, shortName, description,filename);
                 break;
             }
 
@@ -259,7 +291,7 @@ public class Database {
             ps.setString(1, keywordID);
             ResultSet rs = ps.executeQuery();
 
-            String longName, shortName, dataType, affix;
+            String longName, shortName, dataType, affix, filename;
             Keyword n = null;
 
             // for each node, build an object
@@ -268,9 +300,10 @@ public class Database {
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
+                filename = rs.getString("filename");
 
                 // create node instance and put it in the nodes HashMap
-                n = new Keyword(keywordID, longName, shortName, dataType, affix, "");
+                n = new Keyword(keywordID, longName, shortName, dataType, affix, "", filename);
                 break;
             }
 
@@ -302,7 +335,7 @@ public class Database {
         try{
             // Retrieve all usernames in database
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT username FROM users");
+            ResultSet rs = s.executeQuery("SELECT username FROM researchers");
 
             // for each username, add to nameList
             while(rs.next()) {
@@ -330,14 +363,15 @@ public class Database {
      * @param * the inputs correspond to the node class's fields
      * @throws SQLException
      */
-    public static void insertKeyword(String keywordID, String longName, String shortName, String dataType, String affix)  throws SQLException{
+    public static void insertKeyword(String keywordID, String longName, String shortName, String dataType, String affix, String filename)  throws SQLException{
         try{
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO keywords VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO keywords VALUES (?, ?, ?, ?, ?, ?)");
             ps.setString(1, keywordID);
             ps.setString(2, longName);
             ps.setString(3, shortName);
             ps.setString(4, dataType);
             ps.setString(5, affix);
+            ps.setString(6, filename);
             ps.execute();
             ps.close();
             System.out.println("keyword inserted");
@@ -357,13 +391,14 @@ public class Database {
      * @param * the inputs correspond to the node class's fields
      * @throws SQLException
      */
-    public static void insertExperiment(String experimentID, String longName, String shortName, String description)  throws SQLException{
+    public static void insertExperiment(String experimentID, String longName, String shortName, String description, String filename)  throws SQLException{
         try{
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO experiments VALUES (?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO experiments VALUES (?, ?, ?, ?, ?)");
             ps.setString(1, experimentID);
             ps.setString(2, longName);
             ps.setString(3, shortName);
             ps.setString(4, description);
+            ps.setString(5, filename);
             ps.execute();
             ps.close();
             System.out.println("experiment inserted");
@@ -383,19 +418,21 @@ public class Database {
      * Updates all the keyword fields to match the given fields (not efficient for changing only a few fields)
      * @param * The inputs correspond to the node's fields
      */
-    public static void updateKeyword(String keywordID, String longName, String shortName, String dataType, String affix, String dataValue){
+    public static void updateKeyword(String keywordID, String longName, String shortName, String dataType, String affix, String dataValue, String filename){
         try{
             PreparedStatement ps = connection.prepareStatement("UPDATE keywords SET " +
                     "dataValue=?, " +
                     "shortName=?, " +
                     "dataType=?, " +
                     "affix=?" +
+                    "filename=?" +
                     "WHERE keywordID=?");
             ps.setString(1, longName);
             ps.setString(2, shortName);
             ps.setString(3, dataType);
             ps.setString(4, affix);
-            ps.setString(5, keywordID);
+            ps.setString(5, filename);
+            ps.setString(6, keywordID);
 
             ps.execute();
             ps.close();
@@ -410,25 +447,25 @@ public class Database {
      * Updates all the keyword fields to match the given fields (not efficient for changing only a few fields)
      * @param * The inputs correspond to the node's fields
      */
-    public static void updateExperiment(String experimentID, String longName, String shortName, String description){
+    public static void updateExperiment(String experimentID, String longName, String shortName, String description, String filename){
         try{
             PreparedStatement ps = connection.prepareStatement("UPDATE keywords SET " +
-                    "dataValue=?, " +
+                    "longName=?, " +
                     "shortName=?, " +
-                    "dataType=?, " +
-                    "affix=?" +
-                    "dataValue=?" +
+                    "description=?, " +
+                    "filename=?" +
                     "WHERE experimentID=?");
             ps.setString(1, longName);
             ps.setString(2, shortName);
             ps.setString(3, description);
-            ps.setString(4, experimentID);
+            ps.setString(4,filename);
+            ps.setString(5, experimentID);
 
             ps.execute();
             ps.close();
         }
         catch(SQLException e){
-            System.out.println("Could not update keyword " + longName);
+            System.out.println("Could not update experiment " + longName);
             e.printStackTrace();
         }
 
@@ -458,7 +495,7 @@ public class Database {
             // open the file from the resources folder
             //BufferedReader reader = new BufferedReader(new InputStreamReader(Database.class.getClassLoader().getResourceAsStream(filename)));
             // use this line instead to load from the project directory instead
-            BufferedReader reader = new BufferedReader(new FileReader("Libraries/" + filename));
+            BufferedReader reader = new BufferedReader(new FileReader("Libraries/" + type + "/" + filename));
 
             // Skip the first line (the column titles)
             reader.readLine();
@@ -476,7 +513,7 @@ public class Database {
                     String shortName = items[2];
                     String description = items[3];
 
-                    insertExperiment(experimentID, longName, shortName, description);
+                    insertExperiment(experimentID, longName, shortName, description, filename);
                 }
                 // For loading keywords
                 else if(type.equals("keywords")){
@@ -487,7 +524,7 @@ public class Database {
                     String affix = items[4];
 
                     // insert new node into database
-                    insertKeyword(keywordID, longName, shortName, dataType, affix);
+                    insertKeyword(keywordID, longName, shortName, dataType, affix, filename);
                 }
             }
         }
@@ -846,7 +883,7 @@ public class Database {
             // Retrieve all experiment types in database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM experiments");
-            String experimentID, longName, shortName, description;
+            String experimentID, longName, shortName, description, filename;
 
             // for each node, build an object
             while(rs.next()) {
@@ -854,14 +891,14 @@ public class Database {
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 description = rs.getString("description");
-                if(description == null | description.length() == 0)
+                filename = rs.getString("filename");
+                if(description == null || description.trim().isEmpty())
                 {
                     description = "";
                 }
 
-
                 // create node instance and put it in the nodes HashMap
-                Experiment n = new Experiment(experimentID, longName, shortName, description);
+                Experiment n = new Experiment(experimentID, longName, shortName, description, filename);
                 experiments.put(experimentID, n);
             }
         } catch(SQLException e){
@@ -875,6 +912,14 @@ public class Database {
      * Build classes from database
      * @return returns a hash map of all MapNodes, with their nodeID as the key
      */
+    public static ArrayList<String> getExperimentFiles() {
+        return experimentFiles;
+    }
+
+        /**
+         * Build classes from database
+         * @return returns a hash map of all MapNodes, with their nodeID as the key
+         */
     public static HashMap<String, Keyword> loadKeywordsToClasses(){
 
         HashMap<String, Keyword> keywords = new HashMap<String, Keyword>();
@@ -885,7 +930,7 @@ public class Database {
             // Retrieve all keyword types in database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM keywords");
-            String keywordID, longName, shortName, dataType, affix;
+            String keywordID, longName, shortName, dataType, affix, filename;
 
             // for each node, build an object
             while(rs.next()) {
@@ -894,10 +939,11 @@ public class Database {
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
+                filename = rs.getString("filename");
 
 
                 // create node instance and put it in the nodes HashMap
-                Keyword n = new Keyword(keywordID, longName, shortName, dataType, affix, "");
+                Keyword n = new Keyword(keywordID, longName, shortName, dataType, affix, "", filename);
                 keywords.put(keywordID, n);
             }
         } catch(SQLException e){
@@ -905,6 +951,14 @@ public class Database {
             e.printStackTrace();
         }
         return keywords;
+    }
+
+    /**
+     * Build classes from database
+     * @return returns a hash map of all MapNodes, with their nodeID as the key
+     */
+    public static ArrayList<String> getKeywordFiles() {
+        return keywordFiles;
     }
 
 }
