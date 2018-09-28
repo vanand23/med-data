@@ -8,134 +8,143 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="308.0" prefWidth="275.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.CompactNamer">
    <children>
-      <StackPane prefHeight="250.0" prefWidth="250.0">
+      <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox alignment="CENTER" spacing="10.0">
+            <HBox alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER">
+                  <Label stylesheets="@../CSS/label.css" text="COMPACT NAMER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="Full">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="-8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" focusTraversable="false" onAction="#handleToggleButton" selected="true" text="Compact">
+                     <font>
+                        <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="-5.0" top="-5.0" />
+                     </padding>
+                  </JFXToggleButton>
+               </children>
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefWidth="285.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="285.0" spacing="10.0">
                      <children>
-                        <Label stylesheets="@../CSS/label.css" text="COMPACT NAMER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0">
-                     <children>
-                        <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="FULL">
+                        <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="Date">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets right="-8.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
-                        <JFXToggleButton fx:id="switchNamers" alignment="BOTTOM_CENTER" focusTraversable="false" onAction="#handleToggleButton" selected="true" text="COMPACT">
+                        <DatePicker fx:id="experimentDate" prefWidth="135.0" />
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox prefWidth="256.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="172.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="91.0" stylesheets="@../CSS/label.css" text="Samp. #">
                            <font>
-                              <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="sampleNumber" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: ffffff;" />
+                        <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="48.0" onAction="#incrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                           <font>
+                              <Font size="16.0" />
                            </font>
                            <padding>
-                              <Insets bottom="-5.0" top="-5.0" />
+                              <Insets bottom="-10.0" left="-10.0" right="-10.0" top="-10.0" />
                            </padding>
-                        </JFXToggleButton>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="-10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <VBox prefWidth="285.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefWidth="285.0" spacing="10.0">
-                           <children>
-                              <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="DATE:">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                              <DatePicker fx:id="experimentDate" prefWidth="135.0" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="-10.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox prefWidth="256.0" spacing="10.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefWidth="172.0" spacing="10.0">
-                           <children>
-                              <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="91.0" stylesheets="@../CSS/label.css" text="SAMPLE #">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <JFXTextField fx:id="sampleNumber" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: ffffff;" />
-                              <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="48.0" onAction="#incrementSampleNumber" prefHeight="42.0" prefWidth="46.0" stylesheets="@../CSS/smallButtons.css" text="+">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></JFXButton>
-                              <JFXButton fx:id="minusSampleButton" alignment="CENTER" contentDisplay="CENTER" onAction="#decrementSampleNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="-">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></JFXButton>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefWidth="256.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
-                           <children>
-                              <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="TRIAL #">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <JFXTextField fx:id="trialNumber" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: ffffff;" />
-                              <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" onAction="#incrementTrialNumber" prefHeight="42.0" prefWidth="42.0" stylesheets="@../CSS/smallButtons.css" text="+">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></JFXButton>
-                              <JFXButton fx:id="minusTrialButton" onAction="#decrementTrialNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="-">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></JFXButton>
-                           </children>
-                        </HBox>
-                     </children></VBox>
-                  <HBox alignment="CENTER" prefWidth="200.0" spacing="50.0">
-                     <children>
-                        <JFXButton fx:id="copyButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/smallButtons.css" text="COPY">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="closeButton" onAction="#closeCompactNamer" stylesheets="@../CSS/smallButtons.css" text="CLOSE">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
+                        <JFXButton fx:id="minusSampleButton" alignment="CENTER" contentDisplay="CENTER" onAction="#decrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="-">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="-10.0" left="-10.0" right="-10.0" top="-10.0" />
+                           </padding>
                         </JFXButton>
                      </children>
                   </HBox>
                </children>
             </VBox>
+            <VBox alignment="CENTER" prefWidth="256.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="Trial #">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="trialNumber" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: ffffff;" />
+                        <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" onAction="#incrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="-10.0" left="-10.0" right="-10.0" top="-10.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="minusTrialButton" onAction="#decrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="-">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="-10.0" left="-10.0" right="-10.0" top="-10.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <JFXButton fx:id="copyButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/smallButtons.css" text="Copy">
+                      <font>
+                          <Font size="18.0" />
+                      </font>
+                  </JFXButton>
+                  <JFXButton fx:id="closeButton" onAction="#closeCompactNamer" stylesheets="@../CSS/smallButtons.css" text="Close">
+                      <font>
+                          <Font size="18.0" />
+                      </font>
+                  </JFXButton>
+               </children>
+            </HBox>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </StackPane>
+      </VBox>
    </children>
 </AnchorPane>
