@@ -60,8 +60,9 @@ public class ExperimentManager {
                     experiment.getID(),
                     experiment.getLongName(),
                     experiment.getShortName(),
-                    experiment.getDescription());
-            Database.writeExperimentsToCSV("Libraries/defaultExperiments.csv");
+                    experiment.getDescription(),
+                    experiment.getFilename());
+            Database.writeExperimentsToCSV("Libraries/experiments/defaultExperiments.csv");
             experiments.put(experiment.getID(), experiment);
             notifyObservers();
         }catch (SQLException e1){

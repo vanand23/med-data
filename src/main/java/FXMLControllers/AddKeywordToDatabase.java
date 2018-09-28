@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static FXMLControllers.KeywordsDBTable.getDBdata;
+import static FXMLControllers.KeywordsDBTable.getListOfKeywordsFromDatabase;
 
 public class AddKeywordToDatabase extends ScreenController implements Initializable {
 
@@ -48,15 +49,18 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     private JFXTextField keywordPreviewField;
 
     @FXML
+    private ComboBox<String> pickKeywordDatabase;
+
+    @FXML
     private JFXButton keywordPreviewHelp;
 
-    String keywordAffix;
+    private String keywordAffix;
 
     private String keywordDataType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-
+        //pickKeywordDatabase.getItems().add();
         final JFXButton previewHelp = keywordPreviewHelp;
         final Tooltip previewTooltip = new Tooltip();
         previewTooltip.setText("View a preview of your keyword with example values.");
@@ -78,17 +82,19 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        getDBdata().add(new Keyword("",
+        getListOfKeywordsFromDatabase().add(new Keyword("",
                 thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordAffix,
                 keywordDataType,
-                ""));
+                "",
+                pickKeywordDatabase.getValue()
+                ));
         int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
         Keyword lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
         if(lastKeyword == null)
         {
-            lastKeyword = new Keyword("0","","","","","");
+            lastKeyword = new Keyword("0","","","","","", "");
         }
 
         KeywordManager.getInstance().addKeyword(
@@ -97,7 +103,8 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
                 thekeywordAbbrev.getText(),
                 keywordDataType,
                 keywordAffix,
-                        ""));
+                "",
+                pickKeywordDatabase.getValue()));
 
         thekeywordName.clear();
         thekeywordAbbrev.clear();

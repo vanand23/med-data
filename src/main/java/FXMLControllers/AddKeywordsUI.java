@@ -76,7 +76,7 @@ public class AddKeywordsUI extends ScreenController implements Initializable, IT
     public void handleOKButton(ActionEvent e) throws IOException {
         ObservableList<Keyword> parameterData;
         parameterData = getData();
-        Keyword newKeyword = new Keyword("", keywordName.getText(), "", "", "", keywordDataVal.getText());
+        Keyword newKeyword = new Keyword("", keywordName.getText(), "", "", "", keywordDataVal.getText(), "");
         parameterData.add(newKeyword);
         Config config = new Config();
         String configListOfKeywords = config.getProperty("listOfKeywords");

@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -27,6 +28,9 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
 
     @FXML
     private JFXTextArea experimentDescription;
+
+    @FXML
+    private ComboBox<String> pickExperimentDatabase;
 
     @FXML
     private JFXButton submitButton;
@@ -54,14 +58,15 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
         Experiment lastExperiment = ExperimentManager.getInstance().getExperiments().get(String.valueOf(experimentListSize));
         if(lastExperiment == null)
         {
-            lastExperiment = new Experiment("0","","","");
+            lastExperiment = new Experiment("0","","","", "");
         }
         String newID = String.valueOf(Integer.valueOf(lastExperiment.getID())+1);
         Experiment newExperiment = new Experiment(
                                                 newID,
                                                 experimentName.getText(),
                                                 experimentAbbrev.getText(),
-                                                experimentDescription.getText());
+                                                experimentDescription.getText(),
+                                                pickExperimentDatabase.getValue());
         getExperimentTypeObservableList().add(newExperiment);
         ExperimentManager.getInstance().addExperiment(newExperiment);
 
