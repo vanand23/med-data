@@ -92,21 +92,18 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
 
         selectKeywordFile.getSelectionModel().selectFirst();
 
-
         keywordName.setMinWidth(100);
         keywordAbbrev.setMinWidth(100);
         keywordAffix.setMinWidth(100);
         keywordDataType.setMinWidth(100);
 
-        keywordName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("longName"));
-        keywordAbbrev.setCellValueFactory(new PropertyValueFactory<Keyword, String>("shortName"));
-        keywordAffix.setCellValueFactory(new PropertyValueFactory<Keyword, String>("affix"));
-        keywordDataType.setCellValueFactory(new PropertyValueFactory<Keyword, String>("dataType"));
+        keywordName.setCellValueFactory(new PropertyValueFactory<>("longName"));
+        keywordAbbrev.setCellValueFactory(new PropertyValueFactory<>("shortName"));
+        keywordAffix.setCellValueFactory(new PropertyValueFactory<>("affix"));
+        keywordDataType.setCellValueFactory(new PropertyValueFactory<>("dataType"));
 
         keywordsDBTable.setEditable(true);
         keywordsDBTable.setItems(listOfKeywordsFromDatabase);
-
-
     }
 
     @FXML
@@ -118,7 +115,6 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
 
     @FXML
     public void handleDeleteButton (ActionEvent e) throws IOException {
-
         Keyword selectedItem = keywordsDBTable.getSelectionModel().getSelectedItem();
         keywordsDBTable.getItems().remove(selectedItem);
         try {
@@ -128,15 +124,11 @@ public class KeywordsDBTable extends ScreenController implements Initializable {
         }catch (SQLException e1){
             e1.printStackTrace();
         }
-
     }
 
     @FXML
     public void handleCancelButton (ActionEvent e) throws IOException {
-
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
-
     }
-
 }

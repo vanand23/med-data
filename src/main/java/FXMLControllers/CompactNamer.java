@@ -42,7 +42,7 @@ public class CompactNamer extends Namer implements Initializable {
 
     private static Filename sharedFilename;
 
-    public static void setCompactNamerFilename(Filename sharedFilename) {
+    static void setCompactNamerFilename(Filename sharedFilename) {
         CompactNamer.sharedFilename = sharedFilename;
     }
 

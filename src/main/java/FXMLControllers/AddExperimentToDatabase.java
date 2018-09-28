@@ -76,10 +76,8 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
 
     @FXML
     public void handleCancelButton (ActionEvent e) throws IOException {
-
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
-
     }
 
 }
