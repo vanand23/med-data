@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="225.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.CompactNamer">
+<AnchorPane prefHeight="308.0" prefWidth="275.0" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.CompactNamer">
    <children>
       <StackPane prefHeight="250.0" prefWidth="250.0">
          <children>
@@ -77,13 +77,13 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="172.0" spacing="10.0">
                            <children>
-                              <Label alignment="CENTER_RIGHT" prefWidth="80.0" stylesheets="@../CSS/label.css" text="SAMPLE #">
+                              <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="91.0" stylesheets="@../CSS/label.css" text="SAMPLE #">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
                               <JFXTextField fx:id="sampleNumber" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: ffffff;" />
-                              <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" onAction="#incrementSampleNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                              <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="48.0" onAction="#incrementSampleNumber" prefHeight="42.0" prefWidth="46.0" stylesheets="@../CSS/smallButtons.css" text="+">
                                  <font>
                                     <Font size="18.0" />
                                  </font></JFXButton>
@@ -105,7 +105,7 @@
                                  </font>
                               </Label>
                               <JFXTextField fx:id="trialNumber" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: ffffff;" />
-                              <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" onAction="#incrementTrialNumber" prefHeight="30.0" prefWidth="30.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                              <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" onAction="#incrementTrialNumber" prefHeight="42.0" prefWidth="42.0" stylesheets="@../CSS/smallButtons.css" text="+">
                                  <font>
                                     <Font size="18.0" />
                                  </font></JFXButton>
