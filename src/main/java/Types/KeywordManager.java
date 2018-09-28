@@ -61,8 +61,9 @@ public class KeywordManager {
                     keyword.getLongName(),
                     keyword.getShortName(),
                     keyword.getDataType(),
-                    keyword.getAffix());
-            Database.writeKeywordsToCSV("Libraries/defaultKeywords.csv");
+                    keyword.getAffix(),
+                    keyword.getFilename());
+            Database.writeKeywordsToCSV("Libraries/keywords/defaultKeywords.csv");
             keywords.put(keyword.getID(), keyword);
             notifyObservers();
         }catch (SQLException e1){

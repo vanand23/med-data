@@ -9,6 +9,7 @@ public class Experiment {
     private String longName;
     private String shortName;
     private String description;
+    private String filename;
 
     public String getLongName() {
         return longName;
@@ -20,9 +21,9 @@ public class Experiment {
 
     public String getID(){ return this.experimentID; }
 
-
-
-
+    public String getFilename() {
+        return filename;
+    }
 
     /**
      * Constructor of Experiment
@@ -30,18 +31,19 @@ public class Experiment {
      * @param shortName String of this MapNode's short name
      * @param description  String of this MapNode's long name
      */
-    public Experiment(String experimentID, String longName, String shortName, String description){
+    public Experiment(String experimentID, String longName, String shortName, String description, String filename){
         this.experimentID = experimentID;
         this.longName = longName;
         this.shortName = shortName;
         this.description = description;
+        this.filename = filename;
     }
 
     /**
      * Updates the contents of the database to match the current state of this node
      */
     private void updateDB() {
-        Database.updateExperiment(this.experimentID, this.longName, this.shortName, this.description);
+        Database.updateExperiment(this.experimentID, this.longName, this.shortName, this.description, this.filename);
     }
 
 
