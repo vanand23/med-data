@@ -1,14 +1,10 @@
 package FXMLControllers;
 
-import Types.ExperimentManager;
-import Types.Filename;
-import Types.KeywordManager;
-import Types.Keyword;
+import Types.*;
 import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.ParallelTransition;
@@ -168,7 +164,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     
     private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
 
-    private static ArrayList<LogEntry> logEntryArrayList = new ArrayList<>();
+    private static ObservableList<LogEntry> logEntryArrayList = FXCollections.observableArrayList();
 
     private static ArrayList<AnchorPane> drawerList = new ArrayList<>();
 
@@ -178,11 +174,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private boolean isMenuOpen = false;
     private boolean isMenuPlaying = false;
 
-    public static void setFullNamerSharedFilename(Filename sharedFilename) {
+    static void setFullNamerSharedFilename(Filename sharedFilename) {
         FullNamer.sharedFilename = sharedFilename;
     }
 
-    static ArrayList<LogEntry> getLogEntryArrayList() {
+    static ObservableList<LogEntry> getLogEntryArrayList() {
         return logEntryArrayList;
     }
 

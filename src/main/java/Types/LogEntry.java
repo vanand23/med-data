@@ -1,4 +1,4 @@
-package FXMLControllers;
+package Types;
 
 import Types.Keyword;
 import javafx.collections.ObservableList;
@@ -16,27 +16,26 @@ public class LogEntry {
     private String experimentType;
     private String trialNumber;
     private String sampleNumber;
-    private String fileName;
+    private String filename;
     private String comment;
     private ObservableList<Keyword> listOfKeywords;
-    LogEntry(LocalDate experimentDate,
-             String researcherName,
-             String experimentType,
-             String trialNumber,
-             String sampleNumber,
-             String fileName,
-             ObservableList<Keyword> listOfKeywords,
-             String comment){
+    public LogEntry(LocalDate experimentDate,
+                    String researcherName,
+                    String experimentType,
+                    String trialNumber,
+                    String sampleNumber,
+                    String filename,
+                    ObservableList<Keyword> listOfKeywords,
+                    String comment){
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd LLL yy");
-        DateTimeFormatter timeFormatter = ISO_LOCAL_TIME;
 
         this.experimentDate = dateFormatter.format(experimentDate);
-        this.experimentTime = timeFormatter.format(LocalTime.now());
+        this.experimentTime = ISO_LOCAL_TIME.format(LocalTime.now());
         this.researcherName = researcherName;
         this.experimentType = experimentType;
         this.trialNumber = trialNumber;
         this.sampleNumber = sampleNumber;
-        this.fileName = fileName;
+        this.filename = filename;
         this.listOfKeywords = listOfKeywords;
         this.comment = comment;
     }
@@ -65,8 +64,8 @@ public class LogEntry {
         return sampleNumber;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
     public ObservableList<Keyword> getListOfKeywords() {
