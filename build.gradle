@@ -24,7 +24,7 @@ repositories {
 
 dependencies {
 	testCompile(
-		[group: 'org.apache.poi', name: 'poi', version: '3.17'],
+        [group: 'org.apache.poi', name: 'poi', version: '3.17'],
 		[group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'],
 		[group: 'junit', name: 'junit', version: '4.12'],
 		[group: 'com.jfoenix', name: 'jfoenix', version: '8.0.2'],

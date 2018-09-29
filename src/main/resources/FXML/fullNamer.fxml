@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import Utilities.AutocompleteTextField?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -17,7 +19,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import Utilities.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
     <StackPane>
         <children>
@@ -52,6 +53,11 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" spacing="20.0">
                         <children>
+                     <CheckBox fx:id="dateCheckbox" ellipsisString="" mnemonicParsing="false" selected="true" text="dateCheckbox">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </CheckBox>
                             <Label minWidth="-Infinity" prefWidth="110.0" stylesheets="@../CSS/label.css" text="Date">
                                 <font>
                                     <Font name="Alte Haas Grotesk Bold" size="18.0" />
@@ -67,6 +73,11 @@
                     </HBox>
                <HBox alignment="BOTTOM_CENTER" spacing="20.0">
                   <children>
+                     <CheckBox fx:id="experimentCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </CheckBox>
                             <Label minHeight="-Infinity" prefWidth="110.0" stylesheets="@../CSS/label.css" text="Experiment">
                                 <font>
                                     <Font name="Alte Haas Grotesk Bold" size="18.0" />
@@ -81,6 +92,11 @@
                </HBox>
                <HBox alignment="BOTTOM_CENTER" spacing="20.0">
                   <children>
+                     <CheckBox fx:id="researcherCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </CheckBox>
                             <Label prefWidth="110.0" stylesheets="@../CSS/label.css" text="Researcher">
                                 <font>
                                     <Font name="Alte Haas Grotesk Bold" size="18.0" />
@@ -105,8 +121,13 @@
                                             <Insets bottom="-5.0" />
                                         </VBox.margin>
                                     </Label>
-                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
+                                 <CheckBox fx:id="trialNumberCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
+                                    <font>
+                                       <Font size="18.0" />
+                                    </font>
+                                 </CheckBox>
                                           <JFXTextField fx:id="trialNumber" labelFloat="true" unFocusColor="BLACK">
                                               <font>
                                                   <Font name="Arial" size="20.0" />
@@ -142,8 +163,13 @@
                                             <Font name="Alte Haas Grotesk Bold" size="18.0" />
                                         </font>
                                     </Label>
-                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
+                                 <CheckBox fx:id="sampleNumberCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
+                                    <font>
+                                       <Font size="18.0" />
+                                    </font>
+                                 </CheckBox>
                                           <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
                                               <font>
                                                   <Font name="Arial" size="20.0" />
