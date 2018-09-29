@@ -29,7 +29,7 @@ class Namer extends ScreenController{
 
         StringBuilder fname = new StringBuilder();
 
-        if(experimentDate != null)
+        if(experimentDate != null && experimentDate != LocalDate.MIN)
         {
             fname.append(experimentDate.getYear());
             fname.append(delimiter);

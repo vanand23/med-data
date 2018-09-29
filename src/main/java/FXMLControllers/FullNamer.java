@@ -79,6 +79,17 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public JFXButton menuButton;
 
     @FXML
+    public CheckBox sampleNumberCheckbox;
+    @FXML
+    public CheckBox trialNumberCheckbox;
+    @FXML
+    public CheckBox researcherCheckbox;
+    @FXML
+    public CheckBox experimentCheckbox;
+    @FXML
+    public CheckBox dateCheckbox;
+
+    @FXML
     private Label projectName;
 
     @FXML
@@ -198,6 +209,62 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             drawerList.add(experimentsPane);
             drawerList.add(keywordsPane);
             drawerList.add(researchersPane);
+
+            dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+                experimentDate.setDisable(!newIsSelected);
+                if(!newIsSelected)
+                {
+                    sharedFilename.setDate(LocalDate.MIN);
+                }else{
+                    sharedFilename.setDate(experimentDate.getValue());
+                }
+                outputText.setText(updateName(sharedFilename));
+            });
+
+            experimentCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+                experimentTextField.setDisable(!newIsSelected);
+                if(!newIsSelected)
+                {
+                    sharedFilename.setExperiment("");
+                }else{
+                    sharedFilename.setExperiment(experimentTextField.getText());
+                }
+                outputText.setText(updateName(sharedFilename));
+            });
+
+            researcherCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+                researcherName.setDisable(!newIsSelected);
+                if(!newIsSelected)
+                {
+                    sharedFilename.setResearcher("");
+                }else{
+                    sharedFilename.setResearcher(researcherName.getText());
+                }
+                outputText.setText(updateName(sharedFilename));
+            });
+
+            trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+                trialNumber.setDisable(!newIsSelected);
+                if(!newIsSelected)
+                {
+                    sharedFilename.setTrialNumber(-1);
+                }else{
+                    sharedFilename.setTrialNumber(Integer.parseInt(trialNumber.getText()));
+                }
+                outputText.setText(updateName(sharedFilename));
+            });
+
+            sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+                sampleNumber.setDisable(!newIsSelected);
+                if(!newIsSelected)
+                {
+                    sharedFilename.setSampleNumber(-1);
+                }else{
+                    sharedFilename.setSampleNumber(Integer.parseInt(sampleNumber.getText()));
+                }
+                outputText.setText(updateName(sharedFilename));
+            });
+
 
             shadingOverlay.setMouseTransparent(true);
 
