@@ -284,26 +284,31 @@
                </JFXButton>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="projectPreferencesPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="50.0" StackPane.alignment="TOP_LEFT">
+         <AnchorPane fx:id="projectPreferencesPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="100.0" StackPane.alignment="TOP_LEFT">
             <children>
                <JFXButton fx:id="projectPreferencesButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handlePreferences" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Project Preferences" />
             </children></AnchorPane>
-         <AnchorPane fx:id="loggerPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="100.0" StackPane.alignment="TOP_LEFT">
+         <AnchorPane fx:id="loggerPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="150.0" StackPane.alignment="TOP_LEFT">
             <children>
                <JFXButton fx:id="loggerButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLogger" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Open Logger" />
             </children></AnchorPane>
-         <AnchorPane fx:id="experimentsPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="150.0" StackPane.alignment="TOP_LEFT">
+         <AnchorPane fx:id="experimentsPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="200.0" StackPane.alignment="TOP_LEFT">
             <children>
                <JFXButton fx:id="experimentsButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleExperiments" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Experiments" />
             </children></AnchorPane>
-         <AnchorPane fx:id="keywordsPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="200.0" StackPane.alignment="TOP_LEFT">
+         <AnchorPane fx:id="keywordsPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="250.0" StackPane.alignment="TOP_LEFT">
             <children>
                <JFXButton fx:id="keywordsButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleKeywords" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Keywords" />
             </children></AnchorPane>
-         <AnchorPane fx:id="researchersPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="250.0" StackPane.alignment="TOP_LEFT">
+         <AnchorPane fx:id="researchersPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="300.0" StackPane.alignment="TOP_LEFT">
             <children>
                <JFXButton fx:id="researchersButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleResearchers" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Researchers" />
             </children></AnchorPane>
+         <AnchorPane fx:id="gettingStartedPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="50.0" StackPane.alignment="TOP_LEFT">
+            <children>
+               <JFXButton fx:id="gettingStartedButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleGettingStarted" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Getting Started" />
+            </children>
+         </AnchorPane>
         </children>
     </StackPane>
    <padding>
