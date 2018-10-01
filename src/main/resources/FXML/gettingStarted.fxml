@@ -5,12 +5,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.GettingStarted">
+<AnchorPane prefHeight="507.0" prefWidth="670.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.GettingStarted">
    <children>
-      <StackPane layoutY="1.0" prefHeight="400.0" prefWidth="600.0">
+      <StackPane layoutY="1.0" prefHeight="507.0" prefWidth="670.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -18,17 +19,37 @@
                      <padding>
                         <Insets top="10.0" />
                      </padding></Label>
-                  <VBox prefHeight="76.0" prefWidth="600.0">
+                  <VBox>
                      <children>
-                        <Label stylesheets="@../CSS/label.css" text="Welcome to File Namer Pro. &#10;This application generates standardized file names based on the parameters you input." />
+                        <Label stylesheets="@../CSS/label.css" text="Welcome to File Namer Pro. &#10;This application generates standardized file names based on the parameters you input.">
+                           <padding>
+                              <Insets bottom="30.0" />
+                           </padding>
+                        </Label>
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </VBox>
-                  <VBox prefHeight="284.0" prefWidth="580.0">
+                  <VBox prefHeight="340.0" prefWidth="650.0">
                      <children>
-                        <JFXTextArea prefHeight="265.0" prefWidth="556.0" style="-fx-background-color: ffffff;" text="Using Full Namer&#10;In the ‘EXPERIMENT NAME’ text field, begin to type. Click on the ‘add new entry to the database’ button. Fill in the fields, then click submit. The experiment is now in the database, and will autofill once you begin typing in the box.&#10;In the ‘RESEARCHER NAME’ text field, type in your first and last name. Click on the ‘add new entry to database’ button. Fill in the fields, then click submit. Your name has now been added to the database and will autofill once you begin typing in the box.&#10;In the ‘TRIAL NUMBER’ and ‘SAMPLE NUMBER’ fields, type in your desired trial number and sample numbers. You can use the ‘+’ and ‘-’ buttons to increase and decrease the numbers. &#10;Click the ‘ADD’ button. Begin typing in the ‘NAME’ field, and click on the ‘add new entry to the database’ button. Fill in the fields and click ‘SUBMIT’. The keyword is now in the database. Click ‘ADD’ again, and begin typing in the ‘NAME’ field. The keyword will autofill. Select the keyword, fill in the ‘DATA VALUE’ field if necessary, and click ‘SUBMIT’. Repeat this process until you have the desired number of keywords.&#10;Click the ‘COPY’ button to copy the file name to your clipboard. Repeat this process for each trial and sample.&#10;&#10;If you do not wish to include certain parameters in your file name, simply unselect the checkbox next to undesired parameter.&#10;" />
+                        <HBox prefHeight="337.0" prefWidth="650.0" spacing="10.0">
+                           <children>
+                              <VBox prefHeight="224.0" prefWidth="127.0">
+                                 <children>
+                                    <JFXButton fx:id="fullNamerButton" onAction="#fullNamerInstructions" prefHeight="45.0" prefWidth="81.0" stylesheets="@../CSS/smallButtons.css" text="Full &#10;Namer" />
+                                    <JFXButton fx:id="compactNamerButton" onAction="#compactNamerInstructions" prefHeight="45.0" prefWidth="84.0" stylesheets="@../CSS/smallButtons.css" text="Compact &#10;Namer" />
+                                    <JFXButton fx:id="projectPreferencesButton" onAction="#projectPreferencesInstructions" prefHeight="45.0" prefWidth="86.0" stylesheets="@../CSS/smallButtons.css" text="Project &#10;Preferences" />
+                                    <JFXButton fx:id="loggerButton" onAction="#loggerInstructions" prefHeight="28.0" prefWidth="84.0" stylesheets="@../CSS/smallButtons.css" text="Logger" />
+                                    <JFXButton fx:id="databasesButton" onAction="#databasesInstructions" prefHeight="28.0" prefWidth="95.0" stylesheets="@../CSS/smallButtons.css" text="Databases" />
+                                 </children>
+                              </VBox>
+                              <JFXTextArea fx:id="instructionsTextArea" prefHeight="170.0" prefWidth="586.0" style="-fx-background-color: ffffff;" text="&#10;" wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" />
