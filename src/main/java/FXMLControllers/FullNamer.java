@@ -5,6 +5,7 @@ import Utilities.AutocompleteTextField;
 import Utilities.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.animation.ParallelTransition;
@@ -82,15 +83,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public JFXButton menuButton;
 
     @FXML
-    public CheckBox sampleNumberCheckbox;
+    public JFXCheckBox sampleNumberCheckbox;
     @FXML
-    public CheckBox trialNumberCheckbox;
+    public JFXCheckBox trialNumberCheckbox;
     @FXML
-    public CheckBox researcherCheckbox;
+    public JFXCheckBox researcherCheckbox;
     @FXML
-    public CheckBox experimentCheckbox;
+    public JFXCheckBox experimentCheckbox;
     @FXML
-    public CheckBox dateCheckbox;
+    public JFXCheckBox dateCheckbox;
 
     @FXML
     private Label projectName;
