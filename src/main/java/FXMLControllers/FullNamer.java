@@ -55,6 +55,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public AnchorPane projectPreferencesPane;
 
     @FXML
+    public AnchorPane gettingStartedPane;
+
+    @FXML
     public AnchorPane loggerPane;
 
     @FXML
@@ -171,6 +174,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXButton clearButton;
 
+    @FXML
+    private JFXButton gettingStartedButton;
+
     private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
     
     private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
@@ -204,6 +210,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void initialize(URL location, ResourceBundle resources) {
         {
             drawerList.add(menu);
+            drawerList.add(gettingStartedPane);
             drawerList.add(projectPreferencesPane);
             drawerList.add(loggerPane);
             drawerList.add(experimentsPane);
@@ -565,6 +572,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void handleAddButton (ActionEvent e) throws IOException {
         popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keyword Menu");
     }
+
+    @FXML
+    public void handleGettingStarted(ActionEvent e) throws IOException{
+        Stage popup = popupScreen("FXML/gettingStarted.fxml", gettingStartedButton.getScene().getWindow(), "Getting Started");
+    }
+
 
     @FXML
     public void handleDeleteButton (ActionEvent e) throws IOException {
