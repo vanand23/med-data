@@ -143,7 +143,7 @@ public class WriteToLogFile {
             experimentDate.setCellValue(logEntry.getExperimentDate());
             experimentTime.setCellValue(logEntry.getExperimentTime());
             researcherName.setCellValue(logEntry.getResearcherName());
-            experimentType.setCellValue(logEntry.getExperimentType());
+            experimentType.setCellValue(logEntry.getExperimentName());
             trialNumber.setCellValue(logEntry.getTrialNumber());
             sampleNumber.setCellValue(logEntry.getSampleNumber());
             fileName.setCellValue(logEntry.getFilename());

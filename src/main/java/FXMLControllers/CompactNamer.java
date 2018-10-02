@@ -16,10 +16,14 @@ import javafx.util.StringConverter;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static FXMLControllers.FullNamer.setFullNamerSharedFilename;
@@ -186,8 +190,6 @@ public class CompactNamer extends Namer implements Initializable {
 
     @FXML
     public void closeCompactNamer(ActionEvent e) {
-        Stage primaryStage = (Stage) closeButton.getScene().getWindow();
-        primaryStage.close();
+        closeProgram(closeButton);
     }
-
 }

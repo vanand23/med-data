@@ -35,11 +35,15 @@ import javafx.collections.ObservableList;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.TreeTableColumn;
@@ -208,271 +212,268 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        {
-            drawerList.add(menu);
-            drawerList.add(gettingStartedPane);
-            drawerList.add(projectPreferencesPane);
-            drawerList.add(loggerPane);
-            drawerList.add(experimentsPane);
-            drawerList.add(keywordsPane);
-            drawerList.add(researchersPane);
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        drawerList.add(menu);
+        drawerList.add(gettingStartedPane);
+        drawerList.add(projectPreferencesPane);
+        drawerList.add(loggerPane);
+        drawerList.add(experimentsPane);
+        drawerList.add(keywordsPane);
+        drawerList.add(researchersPane);
 
-            dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
-                experimentDate.setDisable(!newIsSelected);
-                if(!newIsSelected)
-                {
-                    sharedFilename.setDate(LocalDate.MIN);
-                }else{
-                    sharedFilename.setDate(experimentDate.getValue());
-                }
-                outputText.setText(updateName(sharedFilename));
-            });
-
-            experimentCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
-                experimentTextField.setDisable(!newIsSelected);
-                if(!newIsSelected)
-                {
-                    sharedFilename.setExperiment("");
-                }else{
-                    sharedFilename.setExperiment(experimentTextField.getText());
-                }
-                outputText.setText(updateName(sharedFilename));
-            });
-
-            researcherCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
-                researcherName.setDisable(!newIsSelected);
-                if(!newIsSelected)
-                {
-                    sharedFilename.setResearcher("");
-                }else{
-                    sharedFilename.setResearcher(researcherName.getText());
-                }
-                outputText.setText(updateName(sharedFilename));
-            });
-
-            trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
-                trialNumber.setDisable(!newIsSelected);
-                if(!newIsSelected)
-                {
-                    sharedFilename.setTrialNumber(-1);
-                }else{
-                    sharedFilename.setTrialNumber(Integer.parseInt(trialNumber.getText()));
-                }
-                outputText.setText(updateName(sharedFilename));
-            });
-
-            sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
-                sampleNumber.setDisable(!newIsSelected);
-                if(!newIsSelected)
-                {
-                    sharedFilename.setSampleNumber(-1);
-                }else{
-                    sharedFilename.setSampleNumber(Integer.parseInt(sampleNumber.getText()));
-                }
-                outputText.setText(updateName(sharedFilename));
-            });
-
-
-            shadingOverlay.setMouseTransparent(true);
-
-            final JFXButton inputHelp = helpButtonInput;
-            final Tooltip inputTooltip = new Tooltip();
-            inputTooltip.setText("Fill in the fields with your desired parameters");
-            inputHelp.setTooltip(inputTooltip);
-
-            final JFXButton outputHelp = helpButtonOutput;
-            final Tooltip outputTooltip = new Tooltip();
-            outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
-            outputHelp.setTooltip(outputTooltip);
-
-            ExperimentManager.getInstance().subscribe(this);
-            KeywordManager.getInstance().subscribe(this);
-            outputText.setEditable(false);
-            String pattern = "dd/MM/yyyy";
-            experimentDate.setPromptText(pattern.toLowerCase());
-            experimentDate.setConverter(new StringConverter<LocalDate>() {
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-
-                @Override
-                public String toString(LocalDate date) {
-                    if (date != null) {
-                        return dateFormatter.format(date);
-                    } else {
-                        return "";
-                    }
-                }
-
-                @Override
-                public LocalDate fromString(String string) {
-                    if (string != null && !string.isEmpty()) {
-                        return LocalDate.parse(string, dateFormatter);
-                    } else {
-                        return null;
-                    }
-                }
-            });
-            experimentTextField.setMinWidth(Region.USE_PREF_SIZE);
-            Config config = new Config();
-            isRememberData = Boolean.valueOf(config.getProperty("rememberData"));
-            if(sharedFilename == null) {
-                sharedFilename = new Filename();
-            }
-            String configResearcherName = config.getProperty("researcherName");
-            if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+        dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            experimentDate.setDisable(!newIsSelected);
+            if(!newIsSelected)
             {
-                researcherName.setText(configResearcherName);
-                sharedFilename.setResearcher(configResearcherName);
-            }
-            String configexperimentTextField = config.getProperty("experimentTextField");
-            if(configexperimentTextField != null && !configexperimentTextField.trim().isEmpty())
-            {
-                experimentTextField.setText(configexperimentTextField);
-                sharedFilename.setExperiment(configexperimentTextField);
-            }
-            String configTrialNumber = config.getProperty("trialNumber");
-            if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
-            {
-                trialNumber.setText(configTrialNumber);
-                sharedFilename.setTrialNumber(Integer.parseInt(configTrialNumber));
-            }else {
-                trialNumber.setText("0");
-                sharedFilename.setTrialNumber(0);
-            }
-            String configSampleNumber = config.getProperty("sampleNumber");
-            if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
-            {
-                sampleNumber.setText(configSampleNumber);
-                sharedFilename.setSampleNumber(Integer.parseInt(configSampleNumber));
-            }else {
-                sampleNumber.setText("0");
-                sharedFilename.setSampleNumber(0);
-            }
-            data.clear();
-            String configListOfKeywords = config.getProperty("listOfKeywords");
-            if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
-            {
-                String[] keywords = configListOfKeywords.split(",");
-                for(int i = 0; i < keywords.length; i += 2)
-                {
-                    data.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
-                }
-            }
-            sharedFilename.setKeywords(data);
-            setCompactNamerFilename(sharedFilename);
-
-            String configProjectName = config.getProperty("projectName");
-            if(configProjectName != null && !configProjectName.trim().isEmpty())
-            {
-                projectName.setText("Project: " + configProjectName);
-                projectName.setFont(new Font(18));
+                sharedFilename.setDate(LocalDate.MIN);
             }else{
-                projectName.setText("");
-                projectName.setFont(new Font(18));
+                sharedFilename.setDate(experimentDate.getValue());
+            }
+            outputText.setText(updateName(sharedFilename));
+        });
+
+        experimentCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            experimentTextField.setDisable(!newIsSelected);
+            if(!newIsSelected)
+            {
+                sharedFilename.setExperiment("");
+            }else{
+                sharedFilename.setExperiment(experimentTextField.getText());
+            }
+            outputText.setText(updateName(sharedFilename));
+        });
+
+        researcherCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            researcherName.setDisable(!newIsSelected);
+            if(!newIsSelected)
+            {
+                sharedFilename.setResearcher("");
+            }else{
+                sharedFilename.setResearcher(researcherName.getText());
+            }
+            outputText.setText(updateName(sharedFilename));
+        });
+
+        trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            trialNumber.setDisable(!newIsSelected);
+            if(!newIsSelected)
+            {
+                sharedFilename.setTrialNumber(-1);
+            }else{
+                sharedFilename.setTrialNumber(Integer.parseInt(trialNumber.getText()));
+            }
+            outputText.setText(updateName(sharedFilename));
+        });
+
+        sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            sampleNumber.setDisable(!newIsSelected);
+            if(!newIsSelected)
+            {
+                sharedFilename.setSampleNumber(-1);
+            }else{
+                sharedFilename.setSampleNumber(Integer.parseInt(sampleNumber.getText()));
+            }
+            outputText.setText(updateName(sharedFilename));
+        });
+
+
+        shadingOverlay.setMouseTransparent(true);
+
+        final JFXButton inputHelp = helpButtonInput;
+        final Tooltip inputTooltip = new Tooltip();
+        inputTooltip.setText("Fill in the fields with your desired parameters");
+        inputHelp.setTooltip(inputTooltip);
+
+        final JFXButton outputHelp = helpButtonOutput;
+        final Tooltip outputTooltip = new Tooltip();
+        outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
+        outputHelp.setTooltip(outputTooltip);
+
+        ExperimentManager.getInstance().subscribe(this);
+        KeywordManager.getInstance().subscribe(this);
+        outputText.setEditable(false);
+        String pattern = "dd/MM/yyyy";
+        experimentDate.setPromptText(pattern.toLowerCase());
+        experimentDate.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
             }
 
-
-            experimentDate.setValue(LocalDate.now());
-            experimentTextField.setAutocompleteWidth(350);
-            columnName.setMinWidth(100);
-            columnDataValue.setMinWidth(100);
-
-            columnName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("longName"));
-            columnDataValue.setCellValueFactory(new PropertyValueFactory<Keyword, String>("dataValue"));
-
-            keywordsTable.setEditable(true);
-
-            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-            columnName.setOnEditCommit(
-                    new EventHandler<TableColumn.CellEditEvent>() {
-                        @Override
-                        public void handle(TableColumn.CellEditEvent event) {
-                            ((Keyword) event.getTableView().getItems().get(
-                                    event.getTablePosition().getRow())
-                            ).setLongName((String) event.getNewValue());
-                        }
-                    }
-            );
-
-            columnDataValue.setCellFactory(TextFieldTableCell.forTableColumn());
-            columnDataValue.setOnEditCommit(
-                    new EventHandler<TableColumn.CellEditEvent>() {
-                        @Override
-                        public void handle(TableColumn.CellEditEvent event) {
-                            ((Keyword) event.getTableView().getItems().get(
-                                    event.getTablePosition().getRow())
-                            ).setDataValue((String) event.getNewValue());
-                        }
-                    }
-            );
-
-            keywordsTable.setItems(data);
-            System.out.println(data);
-
-            experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
-                        outputText.setText(updateName(sharedFilename));
-            });
-            experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
-                if(experimentTextField.isValidText())
-                {outputText.setText(updateName(sharedFilename));
-                setCompactNamerFilename(sharedFilename);
-                experimentTextField.setValidText(false);
-                if(isRememberData){
-                    setProperty("experimentType",newexperimentTextField);
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
                 }
-                else{
-                    setProperty("experimentType", "");
-                }
-                }else if(experimentTextField.isTriggerPopup())
-                {
-                    try {
-                        experimentTextField.setTriggerPopup(false);
-                        popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
-                    }catch (IOException e){
-                        e.printStackTrace();
-                    }
-                }
-            });
-            researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-               outputText.setText(updateName(sharedFilename));
-               sharedFilename.setResearcher(newResearcherName);
-               setCompactNamerFilename(sharedFilename);
-               if(isRememberData) {
-                   setProperty("researcherName", newResearcherName);
-               }
-               else{
-                   setProperty("researcherName", "");
-               }
-            });
-            trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
-                sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
-                outputText.setText(updateName(sharedFilename));
-                setCompactNamerFilename(sharedFilename);
-                if(isRememberData) {
-                    setProperty("trialNumber", newTrialNumber);
-                }
-                else{
-                    setProperty("trialNumber", "");
-                }
-            });
-            sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
-                sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
-                outputText.setText(updateName(sharedFilename));
-                setCompactNamerFilename(sharedFilename);
-                if(isRememberData) {
-                    setProperty("sampleNumber", newSampleNumber);
-                }
-                else{
-                    setProperty("sampleNumber", "");
-                }
-            });
-            data.addListener((ListChangeListener<Keyword>) keywords -> {
-                sharedFilename.setKeywords(data);
-                outputText.setText(updateName(sharedFilename));
-                setCompactNamerFilename(sharedFilename);
-            });
-            outputText.setText(updateName(sharedFilename));
+            }
+        });
+        experimentTextField.setMinWidth(Region.USE_PREF_SIZE);
+        Config config = new Config();
+        isRememberData = Boolean.valueOf(config.getProperty("rememberData"));
+        if(sharedFilename == null) {
+            sharedFilename = new Filename();
         }
+        String configResearcherName = config.getProperty("researcherName");
+        if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+        {
+            researcherName.setText(configResearcherName);
+            sharedFilename.setResearcher(configResearcherName);
+        }
+        String configExperimentName = config.getProperty("experimentName");
+        if(configExperimentName != null && !configExperimentName.trim().isEmpty())
+        {
+            experimentTextField.setText(configExperimentName);
+            sharedFilename.setExperiment(configExperimentName);
+        }
+        String configTrialNumber = config.getProperty("trialNumber");
+        if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
+        {
+            trialNumber.setText(configTrialNumber);
+            sharedFilename.setTrialNumber(Integer.parseInt(configTrialNumber));
+        }else {
+            trialNumber.setText("0");
+            sharedFilename.setTrialNumber(0);
+        }
+        String configSampleNumber = config.getProperty("sampleNumber");
+        if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
+        {
+            sampleNumber.setText(configSampleNumber);
+            sharedFilename.setSampleNumber(Integer.parseInt(configSampleNumber));
+        }else {
+            sampleNumber.setText("0");
+            sharedFilename.setSampleNumber(0);
+        }
+        data.clear();
+        String configListOfKeywords = config.getProperty("listOfKeywords");
+        if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
+        {
+            String[] keywords = configListOfKeywords.split(",");
+            for(int i = 0; i < keywords.length; i += 2)
+            {
+                data.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
+            }
+        }
+        sharedFilename.setKeywords(data);
+        setCompactNamerFilename(sharedFilename);
+
+        String configProjectName = config.getProperty("projectName");
+        if(configProjectName != null && !configProjectName.trim().isEmpty())
+        {
+            projectName.setText("Project: " + configProjectName);
+            projectName.setFont(new Font(18));
+        }else{
+            projectName.setText("");
+            projectName.setFont(new Font(18));
+        }
+
+
+        experimentDate.setValue(LocalDate.now());
+        experimentTextField.setAutocompleteWidth(350);
+        columnName.setMinWidth(100);
+        columnDataValue.setMinWidth(100);
+
+        columnName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("longName"));
+        columnDataValue.setCellValueFactory(new PropertyValueFactory<Keyword, String>("dataValue"));
+
+        keywordsTable.setEditable(true);
+
+        columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnName.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((Keyword) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setLongName((String) event.getNewValue());
+                    }
+                }
+        );
+
+        columnDataValue.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnDataValue.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((Keyword) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setDataValue((String) event.getNewValue());
+                    }
+                }
+        );
+
+        keywordsTable.setItems(data);
+        System.out.println(data);
+
+        experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName(sharedFilename)));
+        experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
+            if(experimentTextField.isValidText())
+            {outputText.setText(updateName(sharedFilename));
+            setCompactNamerFilename(sharedFilename);
+            experimentTextField.setValidText(false);
+            if(isRememberData){
+                setProperty("experimentName",newexperimentTextField);
+            }
+            else{
+                setProperty("experimentName", "");
+            }
+            }else if(experimentTextField.isTriggerPopup())
+            {
+                try {
+                    experimentTextField.setTriggerPopup(false);
+                    popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
+           outputText.setText(updateName(sharedFilename));
+           sharedFilename.setResearcher(newResearcherName);
+           setCompactNamerFilename(sharedFilename);
+           if(isRememberData) {
+               setProperty("researcherName", newResearcherName);
+           }
+           else{
+               setProperty("researcherName", "");
+           }
+        });
+        trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
+            sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
+            outputText.setText(updateName(sharedFilename));
+            setCompactNamerFilename(sharedFilename);
+            if(isRememberData) {
+                setProperty("trialNumber", newTrialNumber);
+            }
+            else{
+                setProperty("trialNumber", "");
+            }
+        });
+        sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
+            sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
+            outputText.setText(updateName(sharedFilename));
+            setCompactNamerFilename(sharedFilename);
+            if(isRememberData) {
+                setProperty("sampleNumber", newSampleNumber);
+            }
+            else{
+                setProperty("sampleNumber", "");
+            }
+        });
+        data.addListener((ListChangeListener<Keyword>) keywords -> {
+            sharedFilename.setKeywords(data);
+            outputText.setText(updateName(sharedFilename));
+            setCompactNamerFilename(sharedFilename);
+        });
+        outputText.setText(updateName(sharedFilename));
     }
 
     @FXML
@@ -529,7 +530,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             setProperty("experimentTextField",experimentTextField.getText());
         }
         else{
-            setProperty("experimentType", "");
+            setProperty("experimentName", "");
         }
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
@@ -670,8 +671,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void closeFullNamer(ActionEvent e) {
-        Stage primaryStage = (Stage) closeButton.getScene().getWindow();
-        primaryStage.close();
+        closeProgram(closeButton);
     }
 
     public static TreeTableView getTableOfKeywords() {
