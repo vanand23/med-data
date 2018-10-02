@@ -3,13 +3,14 @@ package FXMLControllers;
 import Singletons.Database;
 import Types.Experiment;
 import Types.ExperimentManager;
-import Types.Keyword;
+import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,13 +20,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import static Singletons.Database.getExperimentFiles;
 
-public class ExperimentsTable extends ScreenController implements Initializable {
+public class ExperimentsTable extends ScreenController implements Initializable, ITypeObserver {
 
     @FXML
     private JFXButton cancelButton;
@@ -34,16 +36,16 @@ public class ExperimentsTable extends ScreenController implements Initializable 
     private TableView<Experiment> experimentTableView;
 
     @FXML
-    private TableColumn experimentName;
+    private TableColumn<Experiment, String> experimentName;
 
     @FXML
-    private TableColumn experimentAbbrev;
+    private TableColumn<Experiment, String> experimentAbbrev;
 
     @FXML
-    private TableColumn experimentDescription;
+    private TableColumn<Experiment, String> experimentDescription;
     
     @FXML
-    private ComboBox<String> selectExperimentFile;
+    private ChoiceBox<String> selectExperimentFile;
 
     private final static ObservableList<Experiment> experimentTypeObservableList = FXCollections.observableArrayList();
 
@@ -51,45 +53,57 @@ public class ExperimentsTable extends ScreenController implements Initializable 
         return experimentTypeObservableList;
     }
 
+    private static String selectedValue = "";
+
+    static void setSelectedValue(String selectedValue) {
+        ExperimentsTable.selectedValue = selectedValue;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        experimentName.setCellValueFactory(new PropertyValueFactory<Experiment, String>("longName"));
-        experimentAbbrev.setCellValueFactory(new PropertyValueFactory<Experiment, String>("shortName"));
-        experimentDescription.setCellValueFactory(new PropertyValueFactory<Experiment, String>("description"));
+        experimentName.setCellValueFactory(new PropertyValueFactory<>("longName"));
+        experimentAbbrev.setCellValueFactory(new PropertyValueFactory<>("shortName"));
+        experimentDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        selectExperimentFile.getItems().add("All Databases");
-        selectExperimentFile.getSelectionModel().selectFirst();
-        selectExperimentFile.getItems().addAll(getExperimentFiles());
-        selectExperimentFile.getItems().add("+ Add new keyword database file");
+        ExperimentManager.getInstance().subscribe(this);
+        onTypeUpdate();
         selectExperimentFile.valueProperty().addListener((obs, oldSelectedFile, newSelectedFile) -> {
             HashMap<String, Experiment> listOfExperiments = ExperimentManager.getInstance().getExperiments();
-            switch (newSelectedFile)
+            if(newSelectedFile != null)
             {
-                case "All Databases":
-                    experimentTypeObservableList.clear();
-                    for(Map.Entry<String, Experiment> entry : listOfExperiments.entrySet()) {
-                        experimentTypeObservableList.add(entry.getValue());
-                    }
-                    break;
-                case "+ Add new experiment database file":
-                    //TODO popup for adding a new database file(include explorer option? create a whole new file?)
-                    selectExperimentFile.getSelectionModel().selectFirst();
-                    break;
-                default:
-                    experimentTypeObservableList.clear();
-                    for(Map.Entry<String, Experiment> entry : listOfExperiments.entrySet()) {
-                        if(entry.getValue().getFilename().equals(newSelectedFile))
-                        {
+                switch (newSelectedFile)
+                {
+                    case "All Databases":
+                        experimentTypeObservableList.clear();
+                        for(Map.Entry<String, Experiment> entry : listOfExperiments.entrySet()) {
                             experimentTypeObservableList.add(entry.getValue());
                         }
-                    }
+                        break;
+                    case "+ Create new experiment database file":
+                        try{
+                            Stage stage = popupScreen("FXML/createNewExperimentDatabase.fxml", cancelButton.getScene().getWindow(),"Create new experiment database");
+                            stage.setOnHidden(windowEvent -> onTypeUpdate());
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                        selectExperimentFile.setValue(selectedValue);
+                        break;
+                    default:
+                        experimentTypeObservableList.clear();
+                        for(Map.Entry<String, Experiment> entry : listOfExperiments.entrySet()) {
+                            if(entry.getValue().getFilename().equals(newSelectedFile))
+                            {
+                                experimentTypeObservableList.add(entry.getValue());
+                            }
+                        }
+                }
+
             }
         });
 
         selectExperimentFile.getSelectionModel().selectFirst();
-
-
         experimentTableView.setEditable(true);
+        experimentTypeObservableList.clear();
         HashMap<String, Experiment> listOfExperiments = ExperimentManager.getInstance().getExperiments();
         for(Map.Entry<String, Experiment> entry : listOfExperiments.entrySet()) {
             experimentTypeObservableList.add(entry.getValue());
@@ -126,6 +140,15 @@ public class ExperimentsTable extends ScreenController implements Initializable 
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
 
+    }
+    @Override
+    public void onTypeUpdate() {
+        ArrayList<String> experimentFiles = ExperimentManager.getInstance().getExperimentFiles();
+        selectExperimentFile.getItems().clear();
+        selectExperimentFile.getItems().add("All Databases");
+        selectExperimentFile.getItems().addAll(experimentFiles);
+        selectExperimentFile.getItems().add("+ Create new experiment database file");
+        selectExperimentFile.getSelectionModel().selectFirst();
     }
 
 }

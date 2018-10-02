@@ -3,7 +3,6 @@ package Types;
 import Singletons.Database;
 
 public class Keyword {
-    private String variableID;
     private String longName;
     private String shortName;
     private String dataType;
@@ -11,9 +10,6 @@ public class Keyword {
     private String dataValue;
     private String filename;
 
-    public String getID() {
-        return variableID;
-    }
     public String getLongName() {
         return longName;
     }
@@ -33,9 +29,6 @@ public class Keyword {
         return filename;
     }
 
-    public void setVariableID(String variableID) {
-        this.variableID = variableID;
-    }
     public void setLongName(String longName) {
         this.longName = longName;
     }
@@ -55,8 +48,7 @@ public class Keyword {
         this.filename = filename;
     }
 
-    public Keyword(String variableID, String longName, String shortName, String dataType, String affix, String dataValue, String filename) {
-        this.variableID = variableID;
+    public Keyword(String longName, String shortName, String dataType, String affix, String dataValue, String filename) {
         this.longName = longName;
         this.shortName = shortName;
         this.dataType = dataType;
@@ -71,7 +63,6 @@ public class Keyword {
      */
     private void updateDB() {
         Database.updateKeyword(
-                this.variableID,
                 this.longName,
                 this.shortName,
                 this.dataType,

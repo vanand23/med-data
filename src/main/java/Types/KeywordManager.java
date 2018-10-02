@@ -4,8 +4,11 @@ import Singletons.Database;
 import Utilities.ITypeObserver;
 
 import javax.naming.NameNotFoundException;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
+
+import static Utilities.DirectorySearcher.filesInDirectory;
 
 public class KeywordManager {
 
@@ -13,6 +16,7 @@ public class KeywordManager {
     // Map of all node objects
     private HashMap<String, Keyword> keywords;
     private List<ITypeObserver> observers = new ArrayList<>();
+    private static ArrayList<String> keywordFiles = new ArrayList<>();
 
     private KeywordManager(){
         keywords = Database.loadKeywordsToClasses();
@@ -57,19 +61,42 @@ public class KeywordManager {
     public void addKeyword(Keyword keyword){
         try {
             Database.insertKeyword(
-                    keyword.getID(),
                     keyword.getLongName(),
                     keyword.getShortName(),
                     keyword.getDataType(),
                     keyword.getAffix(),
                     keyword.getFilename());
             Database.writeKeywordsToCSV("Libraries/keywords/defaultKeywords.csv");
-            keywords.put(keyword.getID(), keyword);
+            keywords.put(keyword.getLongName(), keyword);
             notifyObservers();
         }catch (SQLException e1){
             e1.printStackTrace();
             System.err.println("Could not insert keyword");
         }
+    }
+
+    public void removeKeyword(String keywordName)
+    {
+        keywords.remove(keywordName);
+    }
+
+    private void refreshKeywordFiles()
+    {
+        keywordFiles.clear();
+        File[] newKeywordFiles = filesInDirectory("Libraries/keywords");
+        for(File file : newKeywordFiles)
+        {
+            keywordFiles.add(file.getName());
+        }
+    }
+
+    /**
+     * Returns a list of keyword database files
+     * @return returns an ArrayList of all keyword files
+     */
+    public ArrayList<String> getKeywordFiles() {
+        refreshKeywordFiles();
+        return keywordFiles;
     }
 
 

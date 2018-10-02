@@ -4,8 +4,11 @@ import Singletons.Database;
 import Utilities.ITypeObserver;
 
 import javax.naming.NameNotFoundException;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
+
+import static Utilities.DirectorySearcher.filesInDirectory;
 
 public class ExperimentManager {
 
@@ -13,6 +16,7 @@ public class ExperimentManager {
     // Map of all node objects
     private HashMap<String, Experiment> experiments;
     private List<ITypeObserver> observers = new ArrayList<>();
+    private static ArrayList<String> experimentFiles = new ArrayList<>();
 
     private ExperimentManager(){
         experiments = Database.loadExperimentsToClasses();
@@ -57,19 +61,43 @@ public class ExperimentManager {
     public void addExperiment(Experiment experiment){
         try {
             Database.insertExperiment(
-                    experiment.getID(),
                     experiment.getLongName(),
                     experiment.getShortName(),
                     experiment.getDescription(),
                     experiment.getFilename());
             Database.writeExperimentsToCSV("Libraries/experiments/defaultExperiments.csv");
-            experiments.put(experiment.getID(), experiment);
+            experiments.put(experiment.getLongName(), experiment);
             notifyObservers();
         }catch (SQLException e1){
             e1.printStackTrace();
             System.err.println("Could not insert experiment");
         }
     }
+
+    public void removeExperiment(String experimentName)
+    {
+        experiments.remove(experimentName);
+    }
+
+    private void refreshExperimentFiles()
+    {
+        experimentFiles.clear();
+        File[] newExperimentFiles = filesInDirectory("Libraries/experiments");
+        for(File file : newExperimentFiles)
+        {
+            experimentFiles.add(file.getName());
+        }
+    }
+
+    /**
+     * Returns a list of experiment database files
+     * @return returns an ArrayList of all experiment files
+     */
+    public ArrayList<String> getExperimentFiles() {
+        refreshExperimentFiles();
+        return experimentFiles;
+    }
+
 /*
     public MapNode addNode(MapNode mapNode){
         try{
@@ -145,8 +173,8 @@ public class ExperimentManager {
     }
 
     /**
-     * function which returns the number of keywords
-     * @return number of keywords
+     * function which returns the number of experiments
+     * @return number of experiments
      */
     public int getNumberOfExperiments(){
         return experiments.size();

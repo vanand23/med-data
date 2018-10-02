@@ -2,12 +2,15 @@ package Launcher;
 
 import Singletons.Database;
 import Singletons.FXMLManager;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class Launcher extends Application {
 
@@ -44,8 +47,15 @@ public class Launcher extends Application {
         });
 
         primaryStage.setScene(new Scene(root));
+        primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWING, window -> {
+            FadeTransition ft = new FadeTransition(Duration.millis(2500), root);
+            ft.setFromValue(0.8);
+            ft.setToValue(1.0);
+            ft.play();
+        });
+
         primaryStage.show();
-        primaryStage.toFront();
+
     }
 
     public static void main(String[] args) {
