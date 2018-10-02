@@ -314,61 +314,60 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             experimentTextField.setMinWidth(Region.USE_PREF_SIZE);
             Config config = new Config();
             isRememberData = Boolean.valueOf(config.getProperty("rememberData"));
-            if(sharedFilename == null)
-            {
+            if(sharedFilename == null) {
                 sharedFilename = new Filename();
-                String configResearcherName = config.getProperty("researcherName");
-                if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+            }
+            String configResearcherName = config.getProperty("researcherName");
+            if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+            {
+                researcherName.setText(configResearcherName);
+                sharedFilename.setResearcher(configResearcherName);
+            }
+            String configexperimentTextField = config.getProperty("experimentTextField");
+            if(configexperimentTextField != null && !configexperimentTextField.trim().isEmpty())
+            {
+                experimentTextField.setText(configexperimentTextField);
+                sharedFilename.setExperiment(configexperimentTextField);
+            }
+            String configTrialNumber = config.getProperty("trialNumber");
+            if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
+            {
+                trialNumber.setText(configTrialNumber);
+                sharedFilename.setTrialNumber(Integer.parseInt(configTrialNumber));
+            }else {
+                trialNumber.setText("0");
+                sharedFilename.setTrialNumber(0);
+            }
+            String configSampleNumber = config.getProperty("sampleNumber");
+            if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
+            {
+                sampleNumber.setText(configSampleNumber);
+                sharedFilename.setSampleNumber(Integer.parseInt(configSampleNumber));
+            }else {
+                sampleNumber.setText("0");
+                sharedFilename.setSampleNumber(0);
+            }
+            data.clear();
+            String configListOfKeywords = config.getProperty("listOfKeywords");
+            if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
+            {
+                String[] keywords = configListOfKeywords.split(",");
+                for(int i = 0; i < keywords.length; i += 2)
                 {
-                    researcherName.setText(configResearcherName);
-                    sharedFilename.setResearcher(configResearcherName);
+                    data.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
                 }
-                String configexperimentTextField = config.getProperty("experimentTextField");
-                if(configexperimentTextField != null && !configexperimentTextField.trim().isEmpty())
-                {
-                    experimentTextField.setText(configexperimentTextField);
-                    sharedFilename.setExperiment(configexperimentTextField);
-                }
-                String configTrialNumber = config.getProperty("trialNumber");
-                if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
-                {
-                    trialNumber.setText(configTrialNumber);
-                    sharedFilename.setTrialNumber(Integer.parseInt(configTrialNumber));
-                }else {
-                    trialNumber.setText("0");
-                    sharedFilename.setTrialNumber(0);
-                }
-                String configSampleNumber = config.getProperty("sampleNumber");
-                if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
-                {
-                    sampleNumber.setText(configSampleNumber);
-                    sharedFilename.setSampleNumber(Integer.parseInt(configSampleNumber));
-                }else {
-                    sampleNumber.setText("0");
-                    sharedFilename.setSampleNumber(0);
-                }
-                data.clear();
-                String configListOfKeywords = config.getProperty("listOfKeywords");
-                if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
-                {
-                    String[] keywords = configListOfKeywords.split(",");
-                    for(int i = 0; i < keywords.length; i += 2)
-                    {
-                        data.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
-                    }
-                }
-                sharedFilename.setKeywords(data);
-                setCompactNamerFilename(sharedFilename);
+            }
+            sharedFilename.setKeywords(data);
+            setCompactNamerFilename(sharedFilename);
 
-                String configProjectName = config.getProperty("projectName");
-                if(configProjectName != null && !configProjectName.trim().isEmpty())
-                {
-                    projectName.setText("Project: " + configProjectName);
-                    projectName.setFont(new Font(18));
-                }else{
-                    projectName.setText("");
-                    projectName.setFont(new Font(18));
-                }
+            String configProjectName = config.getProperty("projectName");
+            if(configProjectName != null && !configProjectName.trim().isEmpty())
+            {
+                projectName.setText("Project: " + configProjectName);
+                projectName.setFont(new Font(18));
+            }else{
+                projectName.setText("");
+                projectName.setFont(new Font(18));
             }
 
 
