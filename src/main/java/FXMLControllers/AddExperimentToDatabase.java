@@ -41,28 +41,13 @@ public class AddExperimentToDatabase extends ScreenController implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        Font.loadFont(
-                AddExperimentToDatabase.class.getResource("/Fonts/AlteHaasGroteskBold.ttf").toExternalForm(),18
-
-        );
-        Font.loadFont(
-                AddExperimentToDatabase.class.getResource("/Fonts/AlteHaasGroteskRegular.ttf").toExternalForm(),
-                18
-        );
-
+        pickExperimentDatabase.getItems().addAll(ExperimentManager.getInstance().getExperimentFiles());
+        pickExperimentDatabase.getSelectionModel().selectFirst();
     }
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        int experimentListSize = ExperimentManager.getInstance().getNumberOfExperiments();
-        Experiment lastExperiment = ExperimentManager.getInstance().getExperiments().get(String.valueOf(experimentListSize));
-        if(lastExperiment == null)
-        {
-            lastExperiment = new Experiment("0","","","", "");
-        }
-        String newID = String.valueOf(Integer.valueOf(lastExperiment.getID())+1);
         Experiment newExperiment = new Experiment(
-                                                newID,
                                                 experimentName.getText(),
                                                 experimentAbbrev.getText(),
                                                 experimentDescription.getText(),

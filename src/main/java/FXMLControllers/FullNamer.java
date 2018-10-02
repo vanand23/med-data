@@ -347,7 +347,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                     String[] keywords = configListOfKeywords.split(",");
                     for(int i = 0; i < keywords.length; i += 2)
                     {
-                        data.add(new Keyword("",keywords[i],"","","",keywords[i+1],""));
+                        data.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
                     }
                 }
                 sharedFilename.setKeywords(data);
