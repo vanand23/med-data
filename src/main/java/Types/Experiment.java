@@ -5,7 +5,6 @@ import Singletons.Database;
 import java.util.LinkedList;
 
 public class Experiment {
-    private String experimentID;
     private String longName;
     private String shortName;
     private String description;
@@ -19,8 +18,6 @@ public class Experiment {
 
     public String getDescription() { return description;}
 
-    public String getID(){ return this.experimentID; }
-
     public String getFilename() {
         return filename;
     }
@@ -31,8 +28,7 @@ public class Experiment {
      * @param shortName String of this MapNode's short name
      * @param description  String of this MapNode's long name
      */
-    public Experiment(String experimentID, String longName, String shortName, String description, String filename){
-        this.experimentID = experimentID;
+    public Experiment(String longName, String shortName, String description, String filename){
         this.longName = longName;
         this.shortName = shortName;
         this.description = description;
@@ -43,7 +39,7 @@ public class Experiment {
      * Updates the contents of the database to match the current state of this node
      */
     private void updateDB() {
-        Database.updateExperiment(this.experimentID, this.longName, this.shortName, this.description, this.filename);
+        Database.updateExperiment(this.longName, this.shortName, this.description, this.filename);
     }
 
 

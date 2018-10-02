@@ -8,6 +8,8 @@ import java.util.HashMap;
 import Types.*;
 import Utilities.Config;
 
+import static Utilities.DirectorySearcher.filesInDirectory;
+
 /**
  * A large class for running all SQL queries
  * Likely will be broken up or refactored later, we just havent settled on the best pattern yet
@@ -17,7 +19,6 @@ public class Database {
 
     //private DatabaseManager parent; // the manager managing this database
     static private Connection connection = null; // the database connection
-    private static ArrayList<String> keywordFiles = new ArrayList<>();
     private static ArrayList<String> experimentFiles = new ArrayList<>();
     //static private HashMap<String, MapNode> nodes;
 
@@ -100,7 +101,7 @@ public class Database {
                             experimentFiles.add(databaseFile);
                             break;
                         case "keywords":
-                            keywordFiles.add(databaseFile);
+                            //keywordFiles.add(databaseFile);
                             break;
                     }
                 }catch(NullPointerException n){
@@ -118,16 +119,15 @@ public class Database {
         // Create user table if it does not already exist
         createTable("researchers",
                 "CREATE TABLE researchers (" +
-                        "username VARCHAR(50) primary key, " +
-                        "hash VARCHAR(400), " +
-                        "role VARCHAR(50))");
+                        "researcherID VARCHAR(50) primary key, " +
+                        "longName VARCHAR(100), " +
+                        "shortName VARCHAR(50))");
 
         // keywords
         // Create keywords table if it does not already exist
         createTable("keywords",
                 "CREATE TABLE keywords(" +
-                        "keywordID VARCHAR(50) primary key, " +
-                        "longName VARCHAR(50)," +
+                        "longName VARCHAR(50) primary key," +
                         "shortName VARCHAR(50)," +
                         "dataType VARCHAR(50)," +
                         "affix VARCHAR(50)," +
@@ -137,8 +137,7 @@ public class Database {
         // Create experiments table if it does not already exist
         createTable("experiments",
                 "CREATE TABLE experiments(" +
-                        "experimentID VARCHAR(50) primary key, " +
-                        "longName VARCHAR(100)," +
+                        "longName VARCHAR(100) primary key," +
                         "shortName VARCHAR(50)," +
                         "description VARCHAR(100)," +
                         "filename VARCHAR(50))");
@@ -182,53 +181,6 @@ public class Database {
     }
 
 
-    // NEW STUFF ================================================================
-
-    /**
-     * Simple function for doing most database queries. Does not work for anything that uses data types other than strings
-     * @param query the query string to use
-     * @param args the arguements to insert into the query string
-     */
-    public static void simpleQuery(String query, String[] args){
-        if(args.length < 1){
-            System.out.println("Could not insert, no values given.");
-            return;
-        }
-        try{
-            PreparedStatement ps = connection.prepareStatement(query);
-            for(int i=0; i<args.length; i++){
-                ps.setString(i+1, args[i]);
-            }
-
-            ps.execute();
-            ps.close();
-
-            /* Use this area instead for a threaded version
-            Thread t = new Thread(() -> {
-                try {
-                    ps.execute();
-                    ps.close();
-                } catch (SQLIntegrityConstraintViolationException e) {
-                    System.out.println("Could not perform insert because of a key constraint.");
-                } catch (SQLException e) {
-                    System.out.println("Could not perform insert");
-                    e.printStackTrace();
-                }
-            });
-
-            t.start();
-            */
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            System.out.println("Could not perform insert because of a key constraint.");
-            //e.printStackTrace();
-        }
-        catch (SQLException e){
-            System.out.println("Could not perform query");
-            e.printStackTrace();
-        }
-    }
-
     // ==========================================================================
 
     // SPECIAL ACTIONS =======================================================
@@ -236,27 +188,26 @@ public class Database {
 
     /**
      * Retrieves a node from the database by its ID
-     * @param experimentID the experiment's name
+     * @param longName the experiment's name
      * @return an Experiment object
      */
-    public static Experiment getExperiment(String experimentID){
+    public static Experiment getExperiment(String longName){
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM experiments WHERE experimentID=?");
-            ps.setString(1, experimentID);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM experiments WHERE longName=?");
+            ps.setString(1, longName);
             ResultSet rs = ps.executeQuery();
 
-            String longName, shortName, description,filename;
+            String shortName, description, filename;
             Experiment n = null;
 
             // for each node, build an object
             while (rs.next()) {
-                longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 description = rs.getString("description");
                 filename = rs.getString("filename");
                 // create node instance and put it in the nodes HashMap
-                n = new Experiment(experimentID, longName, shortName, description,filename);
+                n = new Experiment(longName, shortName, description,filename);
                 break;
             }
 
@@ -265,14 +216,14 @@ public class Database {
 
 
             if(n == null){
-                System.out.println("Experiment " + experimentID + " not found.");
+                System.out.println("Experiment " + longName + " not found.");
                 return null;
             }
 
             return n;
         }
         catch(SQLException e){
-            System.out.println("Could not retrieve experiment " + experimentID);
+            System.out.println("Could not retrieve experiment " + longName);
             e.printStackTrace();
         }
 
@@ -281,29 +232,28 @@ public class Database {
 
     /**
      * Retrieves a node from the database by its ID
-     * @param keywordID the experiment's name
+     * @param longName the experiment's name
      * @return an Experiment object
      */
-    public static Keyword getKeyword(String keywordID){
+    public static Keyword getKeyword(String longName){
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM experiments WHERE keywordID=?");
-            ps.setString(1, keywordID);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM keywords WHERE longName=?");
+            ps.setString(1, longName);
             ResultSet rs = ps.executeQuery();
 
-            String longName, shortName, dataType, affix, filename;
+            String shortName, dataType, affix, filename;
             Keyword n = null;
 
             // for each node, build an object
             while (rs.next()) {
-                longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
                 filename = rs.getString("filename");
 
                 // create node instance and put it in the nodes HashMap
-                n = new Keyword(keywordID, longName, shortName, dataType, affix, "", filename);
+                n = new Keyword(longName, shortName, dataType, affix, "", filename);
                 break;
             }
 
@@ -312,14 +262,14 @@ public class Database {
 
 
             if(n == null){
-                System.out.println("Experiment " + keywordID + " not found.");
+                System.out.println("Experiment " + longName + " not found.");
                 return null;
             }
 
             return n;
         }
         catch(SQLException e){
-            System.out.println("Could not retrieve experiment " + keywordID);
+            System.out.println("Could not retrieve experiment " + longName);
             e.printStackTrace();
         }
 
@@ -363,15 +313,14 @@ public class Database {
      * @param * the inputs correspond to the node class's fields
      * @throws SQLException
      */
-    public static void insertKeyword(String keywordID, String longName, String shortName, String dataType, String affix, String filename)  throws SQLException{
+    public static void insertKeyword(String longName, String shortName, String dataType, String affix, String filename)  throws SQLException{
         try{
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO keywords VALUES (?, ?, ?, ?, ?, ?)");
-            ps.setString(1, keywordID);
-            ps.setString(2, longName);
-            ps.setString(3, shortName);
-            ps.setString(4, dataType);
-            ps.setString(5, affix);
-            ps.setString(6, filename);
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO keywords VALUES (?, ?, ?, ?, ?)");
+            ps.setString(1, longName);
+            ps.setString(2, shortName);
+            ps.setString(3, dataType);
+            ps.setString(4, affix);
+            ps.setString(5, filename);
             ps.execute();
             ps.close();
             System.out.println("keyword inserted");
@@ -391,14 +340,13 @@ public class Database {
      * @param * the inputs correspond to the node class's fields
      * @throws SQLException
      */
-    public static void insertExperiment(String experimentID, String longName, String shortName, String description, String filename)  throws SQLException{
+    public static void insertExperiment(String longName, String shortName, String description, String filename)  throws SQLException{
         try{
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO experiments VALUES (?, ?, ?, ?, ?)");
-            ps.setString(1, experimentID);
-            ps.setString(2, longName);
-            ps.setString(3, shortName);
-            ps.setString(4, description);
-            ps.setString(5, filename);
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO experiments VALUES (?, ?, ?, ?)");
+            ps.setString(1, longName);
+            ps.setString(2, shortName);
+            ps.setString(3, description);
+            ps.setString(4, filename);
             ps.execute();
             ps.close();
             System.out.println("experiment inserted");
@@ -413,26 +361,49 @@ public class Database {
         }
     }
 
+    /**
+     * Inserts a keyword into the database
+     * @param * the inputs correspond to the node class's fields
+     * @throws SQLException
+     */
+    public static void insertResearcher(String researcherID, String longName, String shortName)  throws SQLException{
+        try{
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO researchers VALUES (?, ?, ?)");
+            ps.setString(1, researcherID);
+            ps.setString(2, longName);
+            ps.setString(3, shortName);
+            ps.execute();
+            ps.close();
+            System.out.println("researcher inserted");
+        }
+        catch(SQLIntegrityConstraintViolationException e) {
+            System.out.println("Could not insert experiment because researcher already exists.");
+        }
+        catch(SQLException e){
+            System.out.println("Could not insert the researcher.");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 
     /**
      * Updates all the keyword fields to match the given fields (not efficient for changing only a few fields)
      * @param * The inputs correspond to the node's fields
      */
-    public static void updateKeyword(String keywordID, String longName, String shortName, String dataType, String affix, String dataValue, String filename){
+    public static void updateKeyword(String longName, String shortName, String dataType, String affix, String dataValue, String filename){
         try{
             PreparedStatement ps = connection.prepareStatement("UPDATE keywords SET " +
-                    "dataValue=?, " +
                     "shortName=?, " +
                     "dataType=?, " +
                     "affix=?" +
                     "filename=?" +
-                    "WHERE keywordID=?");
-            ps.setString(1, longName);
-            ps.setString(2, shortName);
-            ps.setString(3, dataType);
-            ps.setString(4, affix);
-            ps.setString(5, filename);
-            ps.setString(6, keywordID);
+                    "WHERE longName=?");
+            ps.setString(1, shortName);
+            ps.setString(2, dataType);
+            ps.setString(3, affix);
+            ps.setString(4, filename);
+            ps.setString(5, longName);
 
             ps.execute();
             ps.close();
@@ -447,19 +418,17 @@ public class Database {
      * Updates all the keyword fields to match the given fields (not efficient for changing only a few fields)
      * @param * The inputs correspond to the node's fields
      */
-    public static void updateExperiment(String experimentID, String longName, String shortName, String description, String filename){
+    public static void updateExperiment(String longName, String shortName, String description, String filename){
         try{
-            PreparedStatement ps = connection.prepareStatement("UPDATE keywords SET " +
-                    "longName=?, " +
+            PreparedStatement ps = connection.prepareStatement("UPDATE experiments SET " +
                     "shortName=?, " +
                     "description=?, " +
                     "filename=?" +
-                    "WHERE experimentID=?");
-            ps.setString(1, longName);
-            ps.setString(2, shortName);
-            ps.setString(3, description);
-            ps.setString(4,filename);
-            ps.setString(5, experimentID);
+                    "WHERE longName=?");
+            ps.setString(1, shortName);
+            ps.setString(2, description);
+            ps.setString(3, filename);
+            ps.setString(4, longName);
 
             ps.execute();
             ps.close();
@@ -508,23 +477,21 @@ public class Database {
                 // For loading experiments
                 if(type.equals("experiments")) {
                     // insert an edge into the database
-                    String experimentID = items[0];
-                    String longName = items[1];
-                    String shortName = items[2];
-                    String description = items[3];
+                    String longName = items[0];
+                    String shortName = items[1];
+                    String description = items[2];
 
-                    insertExperiment(experimentID, longName, shortName, description, filename);
+                    insertExperiment(longName, shortName, description, filename);
                 }
                 // For loading keywords
                 else if(type.equals("keywords")){
-                    String keywordID = items[0];
-                    String longName = items[1];
-                    String shortName = items[2];
-                    String dataType = items[3];
-                    String affix = items[4];
+                    String longName = items[0];
+                    String shortName = items[1];
+                    String dataType = items[2];
+                    String affix = items[3];
 
                     // insert new node into database
-                    insertKeyword(keywordID, longName, shortName, dataType, affix, filename);
+                    insertKeyword(longName, shortName, dataType, affix, filename);
                 }
             }
         }
@@ -553,6 +520,7 @@ public class Database {
             System.out.println("Could not remove keyword");
             e.printStackTrace();
         }
+        KeywordManager.getInstance().removeKeyword(longName);
     }
 
     public static void removeExperiment(String longName) throws SQLException
@@ -566,6 +534,7 @@ public class Database {
             System.out.println("Could not remove experiment");
             e.printStackTrace();
         }
+        ExperimentManager.getInstance().removeExperiment(longName);
     }
 
 
@@ -591,19 +560,18 @@ public class Database {
             ResultSet rs = s.executeQuery("SELECT * FROM keywords");
 
 
-            String keywordID,longName,shortName,dataType,affix;
+            String longName,shortName,dataType,affix;
 
             // Write each edge to the .csv file
             while(rs.next()){
                 // get fields
-                keywordID = rs.getString("keywordID");
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
                 affix = rs.getString("affix");
 
                 // combine fields into a line and write it
-                writer.write(keywordID + "," + longName + "," + shortName + "," + dataType + "," + affix + "\n");
+                writer.write(longName + "," + shortName + "," + dataType + "," + affix + "\n");
             }
 
             s.close();
@@ -635,25 +603,24 @@ public class Database {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
             // write column titles
-            writer.write("experimentID,longName,shortName,description\n");
+            writer.write("longName,shortName,description\n");
 
             // retrieve edges from database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM experiments");
 
 
-            String experimentID,longName,shortName,description;
+            String longName,shortName,description;
 
             // Write each edge to the .csv file
             while(rs.next()){
                 // get fields
-                experimentID = rs.getString("experimentID");
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 description = rs.getString("description");
 
                 // combine fields into a line and write it
-                writer.write(experimentID + "," + longName + "," + shortName + "," + description + "\n");
+                writer.write(longName + "," + shortName + "," + description + "\n");
             }
 
             s.close();
@@ -883,11 +850,10 @@ public class Database {
             // Retrieve all experiment types in database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM experiments");
-            String experimentID, longName, shortName, description, filename;
+            String longName, shortName, description, filename;
 
             // for each node, build an object
             while(rs.next()) {
-                experimentID = rs.getString("experimentID");
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 description = rs.getString("description");
@@ -898,8 +864,8 @@ public class Database {
                 }
 
                 // create node instance and put it in the nodes HashMap
-                Experiment n = new Experiment(experimentID, longName, shortName, description, filename);
-                experiments.put(experimentID, n);
+                Experiment n = new Experiment(longName, shortName, description, filename);
+                experiments.put(longName, n);
             }
         } catch(SQLException e){
             System.out.println("Failed to load experiments to classes");
@@ -930,11 +896,10 @@ public class Database {
             // Retrieve all keyword types in database
             Statement s = connection.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM keywords");
-            String keywordID, longName, shortName, dataType, affix, filename;
+            String longName, shortName, dataType, affix, filename;
 
             // for each node, build an object
             while(rs.next()) {
-                keywordID = rs.getString("keywordID");
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
                 dataType = rs.getString("dataType");
@@ -943,8 +908,8 @@ public class Database {
 
 
                 // create node instance and put it in the nodes HashMap
-                Keyword n = new Keyword(keywordID, longName, shortName, dataType, affix, "", filename);
-                keywords.put(keywordID, n);
+                Keyword n = new Keyword(longName, shortName, dataType, affix, "", filename);
+                keywords.put(longName, n);
             }
         } catch(SQLException e){
             System.out.println("Failed to load keywords to classes");
@@ -953,12 +918,5 @@ public class Database {
         return keywords;
     }
 
-    /**
-     * Build classes from database
-     * @return returns a hash map of all MapNodes, with their nodeID as the key
-     */
-    public static ArrayList<String> getKeywordFiles() {
-        return keywordFiles;
-    }
 
 }

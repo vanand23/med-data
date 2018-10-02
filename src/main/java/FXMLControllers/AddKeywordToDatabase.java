@@ -60,11 +60,13 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        //pickKeywordDatabase.getItems().add();
         final JFXButton previewHelp = keywordPreviewHelp;
         final Tooltip previewTooltip = new Tooltip();
         previewTooltip.setText("View a preview of your keyword with example values.");
         previewHelp.setTooltip(previewTooltip);
+
+        pickKeywordDatabase.getItems().addAll(KeywordManager.getInstance().getKeywordFiles());
+        pickKeywordDatabase.getSelectionModel().selectFirst();
 
         final ToggleGroup AffixPrefButtons = new ToggleGroup();
         final ToggleGroup DataTypePrefButtons = new ToggleGroup();
@@ -77,12 +79,11 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
             }
             else{keywordPreviewField.setText("");}
         } );
-
     }
 
     @FXML
     public void handleSubmitButton(ActionEvent e) throws IOException {
-        getListOfKeywordsFromDatabase().add(new Keyword("",
+        getListOfKeywordsFromDatabase().add(new Keyword(
                 thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordAffix,
@@ -90,22 +91,15 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
                 "",
                 pickKeywordDatabase.getValue()
                 ));
-        int keywordListSize = KeywordManager.getInstance().getNumberOfKeywords();
-        Keyword lastKeyword = KeywordManager.getInstance().getKeywords().get(String.valueOf(keywordListSize));
-        if(lastKeyword == null)
-        {
-            lastKeyword = new Keyword("0","","","","","", "");
-        }
 
         KeywordManager.getInstance().addKeyword(
-                new Keyword((String.valueOf(Integer.valueOf(lastKeyword.getID())+1)),
+                new Keyword(
                 thekeywordName.getText(),
                 thekeywordAbbrev.getText(),
                 keywordDataType,
                 keywordAffix,
                 "",
                 pickKeywordDatabase.getValue()));
-
         thekeywordName.clear();
         thekeywordAbbrev.clear();
         Stage primaryStage = (Stage) thekeywordAbbrev.getScene().getWindow();
