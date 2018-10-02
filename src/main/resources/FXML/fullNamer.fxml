@@ -264,6 +264,11 @@
                </JFXButton>
             </children>
          </AnchorPane>
+         <AnchorPane fx:id="gettingStartedPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="50.0" StackPane.alignment="TOP_LEFT">
+            <children>
+               <JFXButton fx:id="gettingStartedButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleGettingStarted" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Getting Started" />
+            </children>
+         </AnchorPane>
          <AnchorPane fx:id="projectPreferencesPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="100.0" StackPane.alignment="TOP_LEFT">
             <children>
                <JFXButton fx:id="projectPreferencesButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handlePreferences" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Project Preferences" />
@@ -284,11 +289,6 @@
             <children>
                <JFXButton fx:id="researchersButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleResearchers" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Researchers" />
             </children></AnchorPane>
-         <AnchorPane fx:id="gettingStartedPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="50.0" StackPane.alignment="TOP_LEFT">
-            <children>
-               <JFXButton fx:id="gettingStartedButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleGettingStarted" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Getting Started" />
-            </children>
-         </AnchorPane>
         </children>
     </StackPane>
    <padding>

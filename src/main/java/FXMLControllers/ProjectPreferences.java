@@ -186,7 +186,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     @FXML
     public void openKeywordLibrary (ActionEvent e) throws IOException {
-        popupScreen("FXML/KeywordsDBTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/KeywordsTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
     }
 
     @FXML

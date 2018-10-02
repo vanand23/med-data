@@ -1,15 +1,10 @@
 package FXMLControllers;
 
 import Singletons.Database;
-import Types.ExperimentManager;
 import Types.KeywordManager;
 import Types.Keyword;
-import Utilities.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -30,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class KeywordsDBTable extends ScreenController implements Initializable, ITypeObserver {
+public class KeywordsTable extends ScreenController implements Initializable, ITypeObserver {
 
     @FXML
     public ChoiceBox<String> selectKeywordFile;
@@ -61,7 +55,7 @@ public class KeywordsDBTable extends ScreenController implements Initializable, 
     private static String selectedValue = "";
 
     static void setSelectedValue(String selectedValue) {
-        KeywordsDBTable.selectedValue = selectedValue;
+        KeywordsTable.selectedValue = selectedValue;
     }
 
     static ObservableList<Keyword> getListOfKeywordsFromDatabase() {
