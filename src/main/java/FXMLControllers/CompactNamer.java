@@ -3,6 +3,7 @@ package FXMLControllers;
 import Types.Filename;
 import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
@@ -40,6 +41,12 @@ public class CompactNamer extends Namer implements Initializable {
     @FXML
     private JFXButton closeButton;
 
+    @FXML
+    private JFXCheckBox sampleCheckbox;
+
+    @FXML
+    private JFXCheckBox trialCheckbox;
+
     private static Filename sharedFilename;
 
     static void setCompactNamerFilename(Filename sharedFilename) {
@@ -73,11 +80,21 @@ public class CompactNamer extends Namer implements Initializable {
             }
         });
 
-
-
         experimentDate.setValue(LocalDate.now());
-        trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
-        sampleNumber.setText(String.valueOf(sharedFilename.getSampleNumber()));
+
+        if(trialNumber.getText()=="-1"){
+            trialNumber.setText("0");
+        }
+        else{
+            trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
+        }
+
+        if(sampleNumber.getText()=="-1"){
+            sampleNumber.setText("0");
+        }
+        else{
+            sampleNumber.setText(String.valueOf(sharedFilename.getSampleNumber()));
+        }
 
 
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) ->
@@ -93,6 +110,29 @@ public class CompactNamer extends Namer implements Initializable {
             sharedFilename.setSampleNumber(Integer.parseInt(newSampleNumber));
             setFullNamerSharedFilename(sharedFilename);
         });
+
+        trialCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            trialNumber.setDisable(!newIsSelected);
+            if(!newIsSelected)
+            {
+                sharedFilename.setTrialNumber(-1);
+            }else{
+                sharedFilename.setTrialNumber(Integer.parseInt(trialNumber.getText()));
+            }
+        });
+
+        sampleCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+            sampleNumber.setDisable(!newIsSelected);
+            if(!newIsSelected)
+            {
+                sharedFilename.setSampleNumber(-1);
+            }else{
+                sharedFilename.setSampleNumber(Integer.parseInt(sampleNumber.getText()));
+            }
+        });
+
+
+
     }
 
     @FXML

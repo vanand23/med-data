@@ -2,11 +2,11 @@
 
 <?import Utilities.AutocompleteTextField?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -53,11 +53,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" spacing="20.0">
                         <children>
-                     <CheckBox fx:id="dateCheckbox" ellipsisString="" mnemonicParsing="false" selected="true" text="dateCheckbox">
-                        <font>
-                           <Font size="18.0" />
-                        </font>
-                     </CheckBox>
+                     <JFXCheckBox fx:id="dateCheckbox" checkedColor="#009688" selected="true" text=" " />
                             <Label minWidth="-Infinity" prefWidth="110.0" stylesheets="@../CSS/label.css" text="Date">
                                 <font>
                                     <Font name="Alte Haas Grotesk Bold" size="18.0" />
@@ -73,11 +69,7 @@
                     </HBox>
                <HBox alignment="BOTTOM_CENTER" spacing="20.0">
                   <children>
-                     <CheckBox fx:id="experimentCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
-                        <font>
-                           <Font size="18.0" />
-                        </font>
-                     </CheckBox>
+                     <JFXCheckBox fx:id="experimentCheckbox" checkedColor="#009688" selected="true" text=" " />
                             <Label minHeight="-Infinity" prefWidth="110.0" stylesheets="@../CSS/label.css" text="Experiment">
                                 <font>
                                     <Font name="Alte Haas Grotesk Bold" size="18.0" />
@@ -92,11 +84,7 @@
                </HBox>
                <HBox alignment="BOTTOM_CENTER" spacing="20.0">
                   <children>
-                     <CheckBox fx:id="researcherCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
-                        <font>
-                           <Font size="18.0" />
-                        </font>
-                     </CheckBox>
+                     <JFXCheckBox fx:id="researcherCheckbox" checkedColor="#009688" selected="true" text=" " />
                             <Label prefWidth="110.0" stylesheets="@../CSS/label.css" text="Researcher">
                                 <font>
                                     <Font name="Alte Haas Grotesk Bold" size="18.0" />
@@ -123,11 +111,7 @@
                                     </Label>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <CheckBox fx:id="trialNumberCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
-                                    <font>
-                                       <Font size="18.0" />
-                                    </font>
-                                 </CheckBox>
+                                 <JFXCheckBox fx:id="trialNumberCheckbox" checkedColor="#009688" selected="true" text=" " />
                                           <JFXTextField fx:id="trialNumber" labelFloat="true" unFocusColor="BLACK">
                                               <font>
                                                   <Font name="Arial" size="20.0" />
@@ -165,11 +149,7 @@
                                     </Label>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <CheckBox fx:id="sampleNumberCheckbox" ellipsisString="" mnemonicParsing="false" selected="true">
-                                    <font>
-                                       <Font size="18.0" />
-                                    </font>
-                                 </CheckBox>
+                                 <JFXCheckBox fx:id="sampleNumberCheckbox" checkedColor="#009688" selected="true" text=" " />
                                           <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
                                               <font>
                                                   <Font name="Arial" size="20.0" />
