@@ -2,10 +2,9 @@ package Types;
 
 import Singletons.Database;
 
-public class Experiment {
+public class Researcher {
     private String longName;
     private String shortName;
-    private String description;
     private String filename;
 
     public String getLongName() {
@@ -13,8 +12,6 @@ public class Experiment {
     }
 
     public String getShortName() { return shortName; }
-
-    public String getDescription() { return description;}
 
     public String getFilename() {
         return filename;
@@ -24,12 +21,11 @@ public class Experiment {
      * Constructor of Experiment
      * @param longName  String of this MapNode's long name
      * @param shortName String of this MapNode's short name
-     * @param description  String of this MapNode's long name
+     * @param filename  String of this MapNode's file name
      */
-    public Experiment(String longName, String shortName, String description, String filename){
+    public Researcher(String longName, String shortName, String filename){
         this.longName = longName;
         this.shortName = shortName;
-        this.description = description;
         this.filename = filename;
     }
 
@@ -37,6 +33,7 @@ public class Experiment {
      * Updates the contents of the database to match the current state of this node
      */
     private void updateDB() {
-        Database.updateExperiment(this.longName, this.shortName, this.description, this.filename);
+        //Database.updateResearcher(this.longName, this.shortName, this.filename);
     }
+
 }

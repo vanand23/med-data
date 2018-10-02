@@ -73,42 +73,23 @@ public class Database {
             dropTables();
             createTables();
             Config config = new Config();
-            String configExperimentFiles = config.getProperty("experimentFiles");
-            loadFromCSV("experiments","defaultExperiments.csv");
-            loadFilesFromConfig("experiments", configExperimentFiles);
-
-
-            String configKeywordFiles = config.getProperty("keywordFiles");
-            loadFromCSV("keywords","defaultKeywords.csv");
-            loadFilesFromConfig("keywords", configKeywordFiles);
+            loadFilesInDirectory("experiments");
+            loadFilesInDirectory("keywords");
+            loadFilesInDirectory("researchers");
         }
 
         // Connection successful!
         System.out.println("Java DB connection established!");
     }
 
-    private static void loadFilesFromConfig(String type, String configDatabaseFiles) {
-        if(configDatabaseFiles != null && !configDatabaseFiles.trim().isEmpty())
+    private static void loadFilesInDirectory(String type) {
+        File[] newKeywordFiles = filesInDirectory("Libraries/" + type);
+        for(File file : newKeywordFiles)
         {
-            String[] databaseFiles = configDatabaseFiles.split(",");
-            for (String databaseFile : databaseFiles) {
-                try{
-                    Database.loadFromCSV(type, databaseFile);
-
-                    switch (type)
-                    {
-                        case "experiments":
-                            experimentFiles.add(databaseFile);
-                            break;
-                        case "keywords":
-                            //keywordFiles.add(databaseFile);
-                            break;
-                    }
-                }catch(NullPointerException n){
-                    System.err.println("Couldn't load file " + databaseFile);
-                }
-            }
+            loadFromCSV(type, file.getName());
         }
+
+
     }
 
     /** Creates the node and edge tables
@@ -119,16 +100,16 @@ public class Database {
         // Create user table if it does not already exist
         createTable("researchers",
                 "CREATE TABLE researchers (" +
-                        "researcherID VARCHAR(50) primary key, " +
-                        "longName VARCHAR(100), " +
-                        "shortName VARCHAR(50))");
+                        "longName VARCHAR(50) primary key, " +
+                        "shortName VARCHAR(50)," +
+                        "filename VARCHAR(50))");
 
         // keywords
         // Create keywords table if it does not already exist
         createTable("keywords",
                 "CREATE TABLE keywords(" +
                         "longName VARCHAR(50) primary key," +
-                        "shortName VARCHAR(50)," +
+                        "shortName VARCHAR(50) not null unique," +
                         "dataType VARCHAR(50)," +
                         "affix VARCHAR(50)," +
                         "filename VARCHAR(50))");
@@ -366,18 +347,18 @@ public class Database {
      * @param * the inputs correspond to the node class's fields
      * @throws SQLException
      */
-    public static void insertResearcher(String researcherID, String longName, String shortName)  throws SQLException{
+    public static void insertResearcher(String longName, String shortName, String filename)  throws SQLException{
         try{
             PreparedStatement ps = connection.prepareStatement("INSERT INTO researchers VALUES (?, ?, ?)");
-            ps.setString(1, researcherID);
-            ps.setString(2, longName);
-            ps.setString(3, shortName);
+            ps.setString(1, longName);
+            ps.setString(2, shortName);
+            ps.setString(3, filename);
             ps.execute();
             ps.close();
             System.out.println("researcher inserted");
         }
         catch(SQLIntegrityConstraintViolationException e) {
-            System.out.println("Could not insert experiment because researcher already exists.");
+            System.out.println("Could not insert researcher because researcher already exists.");
         }
         catch(SQLException e){
             System.out.println("Could not insert the researcher.");
@@ -475,23 +456,34 @@ public class Database {
                 String[] items = line.split(splitter);
 
                 // For loading experiments
-                if(type.equals("experiments")) {
-                    // insert an edge into the database
-                    String longName = items[0];
-                    String shortName = items[1];
-                    String description = items[2];
+                switch (type) {
+                    case "experiments": {
+                        // insert an edge into the database
+                        String longName = items[0];
+                        String shortName = items[1];
+                        String description = items[2];
 
-                    insertExperiment(longName, shortName, description, filename);
-                }
-                // For loading keywords
-                else if(type.equals("keywords")){
-                    String longName = items[0];
-                    String shortName = items[1];
-                    String dataType = items[2];
-                    String affix = items[3];
+                        insertExperiment(longName, shortName, description, filename);
+                        break;
+                    }
+                    // For loading keywords
+                    case "keywords": {
+                        String longName = items[0];
+                        String shortName = items[1];
+                        String dataType = items[2];
+                        String affix = items[3];
 
-                    // insert new node into database
-                    insertKeyword(longName, shortName, dataType, affix, filename);
+                        // insert new node into database
+                        insertKeyword(longName, shortName, dataType, affix, filename);
+                        break;
+                    }
+                    case "researchers": {
+                        String longName = items[0];
+                        String shortName = items[1];
+
+                        insertResearcher(longName, shortName, filename);
+                        break;
+                    }
                 }
             }
         }
@@ -537,6 +529,19 @@ public class Database {
         ExperimentManager.getInstance().removeExperiment(longName);
     }
 
+    public static void removeResearcher(String longName) throws SQLException
+    {
+        try{
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM researchers WHERE longName=?");
+            ps.setString(1, longName);
+            ps.execute();
+        }
+        catch(SQLException e){
+            System.out.println("Could not remove researcher");
+            e.printStackTrace();
+        }
+        ResearcherManager.getInstance().removeResearcher(longName);
+    }
 
     /**
      * Write all edges into a .csv file (puts file in the project directory NOT resources folder)
@@ -583,7 +588,7 @@ public class Database {
             System.out.println("Could not save DB to " + filename);
             e.printStackTrace();
         } catch(SQLException e){
-            System.out.println("Could not retrieve from ");
+            System.out.println("Could not retrieve from " + filename);
             e.printStackTrace();
         }
     }
@@ -632,133 +637,59 @@ public class Database {
             System.out.println("Could not save DB to " + filename);
             e.printStackTrace();
         } catch(SQLException e){
-            System.out.println("Could not retrieve from ");
+            System.out.println("Could not retrieve from " + filename);
             e.printStackTrace();
         }
     }
 
-
     /**
-     * Write all nodes into a .csv file (puts file in the project directory NOT resources folder)
+     * Write all edges into a .csv file (puts file in the project directory NOT resources folder)
      * @param filename the name of the file to write to
      */
-    public static void writeNodesToCSV(String filename){
+    public static void writeResearchersToCSV(String filename){
         // Quit if no database connected
         if(connection == null){
             System.out.println("No connection with ");
             return;
         }
-
         // Open the csv file
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
-            // write the column titles
-            writer.write("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName,xcoord3d,ycoord3d\n");
+            // write column titles
+            writer.write("longName,shortName\n");
 
-            // retrieve all nodes
+            // retrieve edges from database
             Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM nodes");
+            ResultSet rs = s.executeQuery("SELECT * FROM researchers");
 
-            String nodeID, floor, building, nodeType, longName, shortName;
-            int xcoord, ycoord, xcoord3d, ycoord3d;
 
-            // for each node, write it to the .csv file
+            String longName,shortName;
+
+            // Write each edge to the .csv file
             while(rs.next()){
-                // get the node's fields
-                nodeID = rs.getString("nodeID");
-                xcoord = rs.getInt("xcoord");
-                ycoord = rs.getInt("ycoord");
-                xcoord3d = rs.getInt("xcoord3d");
-                ycoord3d = rs.getInt("ycoord3d");
-                floor = rs.getString("floor");
-                building = rs.getString("building");
-                nodeType = rs.getString("nodeType");
+                // get fields
                 longName = rs.getString("longName");
                 shortName = rs.getString("shortName");
-                // combine fields into a line and write it to the file
-                writer.write(nodeID + "," + xcoord + "," + ycoord + "," + floor + "," + building + "," +
-                        nodeType + "," + longName + "," + shortName + "," + xcoord3d + "," + ycoord3d + "\n");
-            }
+
+                // combine fields into a line and write it
+                writer.write(longName + "," + shortName + "\n");
+            }//FXMLControllers.ResearchersTable
 
             s.close();
             rs.close();
             writer.close();
-
-            System.out.println("Successfully saved nodes to " + filename);
+            System.out.println("Successfully saved researchers to " + filename);
 
         } catch(IOException e){
-            System.out.println("Could not save DB to " + filename);
+            System.out.println("Could not save researchers to " + filename);
             e.printStackTrace();
         } catch(SQLException e){
-            System.out.println("Could not retrieve from ");
+            System.out.println("Could not retrieve from " + filename);
             e.printStackTrace();
         }
     }
 
-    /**
-     * prints out all edges in database, for testing purposes
-     */
-    public static void dumpEdges(){
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM edges");
-
-            String edgeID, startNodeID, endNodeID;
-
-            while(rs.next()){
-                edgeID = rs.getString("edgeID");
-                startNodeID = rs.getString("startNodeID");
-                endNodeID = rs.getString("endNodeID");
-                System.out.format("Edge: ID = %s, Start = %s, End = %s\n", edgeID, startNodeID, endNodeID);
-            }
-
-            rs.close();
-            s.close();
-        }
-        catch(SQLException e){
-            System.out.println("Could not retrieve edges");
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * prints out all nodes in database, for testing purposes
-     */
-    public static void dumpNodes(){
-        try{
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM nodes");
-
-            String nodeID, floor, building, nodeType, longName, shortName;
-            int xcoord, ycoord, xcoord3d, ycoord3d;
-
-            while(rs.next()){
-                nodeID = rs.getString("nodeID");
-                xcoord = rs.getInt("xcoord");
-                ycoord = rs.getInt("ycoord");
-                xcoord3d = rs.getInt("xcoord3d");
-                ycoord3d = rs.getInt("ycoord3d");
-                floor = rs.getString("floor");
-                building = rs.getString("building");
-                nodeType = rs.getString("nodeType");
-                longName = rs.getString("longName");
-                shortName = rs.getString("shortName");
-                System.out.format("MapNode: ID = %s, X = %d, Y = %d, NewX = %d, Newy = %d," +
-                                "Floor = %s, Building = %s, NodeType = %s, LongName = %s, ShortName = %s\n",
-                        nodeID, xcoord, ycoord, xcoord3d, ycoord3d, floor, building, nodeType, longName, shortName);
-            }
-
-            rs.close();
-            s.close();
-        }
-        catch(SQLException e){
-            System.out.println("Could not retrieve edges");
-            e.printStackTrace();
-        }
-
-    }
 
     // closes the Database connection
     public static void close() {
@@ -771,69 +702,37 @@ public class Database {
         }
     }
 
-
-
     /**
-     * Simple function for doing most database queries. Does not work for anything that uses data types other than strings
-     * @param query the query string to use
-     * @param args the arguements to insert into the query string
+     * Build classes from database
+     * @return returns a hash map of all MapNodes, with their nodeID as the key
      */
-    public static void simpleSRQuery(String query, String[] args, Date d){
-        if(args.length < 1){
-            System.out.println("Could not insert, no values given.");
-            return;
-        }
+    public static HashMap<String, Researcher> loadResearchersToClasses(){
+
+        HashMap<String, Researcher> researchers = new HashMap<String, Researcher>();
+
+        // Build node objects
+        // Nodes MUST be built first to comply with constraints on edge database
         try{
-            PreparedStatement ps = connection.prepareStatement(query);
-            for(int i=0; i<args.length; i++){
-                ps.setString(i+1, args[i]);
+            // Retrieve all experiment types in database
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM researchers");
+            String longName, shortName, filename;
+
+            // for each node, build an object
+            while(rs.next()) {
+                longName = rs.getString("longName");
+                shortName = rs.getString("shortName");
+                filename = rs.getString("filename");
+
+                // create node instance and put it in the nodes HashMap
+                Researcher n = new Researcher(longName, shortName, filename);
+                researchers.put(longName, n);
             }
-            ps.setDate(args.length+1, d);
-
-            ps.execute();
-            ps.close();
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            System.out.println("Could not perform insert because of a key constraint.");
-            //e.printStackTrace();
-        }
-        catch (SQLException e){
-            System.out.println("Could not perform query");
+        } catch(SQLException e){
+            System.out.println("Failed to load researchers to classes");
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Simple function for doing most database queries. Does not work for anything that uses data types other than strings
-     * @param query the query string to use
-     * @param args the arguements to insert into the query string
-     */
-    public static void updateSRQuery(String query, String[] args, Date d){
-        if(args.length < 1){
-            System.out.println("Could not insert, no values given.");
-            return;
-        }
-        try{
-            PreparedStatement ps = connection.prepareStatement(query);
-            for(int i=0; i<args.length-1; i++){
-                ps.setString(i+1, args[i]);
-            }
-            ps.setDate(args.length, d);
-            ps.setString(args.length+1, args[args.length-1]);
-
-
-            ps.execute();
-            ps.close();
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            System.out.println("Could not perform insert because of a key constraint.");
-            //e.printStackTrace();
-        }
-        catch (SQLException e){
-            System.out.println("Could not perform query");
-            System.out.println(d.toString());
-            e.printStackTrace();
-        }
+        return researchers;
     }
 
     /**

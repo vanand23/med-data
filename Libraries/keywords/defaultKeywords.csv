@@ -1,2 +1,2 @@
-variableID,longName,shortName,dataType,affix
+longName,shortName,dataType,affix
 Time in hours,hrs,numeric,suffix

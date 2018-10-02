@@ -12,7 +12,7 @@ import java.io.IOException;
 import static FXMLControllers.KeywordsTable.setSelectedValue;
 import static Utilities.DirectorySearcher.doesFileExist;
 
-public class CreateNewKeywordDatabase {
+public class CreateNewResearcherDatabase {
     @FXML
     private JFXTextField newDatabaseName;
     @FXML
@@ -27,11 +27,11 @@ public class CreateNewKeywordDatabase {
     @FXML
     public void generateDatabase(ActionEvent actionEvent) throws IOException {
         String newDatabaseNameString = newDatabaseName.getText();
-        if(!doesFileExist(newDatabaseNameString, "keywords")){
+        if(!doesFileExist(newDatabaseNameString, "researchers")){
             File currDir = new File(".");
             String path = currDir.getAbsolutePath();
 
-            File file = new File(path.substring(0, path.length() - 1) + "/Libraries/keywords/" + newDatabaseNameString + ".csv");
+            File file = new File(path.substring(0, path.length() - 1) + "/Libraries/researchers/" + newDatabaseNameString + ".csv");
             file.createNewFile();
         }
         setSelectedValue(newDatabaseNameString);

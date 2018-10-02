@@ -48,7 +48,7 @@ public class Launcher extends Application {
 
         primaryStage.setScene(new Scene(root));
         primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWING, window -> {
-            FadeTransition ft = new FadeTransition(Duration.millis(2500), root);
+            FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
             ft.setFromValue(0.8);
             ft.setToValue(1.0);
             ft.play();
