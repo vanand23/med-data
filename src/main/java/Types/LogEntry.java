@@ -13,7 +13,7 @@ public class LogEntry {
     private String experimentDate;
     private String experimentTime;
     private String researcherName;
-    private String experimentType;
+    private String experimentName;
     private String trialNumber;
     private String sampleNumber;
     private String filename;
@@ -21,7 +21,7 @@ public class LogEntry {
     private ObservableList<Keyword> listOfKeywords;
     public LogEntry(LocalDate experimentDate,
                     String researcherName,
-                    String experimentType,
+                    String experimentName,
                     String trialNumber,
                     String sampleNumber,
                     String filename,
@@ -32,7 +32,7 @@ public class LogEntry {
         this.experimentDate = dateFormatter.format(experimentDate);
         this.experimentTime = ISO_LOCAL_TIME.format(LocalTime.now());
         this.researcherName = researcherName;
-        this.experimentType = experimentType;
+        this.experimentName = experimentName;
         this.trialNumber = trialNumber;
         this.sampleNumber = sampleNumber;
         this.filename = filename;
@@ -52,8 +52,8 @@ public class LogEntry {
         return researcherName;
     }
 
-    public String getExperimentType() {
-        return experimentType;
+    public String getExperimentName() {
+        return experimentName;
     }
 
     public String getTrialNumber() {

@@ -5,10 +5,19 @@ import Types.Filename;
 import Types.KeywordManager;
 import Types.Keyword;
 import Utilities.Config;
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
 import javax.naming.NameNotFoundException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Properties;
+
+import static Utilities.Config.setProperty;
 
 class Namer extends ScreenController{
 
@@ -121,5 +130,30 @@ class Namer extends ScreenController{
             }
         }
         return fname.toString();
+    }
+    void closeProgram(JFXButton closeButton) {
+        Config config = new Config();
+        String configRememberData = config.getProperty("rememberData");
+        if(configRememberData != null && !configRememberData.trim().isEmpty())
+        {
+            if(configRememberData.equals("false"))
+            {
+                try{
+                    Properties configFile = new Properties();
+                    configFile.load(new FileInputStream("config.properties"));
+                    configFile.clear();
+                    File tempFile = new File("config.properties");
+                    FileOutputStream fos = new FileOutputStream(tempFile);
+                    configFile.store(fos, "");
+                    fos.flush();
+                    fos.close();
+                    setProperty("rememberData", "false");
+                }catch (IOException e1){
+                    e1.printStackTrace();
+                }
+            }
+        }
+        Stage primaryStage = (Stage) closeButton.getScene().getWindow();
+        primaryStage.close();
     }
 }

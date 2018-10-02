@@ -87,23 +87,11 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         {
             projectDescription.setText(configProjectDescription);
         }
-        /*
-        researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-            setProperty("researcherName",newResearcherName);
-        });
-        projectName.textProperty().addListener((obs, oldProjectName, newProjectName) -> {
-            setProperty("projectName",newProjectName);
-        });
-        projectDescription.textProperty().addListener((obs, oldProjectDescription, newProjectDescription) -> {
-            setProperty("projectDescription",newProjectDescription);
-        });*/
-
-        //final JFXButton filepathHelp = helpButtonFilepath;
-        //final Tooltip filepathTooltip = new Tooltip();
-        //filepathTooltip.setText("This should look like: /csv/Example.csv");
-        //filepathHelp.setTooltip(filepathTooltip);
-
-
+        String configRememberData = config.getProperty("rememberData");
+        if(configRememberData != null && !configRememberData.trim().isEmpty())
+        {
+            rememberData.setSelected(Boolean.valueOf(configRememberData));
+        }
     }
 
     @FXML
@@ -201,21 +189,8 @@ public class ProjectPreferences extends ScreenController implements Initializabl
             setProperty("rememberData", "true");
         }
         else{
-           try{
-               isRememberData = false;
-               Properties configFile = new Properties();
-               configFile.load(new FileInputStream("config.properties"));
-               configFile.clear();
-               File tempFile = new File("config.properties");
-               FileOutputStream fos = new FileOutputStream(tempFile);
-               configFile.store(fos, "");
-               fos.flush();
-               fos.close();
-               setProperty("rememberData", "false");
-           }
-            catch(IOException e1){
-               e1.printStackTrace();
-            }
+           isRememberData = false;
+           setProperty("rememberData", "false");
         }
     }
 

@@ -1,0 +1,5 @@
+.label:disabled,
+.label{
+    -fx-font-family: "Alte Haas Grotesk Bold";
+    -fx-text-fill: "#a31010";
+}
