@@ -684,17 +684,19 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handleKeywords(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/KeywordsDBTable.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/KeywordsTable.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords to DB");
     }
+
+    @FXML
+    public void handleResearchers(ActionEvent actionEvent) throws IOException{
+        popupScreen("FXML/ResearchersTable.fxml", addKeywordButton.getScene().getWindow(),"Add Researchers to DB");
+    }
+
     public void clearFields(ActionEvent e) {
         researcherName.setText("");
         sampleNumber.setText("0");
         trialNumber.setText("0");
         experimentTextField.setText("");
         data.clear();
-    }
-
-    @FXML
-    public void handleResearchers(ActionEvent actionEvent) {
     }
 }

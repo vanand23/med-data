@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static FXMLControllers.KeywordsDBTable.getListOfKeywordsFromDatabase;
+import static FXMLControllers.KeywordsTable.getListOfKeywordsFromDatabase;
 
 public class AddKeywordToDatabase extends ScreenController implements Initializable {
 
