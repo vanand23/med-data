@@ -86,7 +86,7 @@ public class CompactNamer extends Namer implements Initializable {
 
         experimentDate.setValue(LocalDate.now());
 
-        if(trialNumber.getText()=="-1"){
+        if(trialNumber.getText().equals("-1")){
             trialNumber.setText("0");
         }
         else{
@@ -185,7 +185,7 @@ public class CompactNamer extends Namer implements Initializable {
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
+        popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow());
     }
 
     @FXML

@@ -38,14 +38,12 @@ public abstract class ScreenController {
      * @param title the name that will appear at the top of the popup window
      * @throws IOException exception thrown
      */
-    Stage popupScreen(String fxml, Window ownerWindow, String title) throws IOException{
+    Stage popupScreen(String fxml, Window ownerWindow) throws IOException{
         Stage stage = new Stage();
-        //Parent root = FXMLManager.getInstance().getOrLoadFXMLNode(fxml);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle(title);
         stage.initModality(Modality.APPLICATION_MODAL); //prevents main window from receiving input
         stage.initOwner(ownerWindow); //sets the main window as this screens owner
         stage.initStyle(StageStyle.TRANSPARENT);

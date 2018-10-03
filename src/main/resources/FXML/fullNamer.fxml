@@ -250,7 +250,7 @@
          <AnchorPane fx:id="shadingOverlay" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" style="-fx-background-color: BLACK;" StackPane.alignment="CENTER" />
          <AnchorPane fx:id="menu" maxHeight="50.0" maxWidth="200.0" prefHeight="50.0" prefWidth="200.0" translateX="-133.0" StackPane.alignment="TOP_LEFT">
             <children>
-               <JFXButton fx:id="menuButton" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="50.0" maxHeight="50.0" maxWidth="266.0" onAction="#menuPressed" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" stylesheets="@../CSS/drawerButtons.css" text="Close Menu" textOverrun="CLIP">
+               <JFXButton fx:id="menuButton" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="19.0" maxHeight="50.0" maxWidth="200.0" onAction="#menuPressed" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" stylesheets="@../CSS/drawerButtons.css" text="Close Menu" textOverrun="CLIP">
                   <graphic>
                      <ImageView fx:id="menuButtonIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -271,7 +271,10 @@
          </AnchorPane>
          <AnchorPane fx:id="projectPreferencesPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="100.0" StackPane.alignment="TOP_LEFT">
             <children>
-               <JFXButton fx:id="projectPreferencesButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handlePreferences" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Project Preferences" />
+               <JFXButton fx:id="projectPreferencesButton" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="150.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handlePreferences" prefHeight="50.0" prefWidth="200.0" stylesheets="@../CSS/drawerButtons.css" text="Project Preferences">
+                  <padding>
+                     <Insets left="-2.0" right="-2.0" />
+                  </padding></JFXButton>
             </children></AnchorPane>
          <AnchorPane fx:id="loggerPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" translateX="-200.0" translateY="150.0" StackPane.alignment="TOP_LEFT">
             <children>
