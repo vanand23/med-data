@@ -12,6 +12,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+//This is used to run the whole program and launch the app, particularly the full namer window
 public class Launcher extends Application {
 
     //define your offsets here
