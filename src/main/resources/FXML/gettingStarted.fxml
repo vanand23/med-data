@@ -37,11 +37,11 @@
                            <children>
                               <VBox prefHeight="224.0" prefWidth="127.0" spacing="10.0">
                                  <children>
-                                    <JFXButton fx:id="fullNamerButton" onAction="#fullNamerInstructions" prefHeight="45.0" prefWidth="81.0" stylesheets="@../CSS/smallButtons.css" text="Full &#10;Namer" />
-                                    <JFXButton fx:id="compactNamerButton" onAction="#compactNamerInstructions" prefHeight="45.0" prefWidth="84.0" stylesheets="@../CSS/smallButtons.css" text="Compact &#10;Namer" />
-                                    <JFXButton fx:id="projectPreferencesButton" onAction="#projectPreferencesInstructions" prefHeight="45.0" prefWidth="86.0" stylesheets="@../CSS/smallButtons.css" text="Project &#10;Preferences" />
-                                    <JFXButton fx:id="loggerButton" onAction="#loggerInstructions" prefHeight="28.0" prefWidth="84.0" stylesheets="@../CSS/smallButtons.css" text="Logger" />
-                                    <JFXButton fx:id="databasesButton" onAction="#databasesInstructions" prefHeight="28.0" prefWidth="95.0" stylesheets="@../CSS/smallButtons.css" text="Databases" />
+                                    <JFXButton fx:id="fullNamerButton" onAction="#fullNamerInstructions" prefHeight="45.0" prefWidth="81.0" stylesheets="@../CSS/mediumButtons.css" text="Full &#10;Namer" />
+                                    <JFXButton fx:id="compactNamerButton" onAction="#compactNamerInstructions" prefHeight="45.0" prefWidth="84.0" stylesheets="@../CSS/mediumButtons.css" text="Compact &#10;Namer" />
+                                    <JFXButton fx:id="projectPreferencesButton" onAction="#projectPreferencesInstructions" prefHeight="45.0" prefWidth="86.0" stylesheets="@../CSS/mediumButtons.css" text="Project &#10;Preferences" />
+                                    <JFXButton fx:id="loggerButton" onAction="#loggerInstructions" prefHeight="28.0" prefWidth="84.0" stylesheets="@../CSS/mediumButtons.css" text="Logger" />
+                                    <JFXButton fx:id="databasesButton" onAction="#databasesInstructions" prefHeight="28.0" prefWidth="95.0" stylesheets="@../CSS/mediumButtons.css" text="Databases" />
                                  </children>
                               </VBox>
                               <JFXTextArea fx:id="instructionsTextArea" prefHeight="170.0" prefWidth="586.0" style="-fx-background-color: ffffff;" text="&#10;" wrapText="true" />
@@ -57,7 +57,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="67.0" prefWidth="600.0">
                      <children>
-                        <JFXButton fx:id="closeButton" onAction="#closeGettingStarted" stylesheets="@../CSS/smallButtons.css" text="Close" />
+                        <JFXButton fx:id="closeButton" onAction="#closeGettingStarted" stylesheets="@../CSS/mediumButtons.css" text="Close" />
                      </children>
                   </VBox>
                </children>

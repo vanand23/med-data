@@ -14,7 +14,7 @@
 
 <AnchorPane style="-fx-background-color: #C2dce5;-fx-border-color:#003366;-fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.ProjectPreferences">
    <children>
-      <VBox alignment="TOP_CENTER" fillWidth="false" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox alignment="TOP_CENTER" fillWidth="false" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
             <Label stylesheets="@../CSS/label.css" text="Project Preferences">
                <font>
@@ -23,9 +23,9 @@
             </Label>
             <HBox alignment="CENTER_LEFT" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="141.0" stylesheets="@../CSS/label.css" text="Researcher Name">
+                  <Label prefHeight="27.0" prefWidth="165.0" stylesheets="@../CSS/label.css" text="Researcher Name">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
                   <JFXTextField fx:id="researcherName" focusColor="#4d4d4d" labelFloat="true" style="-fx-background-color: ffffff;" HBox.hgrow="ALWAYS">
@@ -37,9 +37,9 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" minWidth="-Infinity" prefHeight="27.0" prefWidth="112.0" stylesheets="@../CSS/label.css" text="Project Name">
+                  <Label alignment="BOTTOM_LEFT" minWidth="-Infinity" prefHeight="27.0" prefWidth="165.0" stylesheets="@../CSS/label.css" text="Project Name">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
                   <JFXTextField fx:id="projectName" focusColor="#4d4d4d" labelFloat="true" prefHeight="29.0" prefWidth="273.0" style="-fx-background-color: ffffff;">
@@ -53,7 +53,7 @@
                <children>
                   <JFXTextArea fx:id="projectDescription" prefHeight="100.0" prefWidth="400.0" promptText="Project Description" style="-fx-background-color: ffffff;">
                      <font>
-                        <Font name="Arial" size="18.0" />
+                        <Font name="Arial" size="19.0" />
                      </font>
                   </JFXTextArea>
                </children>
@@ -62,72 +62,62 @@
                <children>
                   <Label minWidth="-Infinity" prefHeight="22.0" stylesheets="@../CSS/label.css" text="Select a separation character:">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="20.0" prefWidth="400.0" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="asterixButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToAsterix" text="Asterix (*)   ">
+                        <RadioButton fx:id="asterixButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToAsterix" style="-fx-font-size: 16; -fx-font-family: &quot;Alte Haas Grotesk Bold&quot;;" text="Asterix (*)   ">
                            <font>
-                              <Font name="Arial" size="18.0" />
+                              <Font name="Arial" size="19.0" />
                            </font>
                            <toggleGroup>
                               <ToggleGroup fx:id="prefButtons" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="hyphenButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToHyphen" text="Hyphen (-)   " toggleGroup="$prefButtons">
+                        <RadioButton fx:id="hyphenButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToHyphen" style="-fx-font-size: 16; -fx-font-family: &quot;Alte Haas Grotesk Bold&quot;;" text="Hyphen (-)   " toggleGroup="$prefButtons">
                            <font>
-                              <Font name="Arial" size="18.0" />
+                              <Font name="Arial" size="19.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="underscoreButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToUnderscore" selected="true" text="Underscore (_)   " toggleGroup="$prefButtons">
+                        <RadioButton fx:id="underscoreButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToUnderscore" selected="true" style="-fx-font-size: 16; -fx-font-family: &quot;Alte Haas Grotesk Bold&quot;;" text="Underscore (_)   " toggleGroup="$prefButtons">
                            <font>
-                              <Font name="Arial" size="18.0" />
+                              <Font name="Arial" size="19.0" />
                            </font>
                         </RadioButton>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="27.0" prefWidth="469.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="27.0" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="81.0" stylesheets="@../CSS/label.css" text="Preview:">
+                  <Label minWidth="-Infinity" prefHeight="27.0" prefWidth="165.0" stylesheets="@../CSS/label.css" text="Preview:">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
                   <JFXTextField fx:id="previewBox" editable="false" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: ffffff;" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="469.0">
+            <HBox alignment="CENTER_LEFT" prefWidth="400.0">
                <children>
                   <JFXCheckBox fx:id="rememberData" checkedColor="#009688" onAction="#checkRememberData" selected="true" stylesheets="@../CSS/label.css" text="Remember Full Namer fields">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                      </font>
                   </JFXCheckBox>
                </children>
             </HBox>
-            <HBox alignment="BOTTOM_RIGHT" spacing="20.0">
+            <HBox alignment="BOTTOM_RIGHT" prefWidth="400.0" spacing="30.0">
                <children>
-                  <JFXButton fx:id="keywordButton" disable="true" minWidth="-Infinity" onAction="#openKeywordLibrary" stylesheets="@../CSS/mediumButtons.css" text="All Keywords" visible="false">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="experiments" disable="true" minWidth="-Infinity" onAction="#openExperimentLibrary" stylesheets="@../CSS/mediumButtons.css" text="All Experiments" visible="false">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXButton>
                   <JFXButton fx:id="saveButton" minWidth="-Infinity" onAction="#saveProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Save">
                       <font>
-                          <Font size="18.0" />
+                          <Font size="19.0" />
                       </font>
                   </JFXButton>
                   <JFXButton fx:id="cancelButton" minWidth="-Infinity" onAction="#closeProjectPreferences" stylesheets="@../CSS/mediumButtons.css" text="Cancel">
                       <font>
-                          <Font size="18.0" />
+                          <Font size="19.0" />
                       </font>
                   </JFXButton>
                </children>

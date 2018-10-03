@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import static FXMLControllers.FullNamer.getData;
 import static Utilities.Config.setProperty;
 
-public class AddKeywordsUI extends ScreenController implements Initializable, ITypeObserver {
+public class SelectKeywordForFilename extends ScreenController implements Initializable, ITypeObserver {
 
     @FXML
     private AutocompleteTextField keywordName;

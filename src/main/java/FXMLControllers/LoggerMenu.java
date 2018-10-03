@@ -4,7 +4,6 @@ import Types.Keyword;
 import Types.LogEntry;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.org.apache.xpath.internal.axes.WalkerFactory;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +14,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 import java.awt.*;
 import java.io.File;
@@ -149,7 +146,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
     @FXML
     public void handleWriteToNewLogButton(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/writeToLogFile.fxml", closeLoggerButton.getScene().getWindow(),"Create a new log");
+        popupScreen("FXML/logFileWriter.fxml", closeLoggerButton.getScene().getWindow(),"Create a new log");
     }
 }
 

@@ -1,3 +1,7 @@
+@font-face {
+    src: url("AlteHaasGroteskBold.ttf");
+}
+
 .jfx-button:armed,
 .jfx-button:focused,
 .jfx-button:default,

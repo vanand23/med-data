@@ -38,12 +38,12 @@
                         <children>
                             <Label text="Full Namer">
                                 <font>
-                                    <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                 </font>
                             </Label>
                             <JFXToggleButton fx:id="switchNamers" focusTraversable="false" onAction="#handleToggleButton" text="Compact Namer">
                                 <font>
-                                    <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                 </font>
                                 <padding>
                                     <Insets bottom="-10.0" top="-10.0" />
@@ -56,13 +56,13 @@
                      <JFXCheckBox fx:id="dateCheckbox" checkedColor="#009688" selected="true" text=" " />
                             <Label minWidth="-Infinity" prefWidth="110.0" stylesheets="@../CSS/label.css" text="Date">
                                 <font>
-                                    <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                 </font>
                             </Label>
                             <DatePicker fx:id="experimentDate" prefWidth="400.0" style="-fx: #92dce5;" HBox.hgrow="ALWAYS" />
                             <JFXButton fx:id="helpButtonInput" stylesheets="@../CSS/helpButton.css" text="?">
                                 <font>
-                                    <Font name="Arial" size="18.0" />
+                                    <Font name="Arial" size="19.0" />
                                 </font>
                             </JFXButton>
                         </children>
@@ -72,7 +72,7 @@
                      <JFXCheckBox fx:id="experimentCheckbox" checkedColor="#009688" selected="true" text=" " />
                             <Label minHeight="-Infinity" prefWidth="110.0" stylesheets="@../CSS/label.css" text="Experiment">
                                 <font>
-                                    <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                 </font>
                             </Label>
                       <AutocompleteTextField fx:id="experimentTextField" labelFloat="true" onAction="#updateExperiment" unFocusColor="#0d004d" HBox.hgrow="ALWAYS">
@@ -87,7 +87,7 @@
                      <JFXCheckBox fx:id="researcherCheckbox" checkedColor="#009688" selected="true" text=" " />
                             <Label prefWidth="110.0" stylesheets="@../CSS/label.css" text="Researcher">
                                 <font>
-                                    <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                 </font>
                             </Label>
                             <JFXTextField fx:id="researcherName" labelFloat="true" HBox.hgrow="ALWAYS">
@@ -103,7 +103,7 @@
                                 <children>
                                     <Label stylesheets="@../CSS/label.css" text="Trial Number">
                                         <font>
-                                            <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                            <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                         </font>
                                         <VBox.margin>
                                             <Insets bottom="-5.0" />
@@ -117,7 +117,7 @@
                                                   <Font name="Arial" size="20.0" />
                                               </font>
                                           </JFXTextField>
-                                 <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="+">
+                                 <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/mediumButtons.css" text="+">
                                     <font>
                                        <Font size="16.0" />
                                     </font>
@@ -125,7 +125,7 @@
                                        <Insets bottom="-10.0" left="-10.0" right="-10.0" top="-10.0" />
                                     </padding>
                                  </JFXButton>
-                                 <JFXButton fx:id="minusTrialButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#decrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="-">
+                                 <JFXButton fx:id="minusTrialButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#decrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/mediumButtons.css" text="-">
                                     <font>
                                        <Font size="16.0" />
                                     </font>
@@ -144,7 +144,7 @@
                                             <Insets bottom="-5.0" />
                                         </VBox.margin>
                                         <font>
-                                            <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                            <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                         </font>
                                     </Label>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -155,7 +155,7 @@
                                                   <Font name="Arial" size="20.0" />
                                               </font>
                                           </JFXTextField>
-                                 <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="+" textOverrun="CLIP">
+                                 <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/mediumButtons.css" text="+" textOverrun="CLIP">
                                     <font>
                                        <Font size="16.0" />
                                     </font>
@@ -163,7 +163,7 @@
                                        <Insets bottom="-10.0" left="-10.0" right="-10.0" top="-10.0" />
                                     </padding>
                                  </JFXButton>
-                                 <JFXButton fx:id="minusSampleButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#decrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/smallButtons.css" text="-">
+                                 <JFXButton fx:id="minusSampleButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#decrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/mediumButtons.css" text="-">
                                     <font>
                                        <Font size="16.0" />
                                     </font>
@@ -179,7 +179,7 @@
                     </HBox>
                     <Label prefHeight="28.0" prefWidth="474.0" stylesheets="@../CSS/label.css" text="Keywords Table">
                         <font>
-                            <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                            <Font name="Alte Haas Grotesk Bold" size="19.0" />
                         </font>
                     </Label>
                     <HBox prefHeight="160.0" spacing="20.0">
@@ -197,12 +197,12 @@
                                 <children>
                                     <JFXButton fx:id="addKeywordButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAddButton" prefWidth="90.0" stylesheets="@../CSS/mediumButtons.css" text="Add">
                                         <font>
-                                            <Font size="18.0" />
+                                            <Font size="19.0" />
                                         </font>
                                     </JFXButton>
                                     <JFXButton fx:id="deleteButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleDeleteButton" prefWidth="90.0" stylesheets="@../CSS/mediumButtons.css" text="Delete">
                                         <font>
-                                            <Font size="18.0" />
+                                            <Font size="19.0" />
                                         </font>
                                     </JFXButton>
                                 </children>
@@ -213,7 +213,7 @@
                           <children>
                             <Label stylesheets="@../CSS/label.css" text="Output:">
                                 <font>
-                                    <Font name="Alte Haas Grotesk Bold" size="18.0" />
+                                    <Font name="Alte Haas Grotesk Bold" size="19.0" />
                                 </font>
                             </Label>
                               <JFXTextField fx:id="outputText" prefHeight="25.0" HBox.hgrow="ALWAYS" />
@@ -224,17 +224,17 @@
                         <children>
                      <JFXButton fx:id="clearButton" onAction="#clearFields" stylesheets="@../CSS/mediumButtons.css" text="Clear">
                         <font>
-                           <Font size="18.0" />
+                           <Font size="19.0" />
                         </font>
                      </JFXButton>
                             <JFXButton fx:id="copyNameButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/mediumButtons.css" text="Copy">
                                 <font>
-                                    <Font size="18.0" />
+                                    <Font size="19.0" />
                                 </font>
                             </JFXButton>
                             <JFXButton fx:id="closeButton" onAction="#closeFullNamer" stylesheets="@../CSS/mediumButtons.css" text="Close">
                                 <font>
-                                    <Font size="18.0" />
+                                    <Font size="19.0" />
                                 </font>
                             </JFXButton>
                         </children>
@@ -248,9 +248,9 @@
             </StackPane.margin>
             </VBox>
          <AnchorPane fx:id="shadingOverlay" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" style="-fx-background-color: BLACK;" StackPane.alignment="CENTER" />
-         <AnchorPane fx:id="menu" maxHeight="50.0" maxWidth="266.0" prefHeight="50.0" prefWidth="266.0" translateX="-200.0" StackPane.alignment="TOP_LEFT">
+         <AnchorPane fx:id="menu" maxHeight="50.0" maxWidth="200.0" prefHeight="50.0" prefWidth="200.0" translateX="-133.0" StackPane.alignment="TOP_LEFT">
             <children>
-               <JFXButton fx:id="menuButton" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="50.0" maxHeight="50.0" maxWidth="266.0" onAction="#menuPressed" prefHeight="50.0" prefWidth="266.0" ripplerFill="WHITE" stylesheets="@../CSS/drawerButtons.css" text="Close Menu" textOverrun="CLIP">
+               <JFXButton fx:id="menuButton" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="50.0" maxHeight="50.0" maxWidth="266.0" onAction="#menuPressed" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" stylesheets="@../CSS/drawerButtons.css" text="Close Menu" textOverrun="CLIP">
                   <graphic>
                      <ImageView fx:id="menuButtonIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                         <image>
