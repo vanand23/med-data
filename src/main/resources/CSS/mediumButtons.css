@@ -9,6 +9,7 @@
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
     -fx-effect: dropshadow(three-pass-box, #22303f, 3, 0, 2, 2);
+    -fx-font-size: 19;
     -fx-border-width: 0 0 4 0;
     -fx-border-radius: 0;
     -fx-border-color: #22303f;
@@ -18,7 +19,7 @@
 .jfx-button:focused{
     -fx-font-family: "Alte Haas Grotesk Bold";
     -fx-text-alignment: center;
-
+    -fx-font-size: 19;
     -fx-text-fill: #FFFCEB;
     -fx-cursor: hand;
 }

@@ -146,7 +146,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
     @FXML
     public void handleWriteToNewLogButton(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/logFileWriter.fxml", closeLoggerButton.getScene().getWindow(),"Create a new log");
+        popupScreen("FXML/logFileWriter.fxml", closeLoggerButton.getScene().getWindow());
     }
 }
 

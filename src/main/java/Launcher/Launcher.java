@@ -4,9 +4,9 @@ import Singletons.Database;
 import Singletons.FXMLManager;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -19,33 +19,38 @@ public class Launcher extends Application {
     private double yOffset = 0;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage stage) throws Exception{
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/fullNamer.fxml"));
 
-        fxmlManager.loadFXML("FXML/fullNamer.fxml");
+        fxmlManager.loadFXML();
 
-        Parent root = fxmlManager.getFXMLNode("FXML/fullNamer.fxml");
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+        stage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
         root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
         });
 
-        primaryStage.setScene(new Scene(root));
-        primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWING, window -> {
+        stage.setScene(scene);
+        stage.addEventHandler(WindowEvent.WINDOW_SHOWING, window -> {
             FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
             ft.setFromValue(0.8);
             ft.setToValue(1.0);
             ft.play();
         });
 
-        primaryStage.show();
+        stage.show();
 
     }
 

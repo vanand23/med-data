@@ -1,2 +1,3 @@
-longName,shortName,dataType,affix
+variableID,longName,shortName,dataType,affix
 Time in hours,hrs,numeric,suffix
+Pressure in pascals,Pa,numeric,suffix
