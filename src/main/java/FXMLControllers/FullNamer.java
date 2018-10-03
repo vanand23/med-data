@@ -190,6 +190,26 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private boolean isMenuOpen = false;
     private boolean isMenuPlaying = false;
 
+    public static void setIsSampleChecked(boolean isSampleChecked) {
+        FullNamer.isSampleChecked = isSampleChecked;
+    }
+
+    public static void setIsTrialChecked(boolean isTrialChecked) {
+        FullNamer.isTrialChecked = isTrialChecked;
+    }
+
+    private static boolean isSampleChecked = true;
+
+    public static boolean isIsSampleChecked() {
+        return isSampleChecked;
+    }
+
+    public static boolean isIsTrialChecked() {
+        return isTrialChecked;
+    }
+
+    private static boolean isTrialChecked = true;
+
     static void setFullNamerSharedFilename(Filename sharedFilename) {
         FullNamer.sharedFilename = sharedFilename;
     }
@@ -208,6 +228,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
+
         drawerList.add(menu);
         drawerList.add(gettingStartedPane);
         drawerList.add(projectPreferencesPane);
@@ -215,6 +237,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         drawerList.add(experimentsPane);
         drawerList.add(keywordsPane);
         drawerList.add(researchersPane);
+
 
         dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             experimentDate.setDisable(!newIsSelected);
@@ -251,25 +274,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
-            if(!newIsSelected)
-            {
-                sharedFilename.setTrialNumber(-1);
-            }else{
-                sharedFilename.setTrialNumber(Integer.parseInt(trialNumber.getText()));
-            }
+            isTrialChecked = newIsSelected;
             outputText.setText(updateName(sharedFilename));
         });
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
-            if(!newIsSelected)
-            {
-                sharedFilename.setSampleNumber(-1);
-            }else{
-                sharedFilename.setSampleNumber(Integer.parseInt(sampleNumber.getText()));
-            }
+           isSampleChecked = newIsSelected;
             outputText.setText(updateName(sharedFilename));
         });
+
 
 
         shadingOverlay.setMouseTransparent(true);
@@ -369,6 +383,21 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             projectName.setFont(new Font(19.0));
         }
 
+        if(!isTrialChecked){
+            trialNumber.setDisable(true);
+            trialNumberCheckbox.setSelected(false);
+        }
+        else{
+            trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
+        }
+
+        if(!isSampleChecked){
+            sampleNumber.setDisable(true);
+            sampleNumberCheckbox.setSelected(false);
+        }
+        else{
+            sampleNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
+        }
 
         experimentDate.setValue(LocalDate.now());
         experimentTextField.setAutocompleteWidth(350);
