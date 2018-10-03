@@ -1,4 +1,4 @@
 variableID,longName,shortName,dataType,affix
-Time in hours,hrs,numeric,suffix
+Pressure in pascals,Pa,numeric,suffix
 Key,k,numeric,suffix
 Frequency,hz,numeric,suffix
