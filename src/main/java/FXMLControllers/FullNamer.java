@@ -452,7 +452,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             {
                 try {
                     experimentTextField.setTriggerPopup(false);
-                    popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow(),"Experiment Type");
+                    popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow());
                 }catch (IOException e){
                     e.printStackTrace();
                 }
@@ -576,30 +576,29 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        popupScreen("FXML/compactNamer.fxml", switchNamers.getScene().getWindow(),"Compact Namer");
+        popupScreen("FXML/compactNamer.fxml", switchNamers.getScene().getWindow());
     }
 
     @FXML
     public void handlePreferences(ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        Stage popup = popupScreen("FXML/projectPreferences.fxml", projectPreferencesButton.getScene().getWindow(),
-                        "Project Preferences");
+        Stage popup = popupScreen("FXML/projectPreferences.fxml", projectPreferencesButton.getScene().getWindow());
     }
 
     @FXML
     public void handleLogger(ActionEvent e) throws IOException{
-        Stage popup = popupScreen("FXML/loggerMenu.fxml", loggerButton.getScene().getWindow(), "Logger");
+        Stage popup = popupScreen("FXML/loggerMenu.fxml", loggerButton.getScene().getWindow());
     }
 
     @FXML
     public void handleAddButton (ActionEvent e) throws IOException {
-        popupScreen("FXML/selectKeywordForFilename.fxml", addKeywordButton.getScene().getWindow(),"Add Keyword Menu");
+        popupScreen("FXML/selectKeywordForFilename.fxml", addKeywordButton.getScene().getWindow());
     }
 
     @FXML
     public void handleGettingStarted(ActionEvent e) throws IOException{
-        Stage popup = popupScreen("FXML/gettingStarted.fxml", gettingStartedButton.getScene().getWindow(), "Getting Started");
+        Stage popup = popupScreen("FXML/gettingStarted.fxml", gettingStartedButton.getScene().getWindow());
     }
 
 
@@ -631,7 +630,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private void menuPressed () {
         if(!isMenuPlaying) {
-
             ParallelTransition p = new ParallelTransition();
             if (!isMenuOpen) {
                 menuButtonIcon.setImage(backIcon);
@@ -662,22 +660,20 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
      */
     private ParallelTransition slideDrawers(int direction) {
         ParallelTransition p = new ParallelTransition();
-        PauseTransition pause = new PauseTransition();
-        int duration = 60;
+        int duration = 0;
         for (AnchorPane drawer : drawerList) {
-            if ((drawer.getTranslateX() == -200 && direction == 1)
-                    || (drawer.getTranslateX() >= 0 && direction == -1)) {
-                SequentialTransition pauseAndPlay = new SequentialTransition();
-                pause.setDuration(Duration.millis(duration));
-                duration += 60;
-                pauseAndPlay.getChildren().add(new PauseTransition(Duration.millis(duration)));
+            SequentialTransition pauseAndPlay = new SequentialTransition();
+            duration += 60;
+            pauseAndPlay.getChildren().add(new PauseTransition(Duration.millis(duration)));
+            p.getChildren().add(pauseAndPlay);
+            if(drawer.getId().equals("menu"))
+            {
+                pauseAndPlay.getChildren().add(slidingTransition(drawer, direction, 133.0));
+            }else{
                 pauseAndPlay.getChildren().add(slidingTransition(drawer, direction, 200.0));
-                p.getChildren().add(pauseAndPlay);
             }
         }
-        p.setOnFinished(event -> {
-            isMenuPlaying = false;
-        });
+        p.setOnFinished(event -> isMenuPlaying = false);
         return p;
     }
 
@@ -703,17 +699,17 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handleExperiments(ActionEvent actionEvent)throws IOException{
-        popupScreen("FXML/experimentsTable.fxml", addKeywordButton.getScene().getWindow(),"Add Experiments to DB");
+        popupScreen("FXML/experimentsTable.fxml", addKeywordButton.getScene().getWindow());
     }
 
     @FXML
     public void handleKeywords(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/keywordsTable.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/keywordsTable.fxml", addKeywordButton.getScene().getWindow());
     }
 
     @FXML
     public void handleResearchers(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/researchersTable.fxml", addKeywordButton.getScene().getWindow(),"Add Researchers to DB");
+        popupScreen("FXML/researchersTable.fxml", addKeywordButton.getScene().getWindow());
     }
 
     public void clearFields(ActionEvent e) {

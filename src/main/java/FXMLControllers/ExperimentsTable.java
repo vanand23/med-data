@@ -81,7 +81,7 @@ public class ExperimentsTable extends ScreenController implements Initializable,
                         break;
                     case "+ Create new experiment database file":
                         try{
-                            Stage stage = popupScreen("FXML/createNewExperimentDatabase.fxml", cancelButton.getScene().getWindow(),"Create new experiment database");
+                            Stage stage = popupScreen("FXML/createNewExperimentDatabase.fxml", cancelButton.getScene().getWindow());
                             stage.setOnHidden(windowEvent -> onTypeUpdate());
                         }catch (IOException e){
                             e.printStackTrace();
@@ -116,7 +116,7 @@ public class ExperimentsTable extends ScreenController implements Initializable,
     @FXML
     public void handleAddExperiment (ActionEvent e) throws IOException {
 
-        popupScreen("FXML/addExperimentToDatabase.fxml", cancelButton.getScene().getWindow(),"Add Experiment");
+        popupScreen("FXML/addExperimentToDatabase.fxml", cancelButton.getScene().getWindow());
 
     }
 

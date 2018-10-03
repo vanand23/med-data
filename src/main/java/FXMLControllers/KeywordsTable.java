@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class KeywordsTable extends ScreenController implements Initializable, ITypeObserver {
-
     @FXML
     public ChoiceBox<String> selectKeywordFile;
 
@@ -80,7 +79,7 @@ public class KeywordsTable extends ScreenController implements Initializable, IT
                         break;
                     case "+ Create new keyword database file":
                         try {
-                            Stage stage = popupScreen("FXML/createNewKeywordDatabase.fxml", addKeywordsButton.getScene().getWindow(), "Create new keyword database");
+                            Stage stage = popupScreen("FXML/createNewKeywordDatabase.fxml", addKeywordsButton.getScene().getWindow());
                             stage.setOnHidden(windowEvent -> onTypeUpdate());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -119,7 +118,7 @@ public class KeywordsTable extends ScreenController implements Initializable, IT
 
     @FXML
     public void handleAddKeywordsButton (ActionEvent e) throws IOException {
-        popupScreen("FXML/addKeywordToDatabase.fxml", addKeywordsButton.getScene().getWindow(),"Add Keyword DB Menu");
+        popupScreen("FXML/addKeywordToDatabase.fxml", addKeywordsButton.getScene().getWindow());
     }
 
     @FXML

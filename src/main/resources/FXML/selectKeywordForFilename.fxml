@@ -13,7 +13,7 @@
    <children>
       <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="400.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label style="-fx-font-size: 18;" stylesheets="@../CSS/label.css" text="Choose a keyword from the database:" />
+            <Label style="-fx-font-size: 119;" stylesheets="@../CSS/label.css" text="Choose a keyword from the database:" />
              <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="20.0">
                  <children>
                   <Label alignment="CENTER_RIGHT" prefWidth="150.0" stylesheets="@../CSS/label.css" text="Name">

@@ -163,7 +163,7 @@ public class CompactNamer extends Namer implements Initializable {
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
-        popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow(),"Full Namer");
+        popupScreen("FXML/fullNamer.fxml", switchNamers.getScene().getWindow());
     }
 
     @FXML

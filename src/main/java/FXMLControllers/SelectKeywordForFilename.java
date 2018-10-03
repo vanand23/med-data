@@ -57,7 +57,7 @@ public class SelectKeywordForFilename extends ScreenController implements Initia
                 try {
                     Stage primaryStage = (Stage) keywordName.getScene().getWindow();
                     primaryStage.close();
-                    popupScreen("FXML/addKeywordToDatabase.fxml", keywordName.getScene().getWindow(),"Experiment Type");
+                    popupScreen("FXML/addKeywordToDatabase.fxml", keywordName.getScene().getWindow());
                 }catch (IOException e){
                     e.printStackTrace();
                 }

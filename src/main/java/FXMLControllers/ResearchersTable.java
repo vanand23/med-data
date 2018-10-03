@@ -71,7 +71,7 @@ public class ResearchersTable extends ScreenController implements Initializable,
                         break;
                     case "+ Create new researcher database file":
                         try {
-                            Stage stage = popupScreen("FXML/createNewResearcherDatabase.fxml", addResearchersButton.getScene().getWindow(), "Create new researcher database");
+                            Stage stage = popupScreen("FXML/createNewResearcherDatabase.fxml", addResearchersButton.getScene().getWindow());
                             stage.setOnHidden(windowEvent -> onTypeUpdate());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -110,7 +110,7 @@ public class ResearchersTable extends ScreenController implements Initializable,
 
     @FXML
     public void handleAddResearchersButton (ActionEvent e) throws IOException {
-        popupScreen("FXML/addResearcherToDatabase.fxml", addResearchersButton.getScene().getWindow(),"Add Researcher DB Menu");
+        popupScreen("FXML/addResearcherToDatabase.fxml", addResearchersButton.getScene().getWindow());
     }
 
     @FXML

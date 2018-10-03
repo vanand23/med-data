@@ -116,7 +116,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     public void closeProjectPreferences(ActionEvent e) throws IOException{
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
-        popupScreen("FXML/fullNamer.fxml", cancelButton.getScene().getWindow(),"Compact Namer");
+        popupScreen("FXML/fullNamer.fxml", cancelButton.getScene().getWindow());
 
     }
 
@@ -170,12 +170,12 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     @FXML
     public void openKeywordLibrary (ActionEvent e) throws IOException {
-        popupScreen("FXML/keywordsTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/keywordsTable.fxml", asterixButton.getScene().getWindow());
     }
 
     @FXML
     public void openExperimentLibrary (ActionEvent e) throws IOException {
-        popupScreen("FXML/experimentsTable.fxml", asterixButton.getScene().getWindow(),"Add Experiments to DB");
+        popupScreen("FXML/experimentsTable.fxml", asterixButton.getScene().getWindow());
     }
 
     @FXML
