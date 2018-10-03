@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="160.0" prefWidth="400.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.AddKeywordsUI">
+<AnchorPane prefHeight="160.0" prefWidth="400.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.SelectKeywordForFilename">
    <children>
       <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="400.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -18,7 +18,7 @@
                  <children>
                   <Label alignment="CENTER_RIGHT" prefWidth="150.0" stylesheets="@../CSS/label.css" text="Name">
                       <font>
-                          <Font size="18.0" />
+                          <Font size="19.0" />
                       </font>                  </Label>
                     <AutocompleteTextField fx:id="keywordName" layoutX="132.0" layoutY="57.0" onAction="#updateKeywords" prefHeight="27.0" prefWidth="241.0" style="-fx-background-color: ffffff;" />
                  </children>
@@ -27,12 +27,12 @@
                <children>
                   <Label alignment="CENTER_RIGHT" prefWidth="150.0" stylesheets="@../CSS/label.css" text="Data Value">
                       <font>
-                          <Font size="18.0" />
+                          <Font size="19.0" />
                       </font>
                   </Label>
                   <JFXTextField fx:id="keywordDataVal" disable="true" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: ffffff;" text="N/A">
                       <font>
-                          <Font size="18.0" />
+                          <Font size="19.0" />
                       </font>
                   </JFXTextField>
                </children>
@@ -41,12 +41,12 @@
                <children>
                   <JFXButton fx:id="okButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleOKButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                      </font>
                   </JFXButton>
                   <JFXButton fx:id="closeButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCloseButton" stylesheets="@../CSS/mediumButtons.css" text="Close">
                       <font>
-                          <Font size="18.0" />
+                          <Font size="19.0" />
                       </font>
                   </JFXButton>
                </children>

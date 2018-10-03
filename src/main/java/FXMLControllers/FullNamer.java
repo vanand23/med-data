@@ -35,15 +35,11 @@ import javafx.collections.ObservableList;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.TreeTableColumn;
@@ -182,8 +178,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXButton gettingStartedButton;
 
-    private Image removeObjectIcon = new Image("Images/closeIcon.png",30,30,true,true); //pass in the image path
-    
     private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
 
     private static ObservableList<LogEntry> logEntryArrayList = FXCollections.observableArrayList();
@@ -369,10 +363,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         if(configProjectName != null && !configProjectName.trim().isEmpty())
         {
             projectName.setText("Project: " + configProjectName);
-            projectName.setFont(new Font(18));
+            projectName.setFont(new Font(19.0));
         }else{
             projectName.setText("");
-            projectName.setFont(new Font(18));
+            projectName.setFont(new Font(19.0));
         }
 
 
@@ -571,7 +565,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handleAddButton (ActionEvent e) throws IOException {
-        popupScreen("FXML/addKeywordsUI.fxml", addKeywordButton.getScene().getWindow(),"Add Keyword Menu");
+        popupScreen("FXML/selectKeywordForFilename.fxml", addKeywordButton.getScene().getWindow(),"Add Keyword Menu");
     }
 
     @FXML
@@ -685,12 +679,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handleKeywords(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/KeywordsTable.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/keywordsTable.fxml", addKeywordButton.getScene().getWindow(),"Add Keywords to DB");
     }
 
     @FXML
     public void handleResearchers(ActionEvent actionEvent) throws IOException{
-        popupScreen("FXML/ResearchersTable.fxml", addKeywordButton.getScene().getWindow(),"Add Researchers to DB");
+        popupScreen("FXML/researchersTable.fxml", addKeywordButton.getScene().getWindow(),"Add Researchers to DB");
     }
 
     public void clearFields(ActionEvent e) {

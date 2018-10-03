@@ -15,17 +15,17 @@
             <children>
                 <Label alignment="CENTER" prefWidth="400.0" stylesheets="@../CSS/label.css" text="ADD NEW RESEARCHER TO DATABASE">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                     </font>
                 </Label>
                 <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
                     <children>
                         <Label alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="110.0" stylesheets="@../CSS/label.css" text="Full Name">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="19.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="experimentName" labelFloat="true" prefHeight="27.0" prefWidth="290.0" style="-fx-background-color: ffffff;">
+                        <JFXTextField fx:id="researcherName" labelFloat="true" prefHeight="27.0" prefWidth="290.0" style="-fx-background-color: ffffff;">
                             <font>
                                 <Font name="Arial" size="20.0" />
                             </font>
@@ -36,10 +36,10 @@
                     <children>
                         <Label alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="110.0" stylesheets="@../CSS/label.css" text="Abbreviation">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="19.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="experimentAbbrev" labelFloat="true" prefHeight="27.0" prefWidth="290.0" style="-fx-background-color: ffffff;">
+                        <JFXTextField fx:id="researcherAbbrev" labelFloat="true" prefHeight="27.0" prefWidth="290.0" style="-fx-background-color: ffffff;">
                             <font>
                                 <Font name="Arial" size="20.0" />
                             </font>
@@ -50,22 +50,22 @@
                     <children>
                         <Label minWidth="-Infinity" stylesheets="@../CSS/label.css" text="Database">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="19.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="pickExperimentDatabase" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="pickResearcherDatabase" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" prefWidth="200.0" spacing="60.0">
                     <children>
                         <JFXButton fx:id="submitButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="19.0" />
                             </font>
                         </JFXButton>
                         <JFXButton fx:id="cancelButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCancelButton" stylesheets="@../CSS/mediumButtons.css" text="Cancel">
                             <font>
-                                <Font size="18.0" />
+                                <Font size="19.0" />
                             </font>
                         </JFXButton>
                     </children>

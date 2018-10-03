@@ -11,12 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static Utilities.Config.setProperty;
@@ -174,7 +170,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
 
     @FXML
     public void openKeywordLibrary (ActionEvent e) throws IOException {
-        popupScreen("FXML/KeywordsTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
+        popupScreen("FXML/keywordsTable.fxml", asterixButton.getScene().getWindow(),"Add Keywords to DB");
     }
 
     @FXML

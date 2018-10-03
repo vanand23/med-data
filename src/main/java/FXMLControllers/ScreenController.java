@@ -63,14 +63,15 @@ public abstract class ScreenController {
         return stage;
     }
 
-    /**
+/*
+    **
      * handles when a new screen is needed as a popup window
      *
      * @param fxml the location what needs to pop up in a new window
      * @param ownerWindow the current window that is open
      * @param title the name that will appear at the top of the popup window
      * @throws IOException exception thrown
-     */
+     *
     Stage errorPopup(String fxml, Window ownerWindow, String title) throws IOException{
         Stage stage = new Stage();
         //Parent root = FXMLManager.getInstance().getOrLoadFXMLNode(fxml);
@@ -95,7 +96,7 @@ public abstract class ScreenController {
         stage.show();
         return stage;
     }
-
+*/
 
     public void setScene(String fxml, Stage stage) throws IOException{
         Parent root = FXMLManager.getInstance().getOrLoadFXMLNode(fxml);
