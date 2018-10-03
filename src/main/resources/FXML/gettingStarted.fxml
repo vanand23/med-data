@@ -8,43 +8,44 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="670.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.GettingStarted">
+<AnchorPane style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.GettingStarted">
    <children>
-      <StackPane layoutY="1.0" prefHeight="507.0" prefWidth="670.0">
+      <StackPane layoutY="1.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="TOP_CENTER" spacing="15.0">
                <children>
                   <Label stylesheets="@../CSS/label.css" text="Getting Started">
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding></Label>
-                  <VBox>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <VBox alignment="CENTER">
                      <children>
-                        <Label stylesheets="@../CSS/label.css" text="Welcome to File Namer Pro. &#10;This application generates standardized file names based on the parameters you input.">
-                           <padding>
-                              <Insets bottom="30.0" />
-                           </padding>
+                        <Label alignment="CENTER" prefWidth="740.0" stylesheets="@../CSS/label.css" text="Welcome to File Namer Pro. This application generates standardized &#10;file names based on the parameters you input." textAlignment="CENTER">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
                         </Label>
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </VBox>
-                  <VBox prefHeight="340.0" prefWidth="650.0">
+                  <VBox>
                      <children>
-                        <HBox prefHeight="337.0" prefWidth="650.0" spacing="10.0">
+                        <HBox alignment="CENTER" spacing="10.0">
                            <children>
-                              <VBox prefHeight="224.0" prefWidth="127.0" spacing="10.0">
+                              <VBox spacing="10.0">
                                  <children>
-                                    <JFXButton fx:id="fullNamerButton" onAction="#fullNamerInstructions" prefHeight="45.0" prefWidth="81.0" stylesheets="@../CSS/mediumButtons.css" text="Full &#10;Namer" />
-                                    <JFXButton fx:id="compactNamerButton" onAction="#compactNamerInstructions" prefHeight="45.0" prefWidth="84.0" stylesheets="@../CSS/mediumButtons.css" text="Compact &#10;Namer" />
-                                    <JFXButton fx:id="projectPreferencesButton" onAction="#projectPreferencesInstructions" prefHeight="45.0" prefWidth="86.0" stylesheets="@../CSS/mediumButtons.css" text="Project &#10;Preferences" />
-                                    <JFXButton fx:id="loggerButton" onAction="#loggerInstructions" prefHeight="28.0" prefWidth="84.0" stylesheets="@../CSS/mediumButtons.css" text="Logger" />
-                                    <JFXButton fx:id="databasesButton" onAction="#databasesInstructions" prefHeight="28.0" prefWidth="95.0" stylesheets="@../CSS/mediumButtons.css" text="Databases" />
+                                    <JFXButton fx:id="fullNamerButton" onAction="#fullNamerInstructions" prefWidth="140.0" stylesheets="@../CSS/mediumButtons.css" text="Full Namer" />
+                                    <JFXButton fx:id="compactNamerButton" onAction="#compactNamerInstructions" prefWidth="140.0" stylesheets="@../CSS/mediumButtons.css" text="Compact &#10;Namer" />
+                                    <JFXButton fx:id="projectPreferencesButton" onAction="#projectPreferencesInstructions" prefWidth="140.0" stylesheets="@../CSS/mediumButtons.css" text="Project &#10;Preferences" />
+                                    <JFXButton fx:id="loggerButton" onAction="#loggerInstructions" prefWidth="140.0" stylesheets="@../CSS/mediumButtons.css" text="Logger" />
+                                    <JFXButton fx:id="databasesButton" onAction="#databasesInstructions" prefWidth="140.0" stylesheets="@../CSS/mediumButtons.css" text="Databases" />
                                  </children>
                               </VBox>
-                              <JFXTextArea fx:id="instructionsTextArea" prefHeight="170.0" prefWidth="586.0" style="-fx-background-color: ffffff;" text="&#10;" wrapText="true" />
+                              <JFXTextArea fx:id="instructionsTextArea" style="-fx-background-color: ffffff;" text="&#10;" wrapText="true" />
                            </children>
                            <padding>
                               <Insets left="10.0" right="10.0" />
@@ -55,10 +56,13 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="67.0" prefWidth="600.0">
+                  <VBox alignment="CENTER">
                      <children>
                         <JFXButton fx:id="closeButton" onAction="#closeGettingStarted" stylesheets="@../CSS/mediumButtons.css" text="Close" />
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </VBox>
                </children>
             </VBox>
