@@ -67,7 +67,7 @@
             </RadioButton>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="308.0" spacing="10.0">
                <children>
-                  <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" stylesheets="@../CSS/label.css" text="Affix: ">
+                  <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="163.0" stylesheets="@../CSS/label.css" text="Abbreviation Affix: ">
                      <font>
                          <Font size="19.0" />
                      </font>
