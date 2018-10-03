@@ -2,15 +2,12 @@ package FXMLControllers;
 
 import Types.*;
 import Utilities.AutocompleteTextField;
-import Utilities.Config;
+import Singletons.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.animation.ParallelTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -28,7 +25,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
 
@@ -42,62 +38,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.TreeTableColumn;
-
-import static Animation.PaneTransitions.partialFadeIn;
-import static Animation.PaneTransitions.partialFadeOut;
-import static Animation.PaneTransitions.slidingTransition;
-
-import static FXMLControllers.CompactNamer.setCompactNamerFilename;
-import static Utilities.Config.setProperty;
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
-    public AnchorPane projectPreferencesPane;
-
-    @FXML
-    public AnchorPane gettingStartedPane;
-
-    @FXML
-    public AnchorPane loggerPane;
-
-    @FXML
-    public AnchorPane experimentsPane;
-
-    @FXML
-    public AnchorPane keywordsPane;
-
-    @FXML
-    public AnchorPane researchersPane;
-
-    @FXML
-    public AnchorPane menu;
-
-    @FXML
-    public AnchorPane shadingOverlay;
-
-    @FXML
-    public ImageView menuButtonIcon;
-
-    @FXML
-    public JFXButton menuButton;
-
-    @FXML
-    public JFXCheckBox sampleNumberCheckbox;
-    @FXML
-    public JFXCheckBox trialNumberCheckbox;
-    @FXML
     public JFXCheckBox researcherCheckbox;
+    
     @FXML
     public JFXCheckBox experimentCheckbox;
+    
     @FXML
     public JFXCheckBox dateCheckbox;
+    @FXML
+    public ImageView fullscreenButtonImage;
 
     @FXML
     private Label projectName;
-
-    @FXML
-    private VBox mainVBox;
 
     @FXML
     private DatePicker experimentDate;
@@ -116,52 +71,21 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXTextField outputText;
 
     @FXML
-    JFXButton updateNameButton;
-
-    @FXML
     private AutocompleteTextField experimentTextField;
-
-    @FXML
-    private JFXButton backButton;
-
-    @FXML
-    private VBox vboxOfKeywords;
 
     @FXML
     private JFXButton addKeywordButton;
 
     @FXML
-    private JFXButton keywordsToDBButton;
-
-    @FXML
     private JFXToggleButton switchNamers;
 
     @FXML
-    private JFXButton projectPreferencesButton;
-
-    @FXML
     private JFXButton closeButton;
-
-    @FXML
-    private AnchorPane anchorPaneOfKeywords;
-
-    @FXML
-    private static TreeTableView tableOfKeywords;
-
-    @FXML
-    static TreeTableColumn<Keyword, String> dataValueColumn;
-
-    @FXML
-    static TreeTableColumn<Keyword, String> nameColumn;
-
     @FXML
     private JFXButton helpButtonInput;
 
     @FXML
     private JFXButton helpButtonOutput;
-
-    @FXML
-    private JFXButton loggerButton;
 
     @FXML
     private TableView<Keyword> keywordsTable;
@@ -178,28 +102,24 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private JFXButton gettingStartedButton;
 
-    private final static ObservableList<Keyword> data = FXCollections.observableArrayList();
+    private final static ObservableList<Keyword> listOfKeywords = FXCollections.observableArrayList();
 
     private static ObservableList<LogEntry> logEntryArrayList = FXCollections.observableArrayList();
 
     private static ArrayList<AnchorPane> drawerList = new ArrayList<>();
 
-    private static Filename sharedFilename;
-    private static Image menuIcon = new Image("Images/hamburgerIcon.png");
-    private static Image backIcon = new Image("Images/leftIcon.png");
+    private Image doubleWindowIcon = new Image("Images/doubleWindowIcon.png");
+    private Image singleWindowIcon = new Image("Images/singleWindowIcon.png");
     private boolean isMenuOpen = false;
     private boolean isMenuPlaying = false;
-
-    static void setFullNamerSharedFilename(Filename sharedFilename) {
-        FullNamer.sharedFilename = sharedFilename;
-    }
+    private boolean isFullScreen = false;
 
     static ObservableList<LogEntry> getLogEntryArrayList() {
         return logEntryArrayList;
     }
 
     static ObservableList<Keyword> getData() {
-        return data;
+        return listOfKeywords;
     }
 
     private boolean isRememberData;
@@ -208,14 +128,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        drawerList.add(menu);
-        drawerList.add(gettingStartedPane);
-        drawerList.add(projectPreferencesPane);
-        drawerList.add(loggerPane);
-        drawerList.add(experimentsPane);
-        drawerList.add(keywordsPane);
-        drawerList.add(researchersPane);
-
         dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             experimentDate.setDisable(!newIsSelected);
             if(!newIsSelected)
@@ -271,18 +183,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             outputText.setText(updateName(sharedFilename));
         });
 
-
-        shadingOverlay.setMouseTransparent(true);
-
         final JFXButton inputHelp = helpButtonInput;
         final Tooltip inputTooltip = new Tooltip();
         inputTooltip.setText("Fill in the fields with your desired parameters");
         inputHelp.setTooltip(inputTooltip);
 
-        final JFXButton outputHelp = helpButtonOutput;
+        /*final JFXButton outputHelp = helpButtonOutput;
         final Tooltip outputTooltip = new Tooltip();
         outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
-        outputHelp.setTooltip(outputTooltip);
+        outputHelp.setTooltip(outputTooltip);*/
 
         ExperimentManager.getInstance().subscribe(this);
         KeywordManager.getInstance().subscribe(this);
@@ -311,55 +220,37 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }
         });
         experimentTextField.setMinWidth(Region.USE_PREF_SIZE);
-        Config config = new Config();
-        isRememberData = Boolean.valueOf(config.getProperty("rememberData"));
+
+        isRememberData = Boolean.valueOf(Config.getInstance().getProperty("rememberData"));
         if(sharedFilename == null) {
             sharedFilename = new Filename();
         }
-        String configResearcherName = config.getProperty("researcherName");
-        if(configResearcherName != null && !configResearcherName.trim().isEmpty())
+        //Set fields from memory
+        Config.getInstance().setFieldFromConfig(researcherName,"researcherName");
+        Config.getInstance().setFieldFromConfig(experimentTextField,"experimentName");
+        if(!Config.getInstance().setFieldFromConfig(trialNumber,"trialNumber"))
         {
-            researcherName.setText(configResearcherName);
-            sharedFilename.setResearcher(configResearcherName);
-        }
-        String configExperimentName = config.getProperty("experimentName");
-        if(configExperimentName != null && !configExperimentName.trim().isEmpty())
-        {
-            experimentTextField.setText(configExperimentName);
-            sharedFilename.setExperiment(configExperimentName);
-        }
-        String configTrialNumber = config.getProperty("trialNumber");
-        if(configTrialNumber != null && !configTrialNumber.trim().isEmpty())
-        {
-            trialNumber.setText(configTrialNumber);
-            sharedFilename.setTrialNumber(Integer.parseInt(configTrialNumber));
-        }else {
             trialNumber.setText("0");
             sharedFilename.setTrialNumber(0);
         }
-        String configSampleNumber = config.getProperty("sampleNumber");
-        if(configSampleNumber != null && !configSampleNumber.trim().isEmpty())
+        if(!Config.getInstance().setFieldFromConfig(sampleNumber,"sampleNumber"))
         {
-            sampleNumber.setText(configSampleNumber);
-            sharedFilename.setSampleNumber(Integer.parseInt(configSampleNumber));
-        }else {
             sampleNumber.setText("0");
             sharedFilename.setSampleNumber(0);
         }
-        data.clear();
-        String configListOfKeywords = config.getProperty("listOfKeywords");
+        listOfKeywords.clear();
+        String configListOfKeywords = Config.getInstance().getProperty("listOfKeywords");
         if(configListOfKeywords != null && !configListOfKeywords.trim().isEmpty())
         {
             String[] keywords = configListOfKeywords.split(",");
             for(int i = 0; i < keywords.length; i += 2)
             {
-                data.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
+                listOfKeywords.add(new Keyword(keywords[i],"","","",keywords[i+1],""));
             }
         }
-        sharedFilename.setKeywords(data);
-        setCompactNamerFilename(sharedFilename);
+        sharedFilename.setKeywords(listOfKeywords);
 
-        String configProjectName = config.getProperty("projectName");
+        String configProjectName = Config.getInstance().getProperty("projectName");
         if(configProjectName != null && !configProjectName.trim().isEmpty())
         {
             projectName.setText("Project: " + configProjectName);
@@ -404,20 +295,19 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 }
         );
 
-        keywordsTable.setItems(data);
-        System.out.println(data);
+        keywordsTable.setItems(listOfKeywords);
+        System.out.println(listOfKeywords);
 
         experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName(sharedFilename)));
         experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
             if(experimentTextField.isValidText())
             {outputText.setText(updateName(sharedFilename));
-            setCompactNamerFilename(sharedFilename);
             experimentTextField.setValidText(false);
             if(isRememberData){
-                setProperty("experimentName",newexperimentTextField);
+                Config.getInstance().setProperty("experimentName",newexperimentTextField);
             }
             else{
-                setProperty("experimentName", "");
+                Config.getInstance().setProperty("experimentName", "");
             }
             }else if(experimentTextField.isTriggerPopup())
             {
@@ -432,40 +322,36 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
            outputText.setText(updateName(sharedFilename));
            sharedFilename.setResearcher(newResearcherName);
-           setCompactNamerFilename(sharedFilename);
            if(isRememberData) {
-               setProperty("researcherName", newResearcherName);
+               Config.getInstance().setProperty("researcherName", newResearcherName);
            }
            else{
-               setProperty("researcherName", "");
+               Config.getInstance().setProperty("researcherName", "");
            }
         });
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
             sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
             outputText.setText(updateName(sharedFilename));
-            setCompactNamerFilename(sharedFilename);
             if(isRememberData) {
-                setProperty("trialNumber", newTrialNumber);
+                Config.getInstance().setProperty("trialNumber", newTrialNumber);
             }
             else{
-                setProperty("trialNumber", "");
+                Config.getInstance().setProperty("trialNumber", "");
             }
         });
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
             sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
             outputText.setText(updateName(sharedFilename));
-            setCompactNamerFilename(sharedFilename);
             if(isRememberData) {
-                setProperty("sampleNumber", newSampleNumber);
+                Config.getInstance().setProperty("sampleNumber", newSampleNumber);
             }
             else{
-                setProperty("sampleNumber", "");
+                Config.getInstance().setProperty("sampleNumber", "");
             }
         });
-        data.addListener((ListChangeListener<Keyword>) keywords -> {
-            sharedFilename.setKeywords(data);
+        listOfKeywords.addListener((ListChangeListener<Keyword>) keywords -> {
+            sharedFilename.setKeywords(listOfKeywords);
             outputText.setText(updateName(sharedFilename));
-            setCompactNamerFilename(sharedFilename);
         });
         outputText.setText(updateName(sharedFilename));
     }
@@ -521,10 +407,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         String nameToCopy = updateName(sharedFilename);
 
         if(isRememberData) {
-            setProperty("experimentTextField",experimentTextField.getText());
+            Config.getInstance().setProperty("experimentTextField",experimentTextField.getText());
         }
         else{
-            setProperty("experimentName", "");
+            Config.getInstance().setProperty("experimentName", "");
         }
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
@@ -538,7 +424,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                 stringTrialNumber,
                 stringSampleNumber,
                 nameToCopy,
-                data,
+                listOfKeywords,
                 comment
                 ));
     }
@@ -552,14 +438,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handlePreferences(ActionEvent e) throws IOException {
-        Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
-        primaryStage.close();
-        Stage popup = popupScreen("FXML/projectPreferences.fxml", projectPreferencesButton.getScene().getWindow());
+        popupScreen("FXML/preferences.fxml", addKeywordButton.getScene().getWindow());
     }
 
     @FXML
     public void handleLogger(ActionEvent e) throws IOException{
-        Stage popup = popupScreen("FXML/loggerMenu.fxml", loggerButton.getScene().getWindow());
+        Stage popup = popupScreen("FXML/loggerMenu.fxml", addKeywordButton.getScene().getWindow());
     }
 
     @FXML
@@ -578,75 +462,38 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         Keyword selectedItem = keywordsTable.getSelectionModel().getSelectedItem();
         keywordsTable.getItems().remove(selectedItem);
-        StringBuilder listOfKeywords = new StringBuilder();
-        for(Keyword keyword : data){
-            listOfKeywords.append(",");
-            listOfKeywords.append(keyword.getLongName());
-            listOfKeywords.append(",");
-            listOfKeywords.append(keyword.getDataValue());
+        StringBuilder configListOfKeywords = new StringBuilder();
+        for(Keyword keyword : listOfKeywords){
+            configListOfKeywords.append(",");
+            configListOfKeywords.append(keyword.getLongName());
+            configListOfKeywords.append(",");
+            configListOfKeywords.append(keyword.getDataValue());
         }
-        if(listOfKeywords.length() != 0)
+        if(configListOfKeywords.length() != 0)
         {
-            listOfKeywords.deleteCharAt(0);
+            configListOfKeywords.deleteCharAt(0);
         }
         if(isRememberData) {
-            setProperty("listOfKeywords", listOfKeywords.toString());
+            Config.getInstance().setProperty("listOfKeywords", configListOfKeywords.toString());
         }
         else{
-            setProperty("listOfKeywords","");
+            Config.getInstance().setProperty("listOfKeywords","");
         }
     }
 
-
-    @FXML
-    private void menuPressed () {
-        if(!isMenuPlaying) {
-            ParallelTransition p = new ParallelTransition();
-            if (!isMenuOpen) {
-                menuButtonIcon.setImage(backIcon);
-                menuButtonIcon.setFitWidth(35);
-                menuButtonIcon.setFitWidth(35);
-                shadingOverlay.setMouseTransparent(false);
-                p.getChildren().add(slideDrawers(1));
-                p.getChildren().add(partialFadeIn(shadingOverlay));
-                isMenuOpen = true;
-            } else {
-                menuButtonIcon.setImage(menuIcon);
-                menuButtonIcon.setFitWidth(40);
-                menuButtonIcon.setFitWidth(40);
-                shadingOverlay.setMouseTransparent(true);
-                p.getChildren().add(slideDrawers(-1));
-                p.getChildren().add(partialFadeOut(shadingOverlay));
-                isMenuOpen = false;
+/*
+    private void addListenerToTextfield(JFXTextField textField){
+        researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
+            outputText.setText(updateName(sharedFilename));
+            sharedFilename.setResearcher(newResearcherName);
+            if(isRememberData) {
+                Config.getInstance().setProperty("researcherName", newResearcherName);
             }
-            isMenuPlaying = true;
-            p.play();
-        }
-    }
-
-    /**
-     * Slides the arrayList of drawers in a direction
-     *
-     * @param direction the direction the drawer is sliding
-     */
-    private ParallelTransition slideDrawers(int direction) {
-        ParallelTransition p = new ParallelTransition();
-        int duration = 0;
-        for (AnchorPane drawer : drawerList) {
-            SequentialTransition pauseAndPlay = new SequentialTransition();
-            duration += 60;
-            pauseAndPlay.getChildren().add(new PauseTransition(Duration.millis(duration)));
-            p.getChildren().add(pauseAndPlay);
-            if(drawer.getId().equals("menu"))
-            {
-                pauseAndPlay.getChildren().add(slidingTransition(drawer, direction, 133.0));
-            }else{
-                pauseAndPlay.getChildren().add(slidingTransition(drawer, direction, 200.0));
+            else{
+                Config.getInstance().setProperty("researcherName", "");
             }
-        }
-        p.setOnFinished(event -> isMenuPlaying = false);
-        return p;
-    }
+        });
+    }*/
 
 
     @Override
@@ -656,16 +503,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     static ObservableList<Keyword> getdata() {
-        return data;
+        return listOfKeywords;
     }
 
     @FXML
     public void closeFullNamer(ActionEvent e) {
         closeProgram(closeButton);
-    }
-
-    public static TreeTableView getTableOfKeywords() {
-        return tableOfKeywords;
     }
 
     @FXML
@@ -688,6 +531,25 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         sampleNumber.setText("0");
         trialNumber.setText("0");
         experimentTextField.setText("");
-        data.clear();
+        listOfKeywords.clear();
+    }
+
+    @FXML
+    public void handleMinimize(ActionEvent actionEvent) {
+        Stage thisStage = (Stage) closeButton.getScene().getWindow();
+        thisStage.setIconified(true);
+    }
+
+    @FXML
+    public void handleFullscreen(ActionEvent actionEvent) {
+        Stage thisStage = (Stage) closeButton.getScene().getWindow();
+        isFullScreen = !isFullScreen;
+        thisStage.setFullScreen(isFullScreen);
+        if(isFullScreen)
+        {
+            fullscreenButtonImage.setImage(doubleWindowIcon);
+        }else{
+            fullscreenButtonImage.setImage(singleWindowIcon);
+        }
     }
 }

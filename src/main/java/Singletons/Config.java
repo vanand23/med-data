@@ -1,10 +1,15 @@
-package Utilities;
+package Singletons;
+
+import FXMLControllers.FullNamer;
+import com.jfoenix.controls.JFXTextField;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+
+import static FXMLControllers.Namer.sharedFilename;
 
 public class Config {
     private Properties configFile = new Properties();
@@ -22,7 +27,7 @@ public class Config {
         return this.configFile.getProperty(key);
     }
 
-    static public void setProperty(String propertyToSet, String propertyValue){
+    public void setProperty(String propertyToSet, String propertyValue){
         try{
             Properties configFile = new Properties();
             configFile.load(new FileInputStream("config.properties"));
@@ -36,6 +41,34 @@ public class Config {
             e0.printStackTrace();
         }
     }
+
+    public boolean setFieldFromConfig(JFXTextField fieldToSet, String itemToGet){
+        String configItemName = getProperty(itemToGet);
+        if(configItemName != null && !configItemName.trim().isEmpty())
+        {
+            fieldToSet.setText(configItemName);
+            switch(itemToGet)
+            {
+                case "experimentName":
+                    sharedFilename.setExperiment(configItemName);
+                    break;
+                case "sampleNumber":
+                    sharedFilename.setSampleNumber(Integer.parseInt(configItemName));
+                    break;
+                case "trialNumber":
+                    sharedFilename.setTrialNumber(Integer.parseInt(configItemName));
+                    break;
+                case "researcherName":
+                    sharedFilename.setResearcher(configItemName);
+                    break;
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     /**
      * Singleton helper class, Config should always be accessed through MapManager.getInstance();

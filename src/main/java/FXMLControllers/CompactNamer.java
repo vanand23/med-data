@@ -1,9 +1,8 @@
 package FXMLControllers;
 
+import Singletons.Config;
 import Types.Filename;
-import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
@@ -16,18 +15,11 @@ import javafx.util.StringConverter;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
-import static FXMLControllers.FullNamer.setFullNamerSharedFilename;
-import static Utilities.Config.setProperty;
 
 public class CompactNamer extends Namer implements Initializable {
 
@@ -44,18 +36,6 @@ public class CompactNamer extends Namer implements Initializable {
 
     @FXML
     private JFXButton closeButton;
-
-    @FXML
-    private JFXCheckBox sampleCheckbox;
-
-    @FXML
-    private JFXCheckBox trialCheckbox;
-
-    private static Filename sharedFilename;
-
-    static void setCompactNamerFilename(Filename sharedFilename) {
-        CompactNamer.sharedFilename = sharedFilename;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -103,19 +83,17 @@ public class CompactNamer extends Namer implements Initializable {
 
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) ->
         {
-            setProperty("trialNumber",newTrialNumber);
+            Config.getInstance().setProperty("trialNumber",newTrialNumber);
             sharedFilename.setTrialNumber(Integer.parseInt(newTrialNumber));
-            setFullNamerSharedFilename(sharedFilename);
         });
 
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) ->
         {
-            setProperty("sampleNumber",newSampleNumber);
+            Config.getInstance().setProperty("sampleNumber",newSampleNumber);
             sharedFilename.setSampleNumber(Integer.parseInt(newSampleNumber));
-            setFullNamerSharedFilename(sharedFilename);
         });
 
-        trialCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+        trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
             if(!newIsSelected)
             {
@@ -125,7 +103,7 @@ public class CompactNamer extends Namer implements Initializable {
             }
         });
 
-        sampleCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
+        sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
             if(!newIsSelected)
             {

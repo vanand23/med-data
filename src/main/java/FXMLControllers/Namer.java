@@ -4,9 +4,11 @@ import Types.ExperimentManager;
 import Types.Filename;
 import Types.KeywordManager;
 import Types.Keyword;
-import Utilities.Config;
+import Singletons.Config;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 import javax.naming.NameNotFoundException;
@@ -17,9 +19,15 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Properties;
 
-import static Utilities.Config.setProperty;
+public class Namer extends ScreenController{
 
-class Namer extends ScreenController{
+    @FXML
+    JFXCheckBox sampleNumberCheckbox;
+
+    @FXML
+    JFXCheckBox trialNumberCheckbox;
+
+    public static Filename sharedFilename;
 
     String updateName(Filename filename)
     {
@@ -30,8 +38,8 @@ class Namer extends ScreenController{
         LocalDate experimentDate =  filename.getDate();
         ObservableList<Keyword> sharedListOfKeywords = filename.getKeywords();
 
-        Config config = new Config();
-        String delimiter = config.getProperty("delimiter");
+
+        String delimiter = Config.getInstance().getProperty("delimiter");
         if(delimiter == null){
             delimiter = "_";
         }
@@ -132,8 +140,8 @@ class Namer extends ScreenController{
         return fname.toString();
     }
     void closeProgram(JFXButton closeButton) {
-        Config config = new Config();
-        String configRememberData = config.getProperty("rememberData");
+
+        String configRememberData = Config.getInstance().getProperty("rememberData");
         if(configRememberData != null && !configRememberData.trim().isEmpty())
         {
             if(configRememberData.equals("false"))
@@ -147,7 +155,7 @@ class Namer extends ScreenController{
                     configFile.store(fos, "");
                     fos.flush();
                     fos.close();
-                    setProperty("rememberData", "false");
+                    Config.getInstance().setProperty("rememberData", "false");
                 }catch (IOException e1){
                     e1.printStackTrace();
                 }

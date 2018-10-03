@@ -4,28 +4,7 @@ import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import Types.Filename;
-import Utilities.Config;
 import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
-import javafx.util.StringConverter;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
-
-import static FXMLControllers.FullNamer.setFullNamerSharedFilename;
-import static Utilities.Config.setProperty;
 
 public class GettingStarted {
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Types.*;
-import Utilities.Config;
 
 import static Utilities.DirectorySearcher.filesInDirectory;
 
@@ -72,7 +71,7 @@ public class Database {
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
             dropTables();
             createTables();
-            Config config = new Config();
+
             loadFilesInDirectory("experiments");
             loadFilesInDirectory("keywords");
             loadFilesInDirectory("researchers");

@@ -75,7 +75,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <JFXCheckBox fx:id="sampleCheckbox" checkedColor="#009688" minWidth="-Infinity" prefHeight="18.0" prefWidth="19.0" selected="true" text=" " />
+                        <JFXCheckBox fx:id="sampleNumberCheckbox" checkedColor="#009688" minWidth="-Infinity" prefHeight="18.0" prefWidth="19.0" selected="true" text=" " />
                         <Label minWidth="-Infinity" prefHeight="27.0" prefWidth="75.0" stylesheets="@../CSS/label.css" text="Samp. #">
                            <font>
                               <Font size="19.0" />
@@ -106,7 +106,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <JFXCheckBox fx:id="trialCheckbox" checkedColor="#009688" minWidth="-Infinity" prefHeight="18.0" prefWidth="19.0" selected="true" text=" " />
+                        <JFXCheckBox fx:id="trialNumberCheckbox" checkedColor="#009688" minWidth="-Infinity" prefHeight="18.0" prefWidth="19.0" selected="true" text=" " />
                         <Label minWidth="-Infinity" prefWidth="75.0" stylesheets="@../CSS/label.css" text="Trial #">
                            <font>
                               <Font size="19.0" />

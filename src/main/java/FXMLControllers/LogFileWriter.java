@@ -1,7 +1,7 @@
 package FXMLControllers;
 
 import Types.LogEntry;
-import Utilities.Config;
+import Singletons.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
@@ -15,7 +15,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static FXMLControllers.FullNamer.getLogEntryArrayList;
 
@@ -71,9 +70,9 @@ public class LogFileWriter {
             rowNumber = sheet.getPhysicalNumberOfRows();
             System.out.println(rowNumber);
         }
-        Config config = new Config();
-        String projectName = config.getProperty("projectName");
-        String projectDescription = config.getProperty("projectDescription");
+
+        String projectName = Config.getInstance().getProperty("projectName");
+        String projectDescription = Config.getInstance().getProperty("projectDescription");
         if (projectName != null && !projectName.trim().isEmpty()) {
             Row projectNameRow = sheet.createRow(0);
             Cell cell = projectNameRow.createCell(0);
