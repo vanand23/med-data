@@ -18,14 +18,14 @@
             </Label>
             <Label fx:id="message" stylesheets="@../CSS/label.css">
                <font>
-                  <Font size="18.0" />
+                  <Font size="19.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      <JFXButton fx:id="closeButton" onAction="#handleCloseButton" stylesheets="@../CSS/smallButtons.css" text="Close" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <JFXButton fx:id="closeButton" onAction="#handleCloseButton" stylesheets="@../CSS/mediumButtons.css" text="Close" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <font>
-            <Font size="18.0" />
+            <Font size="19.0" />
          </font>
       </JFXButton>
    </children>

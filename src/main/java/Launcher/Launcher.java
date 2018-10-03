@@ -20,15 +20,6 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Font.loadFont(
-                Launcher.class.getResource("/Fonts/AlteHaasGroteskBold.ttf").toExternalForm(),18
-        );
-        Font.loadFont(
-                Launcher.class.getResource("/Fonts/AlteHaasGroteskRegular.ttf").toExternalForm(), 18
-        );
-
-
-
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
 

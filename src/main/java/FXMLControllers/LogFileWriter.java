@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import static FXMLControllers.FullNamer.getLogEntryArrayList;
 
-public class WriteToLogFile {
+public class LogFileWriter {
 
     @FXML
     private JFXButton closeButton;

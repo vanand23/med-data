@@ -36,11 +36,18 @@
                   <VBox prefHeight="311.0" prefWidth="98.0" spacing="35.0">
                      <children>
                         <JFXButton fx:id="addKeywordsButton" onAction="#handleAddKeywordsButton" prefHeight="39.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Add">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
                            <VBox.margin>
                               <Insets top="35.0" />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="deleteButton" onAction="#handleDeleteButton" prefHeight="40.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Delete" />
+                        <JFXButton fx:id="deleteButton" onAction="#handleDeleteButton" prefHeight="40.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Delete" >
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </JFXButton>
                      </children>
                   </VBox>
                </children>
@@ -49,11 +56,15 @@
                <children>
                   <Label minWidth="-Infinity" stylesheets="@../CSS/label.css" text="Database File">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
                   <ChoiceBox fx:id="selectKeywordFile" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="322.0" HBox.hgrow="ALWAYS" />
-                  <JFXButton fx:id="cancelButton" onAction="#handleCancelButton" prefHeight="42.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Close" />
+                  <JFXButton fx:id="cancelButton" onAction="#handleCancelButton" prefHeight="42.0" prefWidth="98.0" stylesheets="@../CSS/mediumButtons.css" text="Close">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </HBox>
          </children>
