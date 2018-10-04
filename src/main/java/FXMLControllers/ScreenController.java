@@ -35,7 +35,6 @@ public abstract class ScreenController {
      *
      * @param fxml the location what needs to pop up in a new window
      * @param ownerWindow the current window that is open
-     * @param title the name that will appear at the top of the popup window
      * @throws IOException exception thrown
      */
     Stage popupScreen(String fxml, Window ownerWindow) throws IOException{
@@ -60,6 +59,36 @@ public abstract class ScreenController {
         stage.show();
         return stage;
     }
+
+    /**
+     * handles when a new screen is needed as a popup window
+     *
+     * @param fxml the location what needs to pop up in a new window
+     * @param ownerWindow the current window that is open
+     * @throws IOException exception thrown
+     */
+    Stage popupScreenSwitchable(String fxml, Window ownerWindow) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initOwner(ownerWindow); //sets the main window as this screens owner
+        stage.initStyle(StageStyle.TRANSPARENT);
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX()-xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+        stage.setResizable(false);
+        stage.show();
+        return stage;
+    }
+
 
 /*
     **

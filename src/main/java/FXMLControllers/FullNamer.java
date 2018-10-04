@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
@@ -500,7 +501,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     //Window for detailed instructions on how to use the application
     public void handleGettingStarted(ActionEvent e) throws IOException{
-        Stage popup = popupScreen("FXML/gettingStarted.fxml", addKeywordButton.getScene().getWindow());
+        Stage popup = popupScreenSwitchable("FXML/gettingStarted.fxml", addKeywordButton.getScene().getWindow());
     }
 
 
