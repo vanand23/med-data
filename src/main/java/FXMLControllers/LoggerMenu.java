@@ -5,6 +5,7 @@ import Types.LogEntry;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -32,25 +34,25 @@ public class LoggerMenu extends ScreenController implements Initializable {
     private TableView<LogEntry> logTable;
 
     @FXML
-    private TableColumn<LogEntry, String>  timeColumn;
+    private TableColumn timeColumn;
 
     @FXML
-    private TableColumn<LogEntry, String>  dateColumn;
+    private TableColumn dateColumn;
 
     @FXML
-    private TableColumn<LogEntry, String> researcherColumn;
+    private TableColumn researcherColumn;
 
     @FXML
-    private TableColumn<LogEntry, String> trialNumberColumn;
+    private TableColumn trialNumberColumn;
 
     @FXML
-    private TableColumn<LogEntry, String> sampleNumberColumn;
+    private TableColumn sampleNumberColumn;
 
     @FXML
-    private TableColumn<LogEntry, String> filenameColumn;
+    private TableColumn filenameColumn;
 
     @FXML
-    private TableColumn<LogEntry, String> commentColumn;
+    private TableColumn commentColumn;
 
     @FXML
     private TextField newLogFileName;
@@ -73,6 +75,91 @@ public class LoggerMenu extends ScreenController implements Initializable {
         commentColumn.setCellValueFactory(new PropertyValueFactory<>("comment"));
 
         logTable.setEditable(true);
+
+        timeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        timeColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setExperimentTime((String) event.getNewValue());
+                    }
+                }
+        );
+
+        dateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        dateColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setExperimentDate((String) event.getNewValue());
+                    }
+                }
+        );
+
+        researcherColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        researcherColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setResearcherName((String) event.getNewValue());
+                    }
+                }
+        );
+
+        trialNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        trialNumberColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setTrialNumber((String) event.getNewValue());
+                    }
+                }
+        );
+
+        sampleNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        sampleNumberColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setSampleNumber((String) event.getNewValue());
+                    }
+                }
+        );
+
+        filenameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        filenameColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setFilename((String) event.getNewValue());
+                    }
+                }
+        );
+
+        commentColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        commentColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setComment((String) event.getNewValue());
+                    }
+                }
+        );
+
         logTable.setItems(logEntryArrayList);
     }
 

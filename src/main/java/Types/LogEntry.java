@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 
 public class LogEntry {
+
     private String experimentDate;
     private String experimentTime;
     private String researcherName;
@@ -74,5 +75,41 @@ public class LogEntry {
 
     public String getComment() {
         return comment;
+    }
+
+    public void setExperimentDate(String experimentDate) {
+        this.experimentDate = experimentDate;
+    }
+
+    public void setExperimentTime(String experimentTime) {
+        this.experimentTime = experimentTime;
+    }
+
+    public void setResearcherName(String researcherName) {
+        this.researcherName = researcherName;
+    }
+
+    public void setExperimentName(String experimentName) {
+        this.experimentName = experimentName;
+    }
+
+    public void setTrialNumber(String trialNumber) {
+        this.trialNumber = trialNumber;
+    }
+
+    public void setSampleNumber(String sampleNumber) {
+        this.sampleNumber = sampleNumber;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setListOfKeywords(ObservableList<Keyword> listOfKeywords) {
+        this.listOfKeywords = listOfKeywords;
     }
 }

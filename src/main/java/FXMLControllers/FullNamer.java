@@ -305,7 +305,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         columnName.setMinWidth(100);
         columnDataValue.setMinWidth(100);
 
-        //set the column name to populate the corresponding columsn with the input data the user provided
+        //set the column name to populate the corresponding column with the input data the user provided
         columnName.setCellValueFactory(new PropertyValueFactory<Keyword, String>("longName"));
         columnDataValue.setCellValueFactory(new PropertyValueFactory<Keyword, String>("dataValue"));
 
