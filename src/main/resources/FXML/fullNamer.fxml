@@ -98,11 +98,11 @@
                         <Font name="Alte Haas Grotesk Bold" size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="researcherName" HBox.hgrow="ALWAYS">
+                  <AutocompleteTextField fx:id="researcherName" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
-                  </TextField>
+                  </AutocompleteTextField>
                </children>
             </HBox>
             <HBox spacing="50.0">
