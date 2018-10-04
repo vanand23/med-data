@@ -69,22 +69,15 @@ public class Namer extends ScreenController{
         }
 
         StringBuilder initial = new StringBuilder();
-        if(researcherNameText != null && researcherNameText.length() != 0)
+        if(researcherNameText != null && researcherNameText.trim().isEmpty())
         {
-            String name = researcherNameText.toUpperCase();
-
-            String[] parts = name.split(" ");
-            StringBuilder finalInitial = new StringBuilder();
-
-            String sepIni;
-
-            for (String part : parts) {
-
-                sepIni = part.substring(0, 1);
-                finalInitial = initial.append(sepIni);
-            }
             fname.append(delimiter);
-            fname.append(finalInitial);
+            try {
+                experimentShorthand = ExperimentManager.getInstance().getExperimentByName("long",experimentTypeText).getShortName();
+                fname.append(experimentShorthand);
+            } catch (NameNotFoundException e1) {
+                e1.printStackTrace();
+            }
         }
 
 
