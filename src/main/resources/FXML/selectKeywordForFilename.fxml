@@ -39,12 +39,12 @@
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <JFXButton fx:id="okButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleOKButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
+                  <JFXButton fx:id="okButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleOKButton" stylesheets="@../CSS/mediumButtons.css" text="Save">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="closeButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCloseButton" stylesheets="@../CSS/mediumButtons.css" text="Close">
+                  <JFXButton fx:id="closeButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCloseButton" stylesheets="@../CSS/mediumButtons.css" text="Cancel">
                       <font>
                           <Font size="19.0" />
                       </font>

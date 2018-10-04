@@ -1,11 +1,11 @@
 @font-face {
-    src: url("AlteHaasGroteskBold.ttf");
+    src: url("AlteHaasGroteskRegular.ttf");
 }
 
 
 .label:disabled,
 .label{
-    -fx-font-family: "Alte Haas Grotesk Bold";
+    -fx-font-family: "Alte Haas Grotesk Regular";
     -fx-text-fill: "#21232c";
     -fx-font-smoothing-type: gray;
 }

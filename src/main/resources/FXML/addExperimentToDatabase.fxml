@@ -68,7 +68,7 @@
             </HBox>
                 <HBox alignment="CENTER" prefWidth="200.0" spacing="60.0">
                     <children>
-                        <JFXButton fx:id="submitButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Submit">
+                        <JFXButton fx:id="submitButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSubmitButton" stylesheets="@../CSS/mediumButtons.css" text="Save">
                             <font>
                                 <Font size="19.0" />
                             </font>
