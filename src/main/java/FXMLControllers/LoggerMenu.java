@@ -53,42 +53,15 @@ public class LoggerMenu extends ScreenController implements Initializable {
     private TableColumn<LogEntry, String> commentColumn;
 
     @FXML
-    private TextField priorLogPath;
-
-    @FXML
-    private JFXButton logFileBrowser;
-
-    @FXML
     private TextField newLogFileName;
 
     @FXML
     private JFXButton closeLoggerButton;
 
-    @FXML
-    private JFXButton priorLogHelpButton;
-
-    @FXML
-    private JFXButton openLogButton;
-
-    private Desktop desktop = Desktop.getDesktop();
-
     ArrayList<Keyword> allKeywords;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        final JFXButton priorLogHelp = priorLogHelpButton;
-        final Tooltip priorLogTooltip = new Tooltip();
-        priorLogTooltip.setText("Click on the browse button to find a previous log file.");
-        priorLogHelp.setTooltip(priorLogTooltip);
-
-        priorLogPath.textProperty().addListener((obs,oldLogFilePath,newLogFilePath) -> {
-            if(priorLogPath!= null && !priorLogPath.getText().trim().isEmpty()){
-                openLogButton.setDisable(false);
-            }
-            else{
-                openLogButton.setDisable(true);
-            }
-        });
         ObservableList<LogEntry> logEntryArrayList = getLogEntryArrayList();
 
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("experimentTime"));
@@ -103,31 +76,9 @@ public class LoggerMenu extends ScreenController implements Initializable {
         logTable.setItems(logEntryArrayList);
     }
 
-    @FXML
-    private void browseLogs(ActionEvent e){
-        final FileChooser fileChooser = new FileChooser();
-
-        File file = fileChooser.showOpenDialog((Stage)logFileBrowser.getScene().getWindow());
-        if (file != null) {
-            //  openFile(file);
-            priorLogPath.setText(file.getAbsolutePath());
-        }
-    }
-
-
-    private void openFile (File file){
-        try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                    LoggerMenu.class.getName()).log(
-                    Level.SEVERE, null, ex
-            );
-        }
-    }
 
     @FXML
-    public void closeLogger(ActionEvent e) {
+    public void handleClose(ActionEvent e) {
         Stage primaryStage = (Stage) closeLoggerButton.getScene().getWindow();
         primaryStage.close();
     }
@@ -138,15 +89,15 @@ public class LoggerMenu extends ScreenController implements Initializable {
         logEntryArrayList.clear();
     }
 
-    @FXML
-    public void openLog(ActionEvent e){
-       File file = new File(priorLogPath.getText());
-       openFile(file);
-    }
 
     @FXML
     public void handleWriteToNewLogButton(ActionEvent actionEvent) throws IOException{
         popupScreen("FXML/logFileWriter.fxml", closeLoggerButton.getScene().getWindow());
+    }
+
+    @FXML
+    private void handleLoadLog(ActionEvent actionEvent) throws IOException{
+        popupScreen("FXML/loadLog.fxml", closeLoggerButton.getScene().getWindow());
     }
 }
 
