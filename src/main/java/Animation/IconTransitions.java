@@ -66,15 +66,6 @@ public class IconTransitions {
         ParallelTransition pt4 = new ParallelTransition(t4, f4);
         SequentialTransition st = new SequentialTransition(start, pt1, pt2, pt3, pt4);
 
-        st.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //isMenuPlaying = false;
-                System.out.println("done playing");
-            }
-        });
-
-
         return st;
     }
 
@@ -90,8 +81,6 @@ public class IconTransitions {
         TranslateTransition t2 = new TranslateTransition(Duration.millis(75),icon);
         TranslateTransition t3 = new TranslateTransition(Duration.millis(50),icon);
         TranslateTransition t4 = new TranslateTransition(Duration.millis(50),icon);
-
-        //TranslateTransition t5 = new TranslateTransition(Duration.millis());
 
         FadeTransition f1 = new FadeTransition(Duration.millis(100),icon);
         FadeTransition f2 = new FadeTransition(Duration.millis(75),icon);

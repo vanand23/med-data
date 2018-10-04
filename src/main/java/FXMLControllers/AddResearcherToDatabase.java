@@ -4,11 +4,11 @@ import Types.Researcher;
 import Types.ResearcherManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -21,10 +21,10 @@ import static FXMLControllers.ResearchersTable.getListOfResearchersFromDatabase;
 public class AddResearcherToDatabase extends ScreenController implements Initializable {
 
     @FXML
-    private JFXTextField researcherName;
+    private TextField researcherName;
 
     @FXML
-    private JFXTextField researcherAbbrev;
+    private TextField researcherAbbrev;
 
     @FXML
     private ComboBox<String> pickResearcherDatabase;

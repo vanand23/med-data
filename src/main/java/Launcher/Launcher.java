@@ -30,8 +30,6 @@ public class Launcher extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setResizable(false);
-
         stage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

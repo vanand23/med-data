@@ -4,12 +4,11 @@ import Types.Experiment;
 import Types.ExperimentManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.text.Font;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,10 +20,10 @@ import static FXMLControllers.ExperimentsTable.getExperimentTypeObservableList;
 public class AddExperimentToDatabase extends ScreenController implements Initializable {
 
     @FXML
-    private JFXTextField experimentName;
+    private TextField experimentName;
 
     @FXML
-    private JFXTextField experimentAbbrev;
+    private TextField experimentAbbrev;
 
     @FXML
     private JFXTextArea experimentDescription;

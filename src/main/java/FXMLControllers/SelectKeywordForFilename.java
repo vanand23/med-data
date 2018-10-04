@@ -1,13 +1,11 @@
 package FXMLControllers;
 
-
 import Types.KeywordManager;
 import Types.Keyword;
 import Utilities.AutocompleteTextField;
-import Utilities.Config;
+import Singletons.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,10 +16,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import static FXMLControllers.FullNamer.getData;
-import static Utilities.Config.setProperty;
 
 public class SelectKeywordForFilename extends ScreenController implements Initializable, ITypeObserver {
 
@@ -29,7 +27,7 @@ public class SelectKeywordForFilename extends ScreenController implements Initia
     private AutocompleteTextField keywordName;
 
     @FXML
-    private JFXTextField keywordDataVal;
+    private TextField keywordDataVal;
 
     @FXML
     private JFXButton okButton;
@@ -78,8 +76,8 @@ public class SelectKeywordForFilename extends ScreenController implements Initia
         parameterData = getData();
         Keyword newKeyword = new Keyword(keywordName.getText(), "", "", "", keywordDataVal.getText(), "");
         parameterData.add(newKeyword);
-        Config config = new Config();
-        String configListOfKeywords = config.getProperty("listOfKeywords");
+
+        String configListOfKeywords = Config.getInstance().getProperty("listOfKeywords");
         if(configListOfKeywords == null || configListOfKeywords.trim().isEmpty())
         {
             configListOfKeywords = keywordName.getText() + "," + keywordDataVal.getText();
@@ -87,7 +85,7 @@ public class SelectKeywordForFilename extends ScreenController implements Initia
         {
             configListOfKeywords = configListOfKeywords + "," + keywordName.getText() + "," + keywordDataVal.getText();
         }
-        setProperty("listOfKeywords",configListOfKeywords);
+        Config.getInstance().setProperty("listOfKeywords",configListOfKeywords);
         keywordName.setValidText(false);
         keywordName.clear();
         keywordDataVal.clear();

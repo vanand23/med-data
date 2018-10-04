@@ -2,39 +2,39 @@
 
 <?import Utilities.AutocompleteTextField?>
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="160.0" prefWidth="400.0" style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.SelectKeywordForFilename">
+<?import javafx.scene.control.TextField?>
+<AnchorPane style="-fx-background-color: #C2dce5; -fx-border-color: #003366; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.SelectKeywordForFilename">
    <children>
-      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="400.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="400.0" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label style="-fx-font-size: 119;" stylesheets="@../CSS/label.css" text="Choose a keyword from the database:" />
+            <Label style="-fx-font-size: 19;" stylesheets="@../CSS/label.css" text="Choose a keyword from the database:" />
              <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="20.0">
                  <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="150.0" stylesheets="@../CSS/label.css" text="Name">
+                  <Label prefWidth="100.0" stylesheets="@../CSS/label.css" text="Name">
                       <font>
                           <Font size="19.0" />
                       </font>                  </Label>
-                    <AutocompleteTextField fx:id="keywordName" layoutX="132.0" layoutY="57.0" onAction="#updateKeywords" prefHeight="27.0" prefWidth="241.0" style="-fx-background-color: ffffff;" />
+                    <AutocompleteTextField fx:id="keywordName" layoutX="132.0" layoutY="57.0" onAction="#updateKeywords" prefHeight="27.0" prefWidth="241.0" style="-fx-background-color: ffffff;" HBox.hgrow="ALWAYS" />
                  </children>
              </HBox>
             <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="150.0" stylesheets="@../CSS/label.css" text="Data Value">
+                  <Label prefWidth="100.0" stylesheets="@../CSS/label.css" text="Data Value">
                       <font>
                           <Font size="19.0" />
                       </font>
                   </Label>
-                  <JFXTextField fx:id="keywordDataVal" disable="true" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: ffffff;" text="N/A">
+                  <TextField fx:id="keywordDataVal" disable="true" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: ffffff;" text="N/A" HBox.hgrow="ALWAYS">
                       <font>
                           <Font size="19.0" />
                       </font>
-                  </JFXTextField>
+                  </TextField>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">

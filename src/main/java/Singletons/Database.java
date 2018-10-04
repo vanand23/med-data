@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Types.*;
-import Utilities.Config;
 
 import static Utilities.DirectorySearcher.filesInDirectory;
 
@@ -63,16 +62,11 @@ public class Database {
             //dropTables();
             createTables();
             // load in .csv files to the database
-            // experiments
-            //Database.loadFromCSV("experiments", "defaultExperiments.csv");
-
-            // keywords
-            //Database.loadFromCSV("keywords", "defaultKeywords.csv");
         }else{
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
             dropTables();
             createTables();
-            Config config = new Config();
+
             loadFilesInDirectory("experiments");
             loadFilesInDirectory("keywords");
             loadFilesInDirectory("researchers");

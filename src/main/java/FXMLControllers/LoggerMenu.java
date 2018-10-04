@@ -3,13 +3,13 @@ package FXMLControllers;
 import Types.Keyword;
 import Types.LogEntry;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
@@ -53,13 +53,13 @@ public class LoggerMenu extends ScreenController implements Initializable {
     private TableColumn<LogEntry, String> commentColumn;
 
     @FXML
-    private JFXTextField priorLogPath;
+    private TextField priorLogPath;
 
     @FXML
     private JFXButton logFileBrowser;
 
     @FXML
-    private JFXTextField newLogFileName;
+    private TextField newLogFileName;
 
     @FXML
     private JFXButton closeLoggerButton;
