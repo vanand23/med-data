@@ -50,6 +50,7 @@ public class Config {
             {
                 case "experimentName":
                     sharedFilename.setExperiment(configItemName);
+                    System.out.println("Printed!");
                     break;
                 case "sampleNumber":
                     sharedFilename.setSampleNumber(Integer.parseInt(configItemName));

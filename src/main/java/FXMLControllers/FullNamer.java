@@ -146,7 +146,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
 
     @Override
-    //intialize the fields and other features/windows in full namer
+    //initialize the fields and other features/windows in full namer
     public void initialize(URL location, ResourceBundle resources)
     {
         dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
