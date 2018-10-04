@@ -504,6 +504,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Stage popup = popupScreenSwitchable("FXML/gettingStarted.fxml", addKeywordButton.getScene().getWindow());
     }
 
+    @FXML
+    //Window for information about the application
+    public void handleAbout(ActionEvent e) throws IOException{
+        Stage popup = popupScreen("FXML/about.fxml", addKeywordButton.getScene().getWindow());
+    }
+
 
     @FXML
     //Delete selected row in the table view for keywords in full namer and also the keyword, experiment, and researchers databases

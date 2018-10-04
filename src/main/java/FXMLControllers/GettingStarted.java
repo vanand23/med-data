@@ -3,10 +3,14 @@ package FXMLControllers;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import com.jfoenix.controls.JFXButton;
 
-public class GettingStarted implements Initializable{
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GettingStarted implements Initializable {
 
     @FXML
     private JFXButton closeButton;
