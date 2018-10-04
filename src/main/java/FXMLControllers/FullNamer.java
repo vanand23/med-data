@@ -190,7 +190,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
-           sampleChecked = newIsSelected;
+            sampleChecked = newIsSelected;
             outputText.setText(updateName(sharedFilename));
         });
 
@@ -341,16 +341,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName(sharedFilename)));
         experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
             if(experimentTextField.isValidText())
-            {outputText.setText(updateName(sharedFilename));
-            experimentTextField.setValidText(false);
-            if(isRememberData){
-                Config.getInstance().setProperty("experimentName",newexperimentTextField);
-            }
-            else{
-                Config.getInstance().setProperty("experimentName", "");
-            }
-            }else if(experimentTextField.isTriggerPopup())
             {
+                outputText.setText(updateName(sharedFilename));
+                experimentTextField.setValidText(false);
+                if(isRememberData)
+                {
+                    Config.getInstance().setProperty("experimentName",newexperimentTextField);
+                }else{
+                    Config.getInstance().setProperty("experimentName", "");
+                }
+            }else if(experimentTextField.isTriggerPopup()) {
                 try {
                     experimentTextField.setTriggerPopup(false);
                     popupScreen("FXML/addExperimentToDatabase.fxml", switchNamers.getScene().getWindow());

@@ -67,7 +67,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="20.0" prefWidth="400.0" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="asterixButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToAsterix" style="-fx-font-size: 16; -fx-font-family: &quot;Alte Haas Grotesk Bold&quot;;" text="Asterix (*)   ">
+                        <RadioButton fx:id="asteriskButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDelimiterToasterisk" style="-fx-font-size: 16; -fx-font-family: &quot;Alte Haas Grotesk Bold&quot;;" text="asterisk (*)   ">
                            <font>
                               <Font name="Arial" size="19.0" />
                            </font>

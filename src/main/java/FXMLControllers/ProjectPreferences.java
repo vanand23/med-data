@@ -29,7 +29,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     private JFXTextArea projectDescription;
 
     @FXML
-    private RadioButton asterixButton;
+    private RadioButton asteriskButton;
 
     @FXML
     private RadioButton hyphenButton;
@@ -80,7 +80,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     }
 
     @FXML
-    public void setDelimiterToAsterix(ActionEvent e) throws IOException{
+    public void setDelimiterToasterisk(ActionEvent e) throws IOException{
         delimiter = "*";
         generatePreview();
     }
@@ -135,22 +135,22 @@ public class ProjectPreferences extends ScreenController implements Initializabl
             case "_":
                 underscoreButton.setSelected(true);
                 hyphenButton.setSelected(false);
-                asterixButton.setSelected(false);
+                asteriskButton.setSelected(false);
                 break;
             case "-":
                 underscoreButton.setSelected(false);
                 hyphenButton.setSelected(true);
-                asterixButton.setSelected(false);
+                asteriskButton.setSelected(false);
                 break;
             case "*":
                 underscoreButton.setSelected(false);
                 hyphenButton.setSelected(false);
-                asterixButton.setSelected(true);
+                asteriskButton.setSelected(true);
                 break;
             default:
                 underscoreButton.setSelected(true);
                 hyphenButton.setSelected(false);
-                asterixButton.setSelected(false);
+                asteriskButton.setSelected(false);
         }
     }
 
