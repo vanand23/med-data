@@ -341,14 +341,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         //These listeners are added to make sure the final file output name is updated as the user enters in information for the fields in full namer
         //Also make sure to keep data persistent between windows and closing out of the program if user selects that option
         experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName(sharedFilename)));
-        experimentTextField.textProperty().addListener((obs, oldexperimentTextField, newexperimentTextField) -> {
+        experimentTextField.textProperty().addListener((obs, oldExperimentTextField, newExperimentTextField) -> {
             if(experimentTextField.isValidText())
             {
+                sharedFilename.setExperiment(newExperimentTextField);
                 outputText.setText(updateName(sharedFilename));
                 experimentTextField.setValidText(false);
                 if(isRememberData)
                 {
-                    Config.getInstance().setProperty("experimentName",newexperimentTextField);
+                    Config.getInstance().setProperty("experimentName", newExperimentTextField);
                 }else{
                     Config.getInstance().setProperty("experimentName", "");
                 }
@@ -363,9 +364,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
            if(researcherName.isValidText()) {
+               sharedFilename.setResearcher(newResearcherName);
                outputText.setText(updateName(sharedFilename));
                researcherName.setValidText(false);
-               sharedFilename.setResearcher(newResearcherName);
                if (isRememberData) {
                    Config.getInstance().setProperty("researcherName", newResearcherName);
                } else {
