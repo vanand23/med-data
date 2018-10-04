@@ -7,13 +7,6 @@ import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/*outputText.setText(updateName(
-                                experimentType.getText(),
-                                trialNumber.getText(),
-                                sampleNumber.getText(),
-                                researcherName.getText(),
-                                experimentDate.getValue(),
-                                data));*/
 public class Filename {
     private LocalDate date;
     private String experiment;

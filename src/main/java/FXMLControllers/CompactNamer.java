@@ -108,7 +108,7 @@ public class CompactNamer extends Namer implements Initializable {
 
     @FXML
     public void copyFileToClipboard(ActionEvent e) {
-        String nameToCopy = updateName(sharedFilename);
+        String nameToCopy = updateName();
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
