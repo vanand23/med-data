@@ -107,18 +107,18 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
 
     //checking if the sample and trial number fields have been checked off in full namer to see whether to keep data persistent
-    public static void setIsSampleChecked(boolean isSampleChecked) {
-        FullNamer.isSampleChecked = isSampleChecked;
+    public static void setSampleChecked(boolean sampleChecked) {
+        FullNamer.sampleChecked = sampleChecked;
     }
 
     public static void setIsTrialChecked(boolean isTrialChecked) {
         FullNamer.isTrialChecked = isTrialChecked;
     }
 
-    private static boolean isSampleChecked = true;
+    private static boolean sampleChecked = true;
 
-    public static boolean isIsSampleChecked() {
-        return isSampleChecked;
+    public static boolean isSampleChecked() {
+        return sampleChecked;
     }
 
     public static boolean isIsTrialChecked() {
@@ -189,7 +189,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
-           isSampleChecked = newIsSelected;
+           sampleChecked = newIsSelected;
             outputText.setText(updateName(sharedFilename));
         });
 
@@ -287,7 +287,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
         }
 
-        if(!isSampleChecked){
+        if(!sampleChecked){
             sampleNumber.setDisable(true);
             sampleNumberCheckbox.setSelected(false);
         }

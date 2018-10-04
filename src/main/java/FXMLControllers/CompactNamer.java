@@ -27,6 +27,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import static FXMLControllers.FullNamer.*;
+
 public class CompactNamer extends Namer implements Initializable {
 
     @FXML
@@ -35,7 +37,8 @@ public class CompactNamer extends Namer implements Initializable {
     @FXML
     private TextField trialNumber;
 
-    @FXML TextField sampleNumber;
+    @FXML
+    private TextField sampleNumber;
 
     @FXML
     private JFXToggleButton switchNamers;
@@ -43,23 +46,11 @@ public class CompactNamer extends Namer implements Initializable {
     @FXML
     private JFXButton closeButton;
 
-    @FXML
-    private JFXCheckBox sampleCheckbox;
-
-    @FXML
-    private JFXCheckBox trialCheckbox;
-
-    private static Filename sharedFilename;
-
-    static void setCompactNamerFilename(Filename sharedFilename) {
-        CompactNamer.sharedFilename = sharedFilename;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
-        trialCheckbox.setSelected(isIsTrialChecked());
-        sampleCheckbox.setSelected(isIsSampleChecked());
+        trialNumberCheckbox.setSelected(isIsTrialChecked());
+        sampleNumberCheckbox.setSelected(isSampleChecked());
         String pattern = "dd/MM/yyyy";
         experimentDate.setPromptText(pattern.toLowerCase());
         experimentDate.setConverter(new StringConverter<LocalDate>() {
@@ -110,7 +101,7 @@ public class CompactNamer extends Namer implements Initializable {
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
-            setIsSampleChecked(newIsSelected);
+            setSampleChecked(newIsSelected);
         });
 
     }
@@ -170,9 +161,9 @@ public class CompactNamer extends Namer implements Initializable {
     }
 
     public void sampleNumNotNeg(){
-        if(!isIsSampleChecked()){
+        if(!isSampleChecked()){
             sampleNumber.setDisable(true);
-            sampleCheckbox.setSelected(false);
+            sampleNumberCheckbox.setSelected(false);
         }
         else{
             sampleNumber.setText(String.valueOf(sharedFilename.getSampleNumber()));
@@ -182,7 +173,7 @@ public class CompactNamer extends Namer implements Initializable {
     public void trialNumNotNeg(){
         if(!isIsTrialChecked()){
             trialNumber.setDisable(true);
-            trialCheckbox.setSelected(false);
+            trialNumberCheckbox.setSelected(false);
         }
         else{
             trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
