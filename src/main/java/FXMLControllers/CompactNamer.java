@@ -40,6 +40,8 @@ public class CompactNamer extends Namer implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
 
+        trialCheckbox.setSelected(isIsTrialChecked());
+        sampleCheckbox.setSelected(isIsSampleChecked());
         String pattern = "dd/MM/yyyy";
         experimentDate.setPromptText(pattern.toLowerCase());
         experimentDate.setConverter(new StringConverter<LocalDate>() {
@@ -65,20 +67,8 @@ public class CompactNamer extends Namer implements Initializable {
         });
 
         experimentDate.setValue(LocalDate.now());
-
-        if(trialNumber.getText().equals("-1")){
-            trialNumber.setText("0");
-        }
-        else{
-            trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
-        }
-
-        if(sampleNumber.getText()=="-1"){
-            sampleNumber.setText("0");
-        }
-        else{
-            sampleNumber.setText(String.valueOf(sharedFilename.getSampleNumber()));
-        }
+        trialNumNotNeg();
+        sampleNumNotNeg();
 
 
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) ->
@@ -95,25 +85,13 @@ public class CompactNamer extends Namer implements Initializable {
 
         trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
-            if(!newIsSelected)
-            {
-                sharedFilename.setTrialNumber(-1);
-            }else{
-                sharedFilename.setTrialNumber(Integer.parseInt(trialNumber.getText()));
-            }
+            setIsTrialChecked(newIsSelected);
         });
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
-            if(!newIsSelected)
-            {
-                sharedFilename.setSampleNumber(-1);
-            }else{
-                sharedFilename.setSampleNumber(Integer.parseInt(sampleNumber.getText()));
-            }
+            setIsSampleChecked(newIsSelected);
         });
-
-
 
     }
 
@@ -169,5 +147,25 @@ public class CompactNamer extends Namer implements Initializable {
     @FXML
     public void closeCompactNamer(ActionEvent e) {
         closeProgram(closeButton);
+    }
+
+    public void sampleNumNotNeg(){
+        if(!isIsSampleChecked()){
+            sampleNumber.setDisable(true);
+            sampleCheckbox.setSelected(false);
+        }
+        else{
+            sampleNumber.setText(String.valueOf(sharedFilename.getSampleNumber()));
+        }
+    }
+
+    public void trialNumNotNeg(){
+        if(!isIsTrialChecked()){
+            trialNumber.setDisable(true);
+            trialCheckbox.setSelected(false);
+        }
+        else{
+            trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
+        }
     }
 }
