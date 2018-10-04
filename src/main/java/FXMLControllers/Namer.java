@@ -1,9 +1,6 @@
 package FXMLControllers;
 
-import Types.ExperimentManager;
-import Types.Filename;
-import Types.KeywordManager;
-import Types.Keyword;
+import Types.*;
 import Singletons.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -29,14 +26,14 @@ public class Namer extends ScreenController{
 
     public static Filename sharedFilename;
 
-    String updateName(Filename filename)
+    String updateName()
     {
-        String experimentTypeText = filename.getExperiment();
-        int trialNumberText = filename.getTrialNumber();
-        int sampleNumberText = filename.getSampleNumber();
-        String researcherNameText = filename.getResearcher();
-        LocalDate experimentDate =  filename.getDate();
-        ObservableList<Keyword> sharedListOfKeywords = filename.getKeywords();
+        String experimentTypeText = sharedFilename.getExperiment();
+        int trialNumberText = sharedFilename.getTrialNumber();
+        int sampleNumberText = sharedFilename.getSampleNumber();
+        String researcherNameText = sharedFilename.getResearcher();
+        LocalDate experimentDate =  sharedFilename.getDate();
+        ObservableList<Keyword> sharedListOfKeywords = sharedFilename.getKeywords();
 
 
         String delimiter = Config.getInstance().getProperty("delimiter");
@@ -68,13 +65,15 @@ public class Namer extends ScreenController{
             }
         }
 
-        StringBuilder initial = new StringBuilder();
-        if(researcherNameText != null && researcherNameText.trim().isEmpty())
+        String researcherShorthand = "";
+
+        if(researcherNameText != null && !researcherNameText.trim().isEmpty())
         {
             fname.append(delimiter);
             try {
-                experimentShorthand = ExperimentManager.getInstance().getExperimentByName("long",experimentTypeText).getShortName();
-                fname.append(experimentShorthand);
+                researcherShorthand = ResearcherManager.getInstance().getResearcherByName("long",researcherNameText).getShortName();
+                System.out.println(researcherShorthand);
+                fname.append(researcherShorthand);
             } catch (NameNotFoundException e1) {
                 e1.printStackTrace();
             }

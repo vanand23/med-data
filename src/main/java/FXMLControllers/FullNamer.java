@@ -157,7 +157,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else{
                 sharedFilename.setDate(experimentDate.getValue());
             }
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
         });
 
         experimentCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
@@ -168,7 +168,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else{
                 sharedFilename.setExperiment(experimentTextField.getText());
             }
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
         });
 
         researcherCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
@@ -179,19 +179,19 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else{
                 sharedFilename.setResearcher(researcherName.getText());
             }
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
         });
 
         trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
             isTrialChecked = newIsSelected;
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
         });
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
             sampleChecked = newIsSelected;
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
         });
 
 
@@ -340,12 +340,13 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         //These listeners are added to make sure the final file output name is updated as the user enters in information for the fields in full namer
         //Also make sure to keep data persistent between windows and closing out of the program if user selects that option
-        experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName(sharedFilename)));
+        experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName()));
         experimentTextField.textProperty().addListener((obs, oldExperimentTextField, newExperimentTextField) -> {
             if(experimentTextField.isValidText())
             {
+                System.out.println("Set new experiment!" + newExperimentTextField);
                 sharedFilename.setExperiment(newExperimentTextField);
-                outputText.setText(updateName(sharedFilename));
+                outputText.setText(updateName());
                 experimentTextField.setValidText(false);
                 if(isRememberData)
                 {
@@ -365,7 +366,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
            if(researcherName.isValidText()) {
                sharedFilename.setResearcher(newResearcherName);
-               outputText.setText(updateName(sharedFilename));
+               outputText.setText(updateName());
                researcherName.setValidText(false);
                if (isRememberData) {
                    Config.getInstance().setProperty("researcherName", newResearcherName);
@@ -384,7 +385,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
             sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
             if(isRememberData) {
                 Config.getInstance().setProperty("trialNumber", newTrialNumber);
             }
@@ -394,7 +395,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
             sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
             if(isRememberData) {
                 Config.getInstance().setProperty("sampleNumber", newSampleNumber);
             }
@@ -404,9 +405,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         listOfKeywords.addListener((ListChangeListener<Keyword>) keywords -> {
             sharedFilename.setKeywords(listOfKeywords);
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
         });
-        outputText.setText(updateName(sharedFilename));
+        outputText.setText(updateName());
     }
 
     //The following functions are to increment/decrement the sample and trial number on the click of the "+" and "-" buttons next to the field
@@ -466,7 +467,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         String stringResearcherName = researcherName.getText();
         LocalDate stringExperimentDate = experimentDate.getValue();
         String comment = "";
-        String nameToCopy = updateName(sharedFilename);
+        String nameToCopy = updateName();
 
         if(isRememberData) {
             Config.getInstance().setProperty("experimentTextField",experimentTextField.getText());
@@ -565,7 +566,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 /*
     private void addListenerToTextfield(TextField textField){
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-            outputText.setText(updateName(sharedFilename));
+            outputText.setText(updateName());
             sharedFilename.setResearcher(newResearcherName);
             if(isRememberData) {
                 Config.getInstance().setProperty("researcherName", newResearcherName);

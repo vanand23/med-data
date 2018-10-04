@@ -66,7 +66,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("experimentTime"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("experimentDate"));
-        researcherColumn.setCellValueFactory(new PropertyValueFactory<>("researcher"));
+        researcherColumn.setCellValueFactory(new PropertyValueFactory<>("researcherName"));
         trialNumberColumn.setCellValueFactory(new PropertyValueFactory<>("trialNumber"));
         sampleNumberColumn.setCellValueFactory(new PropertyValueFactory<>("sampleNumber"));
         filenameColumn.setCellValueFactory(new PropertyValueFactory<>("filename"));
