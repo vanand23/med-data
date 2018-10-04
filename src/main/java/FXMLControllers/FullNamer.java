@@ -56,7 +56,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private DatePicker experimentDate;
 
     @FXML
-    private TextField researcherName;
+    private AutocompleteTextField researcherName;
 
     @FXML
     private TextField trialNumber;
@@ -239,6 +239,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         //the config file stores the data inputted by the user that need to be persistent across the windows
         // such as full/compact namer, project preferences, and the keyword/experiments/researchers databases
         experimentTextField.setMinWidth(Region.USE_PREF_SIZE);
+        researcherName.setMinWidth(Region.USE_PREF_SIZE);
 
         isRememberData = Boolean.valueOf(Config.getInstance().getProperty("rememberData"));
         if(sharedFilename == null) {
@@ -300,6 +301,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         experimentDate.setValue(LocalDate.now());
         //allocatting space for the text field for the user input
         experimentTextField.setAutocompleteWidth(350);
+        researcherName.setAutocompleteWidth(350);
         columnName.setMinWidth(100);
         columnDataValue.setMinWidth(100);
 
@@ -360,14 +362,24 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }
         });
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-           outputText.setText(updateName(sharedFilename));
-           sharedFilename.setResearcher(newResearcherName);
-           if(isRememberData) {
-               Config.getInstance().setProperty("researcherName", newResearcherName);
+           if(researcherName.isValidText()) {
+               outputText.setText(updateName(sharedFilename));
+               researcherName.setValidText(false);
+               sharedFilename.setResearcher(newResearcherName);
+               if (isRememberData) {
+                   Config.getInstance().setProperty("researcherName", newResearcherName);
+               } else {
+                   Config.getInstance().setProperty("researcherName", "");
+               }
+           } else if(researcherName.isTriggerPopup()){
+               try{
+                   researcherName.setTriggerPopup(false);
+                   popupScreen("FXML/addResearcherToDatabase.fxml", researcherName.getScene().getWindow());
+               }catch (IOException e){
+                   e.printStackTrace();
+               }
            }
-           else{
-               Config.getInstance().setProperty("researcherName", "");
-           }
+
         });
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
             sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
@@ -439,6 +451,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     @FXML
+    //update the experiment name and parameters in the database
+    public void updateResearcher(ActionEvent e) throws IOException{
+        whenUpdating();
+    }
+
+    @FXML
     //Adds the ability for the user to copy the final file output name and paste into the file directory
     public void copyFileToClipboard(ActionEvent e) throws IOException{
         String stringexperimentTextField = experimentTextField.getText();
@@ -454,6 +472,13 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         }
         else{
             Config.getInstance().setProperty("experimentName", "");
+        }
+
+        if(isRememberData) {
+            Config.getInstance().setProperty("researcherName",researcherName.getText());
+        }
+        else{
+            Config.getInstance().setProperty("theResearcherName", "");
         }
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
@@ -552,10 +577,17 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
 
     @Override
-    //updates the experiment names and its parameters (such as abbreviation) in the database
+    //updates the experiment/researcher names and its parameters (such as abbreviation) in the database
     public void onTypeUpdate() {
         ArrayList<String> experiments = (ArrayList<String>) ExperimentManager.getInstance().getAllExperimentLongNames();
         experimentTextField.getEntries().addAll(experiments);
+
+        ArrayList<String> researchers = (ArrayList<String>) ResearcherManager.getInstance().getAllResearcherLongNames();
+        researcherName.getEntries().addAll(researchers);
+    }
+
+    public void whenUpdating(){
+
     }
 
     static ObservableList<Keyword> getdata() {
