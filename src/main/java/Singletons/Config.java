@@ -1,7 +1,6 @@
 package Singletons;
 
-import FXMLControllers.FullNamer;
-import com.jfoenix.controls.JFXTextField;
+import javafx.scene.control.TextField;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,7 +41,7 @@ public class Config {
         }
     }
 
-    public boolean setFieldFromConfig(JFXTextField fieldToSet, String itemToGet){
+    public boolean setFieldFromConfig(TextField fieldToSet, String itemToGet){
         String configItemName = getProperty(itemToGet);
         if(configItemName != null && !configItemName.trim().isEmpty())
         {

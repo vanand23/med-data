@@ -1,9 +1,9 @@
 package FXMLControllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -15,7 +15,7 @@ import static Utilities.DirectorySearcher.doesFileExist;
 
 public class CreateNewExperimentDatabase {
     @FXML
-    private JFXTextField newDatabaseName;
+    private TextField newDatabaseName;
     @FXML
     private JFXButton closeButton;
 

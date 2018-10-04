@@ -4,11 +4,11 @@ import Singletons.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,10 +20,10 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     public JFXButton saveButton;
     @FXML
-    private JFXTextField researcherName;
+    private TextField researcherName;
 
     @FXML
-    private JFXTextField projectName;
+    private TextField projectName;
 
     @FXML
     private JFXTextArea projectDescription;
@@ -38,7 +38,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     private RadioButton underscoreButton;
 
     @FXML
-    private JFXTextField previewBox;
+    private TextField previewBox;
 
     @FXML
     private JFXButton cancelButton;

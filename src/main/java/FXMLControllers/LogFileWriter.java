@@ -3,10 +3,10 @@ package FXMLControllers;
 import Types.LogEntry;
 import Singletons.Config;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -23,7 +23,7 @@ public class LogFileWriter {
     @FXML
     private JFXButton closeButton;
     @FXML
-    private JFXTextField newLogFileName;
+    private TextField newLogFileName;
 
     @FXML
     public void generateLog(ActionEvent e){

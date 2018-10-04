@@ -3,12 +3,12 @@ package FXMLControllers;
 import Singletons.Config;
 import Types.Filename;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -27,9 +27,9 @@ public class CompactNamer extends Namer implements Initializable {
     private DatePicker experimentDate;
 
     @FXML
-    private JFXTextField trialNumber;
+    private TextField trialNumber;
 
-    @FXML JFXTextField sampleNumber;
+    @FXML TextField sampleNumber;
 
     @FXML
     private JFXToggleButton switchNamers;

@@ -6,7 +6,6 @@ import Singletons.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -16,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -58,17 +58,17 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private DatePicker experimentDate;
 
     @FXML
-    private JFXTextField researcherName;
+    private TextField researcherName;
 
     @FXML
-    private JFXTextField trialNumber;
+    private TextField trialNumber;
 
 
     @FXML
-    private JFXTextField sampleNumber;
+    private TextField sampleNumber;
 
     @FXML
-    private JFXTextField outputText;
+    private TextField outputText;
 
     @FXML
     private AutocompleteTextField experimentTextField;
@@ -85,9 +85,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private JFXButton helpButtonInput;
 
     @FXML
-    private JFXButton helpButtonOutput;
-
-    @FXML
     private TableView<Keyword> keywordsTable;
 
     @FXML
@@ -95,12 +92,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     private TableColumn columnDataValue;
-
-    @FXML
-    private JFXButton clearButton;
-
-    @FXML
-    private JFXButton gettingStartedButton;
 
     private final static ObservableList<Keyword> listOfKeywords = FXCollections.observableArrayList();
 
@@ -453,7 +444,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     public void handleGettingStarted(ActionEvent e) throws IOException{
-        Stage popup = popupScreen("FXML/gettingStarted.fxml", gettingStartedButton.getScene().getWindow());
+        Stage popup = popupScreen("FXML/gettingStarted.fxml", addKeywordButton.getScene().getWindow());
     }
 
 
@@ -482,7 +473,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
 /*
-    private void addListenerToTextfield(JFXTextField textField){
+    private void addListenerToTextfield(TextField textField){
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
             outputText.setText(updateName(sharedFilename));
             sharedFilename.setResearcher(newResearcherName);
@@ -540,6 +531,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         thisStage.setIconified(true);
     }
 
+    /* currently doesn't handle fullscreen
     @FXML
     public void handleFullscreen(ActionEvent actionEvent) {
         Stage thisStage = (Stage) closeButton.getScene().getWindow();
@@ -552,4 +544,5 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             fullscreenButtonImage.setImage(singleWindowIcon);
         }
     }
+    */
 }

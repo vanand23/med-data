@@ -12,21 +12,6 @@ public class GettingStarted {
     private JFXButton closeButton;
 
     @FXML
-    private JFXButton fullNamerButton;
-
-    @FXML
-    private JFXButton compactNamerButton;
-
-    @FXML
-    private JFXButton projectPreferencesButton;
-
-    @FXML
-    private JFXButton loggerButton;
-
-    @FXML
-    private JFXButton databasesButton;
-
-    @FXML
     private JFXTextArea instructionsTextArea;
 
     @FXML

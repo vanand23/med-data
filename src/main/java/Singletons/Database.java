@@ -62,11 +62,6 @@ public class Database {
             //dropTables();
             createTables();
             // load in .csv files to the database
-            // experiments
-            //Database.loadFromCSV("experiments", "defaultExperiments.csv");
-
-            // keywords
-            //Database.loadFromCSV("keywords", "defaultKeywords.csv");
         }else{
             // UNCOMMENT THE BELOW LINE TO RESET THE DATABASE
             dropTables();

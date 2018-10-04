@@ -3,15 +3,11 @@ package FXMLControllers;
 import Types.KeywordManager;
 import Types.Keyword;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.ToggleGroup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,10 +18,10 @@ import static FXMLControllers.KeywordsTable.getListOfKeywordsFromDatabase;
 public class AddKeywordToDatabase extends ScreenController implements Initializable {
 
     @FXML
-    private JFXTextField thekeywordName;
+    private TextField thekeywordName;
 
     @FXML
-    private JFXTextField thekeywordAbbrev;
+    private TextField thekeywordAbbrev;
 
     @FXML
     private JFXButton cancelButton;
@@ -46,7 +42,7 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     private RadioButton noData;
 
     @FXML
-    private JFXTextField keywordPreviewField;
+    private TextField keywordPreviewField;
 
     @FXML
     private ComboBox<String> pickKeywordDatabase;

@@ -3,7 +3,6 @@
 <?import Utilities.AutocompleteTextField?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
@@ -11,6 +10,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -21,22 +21,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TextField?>
 <StackPane style="-fx-border-width: 1 1 1 1; -fx-border-color: BLUE; -fx-background-color: &quot;#C2dce5&quot;;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.FullNamer">
    <children>
-      <Pane maxHeight="80.0" style="-fx-background-color: LIGHTGREY;" StackPane.alignment="BOTTOM_CENTER" />
+      <Pane maxHeight="80.0" opacity="0.0" style="-fx-background-color: LIGHTGREY;" StackPane.alignment="BOTTOM_CENTER" />
       <VBox fx:id="mainVBox" alignment="TOP_CENTER" spacing="20.0" StackPane.alignment="CENTER">
          <children>
             <MenuBar minWidth="-Infinity" VBox.vgrow="ALWAYS">
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePreferences" text="Preferences" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleLogger" text="Logger" />
+                        <MenuItem mnemonicParsing="false" onAction="#clearFields" text="Clear Fields" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePreferences" text="Preferences..." />
+                        <MenuItem mnemonicParsing="false" onAction="#handleLogger" text="Logger..." />
                         <Menu mnemonicParsing="false" text="Databases">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#handleExperiments" text="Experiment" />
-                              <MenuItem mnemonicParsing="false" onAction="#handleResearchers" text="Researcher" />
-                              <MenuItem mnemonicParsing="false" onAction="#handleKeywords" text="Keyword" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleExperiments" text="Experiment..." />
+                              <MenuItem mnemonicParsing="false" onAction="#handleResearchers" text="Researcher..." />
+                              <MenuItem mnemonicParsing="false" onAction="#handleKeywords" text="Keyword..." />
                            </items>
                         </Menu>
                      </items>
@@ -81,7 +83,7 @@
                         <Font name="Alte Haas Grotesk Bold" size="19.0" />
                      </font>
                   </Label>
-                  <AutocompleteTextField fx:id="experimentTextField" labelFloat="true" onAction="#updateExperiment" unFocusColor="#0d004d" HBox.hgrow="ALWAYS">
+                  <AutocompleteTextField fx:id="experimentTextField" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
@@ -96,14 +98,14 @@
                         <Font name="Alte Haas Grotesk Bold" size="19.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="researcherName" labelFloat="true" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="researcherName" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
-                  </JFXTextField>
+                  </TextField>
                </children>
             </HBox>
-            <HBox spacing="20.0">
+            <HBox spacing="50.0">
                <children>
                   <VBox prefHeight="100.0" prefWidth="268.0" spacing="5.0">
                      <children>
@@ -118,11 +120,11 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                            <children>
                               <JFXCheckBox fx:id="trialNumberCheckbox" checkedColor="#009688" selected="true" text=" " />
-                              <JFXTextField fx:id="trialNumber" labelFloat="true" unFocusColor="BLACK">
+                              <TextField fx:id="trialNumber">
                                  <font>
                                     <Font name="Arial" size="20.0" />
                                  </font>
-                              </JFXTextField>
+                              </TextField>
                               <JFXButton fx:id="plusTrialButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementTrialNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/mediumButtons.css" text="+">
                                  <font>
                                     <Font size="16.0" />
@@ -154,11 +156,11 @@
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <JFXCheckBox fx:id="sampleNumberCheckbox" checkedColor="#009688" selected="true" text=" " />
-                                    <JFXTextField fx:id="sampleNumber" labelFloat="true" prefHeight="37.0" prefWidth="166.0" unFocusColor="BLACK">
+                                    <TextField fx:id="sampleNumber" prefHeight="37.0" prefWidth="166.0">
                                        <font>
                                           <Font name="Arial" size="20.0" />
                                        </font>
-                                    </JFXTextField>
+                                    </TextField>
                                     <JFXButton fx:id="plusSampleButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxHeight="20.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#incrementSampleNumber" prefHeight="35.0" prefWidth="35.0" stylesheets="@../CSS/mediumButtons.css" text="+" textOverrun="CLIP">
                                        <font>
                                           <Font size="16.0" />
@@ -193,7 +195,7 @@
                               <TableView fx:id="keywordsTable" prefHeight="160.0" prefWidth="360.0">
                                  <columns>
                                     <TableColumn fx:id="columnName" minWidth="100.0" prefWidth="240.0" resizable="false" text="Name" />
-                                    <TableColumn fx:id="columnDataValue" prefWidth="109.0" resizable="false" text="Data Value" />
+                                    <TableColumn fx:id="columnDataValue" prefWidth="119.0" resizable="false" text="Data Value" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -222,24 +224,20 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </HBox>
+            <Separator prefHeight="8.0" prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="30.0" spacing="10.0">
                <children>
-                  <Label stylesheets="@../CSS/label.css" text="Output Filename:">
+                  <Label stylesheets="@../CSS/label.css" text="Filename Preview:">
                      <font>
                         <Font name="Alte Haas Grotesk Bold" size="19.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="outputText" prefHeight="25.0" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="outputText" prefHeight="25.0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
-                  </JFXTextField>
+                  </TextField>
                   <JFXButton fx:id="copyNameButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/mediumButtons.css" text="Copy">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="clearButton" onAction="#clearFields" stylesheets="@../CSS/mediumButtons.css" text="Clear">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -261,14 +259,14 @@
       </VBox>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" StackPane.alignment="TOP_CENTER">
          <children>
-            <Label text="Full Namer">
+            <Label stylesheets="@../CSS/label.css" text="Full Namer">
                <font>
                   <Font name="Alte Haas Grotesk Bold" size="19.0" />
                </font>
             </Label>
             <JFXToggleButton fx:id="switchNamers" focusTraversable="false" onAction="#handleToggleButton" text="Compact Namer">
                <font>
-                  <Font name="Alte Haas Grotesk Bold" size="19.0" />
+                  <Font size="19.0" />
                </font>
                <padding>
                   <Insets bottom="-10.0" top="-10.0" />
@@ -278,7 +276,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" maxHeight="50.0" maxWidth="300.0" StackPane.alignment="TOP_RIGHT">
          <children>
-            <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#handleMinimize" opacity="0.8" prefWidth="60.0" ripplerFill="#3250ff" style="-fx-background-color: LIGHTGREY; -fx-border-width: 0 1 1 1; -fx-border-radius: 0 0 0 10; -fx-background-radius: 0 0 0 10; -fx-border-color: BLACK;">
+            <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#handleMinimize" opacity="0.8" prefWidth="60.0" ripplerFill="#3250ff" style="-fx-background-color: LIGHTGREY; -fx-border-width: 0 0 1 1; -fx-border-radius: 0 0 0 10; -fx-background-radius: 0 0 0 10; -fx-border-color: BLACK;">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -290,19 +288,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#handleFullscreen" opacity="0.8" prefWidth="60.0" ripplerFill="#3250ff" style="-fx-background-color: LIGHTGREY; -fx-border-width: 0 0 1 0; -fx-border-color: BLACK;">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fx:id="fullscreenButtonImage" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/singleWindowIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton onAction="#closeFullNamer" opacity="0.8" prefWidth="60.0" ripplerFill="#3250ff" style="-fx-border-radius: 0 0 10 0; -fx-border-width: 0 1 1 1; -fx-border-color: BLACK; -fx-background-radius: 0 0 10 0; -fx-background-color: LIGHTGREY;" text="X">
+            <JFXButton onAction="#closeFullNamer" opacity="0.8" prefWidth="60.0" ripplerFill="#ff4033" style="-fx-border-radius: 0 0 10 0; -fx-border-width: 0 1 1 1; -fx-border-color: BLACK; -fx-background-radius: 0 0 10 0; -fx-background-color: LIGHTGREY;" text="X">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>

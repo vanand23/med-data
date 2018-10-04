@@ -6,7 +6,6 @@ import Utilities.AutocompleteTextField;
 import Singletons.Config;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import static FXMLControllers.FullNamer.getData;
@@ -27,7 +27,7 @@ public class SelectKeywordForFilename extends ScreenController implements Initia
     private AutocompleteTextField keywordName;
 
     @FXML
-    private JFXTextField keywordDataVal;
+    private TextField keywordDataVal;
 
     @FXML
     private JFXButton okButton;

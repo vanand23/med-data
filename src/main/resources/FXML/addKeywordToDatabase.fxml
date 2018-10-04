@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -12,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane prefWidth="400.0" style="-fx-background-color: #C2dce5; -fx-border-radius: 2; -fx-border-color: #003366;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControllers.AddKeywordToDatabase">
     <children>
       <VBox layoutX="27.0" layoutY="295.0" prefHeight="83.0" prefWidth="345.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -21,16 +21,16 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="thekeywordName" labelFloat="true" prefHeight="27.0" prefWidth="290.0" promptText="Full Name" style="-fx-background-color: ffffff;">
+            <TextField fx:id="thekeywordName" prefHeight="27.0" prefWidth="290.0" promptText="Full Name" style="-fx-background-color: ffffff;">
                <font>
                    <Font size="19.0" />
                </font>
-            </JFXTextField>
-            <JFXTextField fx:id="thekeywordAbbrev" labelFloat="true" prefHeight="27.0" prefWidth="290.0" promptText="Abbreviation" style="-fx-background-color: ffffff;">
+            </TextField>
+            <TextField fx:id="thekeywordAbbrev" prefHeight="27.0" prefWidth="290.0" promptText="Abbreviation" style="-fx-background-color: ffffff;">
                <font>
                    <Font size="19.0" />
                </font>
-            </JFXTextField>
+            </TextField>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="334.0" spacing="10.0">
                <children>
                   <Label minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" stylesheets="@../CSS/label.css" text="Data Type:">
@@ -94,7 +94,7 @@
                      <font>
                         <Font size="19.0" />
                      </font></Label>
-                  <JFXTextField fx:id="keywordPreviewField" prefHeight="25.0" style="-fx-background-color: ffffff;" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="keywordPreviewField" prefHeight="25.0" style="-fx-background-color: ffffff;" HBox.hgrow="ALWAYS" />
                   <JFXButton fx:id="keywordPreviewHelp" stylesheets="@../CSS/helpButton.css" text="?" />
                </children>
             </HBox>

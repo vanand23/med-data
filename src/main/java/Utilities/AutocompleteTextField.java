@@ -1,10 +1,9 @@
 package Utilities;
-
-import com.jfoenix.controls.JFXTextField;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 // CODE BORROWED FROM: https://stackoverflow.com/questions/36861056/
 // javafx-textfield-auto-suggestions?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
-public class AutocompleteTextField extends JFXTextField {
+public class AutocompleteTextField extends TextField {
     //Local variables
     //entries to autocomplete
     private final SortedSet<String> entries;
