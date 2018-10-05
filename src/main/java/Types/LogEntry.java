@@ -20,6 +20,17 @@ public class LogEntry {
     private String filename;
     private String comment;
     private ObservableList<Keyword> listOfKeywords;
+    public LogEntry(){
+        this.experimentDate = "";
+        this.experimentTime = "";
+        this.researcherName = "";
+        this.experimentName = "";
+        this.trialNumber = "";
+        this.sampleNumber = "";
+        this.filename = "";
+        this.listOfKeywords = null;
+        this.comment = "";
+    }
     public LogEntry(LocalDate experimentDate,
                     String researcherName,
                     String experimentName,

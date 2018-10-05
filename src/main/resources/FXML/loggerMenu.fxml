@@ -29,6 +29,7 @@
                         <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time" />
                         <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
                         <TableColumn fx:id="researcherColumn" prefWidth="111.0" text="Researcher" />
+                        <TableColumn fx:id="experimentColumn" prefWidth="111.0" text="Experiment" />
                         <TableColumn fx:id="trialNumberColumn" prefWidth="83.0" text="Trial #" />
                         <TableColumn fx:id="sampleNumberColumn" minWidth="0.0" prefWidth="83.0" text="Sample #" />
                         <TableColumn fx:id="filenameColumn" prefWidth="87.0" text="Filename" />

@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static FXMLControllers.FullNamer.getLogEntryArrayList;
+import static FXMLControllers.FullNamer.getLogEntryList;
 
 public class LogFileWriter {
 
@@ -53,11 +53,10 @@ public class LogFileWriter {
             //}
             FileOutputStream outputStream = new FileOutputStream(fileLocation);
             workbook.write(outputStream);
-            System.out.println(fileLocation);
             workbook.close();
-            System.out.println("printed log file");
+            handleCloseButton(e);
         }catch (IOException e1){
-            System.out.println("ERROR MATE");
+            e1.printStackTrace();
         }
     }
 
@@ -99,36 +98,33 @@ public class LogFileWriter {
         Cell dateHeaderCell = tableHeaderRow.createCell(0, CellType.STRING);
         dateHeaderCell.setCellValue("DATE");
         dateHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(0,2000);
         Cell timeHeaderCell = tableHeaderRow.createCell(1, CellType.STRING);
         timeHeaderCell.setCellValue("TIME");
         timeHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(1,2000);
         Cell researcherNameHeaderCell = tableHeaderRow.createCell(2, CellType.STRING);
         researcherNameHeaderCell.setCellValue("RESEARCHER NAME");
         researcherNameHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(2,5500);
         Cell experimentTypeHeaderCell = tableHeaderRow.createCell(3, CellType.STRING);
         experimentTypeHeaderCell.setCellValue("EXPERIMENT TYPE");
         experimentTypeHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(3,5500);
         Cell trialNumberHeaderCell = tableHeaderRow.createCell(4, CellType.STRING);
         trialNumberHeaderCell.setCellValue("TRIAL NUMBER");
         trialNumberHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(4,4000);
         Cell sampleNumberHeaderCell = tableHeaderRow.createCell(5, CellType.STRING);
         sampleNumberHeaderCell.setCellValue("SAMPLE NUMBER");
         sampleNumberHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(5,4500);
         Cell fileNameHeaderCell = tableHeaderRow.createCell(6, CellType.STRING);
         fileNameHeaderCell.setCellValue("FILE NAME");
         fileNameHeaderCell.setCellStyle(headerStyle);
-        sheet.setColumnWidth(6,3500);
+        Cell commentHeaderCell = tableHeaderRow.createCell(7, CellType.STRING);
+        commentHeaderCell.setCellValue("COMMENT");
+        commentHeaderCell.setCellStyle(headerStyle);
 
-        ObservableList<LogEntry> logEntryArrayList = getLogEntryArrayList();
+
+        ObservableList<LogEntry> logEntryList = getLogEntryList();
 
         int i = rowNumber;
-        for (LogEntry logEntry : logEntryArrayList) {
+        for (LogEntry logEntry : logEntryList) {
             Row newRow = sheet.createRow(i);
             Cell experimentDate = newRow.createCell(0);
             Cell experimentTime = newRow.createCell(1);
@@ -146,7 +142,11 @@ public class LogFileWriter {
             trialNumber.setCellValue(logEntry.getTrialNumber());
             sampleNumber.setCellValue(logEntry.getSampleNumber());
             fileName.setCellValue(logEntry.getFilename());
-            int j = 7;
+            comment.setCellValue(logEntry.getComment());
+            for(int j = 0; j < 8; j++)
+            {
+                sheet.autoSizeColumn(j);
+            }
             /*for(AutocompleteTextField autocompleteTextField : logEntry.getListOfKeywords())
             {
                 Cell keyword = newRow.createCell(j);
@@ -157,6 +157,7 @@ public class LogFileWriter {
             i++;
         }
     }
+
 
     @FXML
     private void handleCloseButton(ActionEvent actionEvent) {
