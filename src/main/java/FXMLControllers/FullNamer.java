@@ -214,10 +214,12 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
         outputHelp.setTooltip(outputTooltip);*/
 
-        //Experiment Manager is the database that contains the experiment names and its parameters such as abbreviation and description
+        //Set this class as an observer of ExperimentManager (see: observer pattern)
         ExperimentManager.getInstance().subscribe(this);
-        //Keyword Manager is the database that contains the keyword names and its parameters such as abbreviation, affix, data type, and data value
+        //Set this class as an observer of KeywordManager
         KeywordManager.getInstance().subscribe(this);
+        //Set this class as an observer of ResearchManager
+        ResearcherManager.getInstance().subscribe(this);
         outputText.setEditable(false); //cannnot edit the final output file name
         String pattern = "dd/MM/yyyy"; //formatting the date as per European standards
         experimentDate.setPromptText(pattern.toLowerCase());
@@ -353,7 +355,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         experimentTextField.textProperty().addListener((obs, oldExperimentTextField, newExperimentTextField) -> {
             if(experimentTextField.isValidText())
             {
-                System.out.println("Set new experiment!" + newExperimentTextField);
                 sharedFilename.setExperiment(newExperimentTextField);
                 outputText.setText(updateName());
                 experimentTextField.setValidText(false);
@@ -451,19 +452,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             currTrial--;
             trialNumber.setText(String.valueOf(currTrial));
         }
-    }
-
-
-    @FXML
-    //update the experiment name and parameters in the database
-    public void updateExperiment(ActionEvent e) throws IOException{
-        onTypeUpdate();
-    }
-
-    @FXML
-    //update the experiment name and parameters in the database
-    public void updateResearcher(ActionEvent e) throws IOException{
-        whenUpdating();
     }
 
     @FXML
@@ -594,10 +582,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         ArrayList<String> researchers = (ArrayList<String>) ResearcherManager.getInstance().getAllResearcherLongNames();
         researcherName.getEntries().addAll(researchers);
-    }
-
-    public void whenUpdating(){
-
     }
 
     static ObservableList<Keyword> getdata() {

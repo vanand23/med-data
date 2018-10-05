@@ -46,7 +46,7 @@ public class ExperimentManager {
     }
 
     /**
-     * Updates all observers, should be called whenever the database updates, creates, or deletes a ndoe
+     * Updates all observers, should be called whenever the database updates, creates, or deletes a node
      */
     private void notifyObservers() {
         for(ITypeObserver mo: observers){
