@@ -1,6 +1,6 @@
 package FXMLControllers;
 
-import Types.KeywordManager;
+import Singletons.KeywordManager;
 import Types.Keyword;
 import Utilities.AutocompleteTextField;
 import Singletons.Config;

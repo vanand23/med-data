@@ -1,7 +1,7 @@
 package FXMLControllers;
 
 import Singletons.Database;
-import Types.KeywordManager;
+import Singletons.KeywordManager;
 import Types.Keyword;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;

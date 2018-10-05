@@ -1,11 +1,15 @@
 @font-face {
+    -fx-font-smoothing-type: gray;
     src: url("AlteHaasGroteskBold.ttf");
 }
 
+.text{
+    -fx-font-smoothing-type: gray;
+}
 
 .label:disabled,
 .label{
+    -fx-font-smoothing-type: gray;
     -fx-font-family: "Alte Haas Grotesk Bold";
     -fx-text-fill: "#21232c";
-    -fx-font-smoothing-type: gray;
 }
