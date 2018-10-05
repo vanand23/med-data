@@ -1,6 +1,6 @@
 package FXMLControllers;
 
-import Types.KeywordManager;
+import Singletons.KeywordManager;
 import Types.Keyword;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;

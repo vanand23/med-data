@@ -1,7 +1,7 @@
 package FXMLControllers;
 
 import Types.Experiment;
-import Types.ExperimentManager;
+import Singletons.ExperimentManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;

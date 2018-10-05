@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -49,6 +50,8 @@ public class CompactNamer extends Namer implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        Font.loadFont(CompactNamer.class.getResource("/CSS/AlteHaasGroteskBold.ttf").toExternalForm(),
+                19.0);
 
         trialNumberCheckbox.setSelected(isIsTrialChecked());
         sampleNumberCheckbox.setSelected(isSampleChecked());
@@ -104,7 +107,6 @@ public class CompactNamer extends Namer implements Initializable {
             sampleNumber.setDisable(!newIsSelected);
             setSampleChecked(newIsSelected);
         });
-
     }
 
     @FXML

@@ -1,43 +1,39 @@
-package Types;
+package Singletons;
 
-import Singletons.Database;
+import Types.Experiment;
 import Utilities.ITypeObserver;
 
 import javax.naming.NameNotFoundException;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static Utilities.DirectorySearcher.filesInDirectory;
 
-public class ResearcherManager {
-
+public class ExperimentManager {
 
     // Map of all node objects
-    private HashMap<String, Researcher> researchers;
+    private HashMap<String, Experiment> experiments;
     private List<ITypeObserver> observers = new ArrayList<>();
-    private static ArrayList<String> researcherFiles = new ArrayList<>();
+    private static ArrayList<String> experimentFiles = new ArrayList<>();
 
-    private ResearcherManager(){
-        researchers = Database.loadResearchersToClasses();
+    private ExperimentManager(){
+        experiments = Database.loadExperimentsToClasses();
     }
 
     /**
      * Singleton helper class, MapManager should always be accessed through MapManager.getInstance();
      */
     private static class SingletonHelper{
-        private static final ResearcherManager INSTANCE = new ResearcherManager();
+        private static final ExperimentManager INSTANCE = new ExperimentManager();
     }
 
     /**
      * Gets the singleton instance of map editor
      * @return the proper single instance of map editor
      */
-    public static ResearcherManager getInstance(){
-        return ResearcherManager.SingletonHelper.INSTANCE;
+    public static ExperimentManager getInstance(){
+        return SingletonHelper.INSTANCE;
     }
 
     /**
@@ -50,7 +46,7 @@ public class ResearcherManager {
     }
 
     /**
-     * Updates all observers, should be called whenever the database updates, creates, or deletes a ndoe
+     * Updates all observers, should be called whenever the database updates, creates, or deletes a node
      */
     private void notifyObservers() {
         for(ITypeObserver mo: observers){
@@ -61,43 +57,44 @@ public class ResearcherManager {
     // Adds a node to the graph and  Please never directly make a new node, instead just call this function
     // Inputs correspond to the excel columns for Nodes (minus AssignedTeam)
     // RETURN the MapNode object that was created
-    public void addResearcher(Researcher researcher){
+    public void addExperiment(Experiment experiment){
         try {
-            Database.insertResearcher(
-                    researcher.getLongName(),
-                    researcher.getShortName(),
-                    researcher.getFilename());
-            Database.writeResearchersToCSV("Libraries/researchers/defaultResearchers.csv");
-            researchers.put(researcher.getLongName(), researcher);
+            Database.insertExperiment(
+                    experiment.getLongName(),
+                    experiment.getShortName(),
+                    experiment.getDescription(),
+                    experiment.getFilename());
+            Database.writeExperimentsToCSV("Libraries/experiments/defaultExperiments.csv");
+            experiments.put(experiment.getLongName(), experiment);
             notifyObservers();
         }catch (SQLException e1){
             e1.printStackTrace();
-            System.err.println("Could not insert researcher");
+            System.err.println("Could not insert experiment");
         }
     }
 
-    public void removeResearcher(String researcherName)
+    public void removeExperiment(String experimentName)
     {
-        researchers.remove(researcherName);
+        experiments.remove(experimentName);
     }
 
-    private void refreshResearcherFiles()
+    private void refreshExperimentFiles()
     {
-        researcherFiles.clear();
-        File[] newResearcherFiles = filesInDirectory("Libraries/researchers");
-        for(File file : newResearcherFiles)
+        experimentFiles.clear();
+        File[] newExperimentFiles = filesInDirectory("Libraries/experiments");
+        for(File file : newExperimentFiles)
         {
-            researcherFiles.add(file.getName());
+            experimentFiles.add(file.getName());
         }
     }
 
     /**
-     * Returns a list of researcher database files
-     * @return returns an ArrayList of all researcher files
+     * Returns a list of experiment database files
+     * @return returns an ArrayList of all experiment files
      */
-    public ArrayList<String> getResearcherFiles() {
-        refreshResearcherFiles();
-        return researcherFiles;
+    public ArrayList<String> getExperimentFiles() {
+        refreshExperimentFiles();
+        return experimentFiles;
     }
 
 /*
@@ -148,6 +145,7 @@ public class ResearcherManager {
         Database.updateNode(n.getID(), n.getX2D(), n.getY2D(), n.getX3D(), n.getY3D(),
                 n.getFloor(), n.getBuilding(), n.getNodeType(), n.getLongName(), n.getShortName());
 
+        nodes.put(n.getID(), Database.getNode(n.getID())); //fixme probably doesn't need to reference database
         notifyObservers();
     }
 
@@ -160,10 +158,10 @@ public class ResearcherManager {
      * function that gets all of the long names filtering stuff
      * @return list of long names
      */
-    public List<String> getAllResearcherLongNames(){
+    public List<String> getAllExperimentLongNames(){
         ArrayList<String> ret = new ArrayList<>();
         String[] filterList = {};
-        for (HashMap.Entry<String, Researcher> entry : researchers.entrySet())
+        for (HashMap.Entry<String, Experiment> entry : experiments.entrySet())
         {
             String value = entry.getValue().getLongName();
             if(!stringContainsItemFromList(value,filterList)){
@@ -174,11 +172,11 @@ public class ResearcherManager {
     }
 
     /**
-     * function which returns the number of researchers
-     * @return number of researchers
+     * function which returns the number of experiments
+     * @return number of experiments
      */
-    public int getNumberOfResearchers(){
-        return researchers.size();
+    public int getNumberOfExperiments(){
+        return experiments.size();
     }
 
 
@@ -199,15 +197,15 @@ public class ResearcherManager {
     }
 
     /**
-     * Looks up an researcher by either its long or short name
+     * Looks up an experiment by either its long or short name
      * @param type this can either be "short" or "long", for choosing short or long name
      * @param name the name of the node to find
      * @return a MapNode object with the given long or short name
      */
-    public Researcher getResearcherByName(String type, String name) throws NameNotFoundException {
-        for (Object o : researchers.entrySet()) {
+    public Experiment getExperimentByName(String type, String name) throws NameNotFoundException{
+        for (Object o : experiments.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            Researcher n = (Researcher) pair.getValue();
+            Experiment n = (Experiment) pair.getValue();
             if (type.equals("short") && n.getShortName().equals(name)) {
                 return n;
             } else if (type.equals("long") && n.getLongName().equals(name)) {
@@ -217,7 +215,7 @@ public class ResearcherManager {
         throw new NameNotFoundException(name);
     }
 
-    public HashMap<String, Researcher> getResearchers() {
-        return researchers;
+    public HashMap<String, Experiment> getExperiments() {
+        return experiments;
     }
 }

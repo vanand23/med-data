@@ -1,7 +1,7 @@
 package FXMLControllers;
 
 import Singletons.Database;
-import Types.ResearcherManager;
+import Singletons.ResearcherManager;
 import Types.Researcher;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;

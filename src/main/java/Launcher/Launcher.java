@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -21,10 +22,12 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
+        Font.loadFont(Launcher.class.getResource("/CSS/AlteHaasGroteskBold.ttf").toExternalForm(),
+                19.0);
+
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/fullNamer.fxml"));
-
         fxmlManager.loadFXML();
 
         Parent root = fxmlLoader.load();
@@ -41,14 +44,12 @@ public class Launcher extends Application {
             stage.setY(event.getScreenY() - yOffset);
         });
 
-        stage.setScene(scene);
         stage.addEventHandler(WindowEvent.WINDOW_SHOWING, window -> {
             FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
             ft.setFromValue(0.8);
             ft.setToValue(1.0);
             ft.play();
         });
-
         stage.show();
 
     }

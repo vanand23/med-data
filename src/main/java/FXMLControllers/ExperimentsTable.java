@@ -2,7 +2,7 @@ package FXMLControllers;
 
 import Singletons.Database;
 import Types.Experiment;
-import Types.ExperimentManager;
+import Singletons.ExperimentManager;
 import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,8 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import static Singletons.Database.getExperimentFiles;
 
 public class ExperimentsTable extends ScreenController implements Initializable, ITypeObserver {
 

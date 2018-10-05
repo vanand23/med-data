@@ -1,5 +1,8 @@
 package FXMLControllers;
 
+import Singletons.ExperimentManager;
+import Singletons.KeywordManager;
+import Singletons.ResearcherManager;
 import Types.*;
 import Utilities.AutocompleteTextField;
 import Singletons.Config;
@@ -7,7 +10,6 @@ import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,12 +23,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
 
@@ -133,6 +132,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     //initialize the fields and other features/windows in full namer
     public void initialize(URL location, ResourceBundle resources)
     {
+
         dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             experimentDate.setDisable(!newIsSelected);
             if(!newIsSelected)
@@ -261,10 +261,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         if(configProjectName != null && !configProjectName.trim().isEmpty()) //if there is a project name input
         {
             projectName.setText("Project: " + configProjectName); //set this input as project name
-            projectName.setFont(new Font(19.0));
+            projectName.setFont(new Font("Alte Haas Grotesk Bold", 19.0));
+            projectName.setStyle("-fx-font-smoothing-type: gray;");
         }else{
             projectName.setText(""); //if empty, do not display anything
-            projectName.setFont(new Font(19.0));
+            projectName.setFont(new Font(1.0));
         }
 
         if(!isTrialChecked){
@@ -476,6 +477,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
+        Font.loadFont(CompactNamer.class.getResource("/CSS/AlteHaasGroteskBold.ttf").toExternalForm(),
+                19.0);
         popupScreen("FXML/compactNamer.fxml", switchNamers.getScene().getWindow());
     }
 
