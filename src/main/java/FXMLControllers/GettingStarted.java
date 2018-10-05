@@ -32,11 +32,11 @@ public class GettingStarted implements Initializable {
     @FXML
     private void fullNamerInstructions(ActionEvent e){
         instructionsTextArea.setText("The date will automatically be set to today’s date. To change the date, click on the calendar icon to the right of the date display field. \n" +
-                "In the “EXPERIMENT NAME” text field, begin to type. Click on the ‘add new entry to the database’ button. Fill in the fields, then click submit. The experiment is now in the database, and will autofill once you begin typing in the box.\n" +
-                "In the “RESEARCHER NAME” text field, type in your first and last name. Click on the “add new entry to database” button. Fill in the fields, then click submit. Your name has now been added to the database and will autofill once you begin typing in the box.\n" +
-                "In the “TRIAL NUMBER” and “SAMPLE NUMBER” fields, type in your desired trial number and sample numbers. You can use the “+” and “-” buttons to increase and decrease the numbers. \n" +
-                "Click the “ADD” button. Begin typing in the “NAME” field, and click on the “add new entry to the database” button. Fill in the fields and click “SUBMIT”. The keyword is now in the database. Click “ADD” again, and begin typing in the “NAME” field. The keyword will autofill. Select the keyword, fill in the “DATA VALUE” field if necessary, and click “SUBMIT”. Repeat this process until you have the desired number of keywords.\n" +
-                "Click the “COPY” button to copy the file name to your clipboard. Repeat this process for each trial and sample.\n" +
+                "In the /“EXPERIMENT NAME/” text field, begin to type. Click on the /‘add new entry to the database/’ button. Fill in the fields, then click submit. The experiment is now in the database, and will autofill once you begin typing in the box.\n" +
+                "In the /“RESEARCHER NAME/” text field, type in your first and last name. Click on the “/add new entry to database”/ button. Fill in the fields, then click submit. Your name has now been added to the database and will autofill once you begin typing in the box.\n" +
+                "In the /“TRIAL NUMBER/” and /“SAMPLE NUMBER/” fields, type in your desired trial number and sample numbers. You can use the /“+/” and /“-/” buttons to increase and decrease the numbers. \n" +
+                "Click the /“ADD/” button. Begin typing in the /“NAME/” field, and click on the /“add new entry to the database/” button. Fill in the fields and click /“SUBMIT/”. The keyword is now in the database. Click /“ADD/” again, and begin typing in the /“NAME/” field. The keyword will autofill. Select the keyword, fill in the /“DATA VALUE/” field if necessary, and click /“SUBMIT/”. Repeat this process until you have the desired number of keywords.\n" +
+                "Click the /“COPY/” button to copy the file name to your clipboard. Repeat this process for each trial and sample.\n" +
                 "\n" +
                 "If you do not wish to include certain parameters in your file name, simply unselect the checkbox next to undesired parameter.\n" +
                 "For more information on how to add experiments, research names, or keywords to the databases, please consult the database section.");

@@ -95,7 +95,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     private final static ObservableList<Keyword> listOfKeywords = FXCollections.observableArrayList();
 
     //list of file names in the timeline when the user clicked on the copy button, and additional parameters such as time and descriptions
-    private static ObservableList<LogEntry> logEntryArrayList = FXCollections.observableArrayList();
+    private static ObservableList<LogEntry> logEntryList = FXCollections.observableArrayList();
 
     //list of the menu options to access windows such as project preferences and the keyword, experiments, and researcher databases
     private static ArrayList<AnchorPane> drawerList = new ArrayList<>();
@@ -133,8 +133,16 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     }
 
     //getter to use the list of log entries in other classes
-    static ObservableList<LogEntry> getLogEntryArrayList() {
-        return logEntryArrayList;
+    static ObservableList<LogEntry> getLogEntryList() {
+        return logEntryList;
+    }
+
+    static void addAllToLogEntryList(ObservableList<LogEntry> logEntryList) {
+        FullNamer.logEntryList.addAll(logEntryList);
+    }
+
+    static void setLogEntryList(ObservableList<LogEntry> logEntryList) {
+        FullNamer.logEntryList = logEntryList;
     }
 
     //getter to use the list of keywords in other classes
@@ -332,6 +340,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         ((Keyword) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setDataValue((String) event.getNewValue());
+                        outputText.setText(updateName());
                     }
                 }
         );
@@ -381,7 +390,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                    e.printStackTrace();
                }
            }
-
         });
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
             sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
@@ -487,7 +495,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
         outputText.setText(nameToCopy);
-        logEntryArrayList.add(new LogEntry(
+        logEntryList.add(new LogEntry(
                 stringExperimentDate,
                 stringResearcherName,
                 stringexperimentTextField,

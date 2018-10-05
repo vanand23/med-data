@@ -26,7 +26,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static FXMLControllers.FullNamer.getLogEntryArrayList;
+import static FXMLControllers.FullNamer.getLogEntryList;
+import static FXMLControllers.FullNamer.setLogEntryList;
+import static FXMLControllers.Namer.sharedFilename;
 
 public class LoggerMenu extends ScreenController implements Initializable {
 
@@ -38,6 +40,9 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
     @FXML
     private TableColumn dateColumn;
+
+    @FXML
+    public TableColumn experimentColumn;
 
     @FXML
     private TableColumn researcherColumn;
@@ -64,10 +69,11 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<LogEntry> logEntryArrayList = getLogEntryArrayList();
+        ObservableList<LogEntry> logEntryList = getLogEntryList();
 
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("experimentTime"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("experimentDate"));
+        experimentColumn.setCellValueFactory(new PropertyValueFactory<>("experimentName"));
         researcherColumn.setCellValueFactory(new PropertyValueFactory<>("researcherName"));
         trialNumberColumn.setCellValueFactory(new PropertyValueFactory<>("trialNumber"));
         sampleNumberColumn.setCellValueFactory(new PropertyValueFactory<>("sampleNumber"));
@@ -84,6 +90,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setExperimentTime((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
@@ -96,6 +103,20 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setExperimentDate((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
+                    }
+                }
+        );
+
+        experimentColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        experimentColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent event) {
+                        ((LogEntry) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setExperimentName((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
@@ -108,6 +129,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setResearcherName((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
@@ -120,6 +142,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setTrialNumber((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
@@ -132,6 +155,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setSampleNumber((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
@@ -144,6 +168,7 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setFilename((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
@@ -156,11 +181,12 @@ public class LoggerMenu extends ScreenController implements Initializable {
                         ((LogEntry) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setComment((String) event.getNewValue());
+                        setLogEntryList(logEntryList);
                     }
                 }
         );
 
-        logTable.setItems(logEntryArrayList);
+        logTable.setItems(logEntryList);
     }
 
 
@@ -172,8 +198,8 @@ public class LoggerMenu extends ScreenController implements Initializable {
 
    @FXML
     public void resetLogger(ActionEvent e){
-       ObservableList<LogEntry> logEntryArrayList = getLogEntryArrayList();
-        logEntryArrayList.clear();
+       ObservableList<LogEntry> logEntryList = getLogEntryList();
+        logEntryList.clear();
     }
 
 

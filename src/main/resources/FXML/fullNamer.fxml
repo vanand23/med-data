@@ -51,13 +51,16 @@
                   </Menu>
                </menus>
                <VBox.margin>
-                  <Insets bottom="-20.0" left="-20.0" right="-20.0" top="-20.0" />
+                  <Insets left="-20.0" right="-20.0" top="-20.0" />
                </VBox.margin>
             </MenuBar>
             <Label fx:id="projectName" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../CSS/label.css">
                <font>
                   <Font size="1.0" />
                </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </Label>
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
@@ -234,7 +237,7 @@
                   </Label>
                   <TextField fx:id="outputText" prefHeight="25.0" HBox.hgrow="ALWAYS">
                      <font>
-                        <Font name="Arial" size="20.0" />
+                        <Font name="Arial" size="18.0" />
                      </font>
                   </TextField>
                   <JFXButton fx:id="copyNameButton" onAction="#copyFileToClipboard" stylesheets="@../CSS/mediumButtons.css" text="Copy">

@@ -29,7 +29,7 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="priorLogPath" prefHeight="25.0" prefWidth="387.0" style="-fx-background-color: ffffff;">
+                  <TextField fx:id="loadedLogPath" prefHeight="25.0" prefWidth="387.0" style="-fx-background-color: ffffff;">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
