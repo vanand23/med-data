@@ -4,6 +4,7 @@ import Types.*;
 import Singletons.Config;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Properties;
 
-public class Namer extends ScreenController{
+public abstract class Namer extends ScreenController{
 
     @FXML
     JFXCheckBox sampleNumberCheckbox;
@@ -25,6 +26,30 @@ public class Namer extends ScreenController{
     JFXCheckBox trialNumberCheckbox;
 
     public static Filename sharedFilename;
+
+    //list of keywords and its parameters that the user inputs in full namer
+    final static ObservableList<Keyword> listOfKeywords = FXCollections.observableArrayList();
+
+    //list of file names in the timeline when the user clicked on the copy button, and additional parameters such as time and descriptions
+    static ObservableList<LogEntry> logEntryList = FXCollections.observableArrayList();
+
+    //getter to use the list of log entries in other classes
+    static ObservableList<LogEntry> getLogEntryList() {
+        return logEntryList;
+    }
+
+    static void addAllToLogEntryList(ObservableList<LogEntry> logEntryList) {
+        FullNamer.logEntryList.addAll(logEntryList);
+    }
+
+    static void setLogEntryList(ObservableList<LogEntry> logEntryList) {
+        FullNamer.logEntryList = logEntryList;
+    }
+
+    //getter to use the list of keywords in other classes
+    static ObservableList<Keyword> getData() {
+        return listOfKeywords;
+    }
 
     String updateName()
     {

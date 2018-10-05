@@ -2,6 +2,7 @@ package FXMLControllers;
 
 import Singletons.Config;
 import Types.Filename;
+import Types.LogEntry;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
@@ -108,10 +109,28 @@ public class CompactNamer extends Namer implements Initializable {
 
     @FXML
     public void copyFileToClipboard(ActionEvent e) {
+        String stringexperimentTextField = sharedFilename.getExperiment();
+        String stringTrialNumber = String.valueOf(sharedFilename.getTrialNumber());
+        String stringSampleNumber = String.valueOf(sharedFilename.getSampleNumber());
+        String stringResearcherName = sharedFilename.getResearcher();
+        LocalDate stringExperimentDate = sharedFilename.getDate();
+        String comment = "";
         String nameToCopy = updateName();
+
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
+        logEntryList.add(new LogEntry(
+                stringExperimentDate,
+                stringResearcherName,
+                stringexperimentTextField,
+                stringTrialNumber,
+                stringSampleNumber,
+                nameToCopy,
+                listOfKeywords,
+                comment
+        ));
+
     }
 
     @FXML

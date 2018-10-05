@@ -91,12 +91,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private TableColumn columnDataValue;
 
-    //list of keywords and its parameters that the user inputs in full namer
-    private final static ObservableList<Keyword> listOfKeywords = FXCollections.observableArrayList();
-
-    //list of file names in the timeline when the user clicked on the copy button, and additional parameters such as time and descriptions
-    private static ObservableList<LogEntry> logEntryList = FXCollections.observableArrayList();
-
     //list of the menu options to access windows such as project preferences and the keyword, experiments, and researcher databases
     private static ArrayList<AnchorPane> drawerList = new ArrayList<>();
 
@@ -130,24 +124,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     static void setFullNamerSharedFilename(Filename sharedFilename) {
         FullNamer.sharedFilename = sharedFilename;
-    }
-
-    //getter to use the list of log entries in other classes
-    static ObservableList<LogEntry> getLogEntryList() {
-        return logEntryList;
-    }
-
-    static void addAllToLogEntryList(ObservableList<LogEntry> logEntryList) {
-        FullNamer.logEntryList.addAll(logEntryList);
-    }
-
-    static void setLogEntryList(ObservableList<LogEntry> logEntryList) {
-        FullNamer.logEntryList = logEntryList;
-    }
-
-    //getter to use the list of keywords in other classes
-    static ObservableList<Keyword> getData() {
-        return listOfKeywords;
     }
 
     private boolean isRememberData; //variable to see whether to keep data persistent or not across different windows
