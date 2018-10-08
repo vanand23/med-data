@@ -27,10 +27,10 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     private JFXButton cancelButton;
 
     @FXML
-    private RadioButton prefixID;
+    private RadioButton prefixRadioButton;
 
     @FXML
-    private RadioButton suffixID;
+    private RadioButton suffixRadioButton;
 
     @FXML
     private RadioButton numericData;
@@ -117,18 +117,24 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     @FXML
     public void handleNumericButton(ActionEvent e) throws IOException {
         keywordDataType = "numeric";
+        prefixRadioButton.setDisable(false);
+        suffixRadioButton.setDisable(false);
         generatePreview();
     }
 
     @FXML
     public void handleAlphanumericButton(ActionEvent e) throws IOException {
         keywordDataType = "alphanumeric";
+        prefixRadioButton.setDisable(false);
+        suffixRadioButton.setDisable(false);
         generatePreview();
     }
 
     @FXML
     public void handleNoDataButton(ActionEvent e) throws IOException {
         keywordDataType = "no data";
+        prefixRadioButton.setDisable(true);
+        suffixRadioButton.setDisable(true);
         generatePreview();
     }
 
@@ -143,19 +149,19 @@ public class AddKeywordToDatabase extends ScreenController implements Initializa
     private void generatePreview(){
        keywordPreviewField.setText(thekeywordAbbrev.getText());
        if(numericData.isSelected()){
-           if(prefixID.isSelected()){
+           if(prefixRadioButton.isSelected()){
                keywordPreviewField.setText( thekeywordAbbrev.getText() + "2");
            }
-           else if (suffixID.isSelected()){
+           else if (suffixRadioButton.isSelected()){
                keywordPreviewField.setText("2" + thekeywordAbbrev.getText());
            }
            else{keywordPreviewField.setText(thekeywordAbbrev.getText());}
        }
        else if (alphanumericData.isSelected()){
-           if(prefixID.isSelected()){
+           if(prefixRadioButton.isSelected()){
                keywordPreviewField.setText(thekeywordAbbrev.getText() + "2a");
            }
-           else if(suffixID.isSelected()){
+           else if(suffixRadioButton.isSelected()){
                keywordPreviewField.setText("2a" + thekeywordAbbrev.getText());
            }
            else{keywordPreviewField.setText(thekeywordAbbrev.getText());}

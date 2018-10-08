@@ -72,7 +72,7 @@
                          <Font size="19.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="prefixID" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePrefixButton" text="prefix">
+                  <RadioButton fx:id="prefixRadioButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePrefixButton" text="prefix">
                       <font>
                           <Font size="19.0" />
                       </font>
@@ -81,7 +81,7 @@
                       </toggleGroup>
                   </RadioButton>
       
-                  <RadioButton fx:id="suffixID" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSuffixButton" text="suffix" toggleGroup="$AffixPrefButtons">
+                  <RadioButton fx:id="suffixRadioButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSuffixButton" text="suffix" toggleGroup="$AffixPrefButtons">
                       <font>
                           <Font size="19.0" />
                       </font>
