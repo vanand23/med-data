@@ -53,7 +53,7 @@ public class CompactNamer extends Namer implements Initializable {
         Font.loadFont(CompactNamer.class.getResource("/CSS/AlteHaasGroteskBold.ttf").toExternalForm(),
                 19.0);
 
-        trialNumberCheckbox.setSelected(isIsTrialChecked());
+        trialNumberCheckbox.setSelected(isTrialChecked());
         sampleNumberCheckbox.setSelected(isSampleChecked());
         String pattern = "dd/MM/yyyy";
         experimentDate.setPromptText(pattern.toLowerCase());
@@ -88,19 +88,17 @@ public class CompactNamer extends Namer implements Initializable {
         {
             Config.getInstance().setProperty("trialNumber",newTrialNumber);
             sharedFilename.setTrialNumber(Integer.parseInt(newTrialNumber));
-            setFullNamerSharedFilename(sharedFilename);
         });
 
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) ->
         {
             Config.getInstance().setProperty("sampleNumber",newSampleNumber);
             sharedFilename.setSampleNumber(Integer.parseInt(newSampleNumber));
-            setFullNamerSharedFilename(sharedFilename);
         });
 
         trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
-            setIsTrialChecked(newIsSelected);
+            setTrialChecked(newIsSelected);
         });
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
@@ -117,7 +115,7 @@ public class CompactNamer extends Namer implements Initializable {
         String stringResearcherName = sharedFilename.getResearcher();
         LocalDate stringExperimentDate = sharedFilename.getDate();
         String comment = "";
-        String nameToCopy = updateName();
+        String nameToCopy = updateFilename();
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -181,7 +179,7 @@ public class CompactNamer extends Namer implements Initializable {
         closeProgram(closeButton);
     }
 
-    public void sampleNumNotNeg(){
+    private void sampleNumNotNeg(){
         if(!isSampleChecked()){
             sampleNumber.setDisable(true);
             sampleNumberCheckbox.setSelected(false);
@@ -191,8 +189,8 @@ public class CompactNamer extends Namer implements Initializable {
         }
     }
 
-    public void trialNumNotNeg(){
-        if(!isIsTrialChecked()){
+    private void trialNumNotNeg(){
+        if(!isTrialChecked()){
             trialNumber.setDisable(true);
             trialNumberCheckbox.setSelected(false);
         }

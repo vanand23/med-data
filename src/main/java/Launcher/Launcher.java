@@ -1,5 +1,6 @@
 package Launcher;
 
+import FXMLControllers.ScreenController;
 import Singletons.Database;
 import Singletons.FXMLManager;
 import javafx.animation.FadeTransition;
@@ -7,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -22,8 +24,6 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        Font.loadFont(Launcher.class.getResource("/CSS/AlteHaasGroteskBold.ttf").toExternalForm(),
-                19.0);
 
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
@@ -31,7 +31,9 @@ public class Launcher extends Application {
         fxmlManager.loadFXML();
 
         Parent root = fxmlLoader.load();
+
         Scene scene = new Scene(root);
+        System.out.println(scene.getAntiAliasing());
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
@@ -55,6 +57,7 @@ public class Launcher extends Application {
     }
 
     public static void main(String[] args) {
+        System.setProperty("prism.lcdtext", "false");
         launch(args);
     }
 }

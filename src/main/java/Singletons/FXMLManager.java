@@ -38,7 +38,6 @@ public class FXMLManager {
 	}
 
 	public Node loadFXML(String fileName) throws IOException {
-		System.setProperty("prism.lcdtext", "false");
 		FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource(fileName)); //create the fxml loader
 		//loader.setLocation(new File(new String(path + "/" + fileName)).toURI().toURL());
 		fxmlLoaders.put(fileName, loader);
@@ -48,7 +47,6 @@ public class FXMLManager {
 	}
 
 	private Node loadFXMLWithName(String name, String fileName) throws IOException {
-        System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource(fileName)); //create the fxml loader
 		//loader.setLocation(new File(new String(path + "/" + fileName)).toURI().toURL());
 		fxmlLoaders.put(name, loader);
