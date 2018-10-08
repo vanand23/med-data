@@ -53,6 +53,9 @@ public class Launcher extends Application {
             ft.play();
         });
         stage.show();
+        stage.setAlwaysOnTop(true);
+        stage.setAlwaysOnTop(false);
+
 
     }
 
