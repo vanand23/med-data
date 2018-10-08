@@ -54,7 +54,7 @@ public abstract class Namer extends ScreenController{
         return listOfKeywords;
     }
 
-    String updateName()
+    String updateFilename()
     {
         String experimentTypeText = sharedFilename.getExperiment();
         int trialNumberText = sharedFilename.getTrialNumber();

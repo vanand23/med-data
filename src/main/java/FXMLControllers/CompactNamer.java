@@ -117,7 +117,7 @@ public class CompactNamer extends Namer implements Initializable {
         String stringResearcherName = sharedFilename.getResearcher();
         LocalDate stringExperimentDate = sharedFilename.getDate();
         String comment = "";
-        String nameToCopy = updateName();
+        String nameToCopy = updateFilename();
 
         StringSelection stringSelection = new StringSelection(nameToCopy);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();

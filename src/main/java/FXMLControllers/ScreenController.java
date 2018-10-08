@@ -43,6 +43,7 @@ public abstract class ScreenController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
+        System.out.println(scene.getAntiAliasing());
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //prevents main window from receiving input
         stage.initOwner(ownerWindow); //sets the main window as this screens owner

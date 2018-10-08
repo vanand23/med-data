@@ -3,10 +3,6 @@
     src: url("AlteHaasGroteskBold.ttf");
 }
 
-.text{
-    -fx-font-smoothing-type: gray;
-}
-
 .label:disabled,
 .label{
     -fx-font-smoothing-type: gray;

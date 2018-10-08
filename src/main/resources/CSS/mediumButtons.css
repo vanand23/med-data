@@ -5,7 +5,6 @@
 .jfx-button:armed,
 .jfx-button{
     -fx-font-family: "Alte Haas Grotesk Bold";
-    -fx-font-smoothing-type: gray;
     -fx-text-alignment: center;
     -fx-text-fill: #FFFCEB;
     -fx-effect: dropshadow(three-pass-box, #22303f, 3, 0, 2, 2);
