@@ -44,7 +44,7 @@ public class GettingStarted implements Initializable {
 
     @FXML
     private void compactNamerInstructions(ActionEvent e){
-        instructionsTextArea.setText("To navigate to Compact Namer, click on the toggle button at the top of Full Namer. Your experiment, researcher name, and keywords are saved, and you can modify the date, the trial number, and the sample number from the Compact Namer screen. Click the “COPY” button to copy the file name to your clipboard.\n" +
+        instructionsTextArea.setText("To navigate to Compact Namer, click on the toggle button at the top of Full Namer. Your experiment, researcher name, and keywords are saved, and you can modify the date, the trial number, and the sample number from the Compact Namer screen. Click the \"COPY\" button to copy the file name to your clipboard.\n" +
                 "To modify the experiment, researcher name, or keywords, toggle back to Full Namer. \n");
     }
 
