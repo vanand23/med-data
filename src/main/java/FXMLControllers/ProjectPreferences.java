@@ -118,6 +118,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         }
         Config.getInstance().setProperty("projectName",projectName.getText());
         Config.getInstance().setProperty("projectDescription",projectDescription.getText());
+
         closeProjectPreferences(e);
     }
 

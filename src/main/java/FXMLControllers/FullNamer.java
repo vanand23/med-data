@@ -105,8 +105,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         FullNamer.sampleChecked = sampleChecked;
     }
 
-    public static void setIsTrialChecked(boolean isTrialChecked) {
-        FullNamer.isTrialChecked = isTrialChecked;
+    public static void setTrialChecked(boolean trialChecked) {
+        FullNamer.trialChecked = trialChecked;
     }
 
     private static boolean sampleChecked = true;
@@ -115,15 +115,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         return sampleChecked;
     }
 
-    public static boolean isIsTrialChecked() {
-        return isTrialChecked;
+    public static boolean isTrialChecked() {
+        return trialChecked;
     }
 
-    private static boolean isTrialChecked = true;
-
-    static void setFullNamerSharedFilename(Filename sharedFilename) {
-        FullNamer.sharedFilename = sharedFilename;
-    }
+    private static boolean trialChecked = true;
 
     private boolean isRememberData; //variable to see whether to keep data persistent or not across different windows
 
@@ -168,7 +164,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
-            isTrialChecked = newIsSelected;
+            trialChecked = newIsSelected;
             outputText.setText(updateFilename());
         });
 
@@ -268,21 +264,21 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             projectName.setFont(new Font(1.0));
         }
 
-        if(!isTrialChecked){
+        if(!trialChecked){
             trialNumber.setDisable(true);
             trialNumberCheckbox.setSelected(false);
         }
-        else{
+        /*else{
             trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
-        }
+        }*/
 
         if(!sampleChecked){
             sampleNumber.setDisable(true);
             sampleNumberCheckbox.setSelected(false);
         }
-        else{
+        /*else{
             sampleNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
-        }
+        }*/
 
         //presetting the date to display today's date
         experimentDate.setValue(LocalDate.now());

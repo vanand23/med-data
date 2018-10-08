@@ -13,7 +13,6 @@ import static FXMLControllers.Namer.sharedFilename;
 public class Config {
     private Properties configFile = new Properties();
     public Config(){
-
         try{
             configFile.load(new FileInputStream("config.properties"));
         }catch (IOException e){
@@ -23,6 +22,12 @@ public class Config {
 
     public String getProperty(String key)
     {
+        try{
+            configFile.load(new FileInputStream("config.properties"));
+        }//reload configFile before getting the value
+        catch (IOException e){
+            e.printStackTrace();
+        }
         return this.configFile.getProperty(key);
     }
 
