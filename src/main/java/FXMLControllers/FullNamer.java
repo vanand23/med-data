@@ -41,16 +41,12 @@ import java.util.ResourceBundle;
 
 
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
-    @FXML
-    public JFXCheckBox researcherCheckbox;
-    @FXML
-    public JFXCheckBox experimentCheckbox;
-    @FXML
-    public JFXCheckBox dateCheckbox;
 
+    //input the name of the project that will appear in the title of the full namer window
     @FXML
     private Label projectName;
 
+    //The fields that the user can fill out in full namer that form the final file name output
     @FXML
     private DatePicker experimentDate;
 
@@ -59,7 +55,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     private TextField trialNumber;
-
 
     @FXML
     private TextField sampleNumber;
@@ -70,17 +65,25 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private AutocompleteTextField experimentTextField;
 
+    //Checkboxes so the user can choose whether to have the fields in the final file name output
     @FXML
-    private JFXButton addKeywordButton;
+    public JFXCheckBox researcherCheckbox;
+    @FXML
+    public JFXCheckBox experimentCheckbox;
+    @FXML
+    public JFXCheckBox dateCheckbox;
 
+    //Transition from full namer to compact namer and vice-versa
     @FXML
     private JFXToggleButton switchNamers;
 
+    //Buttons to provide basic in-app functionality
     @FXML
     private JFXButton closeButton;
     @FXML
     private JFXButton helpButtonInput;
 
+    //Used for inserting user inputs for keywords into a table format
     @FXML
     private TableView<Keyword> keywordsTable;
 
@@ -89,6 +92,10 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     private TableColumn columnDataValue;
+
+    //Add keywords to the table
+    @FXML
+    private JFXButton addKeywordButton;
 
     //list of the menu options to access windows such as project preferences and the keyword, experiments, and researcher databases
     private static ArrayList<AnchorPane> drawerList = new ArrayList<>();
