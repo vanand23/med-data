@@ -25,6 +25,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
+        //Loading the database
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/fullNamer.fxml"));
@@ -32,6 +33,7 @@ public class Launcher extends Application {
 
         Parent root = fxmlLoader.load();
 
+        //Loading the initial full namer main screen
         Scene scene = new Scene(root);
         System.out.println(scene.getAntiAliasing());
         stage.setScene(scene);
