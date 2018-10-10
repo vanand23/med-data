@@ -39,7 +39,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+//The main screen of the program in which users can enter in parameters for their file name
+//Ultimately creates a file name output that can be copied and pasted into the user's file directory
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     //input the name of the project that will appear in the title of the full namer window
@@ -199,7 +200,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         KeywordManager.getInstance().subscribe(this);
         //Set this class as an observer of ResearchManager
         ResearcherManager.getInstance().subscribe(this);
-        outputText.setEditable(false); //cannnot edit the final output file name
+        outputText.setEditable(false); //cannot edit the final output file name
         String pattern = "dd/MM/yyyy"; //formatting the date as per European standards
         experimentDate.setPromptText(pattern.toLowerCase());
         experimentDate.setConverter(new StringConverter<LocalDate>() {
@@ -301,7 +302,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         keywordsTable.setEditable(true); //the table can be edited by the user
 
-        //The following are to get the new, edited value in the table
+        //The following are to get the new, edited value that was entered in table
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent>() {
@@ -440,6 +441,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     //Adds the ability for the user to copy the final file output name and paste into the file directory
     public void copyFileToClipboard(ActionEvent e) throws IOException{
+        //get the user entered parameters
         String stringexperimentTextField = experimentTextField.getText();
         String stringTrialNumber = trialNumber.getText();
         String stringSampleNumber = sampleNumber.getText();
@@ -466,6 +468,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
         outputText.setText(nameToCopy);
+        //after the file name has been copied, add all the parameters into the logger table to keep track of the filenames whenever the user presses "copy"
         logEntryList.add(new LogEntry(
                 stringExperimentDate,
                 stringResearcherName,

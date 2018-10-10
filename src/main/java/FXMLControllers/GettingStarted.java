@@ -12,24 +12,29 @@ import java.util.ResourceBundle;
 
 public class GettingStarted implements Initializable {
 
+    //fill box with instructions when the corresponsding window table is pressed
+    @FXML
+    private JFXTextArea instructionsTextArea;
+
+    //basic in-app functionality buttons
     @FXML
     private JFXButton closeButton;
 
     @FXML
-    private JFXTextArea instructionsTextArea;
-
-    @FXML
+    //closes the window
     public void closeGettingStarted(ActionEvent e) {
         Stage primaryStage = (Stage) closeButton.getScene().getWindow();
         primaryStage.close();
     }
 
     @Override
+    //setting a default instruction
     public void initialize(URL location, ResourceBundle resources) {
         instructionsTextArea.setText("Select one of the buttons on the left to view help instructions.");
     }
 
     @FXML
+    //displaying instructions on how to use full namer and its fields
     private void fullNamerInstructions(ActionEvent e){
         instructionsTextArea.setText("The date will automatically be set to today’s date. To change the date, click on the calendar icon to the right of the date display field. \n" +
                 "In the \"EXPERIMENT NAME\" text field, begin to type. Click on the \"add new entry to the database\" button. Fill in the fields, then click save. The experiment is now in the database, and will autofill once you begin typing in the box.\n" +
@@ -43,17 +48,20 @@ public class GettingStarted implements Initializable {
     }
 
     @FXML
+    //displaying instructions on how to use compact namer and its fields
     private void compactNamerInstructions(ActionEvent e){
         instructionsTextArea.setText("To navigate to Compact Namer, click on the toggle button at the top of Full Namer. Your experiment, researcher name, and keywords are saved, and you can modify the date, the trial number, and the sample number from the Compact Namer screen. Click the \"COPY\" button to copy the file name to your clipboard.\n" +
                 "To modify the experiment, researcher name, or keywords, toggle back to Full Namer. \n");
     }
 
     @FXML
+    //displaying instructions on how to use project preferences and its fields
     private void projectPreferencesInstructions(ActionEvent e){
         instructionsTextArea.setText("Project preferences can be accessed via the \"FILE\" menu in the top left corner of Full Namer. In project preferences, you can save your name, the project name, the project description, and a separation character (delimiter). If you would like the application to remember the parameters entered in Full Namer after the application has been closed, select the \"Remember Full Namer Fields\" checkbox.  Click \"SAVE\" to save your project preferences. If you do not want to save your project preferences, click \"CANCEL\". ");
     }
 
     @FXML
+    //displaying instructions on how to use logger and its fields
     private void loggerInstructions(ActionEvent e){
         instructionsTextArea.setText("Logger can be accessed via the \"FILE\" menu in the top left corner of Full Namer. Logger automatically records the name of each file you create. These file names, along with a timestamp, can be printed to an Excel file. Each time you click \"COPY\" in Full Namer or Compact Namer, an entry is created in the log file. This log file can either be printed to a new Excel file or to a previously used Excel file. To print to a new Excel file, click on the \"Write History To Log File\". The \"Create New Log File\" popup will appear. Type your desired log file name into the box, then click \"Submit\".  To view your log file, navigate to the application file folder and click on \"LogFiles\". Your log file will be listed inside that folder.\n  " +
                 "To write to a previously used log file, click on the \"Load Log\" button. The \"Load a Previous Log File \" popup window will appear.\n" +
@@ -61,6 +69,7 @@ public class GettingStarted implements Initializable {
     }
 
     @FXML
+    //displaying instructions on how to use the Experiment, Keyword, and Researcher databases along with their fields
     private void databasesInstructions(ActionEvent e){
         instructionsTextArea.setText("The databases can be accessed via the \"FILE\" menu in the top left corner of Full Namer. The application includes three databases: researcher names, experiment names, and keywords. Items can be added to the databases from corresponding database menu or directly from Full Namer. \n" +
                 "To add an experiment name or a researcher name to the databases via Full Namer, begin typing in the desired field. If the name is not currently in the database, the \"Add new entry to the database\" button will appear. Click on this button. In this example, we will add a new entry to the experiment database. Enter the full name of the experiment, your desired abbreviation, and a description. Click the save button. The experiment has now been added to the database. \n" +
