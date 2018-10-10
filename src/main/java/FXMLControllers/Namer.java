@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Properties;
 
+//An abstract class that stores important, shared information needed in the main full namer window
 public abstract class Namer extends ScreenController{
 
     //Checkboxes so the user can choose whether to have the fields in the final file name output
@@ -67,7 +68,7 @@ public abstract class Namer extends ScreenController{
         LocalDate experimentDate =  sharedFilename.getDate();
         ObservableList<Keyword> sharedListOfKeywords = sharedFilename.getKeywords();
 
-        //setting the separation character based on user selection from 3 different characters (underscore, dash, asterix) which is used in the final file name output
+        //setting the separation character based on user selection from 3 different characters (underscore, dash, asterisk) which is used in the final file name output
         String delimiter = Config.getInstance().getProperty("delimiter");
         if(delimiter == null){ //default is set to underscore
             delimiter = "_";

@@ -15,19 +15,23 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//This window is to allow users to have a project hierarchy to store all their data
+//Can also enter in and save parameters that will populate in other fields that show up more than once such as researcher name
 public class ProjectPreferences extends ScreenController implements Initializable {
 
+    //The following are different fields the user can enter information for in the project preferences page
     @FXML
-    public JFXButton saveButton;
-    @FXML
-    private TextField researcherName;
+    private TextField researcherName; //name of researcher
 
     @FXML
-    private TextField projectName;
+    private TextField projectName; //name of project
 
     @FXML
-    private JFXTextArea projectDescription;
+    private JFXTextArea projectDescription; //description of project
 
+    private String delimiter; //set the prefered separation character to use in the file name output
+
+    //the choices are:
     @FXML
     private RadioButton asteriskButton;
 
@@ -37,26 +41,32 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     @FXML
     private RadioButton underscoreButton;
 
+    //preview box to see what the sample file name would look like with the choosen delimiter
     @FXML
     private TextField previewBox;
 
-    @FXML
-    private JFXButton cancelButton;
-
+    //keep data persistent across different screens such as when switching to full namer or compact namer
     @FXML
     private JFXCheckBox rememberData;
 
     private static boolean isRememberData;
 
-    private String delimiter;
+    //basic functionality buttons
+    @FXML
+    public JFXButton saveButton;
+
+    @FXML
+    private JFXButton cancelButton;
 
 
 
     @Override
+    //initialize the fields in project preferences
     public void initialize(URL location, ResourceBundle resources){
         updateDelimiter();
         generatePreview();
 
+        //the config file is used to store the values the user enters on this project preferences screen to keep data persistent in other windows
         String configResearcherName = Config.getInstance().getProperty("researcherName");
         if(configResearcherName != null && !configResearcherName.trim().isEmpty())
         {
@@ -79,6 +89,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         }
     }
 
+    //set the delimiter to what the user chooses
     @FXML
     public void setDelimiterToasterisk(ActionEvent e) throws IOException{
         delimiter = "*";
@@ -98,16 +109,19 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     }
 
 
+    //closes the project preferences screen and does not save any parameters that may have been entered
     @FXML
     public void closeProjectPreferences(ActionEvent e) throws IOException{
         Stage primaryStage = (Stage) cancelButton.getScene().getWindow();
         primaryStage.close();
     }
 
+    //create a preview of the delimiter in use in the sample file name
     private void generatePreview(){
         previewBox.setText("Example" + delimiter + "File" + delimiter + "Name");
     }
 
+    //save the data the user enters to be carried over to other windows such as researcher name that will stay the same in full namer
     public void saveProjectPreferences(ActionEvent e) throws IOException{
         Config.getInstance().setProperty("delimiter",delimiter);
         if(isRememberData){
@@ -122,7 +136,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         closeProjectPreferences(e);
     }
 
-    //updates the delimiter based on the user's choice in the radio buttons
+    //updates the delimiter based on the user's choice
     private void updateDelimiter(){
 
         delimiter = Config.getInstance().getProperty("delimiter");
@@ -132,21 +146,21 @@ public class ProjectPreferences extends ScreenController implements Initializabl
         switch(delimiter)
         {
             case "_":
-                underscoreButton.setSelected(true);
+                underscoreButton.setSelected(true); //underscore used
                 hyphenButton.setSelected(false);
                 asteriskButton.setSelected(false);
                 break;
             case "-":
                 underscoreButton.setSelected(false);
-                hyphenButton.setSelected(true);
+                hyphenButton.setSelected(true); //hyphen used
                 asteriskButton.setSelected(false);
                 break;
             case "*":
                 underscoreButton.setSelected(false);
                 hyphenButton.setSelected(false);
-                asteriskButton.setSelected(true);
+                asteriskButton.setSelected(true); //asterisk used
                 break;
-            default:
+            default: //the default delimiter is set to the underscore
                 underscoreButton.setSelected(true);
                 hyphenButton.setSelected(false);
                 asteriskButton.setSelected(false);
@@ -154,6 +168,7 @@ public class ProjectPreferences extends ScreenController implements Initializabl
     }
 
     @FXML
+    //check if data is stored and made persistent correctly
     public void checkRememberData(ActionEvent e){
         if (rememberData.isSelected()){
             isRememberData = true;
