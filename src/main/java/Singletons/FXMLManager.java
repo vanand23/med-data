@@ -47,7 +47,7 @@ public class FXMLManager {
 	}
 
 	private Node loadFXMLWithName(String name, String fileName) throws IOException {
-		FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource(fileName)); //create the fxml loader
+        FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource(fileName)); //create the fxml loader
 		//loader.setLocation(new File(new String(path + "/" + fileName)).toURI().toURL());
 		fxmlLoaders.put(name, loader);
 		Node node = loader.load();

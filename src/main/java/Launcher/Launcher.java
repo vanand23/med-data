@@ -1,5 +1,6 @@
 package Launcher;
 
+import FXMLControllers.ScreenController;
 import Singletons.Database;
 import Singletons.FXMLManager;
 import javafx.animation.FadeTransition;
@@ -7,6 +8,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -21,14 +24,18 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
+
+        //Loading the database
         Database.initDatabase();
         FXMLManager fxmlManager = FXMLManager.getInstance();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/fullNamer.fxml"));
-
         fxmlManager.loadFXML();
 
         Parent root = fxmlLoader.load();
+
+        //Loading the initial full namer main screen
         Scene scene = new Scene(root);
+        System.out.println(scene.getAntiAliasing());
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         root.setOnMousePressed(event -> {
@@ -41,19 +48,21 @@ public class Launcher extends Application {
             stage.setY(event.getScreenY() - yOffset);
         });
 
-        stage.setScene(scene);
         stage.addEventHandler(WindowEvent.WINDOW_SHOWING, window -> {
             FadeTransition ft = new FadeTransition(Duration.millis(1000), root);
             ft.setFromValue(0.8);
             ft.setToValue(1.0);
             ft.play();
         });
-
         stage.show();
+        stage.setAlwaysOnTop(true);
+        stage.setAlwaysOnTop(false);
+
 
     }
 
     public static void main(String[] args) {
+        System.setProperty("prism.lcdtext", "false");
         launch(args);
     }
 }

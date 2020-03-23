@@ -1,6 +1,6 @@
-package Types;
+package Singletons;
 
-import Singletons.Database;
+import Types.Keyword;
 import Utilities.ITypeObserver;
 
 import javax.naming.NameNotFoundException;

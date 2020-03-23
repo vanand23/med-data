@@ -2,3 +2,4 @@ variableID,longName,shortName,dataType,affix
 Pressure in pascals,Pa,numeric,suffix
 Key,k,numeric,suffix
 Frequency,hz,numeric,suffix
+NumericTest,NT,numeric,suffix

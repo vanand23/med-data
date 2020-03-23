@@ -1,5 +1,8 @@
 package FXMLControllers;
 
+import Singletons.ExperimentManager;
+import Singletons.KeywordManager;
+import Singletons.ResearcherManager;
 import Types.*;
 import Utilities.AutocompleteTextField;
 import Singletons.Config;
@@ -7,7 +10,6 @@ import Utilities.ITypeObserver;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,12 +23,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
 
@@ -40,18 +39,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+//The main screen of the program in which users can enter in parameters for their file name
+//Ultimately creates a file name output that can be copied and pasted into the user's file directory
 public class FullNamer extends Namer implements Initializable, ITypeObserver {
-    @FXML
-    public JFXCheckBox researcherCheckbox;
-    @FXML
-    public JFXCheckBox experimentCheckbox;
-    @FXML
-    public JFXCheckBox dateCheckbox;
 
+    //input the name of the project that will appear in the title of the full namer window
     @FXML
     private Label projectName;
 
+    //The fields that the user can fill out in full namer that form the final file name output
     @FXML
     private DatePicker experimentDate;
 
@@ -60,7 +56,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
     @FXML
     private TextField trialNumber;
-
 
     @FXML
     private TextField sampleNumber;
@@ -71,17 +66,25 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private AutocompleteTextField experimentTextField;
 
+    //Checkboxes so the user can choose whether to have the fields in the final file name output
     @FXML
-    private JFXButton addKeywordButton;
+    public JFXCheckBox researcherCheckbox;
+    @FXML
+    public JFXCheckBox experimentCheckbox;
+    @FXML
+    public JFXCheckBox dateCheckbox;
 
+    //Transition from full namer to compact namer and vice-versa
     @FXML
     private JFXToggleButton switchNamers;
 
+    //Buttons to provide basic in-app functionality
     @FXML
     private JFXButton closeButton;
     @FXML
     private JFXButton helpButtonInput;
 
+    //Used for inserting user inputs for keywords into a table format
     @FXML
     private TableView<Keyword> keywordsTable;
 
@@ -91,11 +94,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     @FXML
     private TableColumn columnDataValue;
 
-    //list of keywords and its parameters that the user inputs in full namer
-    private final static ObservableList<Keyword> listOfKeywords = FXCollections.observableArrayList();
-
-    //list of file names in the timeline when the user clicked on the copy button, and additional parameters such as time and descriptions
-    private static ObservableList<LogEntry> logEntryList = FXCollections.observableArrayList();
+    //Add keywords to the table
+    @FXML
+    private JFXButton addKeywordButton;
 
     //list of the menu options to access windows such as project preferences and the keyword, experiments, and researcher databases
     private static ArrayList<AnchorPane> drawerList = new ArrayList<>();
@@ -112,8 +113,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         FullNamer.sampleChecked = sampleChecked;
     }
 
-    public static void setIsTrialChecked(boolean isTrialChecked) {
-        FullNamer.isTrialChecked = isTrialChecked;
+    public static void setTrialChecked(boolean trialChecked) {
+        FullNamer.trialChecked = trialChecked;
     }
 
     private static boolean sampleChecked = true;
@@ -122,33 +123,11 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         return sampleChecked;
     }
 
-    public static boolean isIsTrialChecked() {
-        return isTrialChecked;
+    public static boolean isTrialChecked() {
+        return trialChecked;
     }
 
-    private static boolean isTrialChecked = true;
-
-    static void setFullNamerSharedFilename(Filename sharedFilename) {
-        FullNamer.sharedFilename = sharedFilename;
-    }
-
-    //getter to use the list of log entries in other classes
-    static ObservableList<LogEntry> getLogEntryList() {
-        return logEntryList;
-    }
-
-    static void addAllToLogEntryList(ObservableList<LogEntry> logEntryList) {
-        FullNamer.logEntryList.addAll(logEntryList);
-    }
-
-    static void setLogEntryList(ObservableList<LogEntry> logEntryList) {
-        FullNamer.logEntryList = logEntryList;
-    }
-
-    //getter to use the list of keywords in other classes
-    static ObservableList<Keyword> getData() {
-        return listOfKeywords;
-    }
+    private static boolean trialChecked = true;
 
     private boolean isRememberData; //variable to see whether to keep data persistent or not across different windows
 
@@ -157,6 +136,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     //initialize the fields and other features/windows in full namer
     public void initialize(URL location, ResourceBundle resources)
     {
+
         dateCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             experimentDate.setDisable(!newIsSelected);
             if(!newIsSelected)
@@ -165,7 +145,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else{
                 sharedFilename.setDate(experimentDate.getValue());
             }
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
         });
 
         experimentCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
@@ -176,7 +156,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else{
                 sharedFilename.setExperiment(experimentTextField.getText());
             }
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
         });
 
         researcherCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
@@ -187,19 +167,19 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
             }else{
                 sharedFilename.setResearcher(researcherName.getText());
             }
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
         });
 
         trialNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             trialNumber.setDisable(!newIsSelected);
-            isTrialChecked = newIsSelected;
-            outputText.setText(updateName());
+            trialChecked = newIsSelected;
+            outputText.setText(updateFilename());
         });
 
         sampleNumberCheckbox.selectedProperty().addListener((obs, oldIsSelected, newIsSelected) -> {
             sampleNumber.setDisable(!newIsSelected);
             sampleChecked = newIsSelected;
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
         });
 
 
@@ -214,11 +194,13 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         outputTooltip.setText("The output format is: YYYY_MM_DD_ExperimentAbbreviation_ResearchInitials_TrialNumber_SampleNumber_KeywordAbbreviations");
         outputHelp.setTooltip(outputTooltip);*/
 
-        //Experiment Manager is the database that contains the experiment names and its parameters such as abbreviation and description
+        //Set this class as an observer of ExperimentManager (see: observer pattern)
         ExperimentManager.getInstance().subscribe(this);
-        //Keyword Manager is the database that contains the keyword names and its parameters such as abbreviation, affix, data type, and data value
+        //Set this class as an observer of KeywordManager
         KeywordManager.getInstance().subscribe(this);
-        outputText.setEditable(false); //cannnot edit the final output file name
+        //Set this class as an observer of ResearchManager
+        ResearcherManager.getInstance().subscribe(this);
+        outputText.setEditable(false); //cannot edit the final output file name
         String pattern = "dd/MM/yyyy"; //formatting the date as per European standards
         experimentDate.setPromptText(pattern.toLowerCase());
         experimentDate.setConverter(new StringConverter<LocalDate>() {
@@ -283,27 +265,28 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         if(configProjectName != null && !configProjectName.trim().isEmpty()) //if there is a project name input
         {
             projectName.setText("Project: " + configProjectName); //set this input as project name
-            projectName.setFont(new Font(19.0));
+            projectName.setFont(new Font("Alte Haas Grotesk Bold", 19.0));
+            projectName.setStyle("-fx-font-smoothing-type: gray;");
         }else{
             projectName.setText(""); //if empty, do not display anything
-            projectName.setFont(new Font(19.0));
+            projectName.setFont(new Font(1.0));
         }
 
-        if(!isTrialChecked){
+        if(!trialChecked){
             trialNumber.setDisable(true);
             trialNumberCheckbox.setSelected(false);
         }
-        else{
+        /*else{
             trialNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
-        }
+        }*/
 
         if(!sampleChecked){
             sampleNumber.setDisable(true);
             sampleNumberCheckbox.setSelected(false);
         }
-        else{
+        /*else{
             sampleNumber.setText(String.valueOf(sharedFilename.getTrialNumber()));
-        }
+        }*/
 
         //presetting the date to display today's date
         experimentDate.setValue(LocalDate.now());
@@ -319,7 +302,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         keywordsTable.setEditable(true); //the table can be edited by the user
 
-        //The following are to get the new, edited value in the table
+        //The following are to get the new, edited value that was entered in table
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent>() {
@@ -340,7 +323,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
                         ((Keyword) event.getTableView().getItems().get(
                                 event.getTablePosition().getRow())
                         ).setDataValue((String) event.getNewValue());
-                        outputText.setText(updateName());
+                        outputText.setText(updateFilename());
                     }
                 }
         );
@@ -349,13 +332,15 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         //These listeners are added to make sure the final file output name is updated as the user enters in information for the fields in full namer
         //Also make sure to keep data persistent between windows and closing out of the program if user selects that option
-        experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> outputText.setText(updateName()));
+        experimentDate.valueProperty().addListener((obs, oldDate, newDate) -> {
+            sharedFilename.setDate(experimentDate.getValue());
+            outputText.setText(updateFilename());
+        });
         experimentTextField.textProperty().addListener((obs, oldExperimentTextField, newExperimentTextField) -> {
             if(experimentTextField.isValidText())
             {
-                System.out.println("Set new experiment!" + newExperimentTextField);
                 sharedFilename.setExperiment(newExperimentTextField);
-                outputText.setText(updateName());
+                outputText.setText(updateFilename());
                 experimentTextField.setValidText(false);
                 if(isRememberData)
                 {
@@ -375,7 +360,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
            if(researcherName.isValidText()) {
                sharedFilename.setResearcher(newResearcherName);
-               outputText.setText(updateName());
+               outputText.setText(updateFilename());
                researcherName.setValidText(false);
                if (isRememberData) {
                    Config.getInstance().setProperty("researcherName", newResearcherName);
@@ -393,7 +378,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         trialNumber.textProperty().addListener((obs, oldTrialNumber, newTrialNumber) -> {
             sharedFilename.setTrialNumber(Integer.valueOf(newTrialNumber));
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
             if(isRememberData) {
                 Config.getInstance().setProperty("trialNumber", newTrialNumber);
             }
@@ -403,7 +388,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         sampleNumber.textProperty().addListener((obs, oldSampleNumber, newSampleNumber) -> {
             sharedFilename.setSampleNumber(Integer.valueOf(newSampleNumber));
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
             if(isRememberData) {
                 Config.getInstance().setProperty("sampleNumber", newSampleNumber);
             }
@@ -413,9 +398,9 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         });
         listOfKeywords.addListener((ListChangeListener<Keyword>) keywords -> {
             sharedFilename.setKeywords(listOfKeywords);
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
         });
-        outputText.setText(updateName());
+        outputText.setText(updateFilename());
     }
 
     //The following functions are to increment/decrement the sample and trial number on the click of the "+" and "-" buttons next to the field
@@ -453,29 +438,17 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         }
     }
 
-
-    @FXML
-    //update the experiment name and parameters in the database
-    public void updateExperiment(ActionEvent e) throws IOException{
-        onTypeUpdate();
-    }
-
-    @FXML
-    //update the experiment name and parameters in the database
-    public void updateResearcher(ActionEvent e) throws IOException{
-        whenUpdating();
-    }
-
     @FXML
     //Adds the ability for the user to copy the final file output name and paste into the file directory
     public void copyFileToClipboard(ActionEvent e) throws IOException{
+        //get the user entered parameters
         String stringexperimentTextField = experimentTextField.getText();
         String stringTrialNumber = trialNumber.getText();
         String stringSampleNumber = sampleNumber.getText();
         String stringResearcherName = researcherName.getText();
         LocalDate stringExperimentDate = experimentDate.getValue();
         String comment = "";
-        String nameToCopy = updateName();
+        String nameToCopy = updateFilename();
 
         if(isRememberData) {
             Config.getInstance().setProperty("experimentTextField",experimentTextField.getText());
@@ -495,6 +468,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
         outputText.setText(nameToCopy);
+        //after the file name has been copied, add all the parameters into the logger table to keep track of the filenames whenever the user presses "copy"
         logEntryList.add(new LogEntry(
                 stringExperimentDate,
                 stringResearcherName,
@@ -512,6 +486,8 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
     public void handleToggleButton (ActionEvent e) throws IOException {
         Stage primaryStage = (Stage) switchNamers.getScene().getWindow();
         primaryStage.close();
+        Font.loadFont(CompactNamer.class.getResource("/CSS/AlteHaasGroteskBold.ttf").toExternalForm(),
+                19.0);
         popupScreen("FXML/compactNamer.fxml", switchNamers.getScene().getWindow());
     }
 
@@ -574,7 +550,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 /*
     private void addListenerToTextfield(TextField textField){
         researcherName.textProperty().addListener((obs, oldResearcherName, newResearcherName) -> {
-            outputText.setText(updateName());
+            outputText.setText(updateFilename());
             sharedFilename.setResearcher(newResearcherName);
             if(isRememberData) {
                 Config.getInstance().setProperty("researcherName", newResearcherName);
@@ -594,10 +570,6 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
 
         ArrayList<String> researchers = (ArrayList<String>) ResearcherManager.getInstance().getAllResearcherLongNames();
         researcherName.getEntries().addAll(researchers);
-    }
-
-    public void whenUpdating(){
-
     }
 
     static ObservableList<Keyword> getdata() {
@@ -625,6 +597,7 @@ public class FullNamer extends Namer implements Initializable, ITypeObserver {
         popupScreen("FXML/researchersTable.fxml", addKeywordButton.getScene().getWindow());
     }
 
+    @FXML
     //clears all the fields in full namer
     public void clearFields(ActionEvent e) {
         researcherName.setText("");
