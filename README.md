@@ -1,7 +1,7 @@
 # File Namer Pro Application
 File Namer Pro is a Java application that generates standardized file names. This application was designed with consideration of researchers and experimenters at the Univerity Hospital of Zurich in Switzerland in order to better manage and find their data. 
 
-Descriptive file naming is highly important when conducting research, and clear and detailed file names allow for the quick and easy identification of data files. Furthermore, file names that are standard across projects and research groups can facilitate greater clarity in research.
+Descriptive file naming is highly important when conducting research, and clear and detailed file names allow for the quick and easy identification of data files. Furthermore, file names that are standard across projects and research groups can facilitate greater clarity in research. 
 
 # Demo
 Here is a demo of all the functionalities of File Namer Pro:
